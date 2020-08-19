@@ -1,9 +1,9 @@
 <template>
   <v-card
-      color="transparent"
+      class="transparent my-12"
+      dark
       flat
       height="80px"
-      class="my-12"
       tile
   >
     <v-card flat class="my-10 transparent text-center">

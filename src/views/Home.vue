@@ -1,7 +1,7 @@
 <template>
   <v-container fluid style="padding: 0; margin: 0">
     <MainMenu />
-    <v-card flat dark class="mx-auto" max-width="1440">
+    <v-card flat dark class="transparent mx-auto" max-width="1440">
       <v-row align="center" justify="center">
         <v-col cols="12" md="5">
           <v-card flat class="transparent mx-auto my-auto" max-width="480">
