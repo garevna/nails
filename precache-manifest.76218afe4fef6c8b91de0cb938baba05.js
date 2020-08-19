@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "ad1b7480c8c757d596cb",
+    "revision": "6fdc16c2eb1e5069b151",
     "url": "/nails/css/app.12414fc3.css"
   },
   {
@@ -68,12 +68,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/image-2.37c343fd.png"
   },
   {
-    "revision": "f45a2580195fadb905c7b6cc5f0c7e26",
+    "revision": "620a7418997643a14408d791d9e72bc3",
     "url": "/nails/index.html"
   },
   {
-    "revision": "ad1b7480c8c757d596cb",
-    "url": "/nails/js/app.f1c6a88e.js"
+    "revision": "6fdc16c2eb1e5069b151",
+    "url": "/nails/js/app.79a330ba.js"
   },
   {
     "revision": "46995be9ce43398793fe",
