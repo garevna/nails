@@ -1,32 +1,45 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app dark>
+    <v-container fluid class="mx-auto homefone">
+      <SystemBar />
+      <v-main>
+        <router-view></router-view>
+      </v-main>
+      <Footer />
+    </v-container>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<style>
+
+html, body,
+.v-application {
+  font-family: 'Archivo Narrow' !important;
+}
+h1, h2, h3 {
+  font-family: 'Archivo Black' !important;
+  line-height: 150%;
 }
 
-#nav {
-  padding: 30px;
+</style>
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+<script>
+import SystemBar from './components/SystemBar.vue'
+import Footer from './components/Footer.vue'
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+export default {
+  name: 'App',
+
+  components: {
+    SystemBar,
+    Footer
+  },
+
+  data: () => ({
+    //
+  }),
+  methods: {
+
   }
 }
-</style>
+</script>

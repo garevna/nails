@@ -1,10 +1,10 @@
 import { shallowMount } from '@vue/test-utils'
-import HelloWorld from '@/components/HelloWorld.vue'
+import SystemBar from '@/components/SystemBar.vue'
 
-describe('HelloWorld.vue', () => {
+describe('SystemBar.vue', () => {
   it('renders props.msg when passed', () => {
     const msg = 'new message'
-    const wrapper = shallowMount(HelloWorld, {
+    const wrapper = shallowMount(SystemBar, {
       propsData: { msg }
     })
     expect(wrapper.text()).toMatch(msg)
