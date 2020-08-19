@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["courses"],{"1a2f":function(e,n,t){"use strict";t.r(n);var s=function(){var e=this,n=e.$createElement,t=e._self._c||n;return t("v-container",{staticClass:"homefone",attrs:{fluid:"","fill-height":""}},[t("h1",[e._v("Courses")])])},a=[],l=t("2877"),o=t("6544"),r=t.n(o),i=t("a523"),u={},c=Object(l["a"])(u,s,a,!1,null,null,null);n["default"]=c.exports;r()(c,{VContainer:i["a"]})}}]);
+//# sourceMappingURL=courses.ddbe8108.js.map
