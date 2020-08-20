@@ -1,11 +1,35 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
+    "revision": "4af057b033151e360a5acbe7e02e7577",
+    "url": "/nails/android-chrome-192x192.png"
+  },
+  {
+    "revision": "360e92356b1e850134325f7c65f1b813",
+    "url": "/nails/android-chrome-384x384.png"
+  },
+  {
+    "revision": "3e979491451aac83b1592de01a6c5e72",
+    "url": "/nails/apple-touch-icon.png"
+  },
+  {
+    "revision": "b0df1d8364886483f481bc261ea8db4b",
+    "url": "/nails/browserconfig.xml"
+  },
+  {
     "revision": "cbc54c71e3e795b4e6b0",
     "url": "/nails/css/app.90694cc3.css"
   },
   {
     "revision": "68cf6813b4600b855298",
     "url": "/nails/css/chunk-vendors.39ae12a9.css"
+  },
+  {
+    "revision": "cba1e6344148e0fb0e2b9313b65c7054",
+    "url": "/nails/favicon-16x16.png"
+  },
+  {
+    "revision": "f19f1a9a49c327cc0f9248ca8a137d01",
+    "url": "/nails/favicon-32x32.png"
   },
   {
     "revision": "10f3aa936a4645b6dbdb36ba4054e6aa",
@@ -68,7 +92,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/image-2.37c343fd.png"
   },
   {
-    "revision": "0179fccdf315435ac3d660ee17059b43",
+    "revision": "6bd21476e97e13e9bf52e591c16d0887",
     "url": "/nails/index.html"
   },
   {
@@ -88,11 +112,35 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/shop.c947d5f7.js"
   },
   {
+    "revision": "78c075108313d75f5274f16ea283f1e1",
+    "url": "/nails/logo-height-100.png"
+  },
+  {
+    "revision": "fe04e31540431663a5b3d05087ee2786",
+    "url": "/nails/logo.png"
+  },
+  {
+    "revision": "16854ec82dd7ea4cd68450c9c864cf18",
+    "url": "/nails/logo.svg"
+  },
+  {
     "revision": "0c40acf03859b5b16c98c9cf339fd4a3",
     "url": "/nails/manifest.json"
   },
   {
+    "revision": "7e7c8e75c80b8f261c9725c78f57948b",
+    "url": "/nails/mstile-150x150.png"
+  },
+  {
     "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
     "url": "/nails/robots.txt"
+  },
+  {
+    "revision": "3f0d86dedc513568c114e43d28b22ded",
+    "url": "/nails/safari-pinned-tab.svg"
+  },
+  {
+    "revision": "52dfacac9c7f40a0de5320641edec517",
+    "url": "/nails/site.webmanifest"
   }
 ]);
