@@ -2,7 +2,7 @@
   <v-app dark>
     <v-container fluid class="mx-auto homefone">
       <SystemBar />
-      <v-main>
+      <v-main class="main-content">
         <router-view></router-view>
       </v-main>
       <Footer />
@@ -16,11 +16,34 @@ html, body,
 .v-application {
   font-family: 'Archivo Narrow' !important;
 }
+.v-application--wrap {
+  background: #000!important;
+}
 h1, h2, h3 {
   font-family: 'Archivo Black' !important;
   line-height: 150%;
 }
 
+.main-content {
+  margin-bottom: 400px!important;
+}
+
+@media screen and (max-width: 800px) {
+  .main-content {
+    margin-bottom: 580px!important;
+  }
+  h1 {
+    font-size: 28px;
+  }
+}
+@media screen and (max-width: 540px) {
+  .main-content {
+    margin-bottom: 840px!important;
+  }
+  h1 {
+    font-size: 20px;
+  }
+}
 </style>
 
 <script>

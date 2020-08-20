@@ -1,13 +1,15 @@
 <template>
   <v-bottom-navigation
       v-model="bottomNav"
+      absolute
       shift
       height="auto"
       background-color="#fa0"
       color='#000'
   >
+    <v-card flat class="transparent mx-auto" max-width="2400">
       <v-row align="start" justify="center">
-        <v-col cols="12" sm="6" md="4" align="">
+        <v-col cols="12" sm="6" md="4" lg="5">
             <v-btn height="80">
               <span>Facebook</span>
               <v-icon large>mdi-facebook</v-icon>
@@ -29,7 +31,7 @@
             </v-card-text>
         </v-col>
 
-        <v-col cols="12" sm="6" md="2">
+        <v-col cols="12" sm="6" md="4" lg="2">
           <v-card-text>
             <h3>Shop</h3>
             <v-divider></v-divider>
@@ -43,7 +45,7 @@
           </v-card-text>
         </v-col>
 
-        <v-col cols="12" sm="6" md="2">
+        <v-col cols="12" sm="6" md="4" lg="2">
           <v-card-text>
             <h3>Courses</h3>
             <v-divider></v-divider>
@@ -53,7 +55,7 @@
           </v-card-text>
         </v-col>
 
-        <v-col cols="12" sm="6" md="2">
+        <v-col cols="12" sm="6" md="4" lg="3">
           <v-card-text>
             <h3>Payment</h3>
             <h3>Delivery</h3>
@@ -64,6 +66,7 @@
           </v-card-text>
         </v-col>
       </v-row>
+    </v-card>
   </v-bottom-navigation>
 </template>
 

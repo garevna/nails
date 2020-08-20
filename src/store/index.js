@@ -10,308 +10,308 @@ export default new Vuex.Store({
         'Cuticle nippers': [
           {
             img: 'http://lorempixel.com/200/160/nature',
-            name: 'Diamond Drill bits long ame 2.3b',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/people',
-            name: 'Diamond Drill bits long ame 2.3b',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
-            name: 'Diamond Drill bits long ame 2.3b',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/animals',
-            name: 'Diamond Drill bits long ame 2.3b',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$15'
           },
           {
             img: 'http://lorempixel.com/200/160/transport',
-            name: 'Diamond Drill bits long ame 2.3b',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$10'
           },
           {
             img: 'http://lorempixel.com/200/160/people',
-            name: 'Diamond Drill bits long ame 2.3b',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
-            name: 'Diamond Drill bits long ame 2.3b',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$9'
           },
           {
             img: 'http://lorempixel.com/200/160/city',
-            name: 'Diamond Drill bits long ame 2.3b',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$8'
           },
           {
             img: 'http://lorempixel.com/200/160/nature',
-            name: 'Diamond Drill bits long ame 2.3b',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4'
           },
           {
             img: 'http://lorempixel.com/200/160/cats',
-            name: 'Diamond Drill bits long ame 2.3b',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$3.5'
           },
           {
             img: 'http://lorempixel.com/200/160/fashion',
-            name: 'Diamond Drill bits long ame 2.3b',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$5.5'
           },
           {
             img: 'http://lorempixel.com/200/160/technics',
-            name: 'Diamond Drill bits long ame 2.3b',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           }
         ],
         'Nail nippers': [
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
-            price: '$12'
-          },
-          {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
-            price: '$12'
-          },
-          {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
-            price: '$12'
-          },
-          {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
-            price: '$12'
-          },
-          {
-            img: 'http://lorempixel.com/200/280/animals',
-            name: 'Diamond Drill bits long ame 2.3b',
-            price: '$15'
-          },
-          {
-            img: 'http://lorempixel.com/200/280/transport',
-            name: 'Diamond Drill bits long ame 2.3b',
-            price: '$10'
-          },
-          {
-            img: 'http://lorempixel.com/200/280/people',
-            name: 'Diamond Drill bits long ame 2.3b',
-            price: '$4.5'
-          },
-          {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
-            price: '$7'
-          },
-          {
-            img: 'http://lorempixel.com/200/280/abstract',
-            name: 'Diamond Drill bits long ame 2.3b',
-            price: '$9'
-          },
-          {
-            img: 'http://lorempixel.com/200/280/city',
-            name: 'Diamond Drill bits long ame 2.3b',
-            price: '$8'
-          },
-          {
-            img: 'http://lorempixel.com/200/280/nature',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4'
           },
           {
-            img: 'http://lorempixel.com/200/280/cats',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
+            price: '$10'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/people',
+            name: 'Diamond Drill bits long flame 2.3b',
+            price: '$7'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/nature',
+            name: 'Diamond Drill bits long flame 2.3b',
+            price: '$12'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/animals',
+            name: 'Diamond Drill bits long flame 2.3b',
+            price: '$5'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/transport',
+            name: 'Diamond Drill bits long flame 2.3b',
+            price: '$10'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/people',
+            name: 'Diamond Drill bits long flame 2.3b',
+            price: '$4.5'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
+            price: '$7'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/abstract',
+            name: 'Diamond Drill bits long flame 2.3b',
+            price: '$9'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/city',
+            name: 'Diamond Drill bits long flame 2.3b',
+            price: '$8'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/nature',
+            name: 'Diamond Drill bits long flame 2.3b',
+            price: '$4'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/cats',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$3.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/fashion',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/fashion',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$5.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/technics',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/technics',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           }
         ],
         'Cuticle scissors': [
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/fashion',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/technics',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/cats',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/animals',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/animals',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$15'
           },
           {
-            img: 'http://lorempixel.com/200/280/transport',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/transport',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$10'
           },
           {
-            img: 'http://lorempixel.com/200/280/people',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/people',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7'
           },
           {
-            img: 'http://lorempixel.com/200/280/abstract',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/abstract',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$9'
           },
           {
-            img: 'http://lorempixel.com/200/280/city',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/city',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$8'
           },
           {
-            img: 'http://lorempixel.com/200/280/nature',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/nature',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4'
           },
           {
-            img: 'http://lorempixel.com/200/280/cats',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/cats',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$3.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/fashion',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/fashion',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$5.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/technics',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/technics',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           }
         ],
         'Nail scissors': [
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/city',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/technics',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/abstract',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/animals',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/animals',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$15'
           },
           {
-            img: 'http://lorempixel.com/200/280/transport',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/transport',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$10'
           },
           {
-            img: 'http://lorempixel.com/200/280/people',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/people',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7'
           },
           {
-            img: 'http://lorempixel.com/200/280/abstract',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/abstract',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$9'
           },
           {
-            img: 'http://lorempixel.com/200/280/city',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/city',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$8'
           },
           {
-            img: 'http://lorempixel.com/200/280/nature',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/nature',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4'
           },
           {
-            img: 'http://lorempixel.com/200/280/cats',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/cats',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$3.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/fashion',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/fashion',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$5.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/technics',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/technics',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           }
         ]
@@ -319,309 +319,309 @@ export default new Vuex.Store({
       {
         Pushers: [
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/abstract',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/cats',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/city',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/animals',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/animals',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$15'
           },
           {
-            img: 'http://lorempixel.com/200/280/transport',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/transport',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$10'
           },
           {
-            img: 'http://lorempixel.com/200/280/people',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/people',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7'
           },
           {
-            img: 'http://lorempixel.com/200/280/abstract',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/abstract',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$9'
           },
           {
-            img: 'http://lorempixel.com/200/280/city',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/city',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$8'
           },
           {
-            img: 'http://lorempixel.com/200/280/nature',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/nature',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4'
           },
           {
-            img: 'http://lorempixel.com/200/280/cats',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/cats',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$3.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/fashion',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/fashion',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$5.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/technics',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/technics',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           }
         ],
         'Pedicure tools': [
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/cats',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/animals',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/animals',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/animals',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$15'
           },
           {
-            img: 'http://lorempixel.com/200/280/transport',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/transport',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$10'
           },
           {
-            img: 'http://lorempixel.com/200/280/people',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/people',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7'
           },
           {
-            img: 'http://lorempixel.com/200/280/abstract',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/abstract',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$9'
           },
           {
-            img: 'http://lorempixel.com/200/280/city',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/city',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$8'
           },
           {
-            img: 'http://lorempixel.com/200/280/nature',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/nature',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4'
           },
           {
-            img: 'http://lorempixel.com/200/280/cats',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/cats',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$3.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/fashion',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/fashion',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$5.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/technics',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/technics',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           }
         ],
         'Diamond Drill bits': [
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/abstract',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/nature',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/technics',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/animals',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/animals',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$15'
           },
           {
-            img: 'http://lorempixel.com/200/280/transport',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/transport',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$10'
           },
           {
-            img: 'http://lorempixel.com/200/280/people',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/people',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7'
           },
           {
-            img: 'http://lorempixel.com/200/280/abstract',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/abstract',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$9'
           },
           {
-            img: 'http://lorempixel.com/200/280/city',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/city',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$8'
           },
           {
-            img: 'http://lorempixel.com/200/280/nature',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/nature',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4'
           },
           {
-            img: 'http://lorempixel.com/200/280/cats',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/cats',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$3.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/fashion',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/fashion',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$5.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/technics',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/technics',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           }
         ],
         'Carbide Drill bits': [
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/technics',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/fashion',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/animals',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/animals',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$15'
           },
           {
-            img: 'http://lorempixel.com/200/280/transport',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/transport',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$10'
           },
           {
-            img: 'http://lorempixel.com/200/280/people',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/people',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7'
           },
           {
-            img: 'http://lorempixel.com/200/280/abstract',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/abstract',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$9'
           },
           {
-            img: 'http://lorempixel.com/200/280/city',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/city',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$8'
           },
           {
-            img: 'http://lorempixel.com/200/280/nature',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/nature',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4'
           },
           {
-            img: 'http://lorempixel.com/200/280/cats',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/cats',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$3.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/fashion',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/fashion',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$5.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/technics',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/technics',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           }
         ]
@@ -629,309 +629,309 @@ export default new Vuex.Store({
       {
         Brushes: [
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/nature',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/city',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/abstract',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/animals',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/animals',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$15'
           },
           {
-            img: 'http://lorempixel.com/200/280/transport',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/transport',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$10'
           },
           {
-            img: 'http://lorempixel.com/200/280/people',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/people',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7'
           },
           {
-            img: 'http://lorempixel.com/200/280/abstract',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/abstract',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$9'
           },
           {
-            img: 'http://lorempixel.com/200/280/city',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/city',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$8'
           },
           {
-            img: 'http://lorempixel.com/200/280/nature',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/nature',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4'
           },
           {
-            img: 'http://lorempixel.com/200/280/cats',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/cats',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$3.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/fashion',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/fashion',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$5.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/technics',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/technics',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           }
         ],
         Tweezers: [
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/nature',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/fashion',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/animals',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/animals',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/animals',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$15'
           },
           {
-            img: 'http://lorempixel.com/200/280/transport',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/transport',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$10'
           },
           {
-            img: 'http://lorempixel.com/200/280/people',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/people',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7'
           },
           {
-            img: 'http://lorempixel.com/200/280/abstract',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/abstract',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$9'
           },
           {
-            img: 'http://lorempixel.com/200/280/city',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/city',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$8'
           },
           {
-            img: 'http://lorempixel.com/200/280/nature',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/nature',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4'
           },
           {
-            img: 'http://lorempixel.com/200/280/cats',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/cats',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$3.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/fashion',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/fashion',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$5.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/technics',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/technics',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           }
         ],
         Cosmetics: [
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/animals',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/animals',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$15'
           },
           {
-            img: 'http://lorempixel.com/200/280/transport',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/transport',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$10'
           },
           {
-            img: 'http://lorempixel.com/200/280/people',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/people',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7'
           },
           {
-            img: 'http://lorempixel.com/200/280/abstract',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/abstract',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$9'
           },
           {
-            img: 'http://lorempixel.com/200/280/city',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/city',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$8'
           },
           {
-            img: 'http://lorempixel.com/200/280/nature',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/nature',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4'
           },
           {
-            img: 'http://lorempixel.com/200/280/cats',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/cats',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$3.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/fashion',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/fashion',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$5.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/technics',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/technics',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           }
         ],
         'Expendable materials': [
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/sports',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$12'
           },
           {
-            img: 'http://lorempixel.com/200/280/animals',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/animals',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$15'
           },
           {
-            img: 'http://lorempixel.com/200/280/transport',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/transport',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$10'
           },
           {
-            img: 'http://lorempixel.com/200/280/people',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/people',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7'
           },
           {
-            img: 'http://lorempixel.com/200/280/abstract',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/abstract',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$9'
           },
           {
-            img: 'http://lorempixel.com/200/280/city',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/city',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$8'
           },
           {
-            img: 'http://lorempixel.com/200/280/nature',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/nature',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4'
           },
           {
-            img: 'http://lorempixel.com/200/280/cats',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/cats',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$3.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/fashion',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/fashion',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$5.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/technics',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/technics',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$7.5'
           },
           {
-            img: 'http://lorempixel.com/200/280/food',
-            name: 'Diamond Drill bits long ame 2.3b',
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           }
         ]
@@ -939,7 +939,10 @@ export default new Vuex.Store({
       {
         Promotions: []
       }
-    ]
+    ],
+    about: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum magna a felis semper, non congue dui ultricies. Pellentesque molestie consectetur fermentum. Nam sit amet interdum nibh, vel ultrices nibh. Maecenas nec nunc faucibus, condimentum magna tristique, maximus odio. Maecenas id metus vulputate magna fermentum aliquam. Mauris vel laoreet orci, a posuere leo. Suspendisse dignissim urna ut dignissim ornare. Nulla at mattis metus, ac porta libero. Nam eleifend, felis semper accumsan euismod, magna mauris pellentesque tortor, ac porta augue leo ac turpis. Vestibulum sollicitudin sem id aliquam hendrerit. Sed tempus tortor vel semper pulvinar. Nunc at odio eu dolor posuere venenatis lacinia id lacus. Praesent ornare, mauris quis finibus elementum, odio dui auctor arcu, ac bibendum erat mauris quis mauris. Curabitur neque ex, congue vel leo nec, molestie convallis lectus.',
+    shop: 'Pellentesque pretium, massa at scelerisque venenatis, felis ligula pharetra erat, nec laoreet tellus felis et dui. Etiam condimentum rhoncus nulla. Nulla erat neque, ullamcorper non mauris vel, tempus tincidunt dui. Vestibulum dictum posuere massa, ut pellentesque sapien feugiat nec. Nulla facilisi. Vestibulum euismod felis sit amet nisl commodo, in efficitur risus ultricies. Nullam cursus sem dui, sit amet semper mi luctus ac. Integer egestas, arcu sed pharetra ullamcorper, purus velit accumsan eros, non sollicitudin augue felis et enim. Aliquam odio odio, rutrum sit amet sollicitudin vulputate, interdum eget felis. Sed nec diam libero.',
+    courses: 'Integer a erat accumsan, facilisis massa a, fringilla lacus. Praesent eget mollis metus, eu blandit erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed id rutrum nisl. In quis nulla et libero pretium consectetur ultricies vel elit. Cras commodo diam vitae porta viverra. Vestibulum dapibus imperdiet lacinia. Phasellus interdum quis erat a aliquam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed vel mauris nec dolor rutrum vulputate dapibus quis lectus.'
   },
   getters: {
     //
