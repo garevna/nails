@@ -1,7 +1,6 @@
 <template>
-
   <!-- Viewport width wider or equal lg -->
-    <!-- <v-app-bar
+  <!-- <v-app-bar
             app
             fixed
             height="80"
@@ -30,72 +29,59 @@
         </v-btn>
       </v-btn-toggle>
     </v-row>
-  </v-app-bar> -->
+  </v-app-bar>-->
 
-  <v-app-bar
-    app
-    color="primary"
-    dark
-  >
+  <v-app-bar app color="primary" dark>
     <div class="d-flex align-center">
-      <h1><span style="color: #000">NAILS</span>AUSTRALIA</h1>
+      <h1>
+        <span style="color: #000">NAILS</span>AUSTRALIA
+      </h1>
     </div>
-
     <v-spacer></v-spacer>
-
     <div class="primary app-bar d-none d-lg-block">
-      <v-btn
-        @click="goHome"
-        text
-      >HOME</v-btn>
-      <v-btn
-        @click="goToShop"
-        text
-      >SHOP</v-btn>
-      <v-btn
-        @click="goToCourses"
-        text
-      >COURSES</v-btn>
+      <v-btn @click="goHome" text>HOME</v-btn>
+      <v-btn @click="goToShop" text>SHOP</v-btn>
+      <v-btn @click="goToCourses" text>COURSES</v-btn>
     </div>
+    <MenuSystemBar v-if="hideMenu" class="d-flex"/>
 
     <!-- Viewport width less then lg -->
     <v-expansion-panels
-            tile
-            flat
-            v-model="panel"
-            class="app-bar d-md-none"
-            width="100%"
-            style="position: fixed; left: 0; margin-top: -8px; z-index: 10;"
+      tile
+      flat
+      v-model="panel"
+      class="app-bar d-md-none"
+      width="100%"
+      style="position: fixed; left: 0; margin-top: -8px; z-index: 10;"
     >
       <v-expansion-panel style="background: transparent">
-        <v-expansion-panel-header
-                      expand-icon="none"
-                      hide-actions
-                      height="80"
-            >
-              <v-btn text class="burger-menu" height="48" width="48">
-                <span :class="burgerMenuClassFirst"></span>
-                <span :class="burgerMenuClassSecond"></span>
-              </v-btn>
+        <v-expansion-panel-header expand-icon="none" hide-actions height="80">
+          <v-btn text class="burger-menu" height="48" width="48">
+            <span :class="burgerMenuClassFirst"></span>
+            <span :class="burgerMenuClassSecond"></span>
+          </v-btn>
         </v-expansion-panel-header>
-        <v-expansion-panel-content class="main-menu-content" style="margin-top: 128px; padding: 64px 16px 16px!important">
-              <v-list flat class="main-menu-content text-center">
-                <!-- <v-list-item
+        <v-expansion-panel-content
+          class="main-menu-content"
+          style="margin-top: 128px; padding: 64px 16px 16px!important"
+        >
+          <v-list flat class="main-menu-content text-center">
+            <!-- <v-list-item
                     v-for="(page, index) in pages"
                     :key="index"
                     @click="$emit('update:selected', index); panel = []"
                     style="background: #CACACA"
-                > -->
-                <v-list-item class="main-menu-content" @click="goHome">
-                  <v-list-item-title class="main-menu-content main-menu-items">Home</v-list-item-title>
-                </v-list-item>
-                <v-list-item class="main-menu-content" @click="goToShop">
-                  <v-list-item-title class="main-menu-content main-menu-items">Shop</v-list-item-title>
-                </v-list-item>
-                <v-list-item class="main-menu-content" @click="goToCourses">
-                  <v-list-item-title class="main-menu-content main-menu-items">Courses</v-list-item-title>
-                </v-list-item>
-              </v-list>
+            >-->
+            <v-list-item class="main-menu-content" @click="goHome">
+              <v-list-item-title class="main-menu-content main-menu-items">Home</v-list-item-title>
+            </v-list-item>
+            <v-list-item class="main-menu-content" @click="goToShop">
+              <v-list-item-title class="main-menu-content main-menu-items">Shop</v-list-item-title>
+            </v-list-item>
+            <v-list-item class="main-menu-content" @click="goToCourses">
+              <v-list-item-title class="main-menu-content main-menu-items">Courses</v-list-item-title>
+            </v-list-item>
+          </v-list>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -103,16 +89,17 @@
 </template>
 
 <style scoped>
-
 .burger-menu {
   position: fixed;
   right: 24px;
   top: 8px;
 }
-.burger-menu--first, .burger-menu--second,
-.burger-menu-active--first, .burger-menu-active--second {
+.burger-menu--first,
+.burger-menu--second,
+.burger-menu-active--first,
+.burger-menu-active--second {
   position: absolute;
-  height:3px;
+  height: 3px;
   background: #000;
   left: 0;
   transition: all 0.5s;
@@ -136,7 +123,7 @@
   transform: rotate(45deg);
 }
 .main-menu-content {
-  background: #FAFAFA!important;
+  background: #fafafa !important;
   color: #000;
 }
 .main-menu-items {
@@ -146,9 +133,14 @@
 </style>
 
 <script>
+import { mapState } from 'vuex'
+import MenuSystemBar from '@/components/MenuSystemBar.vue'
+
 export default {
   name: 'SystemBar',
-
+  components: {
+    MenuSystemBar
+  },
   data: () => ({
     toggle: 0,
     panel: undefined
@@ -159,6 +151,10 @@ export default {
     },
     burgerMenuClassSecond () {
       return this.panel === 0 ? 'burger-menu-active--second' : 'burger-menu--second'
+    },
+    ...mapState(['viewportWidth']),
+    hideMenu () {
+      return this.viewportWidth >= 1200
     }
   },
   methods: {

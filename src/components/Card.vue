@@ -7,6 +7,7 @@
       <h4>{{ name }}</h4>
       <h4>Price {{ price }}</h4>
     </v-card-text>
+    <v-btn v-if="nameCourseOffline" @click="detailInfo">more</v-btn>
   </v-card>
 </template>
 
@@ -17,6 +18,16 @@
 
 export default {
   name: 'Card',
-  props: ['img', 'name', 'price']
+  props: ['img', 'name', 'price', 'nameCourseOffline', 'id'],
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+    detailInfo () {
+      this.$router.push(`/course/${this.id}`)
+    }
+  }
 }
 </script>

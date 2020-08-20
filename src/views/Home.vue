@@ -84,6 +84,10 @@
     <v-card flat dark class="mx-auto secondary" max-width="1440">
       <Slider />
     </v-card>
+    <v-card flat dark class="mx-auto secondary" max-width="1440">
+      <h2 class="homefone">Offline course</h2>
+      <Courses/>
+    </v-card>
   </v-container>
 </template>
 
@@ -106,12 +110,14 @@ import { mapState } from 'vuex'
 
 import Slider from '@/components/Slider.vue'
 import MainMenu from '@/components/MainMenu.vue'
+import Courses from '@/components/Courses.vue'
 
 export default {
   name: 'Home',
   components: {
     Slider,
-    MainMenu
+    MainMenu,
+    Courses
   },
   data: () => ({
     aboutText: [...Array(100)].map(i => (String.fromCharCode(Math.max(Math.floor(Math.random() * 122), 32)))).join(''),
