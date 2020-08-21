@@ -24,6 +24,11 @@ const routes = [
     path: '/course-offline/:id',
     name: 'course-offline',
     component: () => import(/* webpackChunkName: "course-detail" */ '../views/OffLineCourse.vue')
+  },
+  {
+    path: '/course-online/:id',
+    name: 'course-online',
+    component: () => import(/* webpackChunkName: "course-detail" */ '../views/OnlineCourse.vue')
   }
 ]
 

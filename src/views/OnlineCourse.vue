@@ -33,17 +33,16 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  name: 'course-offline',
+  name: 'course-online',
   data () {
     return {
 
     }
   },
   computed: {
-    ...mapState(['offlineShop']),
-    ...mapState(['buttonfordetailofflineshop']),
+    ...mapState(['onlineShop']),
     getDetailCourse () {
-      return this.offlineShop.find(item => item.id === this.$route.params.id)
+      return this.onlineShop.find(item => item.id === this.$route.params.id)
     }
   }
 
