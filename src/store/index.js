@@ -972,7 +972,9 @@ export default new Vuex.Store({
       }
 
     ],
-    viewportWidth: window.innerWidth
+    viewportWidth: window.innerWidth,
+    buttonfordetailofflineshop: 'Apply',
+    buttonforregistrationofflineshop: 'CONFIRM DETAILS AND PROCEED WITH PAYMENT'
   },
   getters: {
     //

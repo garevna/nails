@@ -7,6 +7,7 @@
       <h4>{{ name }}</h4>
       <h4>Price {{ price }}</h4>
     </v-card-text>
+    <v-btn @click="detailInfo">more</v-btn>
   </v-card>
 </template>
 
@@ -16,7 +17,17 @@
 <script>
 
 export default {
-  name: 'Card',
-  props: ['img', 'name', 'price']
+  name: 'course-offline-card',
+  props: ['img', 'name', 'price', 'id'],
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+    detailInfo () {
+      this.$router.push(`/course-offline/${this.id}`)
+    }
+  }
 }
 </script>

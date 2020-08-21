@@ -1,13 +1,12 @@
 <template>
   <v-container fluid fill-height class="homefone" >
     <v-row justify="center">
-      <Card
+      <OffLineCoursesCard
         v-for="(card, num) in offlineshop"
         :key="num"
         :img="card.img"
         :name="card.name"
         :price="card.price"
-        :nameCourseOffline="offlineCourse"
         :id="card.id"
       />
     </v-row>
@@ -15,10 +14,10 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import Card from '@/components/Card.vue'
+import OffLineCoursesCard from '@/components/offLineCourses/OffLineCoursesCard.vue'
 export default {
   components: {
-    Card
+    OffLineCoursesCard
   },
   data () {
     return {

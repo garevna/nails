@@ -21,9 +21,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "courses" */ '../views/Courses.vue')
   },
   {
-    path: '/course/:id',
-    name: 'course',
-    component: () => import(/* webpackChunkName: "course-detail" */ '../views/Course.vue')
+    path: '/course-offline/:id',
+    name: 'course-offline',
+    component: () => import(/* webpackChunkName: "course-detail" */ '../views/OffLineCourse.vue')
   }
 ]
 
