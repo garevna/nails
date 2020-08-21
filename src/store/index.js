@@ -1015,8 +1015,9 @@ export default new Vuex.Store({
 
     ],
     viewportWidth: window.innerWidth,
-    buttonfordetailofflineshop: 'Apply',
-    buttonforregistrationofflineshop: 'CONFIRM DETAILS AND PROCEED WITH PAYMENT'
+    buttonForDetailOfflineShop: 'Apply',
+    buttonForRegistrationOfflineShop: 'CONFIRM DETAILS AND PROCEED WITH PAYMENT',
+    buttonForRegistrationOnlineShop: 'BUY THIS COURSE'
   },
   getters: {
     //

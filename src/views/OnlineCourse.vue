@@ -23,7 +23,7 @@
         <p>{{getDetailCourse.onthiscourse}}</p>
       </v-col>
       <v-col cols="12" xs="12" >
-         <v-btn>{{buttonfordetailofflineshop}}</v-btn>
+         <v-btn @click="goToPersonalData">{{buttonForRegistrationOnlineShop}}</v-btn>
       </v-col>
       </v-row>
   </v-container>
@@ -40,9 +40,14 @@ export default {
     }
   },
   computed: {
-    ...mapState(['onlineShop']),
+    ...mapState(['onlineShop', 'buttonForRegistrationOnlineShop']),
     getDetailCourse () {
       return this.onlineShop.find(item => item.id === this.$route.params.id)
+    }
+  },
+  methods: {
+    goToPersonalData () {
+      this.$router.push('/personal-data')
     }
   }
 

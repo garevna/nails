@@ -23,7 +23,7 @@
         <p>{{getDetailCourse.onthiscourse}}</p>
       </v-col>
       <v-col cols="12" xs="12" >
-         <v-btn>{{buttonfordetailofflineshop}}</v-btn>
+         <v-btn @click="goToPersonalData">{{buttonForDetailOfflineShop}}</v-btn>
       </v-col>
       </v-row>
   </v-container>
@@ -40,10 +40,14 @@ export default {
     }
   },
   computed: {
-    ...mapState(['offlineShop']),
-    ...mapState(['buttonfordetailofflineshop']),
+    ...mapState(['offlineShop', 'buttonForDetailOfflineShop', 'buttonForRegistrationOfflineShop']),
     getDetailCourse () {
       return this.offlineShop.find(item => item.id === this.$route.params.id)
+    }
+  },
+  methods: {
+    goToPersonalData () {
+      this.$router.push('/personal-data')
     }
   }
 
