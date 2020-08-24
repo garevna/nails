@@ -7,6 +7,7 @@
         :selectedBlock="selectedBlock"
         :setSelectedSection="setSelectedSection"
         :menuItems="menuItems"
+        :mobileMenu="mobileMenu"
       ></CategoriesSwitcher>
       <v-row>
         <v-col cols="12" sm="6" md="3" xl="3" lg="3" v-if="!mobileMenu">
@@ -58,14 +59,12 @@ export default {
   data () {
     return {
       selectedBlock: 0,
-      selectedSection: 'Cuticle nippers'
+      selectedSection: 'Cuticle nippers',
+      mobileMenu: window.innerWidth < 960
     }
   },
   computed: {
     ...mapState(['commodities', 'viewportWidth']),
-    mobileMenu () {
-      return this.viewportWidth < 960
-    },
     menuItems () {
       return this.commodities.map((section) => Object.keys(section))
     },
@@ -82,6 +81,9 @@ export default {
   methods: {
     setSelectedSection (val) {
       this.selectedSection = val
+    },
+    onResizeHandler () {
+      this.mobileMenu = window.innerWidth < 960
     }
   },
   watch: {
@@ -93,6 +95,8 @@ export default {
     this.selectedBlock = 0
     this.selectedSection = 'Cuticle nippers'
     this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
+    this.mobileMenu = window.innerWidth < 960
+    window.addEventListener('resize', this.onResizeHandler, { passive: true })
   },
   beforeDestroy () {
     this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray

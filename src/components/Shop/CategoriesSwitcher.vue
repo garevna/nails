@@ -38,21 +38,21 @@ import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue'
 export default {
   name: 'CategoriesSwithcer',
   components: { LeftSideMenu },
-  props: ['section', 'selectedSection', 'selectedBlock', 'setSelectedSection', 'menuItems'],
+  props: ['section', 'selectedSection', 'selectedBlock', 'setSelectedSection', 'menuItems', 'mobileMenu'],
   data () {
     return {
       isOpened: false
     }
   },
   computed: {
-    ...mapState(['commodities', 'viewportWidth']),
-    mobileMenu () {
-      return this.viewportWidth < 960
-    }
+    ...mapState(['commodities', 'viewportWidth'])
   },
   watch: {
     selectedSection (val) {
       this.selectedBlock = this.commodities.findIndex((item) => !!item[val])
+    },
+    mobileMenu () {
+      this.isOpened = this.mobileMenu
     }
   },
   methods: {
