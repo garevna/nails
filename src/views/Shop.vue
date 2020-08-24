@@ -1,47 +1,36 @@
 <template>
-  <v-container fluid fill-height class="homefone">
+  <v-container fluid fill-height class="whitefone shop-layout">
     <v-card flat class="transparent mx-auto" max-width="1440">
-      <v-row justify="center">
-        <v-col cols="12" sm="6" md="4"></v-col>
-        <v-col cols="12" sm="6" md="8">
-          <v-card dark class="transparent">
-            <v-card-text>
-              <h2>{{ selectedSection }}</h2>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
+      <CategoriesSwitcher
+        :section="section"
+        :selectedSection="selectedSection"
+        :selectedBlock="selectedBlock"
+        :setSelectedSection="setSelectedSection"
+        :menuItems="menuItems"
+      ></CategoriesSwitcher>
       <v-row>
-        <v-col cols="12" sm="6" md="4">
-          <v-card flat dark class="transparent">
-            <v-card-text
-                v-for="(section, index) in menuItems"
-                :key="index"
-                dark
-            >
-              <h3
-                  v-for="(subsection, ind) in section"
-                  :key="ind"
-                  style="cursor: pointer"
-                  @click="selectedSection = subsection"
-              >
-                  {{ subsection }}
-              </h3>
-              <v-divider></v-divider>
-            </v-card-text>
-          </v-card>
+        <v-col cols="12" sm="6" md="3" xl="3" lg="3" v-if="!mobileMenu">
+          <LeftSideMenu
+            :section="section"
+            :selectedSection="selectedSection"
+            :selectedBlock="selectedBlock"
+            :setSelectedSection="setSelectedSection"
+            :menuItems="menuItems"
+          ></LeftSideMenu>
         </v-col>
-        <v-col cols="12" sm="6" md="8">
-          <v-row>
-              <Card
-                  v-for="(card, num) in cards"
-                  :key="num"
-                  :img="card.img"
-                  :name="card.name"
-                  :price="card.price"
-              />
+        <v-col cols="12" sm="12" md="9" xl="9" lg="9">
+          <v-row class="flex-center">
+            <Card v-for="(card, num) in cards" :key="num" :img="card.img" :name="card.name" :price="card.price" />
           </v-row>
         </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-pagination
+          v-model="pagination.page"
+          :length="pagination.total"
+          prev-icon="mdi-menu-left"
+          next-icon="mdi-menu-right"
+        ></v-pagination>
       </v-row>
     </v-card>
   </v-container>
@@ -52,15 +41,18 @@
 </styles>
 
 <script>
-
 import { mapState } from 'vuex'
 
-import Card from '@/components/Card.vue'
+import Card from '@/components/Shop/Card.vue'
+import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue'
+import CategoriesSwitcher from '@/components/Shop/CategoriesSwitcher.vue'
 
 export default {
   name: 'Shop',
   components: {
-    Card
+    Card,
+    LeftSideMenu,
+    CategoriesSwitcher
   },
   props: ['section'],
   data () {
@@ -70,22 +62,40 @@ export default {
     }
   },
   computed: {
-    ...mapState(['commodities']),
+    ...mapState(['commodities', 'viewportWidth']),
+    mobileMenu () {
+      return this.viewportWidth < 960
+    },
     menuItems () {
-      return this.commodities.map(section => Object.keys(section))
+      return this.commodities.map((section) => Object.keys(section))
     },
     cards () {
-      return this.commodities[this.selectedBlock][this.selectedSection]
+      return this.commodities[this.selectedBlock][this.selectedSection].slice(0, 8)
+    },
+    pagination () {
+      return {
+        page: 1,
+        total: this.cards.length / 4
+      }
+    }
+  },
+  methods: {
+    setSelectedSection (val) {
+      this.selectedSection = val
     }
   },
   watch: {
     selectedSection (val) {
-      this.selectedBlock = this.commodities.findIndex(item => !!item[val])
+      this.selectedBlock = this.commodities.findIndex((item) => !!item[val])
     }
   },
   mounted () {
     this.selectedBlock = 0
     this.selectedSection = 'Cuticle nippers'
+    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
+  },
+  beforeDestroy () {
+    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
   }
 }
 </script>

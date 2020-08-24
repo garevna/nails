@@ -1,34 +1,25 @@
 <template>
-  <v-bottom-navigation
-      v-model="bottomNav"
-      absolute
-      shift
-      height="auto"
-      background-color="#fa0"
-      color='#000'
-  >
+  <v-bottom-navigation v-model="bottomNav" absolute shift height="auto" background-color="#fa0" color="#000">
     <v-card flat class="transparent mx-auto" max-width="2400">
       <v-row align="start" justify="center">
         <v-col cols="12" sm="6" md="4" lg="5">
-            <v-btn height="80">
-              <span>Facebook</span>
-              <v-icon large>mdi-facebook</v-icon>
+            <v-btn height="80" href="https://www.facebook.com/" target="_blank" fab >
+
+              <v-icon x-large>mdi-facebook</v-icon>
             </v-btn>
 
-            <v-btn height="80">
-              <span>LinkedIn</span>
-              <v-icon large>mdi-linkedin</v-icon>
-            </v-btn>
+          <v-btn height="80" >
+            <v-icon x-large>mdi-linkedin</v-icon>
+          </v-btn>
 
-            <v-btn height="80">
-              <span>Instagram</span>
-              <v-icon large>mdi-instagram</v-icon>
-            </v-btn>
+          <v-btn height="80">
+            <v-icon x-large>mdi-instagram</v-icon>
+          </v-btn>
 
-            <v-card-text>
-              <h3>32 Brewer rd, Bentligh 3204 VIC</h3>
-              <h3>nailsauinfo@gmail.com</h3>
-            </v-card-text>
+          <v-card-text>
+            <h3>32 Brewer rd, Bentligh 3204 VIC</h3>
+            <h3>nailsauinfo@gmail.com</h3>
+          </v-card-text>
         </v-col>
 
         <v-col cols="12" sm="6" md="4" lg="2">
@@ -71,6 +62,15 @@
 </template>
 
 <style scoped>
+.icon-wrapper {
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  background: grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
 
 <script>
