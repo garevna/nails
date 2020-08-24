@@ -100,6 +100,7 @@ export default {
   },
   beforeDestroy () {
     this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
+    window.removeEventListener('resize', this.onResizeHandler)
   }
 }
 </script>
