@@ -28,8 +28,18 @@
   </v-row>
 </template>
 
-<styles>
-</styles>
+<style lang="scss">
+@import '@/css/variables.scss';
+.category-switcher {
+  .category-switcher-header {
+    background-color: $lightGray;
+  }
+  button {
+    min-height: 30px !important;
+    padding: 10px !important;
+  }
+}
+</style>
 
 <script>
 import { mapState } from 'vuex'

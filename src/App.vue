@@ -36,6 +36,16 @@ h1, h2, h3 {
     font-size: 28px;
   }
 }
+@media screen and (max-width: 960px) {
+  .main-content {
+    margin-bottom: 470px!important;
+  }
+}
+@media screen and (max-width: 600px) {
+  .main-content {
+    margin-bottom: 780px!important;
+  }
+}
 @media screen and (max-width: 540px) {
   .main-content {
     margin-bottom: 840px!important;

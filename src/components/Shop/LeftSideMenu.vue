@@ -1,6 +1,6 @@
 <template>
   <v-card flat class="transparent">
-    <v-card-text  v-for="(section, index) in menuItems" :key="index">
+    <v-card-text v-for="(section, index) in menuItems" :key="index">
       <h3
         v-for="(subsection, ind) in section"
         :key="ind"
@@ -15,14 +15,21 @@
   </v-card>
 </template>
 
-<styles>
-</styles>
+<style lang="scss">
+@import '@/css/variables.scss';
+.gray-font {
+  color: $shopGrayFont;
+}
+.gray-divider {
+  background-color: $shopGrayFont;
+  max-width: 200px;
+  margin: 10px 0 20px;
+}
+</style>
 
 <script>
-
 export default {
   name: 'Shop',
   props: ['section', 'selectedSection', 'selectedBlock', 'setSelectedSection', 'menuItems']
-
 }
 </script>

@@ -7,7 +7,6 @@ import vuetify from './plugins/vuetify'
 
 import '@/css/fonts.scss'
 // import '@/css/variables.scss'
-import '@/css/shop.scss'
 
 Vue.config.productionTip = false
 

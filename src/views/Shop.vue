@@ -20,8 +20,15 @@
           ></LeftSideMenu>
         </v-col>
         <v-col cols="12" sm="12" md="9" xl="9" lg="9">
-          <v-row class="flex-center">
-            <Card v-for="(card, num) in cards" :key="num" :img="card.img" :name="card.name" :price="card.price" />
+          <v-row justify="start">
+            <Card
+              v-for="(card, num) in cards"
+              :key="num"
+              :img="card.img"
+              :name="card.name"
+              :price="card.price"
+              :description="card.description"
+            />
           </v-row>
         </v-col>
       </v-row>
@@ -37,9 +44,7 @@
   </v-container>
 </template>
 
-<styles>
-
-</styles>
+<style></style>
 
 <script>
 import { mapState } from 'vuex'

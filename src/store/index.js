@@ -11,76 +11,91 @@ export default new Vuex.Store({
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/people',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/animals',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$15'
           },
           {
             img: 'http://lorempixel.com/200/160/transport',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$10'
           },
           {
             img: 'http://lorempixel.com/200/160/people',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$9'
           },
           {
             img: 'http://lorempixel.com/200/160/city',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$8'
           },
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4'
           },
           {
             img: 'http://lorempixel.com/200/160/cats',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$3.5'
           },
           {
             img: 'http://lorempixel.com/200/160/fashion',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$5.5'
           },
           {
             img: 'http://lorempixel.com/200/160/technics',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           }
         ],
@@ -88,76 +103,91 @@ export default new Vuex.Store({
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$10'
           },
           {
             img: 'http://lorempixel.com/200/160/people',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7'
           },
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/animals',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$5'
           },
           {
             img: 'http://lorempixel.com/200/160/transport',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$10'
           },
           {
             img: 'http://lorempixel.com/200/160/people',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$9'
           },
           {
             img: 'http://lorempixel.com/200/160/city',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$8'
           },
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4'
           },
           {
             img: 'http://lorempixel.com/200/160/cats',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$3.5'
           },
           {
             img: 'http://lorempixel.com/200/160/fashion',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$5.5'
           },
           {
             img: 'http://lorempixel.com/200/160/technics',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           }
         ],
@@ -165,76 +195,91 @@ export default new Vuex.Store({
           {
             img: 'http://lorempixel.com/200/160/fashion',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/technics',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/cats',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/animals',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$15'
           },
           {
             img: 'http://lorempixel.com/200/160/transport',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$10'
           },
           {
             img: 'http://lorempixel.com/200/160/people',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$9'
           },
           {
             img: 'http://lorempixel.com/200/160/city',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$8'
           },
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4'
           },
           {
             img: 'http://lorempixel.com/200/160/cats',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$3.5'
           },
           {
             img: 'http://lorempixel.com/200/160/fashion',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$5.5'
           },
           {
             img: 'http://lorempixel.com/200/160/technics',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           }
         ],
@@ -242,76 +287,91 @@ export default new Vuex.Store({
           {
             img: 'http://lorempixel.com/200/160/city',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/technics',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/animals',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$15'
           },
           {
             img: 'http://lorempixel.com/200/160/transport',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$10'
           },
           {
             img: 'http://lorempixel.com/200/160/people',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$9'
           },
           {
             img: 'http://lorempixel.com/200/160/city',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$8'
           },
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4'
           },
           {
             img: 'http://lorempixel.com/200/160/cats',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$3.5'
           },
           {
             img: 'http://lorempixel.com/200/160/fashion',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$5.5'
           },
           {
             img: 'http://lorempixel.com/200/160/technics',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           }
         ]
@@ -321,76 +381,91 @@ export default new Vuex.Store({
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/cats',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/city',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/animals',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$15'
           },
           {
             img: 'http://lorempixel.com/200/160/transport',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$10'
           },
           {
             img: 'http://lorempixel.com/200/160/people',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$9'
           },
           {
             img: 'http://lorempixel.com/200/160/city',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$8'
           },
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4'
           },
           {
             img: 'http://lorempixel.com/200/160/cats',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$3.5'
           },
           {
             img: 'http://lorempixel.com/200/160/fashion',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$5.5'
           },
           {
             img: 'http://lorempixel.com/200/160/technics',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           }
         ],
@@ -398,76 +473,91 @@ export default new Vuex.Store({
           {
             img: 'http://lorempixel.com/200/160/cats',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/animals',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/animals',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$15'
           },
           {
             img: 'http://lorempixel.com/200/160/transport',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$10'
           },
           {
             img: 'http://lorempixel.com/200/160/people',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$9'
           },
           {
             img: 'http://lorempixel.com/200/160/city',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$8'
           },
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4'
           },
           {
             img: 'http://lorempixel.com/200/160/cats',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$3.5'
           },
           {
             img: 'http://lorempixel.com/200/160/fashion',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$5.5'
           },
           {
             img: 'http://lorempixel.com/200/160/technics',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           }
         ],
@@ -475,76 +565,91 @@ export default new Vuex.Store({
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/technics',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/animals',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$15'
           },
           {
             img: 'http://lorempixel.com/200/160/transport',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$10'
           },
           {
             img: 'http://lorempixel.com/200/160/people',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$9'
           },
           {
             img: 'http://lorempixel.com/200/160/city',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$8'
           },
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4'
           },
           {
             img: 'http://lorempixel.com/200/160/cats',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$3.5'
           },
           {
             img: 'http://lorempixel.com/200/160/fashion',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$5.5'
           },
           {
             img: 'http://lorempixel.com/200/160/technics',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           }
         ],
@@ -552,76 +657,91 @@ export default new Vuex.Store({
           {
             img: 'http://lorempixel.com/200/160/technics',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/fashion',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/animals',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$15'
           },
           {
             img: 'http://lorempixel.com/200/160/transport',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$10'
           },
           {
             img: 'http://lorempixel.com/200/160/people',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$9'
           },
           {
             img: 'http://lorempixel.com/200/160/city',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$8'
           },
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4'
           },
           {
             img: 'http://lorempixel.com/200/160/cats',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$3.5'
           },
           {
             img: 'http://lorempixel.com/200/160/fashion',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$5.5'
           },
           {
             img: 'http://lorempixel.com/200/160/technics',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           }
         ]
@@ -631,76 +751,91 @@ export default new Vuex.Store({
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/city',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/animals',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$15'
           },
           {
             img: 'http://lorempixel.com/200/160/transport',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$10'
           },
           {
             img: 'http://lorempixel.com/200/160/people',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$9'
           },
           {
             img: 'http://lorempixel.com/200/160/city',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$8'
           },
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4'
           },
           {
             img: 'http://lorempixel.com/200/160/cats',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$3.5'
           },
           {
             img: 'http://lorempixel.com/200/160/fashion',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$5.5'
           },
           {
             img: 'http://lorempixel.com/200/160/technics',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           }
         ],
@@ -708,76 +843,91 @@ export default new Vuex.Store({
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/fashion',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/animals',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/animals',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$15'
           },
           {
             img: 'http://lorempixel.com/200/160/transport',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$10'
           },
           {
             img: 'http://lorempixel.com/200/160/people',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$9'
           },
           {
             img: 'http://lorempixel.com/200/160/city',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$8'
           },
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4'
           },
           {
             img: 'http://lorempixel.com/200/160/cats',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$3.5'
           },
           {
             img: 'http://lorempixel.com/200/160/fashion',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$5.5'
           },
           {
             img: 'http://lorempixel.com/200/160/technics',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           }
         ],
@@ -785,76 +935,91 @@ export default new Vuex.Store({
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/animals',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$15'
           },
           {
             img: 'http://lorempixel.com/200/160/transport',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$10'
           },
           {
             img: 'http://lorempixel.com/200/160/people',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$9'
           },
           {
             img: 'http://lorempixel.com/200/160/city',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$8'
           },
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4'
           },
           {
             img: 'http://lorempixel.com/200/160/cats',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$3.5'
           },
           {
             img: 'http://lorempixel.com/200/160/fashion',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$5.5'
           },
           {
             img: 'http://lorempixel.com/200/160/technics',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           }
         ],
@@ -862,82 +1027,188 @@ export default new Vuex.Store({
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/sports',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$12'
           },
           {
             img: 'http://lorempixel.com/200/160/animals',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$15'
           },
           {
             img: 'http://lorempixel.com/200/160/transport',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$10'
           },
           {
             img: 'http://lorempixel.com/200/160/people',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7'
           },
           {
             img: 'http://lorempixel.com/200/160/abstract',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$9'
           },
           {
             img: 'http://lorempixel.com/200/160/city',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$8'
           },
           {
             img: 'http://lorempixel.com/200/160/nature',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$4'
           },
           {
             img: 'http://lorempixel.com/200/160/cats',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$3.5'
           },
           {
             img: 'http://lorempixel.com/200/160/fashion',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$5.5'
           },
           {
             img: 'http://lorempixel.com/200/160/technics',
             name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
             price: '$7.5'
           },
           {
             img: 'http://lorempixel.com/200/160/food',
+            description: 'Diamond Drill bits',
             name: 'Diamond Drill bits long flame 2.3b',
             price: '$4.5'
           }
         ]
       },
       {
-        Promotions: []
+        Promotions: [
+          {
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
+            price: '$12'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
+            price: '$12'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
+            price: '$12'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/sports',
+            name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
+            price: '$12'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/animals',
+            name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
+            price: '$15'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/transport',
+            name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
+            price: '$10'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/people',
+            name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
+            price: '$4.5'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/food',
+            name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
+            price: '$7'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/abstract',
+            name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
+            price: '$9'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/city',
+            name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
+            price: '$8'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/nature',
+            name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
+            price: '$4'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/cats',
+            name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
+            price: '$3.5'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/fashion',
+            name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
+            price: '$5.5'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/technics',
+            name: 'Diamond Drill bits long flame 2.3b',
+            description: 'Diamond Drill bits',
+            price: '$7.5'
+          },
+          {
+            img: 'http://lorempixel.com/200/160/food',
+            description: 'Diamond Drill bits',
+            name: 'Diamond Drill bits long flame 2.3b',
+            price: '$4.5'
+          }
+        ]
       }
     ],
     about: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum magna a felis semper, non congue dui ultricies. Pellentesque molestie consectetur fermentum. Nam sit amet interdum nibh, vel ultrices nibh. Maecenas nec nunc faucibus, condimentum magna tristique, maximus odio. Maecenas id metus vulputate magna fermentum aliquam. Mauris vel laoreet orci, a posuere leo. Suspendisse dignissim urna ut dignissim ornare. Nulla at mattis metus, ac porta libero. Nam eleifend, felis semper accumsan euismod, magna mauris pellentesque tortor, ac porta augue leo ac turpis. Vestibulum sollicitudin sem id aliquam hendrerit. Sed tempus tortor vel semper pulvinar. Nunc at odio eu dolor posuere venenatis lacinia id lacus. Praesent ornare, mauris quis finibus elementum, odio dui auctor arcu, ac bibendum erat mauris quis mauris. Curabitur neque ex, congue vel leo nec, molestie convallis lectus.',
