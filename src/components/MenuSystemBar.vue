@@ -1,6 +1,6 @@
 <template>
   <div color="warning menu">
-    <input class="search menu-app-bar"/>
+    <input class="search menu-app-bar" text/>
     <v-menu bottom left>
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on">
@@ -68,6 +68,7 @@
   border: 1px solid #000;
   padding-left: 5px;
   outline: none;
+  font-family: 'Archivo Narrow';
 }
 .search:focus {
   /* transform: scale(1.2); */

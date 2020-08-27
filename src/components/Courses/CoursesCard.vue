@@ -5,7 +5,7 @@
       <h4>{{ name }}</h4>
       <h4>Price {{ price }}</h4>
     </v-card-text>
-    <v-card flat class="ml-4 mb-4">
+    <v-card flat class="ml-4 mb-4 d-flex">
       <v-btn
         color="buttons"
         rounded
@@ -21,7 +21,8 @@
         color="buttons"
         rounded
         small
-        dark
+        outlined
+        primary
         min-width="90"
         class="yellow-button mr-4"
         v-if="online"

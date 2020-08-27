@@ -1285,7 +1285,6 @@ export default new Vuex.Store({
       }
 
     ],
-    viewportWidth: window.innerWidth,
     buttonForDetailOfflineShop: 'Apply',
     buttonForRegistrationOfflineShop: 'CONFIRM DETAILS AND PROCEED WITH PAYMENT',
     buttonForRegistrationOnlineShop: 'BUY THIS COURSE'

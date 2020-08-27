@@ -38,12 +38,12 @@
       </h1>
     </div>
     <v-spacer></v-spacer>
-    <div class="primary app-bar d-none d-lg-block">
+    <div class="primary app-bar d-none d-md-block">
       <v-btn @click="goHome" text>HOME</v-btn>
       <v-btn @click="goToShop" text>SHOP</v-btn>
       <v-btn @click="goToCourses" text>COURSES</v-btn>
     </div>
-    <MenuSystemBar v-if="hideMenu" class="d-flex"/>
+    <MenuSystemBar class=" d-none d-md-flex"/>
 
     <!-- Viewport width less then lg -->
     <v-expansion-panels
@@ -133,7 +133,6 @@
 </style>
 
 <script>
-import { mapState } from 'vuex'
 import MenuSystemBar from '@/components/MenuSystemBar.vue'
 
 export default {
@@ -151,10 +150,6 @@ export default {
     },
     burgerMenuClassSecond () {
       return this.panel === 0 ? 'burger-menu-active--second' : 'burger-menu--second'
-    },
-    ...mapState(['viewportWidth']),
-    hideMenu () {
-      return this.viewportWidth >= 1200
     }
   },
   methods: {
