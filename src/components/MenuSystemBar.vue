@@ -72,7 +72,7 @@
 }
 .search:focus {
   /* transform: scale(1.2); */
-  flex-grow: 1;
+  width: 250px;
 }
 .drop-down-menu{
   background-color: #000;
