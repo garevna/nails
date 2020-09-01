@@ -1,12 +1,11 @@
 <template>
   <v-container fluid fill-height class="whitefone shop-layout">
-    <v-card flat class="transparent mx-auto" max-width="1440">
+    <v-card flat class="transparent mx-auto" max-width="1440" width='100%'>
       <CategoriesSwitcher
         :section="section"
         :selectedSection="selectedSection"
         :selectedBlock="selectedBlock"
         :setSelectedSection="setSelectedSection"
-        :menuItems="menuItems"
         :mobileMenu="mobileMenu"
       ></CategoriesSwitcher>
       <v-row>
@@ -16,18 +15,18 @@
             :selectedSection="selectedSection"
             :selectedBlock="selectedBlock"
             :setSelectedSection="setSelectedSection"
-            :menuItems="menuItems"
           ></LeftSideMenu>
         </v-col>
         <v-col cols="12" sm="12" md="9" xl="9" lg="9">
           <v-row justify="start">
             <Card
-              v-for="(card, num) in cards"
-              :key="num"
-              :img="card.img"
+              v-for="card in commodities"
+              :key="card.id"
+              :images="card.image"
               :name="card.name"
               :price="card.price"
               :description="card.description"
+              :id="card.id"
             />
           </v-row>
         </v-col>
@@ -64,23 +63,29 @@ export default {
   data () {
     return {
       selectedBlock: 0,
-      selectedSection: 'Cuticle nippers',
+      selectedSection: { name: 'Cuticle nippers' },
       mobileMenu: window.innerWidth < 960
     }
   },
   computed: {
-    ...mapState(['commodities', 'viewportWidth']),
-    menuItems () {
-      return this.commodities.map((section) => Object.keys(section))
-    },
-    cards () {
-      return this.commodities[this.selectedBlock][this.selectedSection].slice(0, 8)
-    },
+    ...mapState(['viewportWidth']),
+    ...mapState('shop', ['categories', 'commodities']),
     pagination () {
       return {
         page: 1,
-        total: this.cards.length / 4
+        total: 8
       }
+    }
+  },
+  watch: {
+    categories () {
+      if (this.categories && this.categories[0] && this.categories[0][0] && this.categories[0][0]._id) {
+        this.selectedSection = this.categories[0][0]
+      }
+    },
+    selectedSection (val) {
+      console.log('i am here')
+      this.$store.dispatch('shop/GET_SHOP_COMODITIES', { categoryId: val._id })
     }
   },
   methods: {
@@ -91,14 +96,9 @@ export default {
       this.mobileMenu = window.innerWidth < 960
     }
   },
-  watch: {
-    selectedSection (val) {
-      this.selectedBlock = this.commodities.findIndex((item) => !!item[val])
-    }
-  },
+
   mounted () {
     this.selectedBlock = 0
-    this.selectedSection = 'Cuticle nippers'
     this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
     this.mobileMenu = window.innerWidth < 960
     window.addEventListener('resize', this.onResizeHandler, { passive: true })
