@@ -1,7 +1,7 @@
 <template>
-  <v-card class="cardfone ma-8 shop-card">
+  <v-card class="cardfone ma-8 shop-card" @click="goToItem">
     <v-card flat class="px-0 pt-4 gray-background">
-      <v-img :src="img" width="100%" height="220" contain />
+      <v-img :src="images[0]" width="100%" height="220" contain />
     </v-card>
     <v-card-text class="text-wrap">
       <h4 class="color-black">{{ name }}</h4>
@@ -15,6 +15,9 @@
 
 <style scoped lang="scss">
 @import '@/css/variables.scss';
+.shop-card {
+  cursor: pointer;
+}
 .price-wrap {
   padding: 5px;
   display: flex;
@@ -52,7 +55,7 @@
 @media screen and (max-width: 540px) {
   .shop-card {
     margin: 10px;
-    width: calc(100% - 0px);
+    width: -webkit-fill-available;
   }
 }
 </style>
@@ -60,6 +63,11 @@
 <script>
 export default {
   name: 'Card',
-  props: ['img', 'name', 'price', 'description']
+  props: ['images', 'name', 'price', 'description', 'id'],
+  methods: {
+    goToItem () {
+      this.$router.push({ name: 'shop-item', params: { commodityId: this.id } })
+    }
+  }
 }
 </script>

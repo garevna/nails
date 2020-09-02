@@ -1,6 +1,6 @@
 <template>
   <v-container fluid fill-height class="whitefone shop-layout">
-    <v-card flat class="transparent mx-auto" max-width="1440" width='100%'>
+    <v-card flat class="transparent mx-auto" max-width="1440" width="100%">
       <CategoriesSwitcher
         :selectedSection="selectedSection"
         :setSelectedSection="setSelectedSection"
@@ -8,31 +8,15 @@
       ></CategoriesSwitcher>
       <v-row>
         <v-col cols="12" sm="6" md="3" xl="3" lg="3" v-if="!mobileMenu">
-          <LeftSideMenu
-            :setSelectedSection="setSelectedSection"
-          ></LeftSideMenu>
+          <LeftSideMenu :setSelectedSection="setSelectedSection"></LeftSideMenu>
         </v-col>
         <v-col cols="12" sm="12" md="9" xl="9" lg="9">
           <v-row justify="start">
-            <Card
-              v-for="card in commodities"
-              :key="card.id"
-              :images="card.image"
-              :name="card.name"
-              :price="card.price"
-              :description="card.description"
-              :id="card._id"
-            />
+            <v-col cols="6" sm="12" md="6" xl="6" lg="6"> </v-col>
+
+            <v-col cols="6" sm="12" md="6" xl="6" lg="6"> </v-col>
           </v-row>
         </v-col>
-      </v-row>
-      <v-row justify="center">
-        <v-pagination
-          v-model="pagination.page"
-          :length="pagination.total"
-          prev-icon="mdi-menu-left"
-          next-icon="mdi-menu-right"
-        ></v-pagination>
       </v-row>
     </v-card>
   </v-container>
@@ -43,42 +27,26 @@
 <script>
 import { mapState } from 'vuex'
 
-import Card from '@/components/Shop/Card.vue'
 import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue'
 import CategoriesSwitcher from '@/components/Shop/CategoriesSwitcher.vue'
-
 export default {
   name: 'Shop',
   components: {
-    Card,
     LeftSideMenu,
     CategoriesSwitcher
   },
+  props: ['section'],
   data () {
     return {
-      selectedSection: {},
+      selectedBlock: 0,
       mobileMenu: window.innerWidth < 960,
-      categoryId: this.$route.params.categoryId
+      selectedSection: {},
+      commodityId: this.$route.params.commodityId
     }
   },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState('shop', ['categories', 'commodities']),
-    pagination () {
-      return {
-        page: 1,
-        total: 8,
-        categoryId: ''
-      }
-    }
-  },
-  watch: {
-    categories () {
-      if (this.categories && this.categoryId) {
-        const allcat = this.categories.flat()
-        this.selectedSection = allcat.find(el => el._id === this.categoryId)
-      }
-    }
+    ...mapState('shop', ['categories', 'commodities', 'commodity'])
   },
   methods: {
     setSelectedSection (val) {
@@ -88,12 +56,20 @@ export default {
       this.mobileMenu = window.innerWidth < 960
     }
   },
-  mounted () {
-    this.$store.dispatch('shop/GET_SHOP_COMMODITIES', { categoryId: this.categoryId })
-    if (this.categories && this.categoryId) {
-      const allcat = this.categories.flat()
-      this.selectedSection = allcat.find(el => el._id === this.categoryId)
+  watch: {
+    categories () {
+      if (this.categories && this.categories.length && this.commodity) {
+        this.selectedSection = this.categories.flat().find((el) => el._id === this.commodity.categoryId)
+      }
+    },
+    commodity () {
+      if (this.categories && this.categories.length && this.commodity) {
+        this.selectedSection = this.categories.flat().find((el) => el._id === this.commodity.categoryId)
+      }
     }
+  },
+  mounted () {
+    this.$store.dispatch('shop/GET_COMMODITY', { commodityId: this.commodityId })
     this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
     this.mobileMenu = window.innerWidth < 960
     window.addEventListener('resize', this.onResizeHandler, { passive: true })

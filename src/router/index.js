@@ -11,9 +11,14 @@ const routes = [
     component: Home
   },
   {
-    path: '/shop',
+    path: '/shop/:categoryId',
     name: 'shop',
     component: () => import(/* webpackChunkName: "shop" */ '../views/Shop.vue')
+  },
+  {
+    path: '/shop/:categoryId/:commodityId',
+    name: 'shop-item',
+    component: () => import(/* webpackChunkName: "shop-item" */ '../views/ShopItem.vue')
   },
   {
     path: '/courses',

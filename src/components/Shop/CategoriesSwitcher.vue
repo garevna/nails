@@ -10,15 +10,11 @@
               expand-icon="mdi-menu-down"
               :hide-actions="!mobileMenu"
             >
-              {{ selectedSection }}
+              {{ selectedSection.name }}
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <LeftSideMenu
-                :section="section"
-                :selectedSection="selectedSection"
-                :selectedBlock="selectedBlock"
                 :setSelectedSection="setNewCategory"
-                :menuItems="menuItems"
               ></LeftSideMenu>
             </v-expansion-panel-content>
           </v-expansion-panel>
@@ -48,27 +44,30 @@ import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue'
 export default {
   name: 'CategoriesSwithcer',
   components: { LeftSideMenu },
-  props: ['section', 'selectedSection', 'selectedBlock', 'setSelectedSection', 'menuItems', 'mobileMenu'],
+  props: ['selectedSection', 'setSelectedSection', 'mobileMenu'],
   data () {
     return {
       isOpened: false
     }
   },
   computed: {
-    ...mapState(['commodities', 'viewportWidth'])
+    ...mapState(['viewportWidth']),
+    ...mapState('shop', ['categories', 'commodities'])
   },
   watch: {
-    selectedSection (val) {
-      this.selectedBlock = this.commodities.findIndex((item) => !!item[val])
-    },
     mobileMenu () {
       this.isOpened = this.mobileMenu
     }
   },
   methods: {
     setNewCategory (val) {
-      this.setSelectedSection(val)
+      this.setSelectedSection(val.name)
       this.isOpened = !this.isOpened
+    }
+  },
+  mounted () {
+    if (!this.categories) {
+      this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
     }
   }
 }
