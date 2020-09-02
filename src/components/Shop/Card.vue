@@ -55,7 +55,7 @@
 @media screen and (max-width: 540px) {
   .shop-card {
     margin: 10px;
-    width: calc(100% - 0px);
+    width: -webkit-fill-available;
   }
 }
 </style>
@@ -66,10 +66,8 @@ export default {
   props: ['images', 'name', 'price', 'description', 'id'],
   methods: {
     goToItem () {
-      this.$router.push(`/shop/${this.id}`)
+      this.$router.push({ name: 'shop-item', params: { commodityId: this.id } })
     }
-  },
-  mounted () {
   }
 }
 </script>

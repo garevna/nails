@@ -3,20 +3,25 @@
 
 const state = {
   categories: null,
-  commodities: []
+  commodities: [],
+  commodity: null
 }
 
 const getters = {
   categoriesEndpoint: (state, getters, rootState) => `${rootState.host}/shop/categories`,
-  commoditiesEndpoint: (state, getters, rootState) => `${rootState.host}/shop/commodities`
+  commoditiesEndpoint: (state, getters, rootState) => `${rootState.host}/shop/commodities`,
+  commodityEndpoint: (state, getters, rootState) => `${rootState.host}/shop/commodity`
 }
 
 const mutations = {
   SHOP_CATEGORIES: (state, payload) => {
     state.categories = payload
   },
-  SHOP_COMODITIES: (state, payload) => {
+  SHOP_COMMODITIES: (state, payload) => {
     state.commodities = payload.commodities
+  },
+  SHOP_COMMODITY: (state, payload) => {
+    state.commodity = payload.commodity[0]
   }
 }
 const actions = {
@@ -25,10 +30,15 @@ const actions = {
     commit('SHOP_CATEGORIES', response)
     return state.categories
   },
-  async GET_SHOP_COMODITIES ({ state, getters, commit }, { categoryId }) {
+  async GET_SHOP_COMMODITIES ({ state, getters, commit }, { categoryId }) {
     const response = (await (await fetch(`${getters.commoditiesEndpoint}/${categoryId}`)).json())
-    commit('SHOP_COMODITIES', response)
+    commit('SHOP_COMMODITIES', response)
     return state.comodities
+  },
+  async GET_COMMODITY ({ state, getters, commit }, { commodityId }) {
+    const response = (await (await fetch(`${getters.commodityEndpoint}/${commodityId}`)).json())
+    commit('SHOP_COMMODITY', response)
+    return state.commodity
   }
 }
 
