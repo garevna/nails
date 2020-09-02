@@ -134,6 +134,7 @@
 
 <script>
 import MenuSystemBar from '@/components/MenuSystemBar.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'SystemBar',
@@ -145,6 +146,7 @@ export default {
     panel: undefined
   }),
   computed: {
+    ...mapState('shop', ['categories']),
     burgerMenuClassFirst () {
       return this.panel === 0 ? 'burger-menu-active--first' : 'burger-menu--first'
     },
@@ -159,7 +161,11 @@ export default {
     },
     goToShop () {
       this.panel = []
-      if (this.$route.name !== 'shop') this.$router.push({ name: 'shop' })
+      let selectedSection
+      if (this.categories && this.categories[0] && this.categories[0][0] && this.categories[0][0]._id) {
+        selectedSection = this.categories[0][0]
+      }
+      if (this.$route.name !== 'shop') this.$router.push({ name: 'shop', params: { categoryId: selectedSection._id } })
     },
     goToCourses () {
       this.panel = []

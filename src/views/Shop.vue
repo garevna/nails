@@ -2,18 +2,13 @@
   <v-container fluid fill-height class="whitefone shop-layout">
     <v-card flat class="transparent mx-auto" max-width="1440" width='100%'>
       <CategoriesSwitcher
-        :section="section"
         :selectedSection="selectedSection"
-        :selectedBlock="selectedBlock"
         :setSelectedSection="setSelectedSection"
         :mobileMenu="mobileMenu"
       ></CategoriesSwitcher>
       <v-row>
         <v-col cols="12" sm="6" md="3" xl="3" lg="3" v-if="!mobileMenu">
           <LeftSideMenu
-            :section="section"
-            :selectedSection="selectedSection"
-            :selectedBlock="selectedBlock"
             :setSelectedSection="setSelectedSection"
           ></LeftSideMenu>
         </v-col>
@@ -26,7 +21,7 @@
               :name="card.name"
               :price="card.price"
               :description="card.description"
-              :id="card.id"
+              :id="card._id"
             />
           </v-row>
         </v-col>
@@ -59,12 +54,11 @@ export default {
     LeftSideMenu,
     CategoriesSwitcher
   },
-  props: ['section'],
   data () {
     return {
-      selectedBlock: 0,
-      selectedSection: { name: 'Cuticle nippers' },
-      mobileMenu: window.innerWidth < 960
+      selectedSection: {},
+      mobileMenu: window.innerWidth < 960,
+      categoryId: this.$route.params.categoryId
     }
   },
   computed: {
@@ -73,19 +67,17 @@ export default {
     pagination () {
       return {
         page: 1,
-        total: 8
+        total: 8,
+        categoryId: ''
       }
     }
   },
   watch: {
     categories () {
-      if (this.categories && this.categories[0] && this.categories[0][0] && this.categories[0][0]._id) {
-        this.selectedSection = this.categories[0][0]
+      if (this.categories && this.categoryId) {
+        const allcat = this.categories.flat()
+        this.selectedSection = allcat.find(el => el._id === this.categoryId)
       }
-    },
-    selectedSection (val) {
-      console.log('i am here')
-      this.$store.dispatch('shop/GET_SHOP_COMODITIES', { categoryId: val._id })
     }
   },
   methods: {
@@ -96,9 +88,12 @@ export default {
       this.mobileMenu = window.innerWidth < 960
     }
   },
-
   mounted () {
-    this.selectedBlock = 0
+    this.$store.dispatch('shop/GET_SHOP_COMMODITIES', { categoryId: this.categoryId })
+    if (this.categories && this.categoryId) {
+      const allcat = this.categories.flat()
+      this.selectedSection = allcat.find(el => el._id === this.categoryId)
+    }
     this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
     this.mobileMenu = window.innerWidth < 960
     window.addEventListener('resize', this.onResizeHandler, { passive: true })

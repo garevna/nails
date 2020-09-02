@@ -1,21 +1,21 @@
 <template>
   <v-container fluid fill-height class="whitefone shop-layout">
     <v-card flat class="transparent mx-auto" max-width="1440" width="100%">
-      <v-row justify="center">
-      <v-col cols="12" sm="0" md="4">texe</v-col>
-      </v-row>
+      <CategoriesSwitcher
+        :selectedSection="selectedSection"
+        :setSelectedSection="setSelectedSection"
+        :mobileMenu="mobileMenu"
+      ></CategoriesSwitcher>
       <v-row>
         <v-col cols="12" sm="6" md="3" xl="3" lg="3" v-if="!mobileMenu">
-          <LeftSideMenu
-            :section="section"
-            :selectedSection="selectedSection"
-            :selectedBlock="selectedBlock"
-            :setSelectedSection="setSelectedSection"
-            :menuItems="menuItems"
-          ></LeftSideMenu>
+          <LeftSideMenu :setSelectedSection="setSelectedSection"></LeftSideMenu>
         </v-col>
         <v-col cols="12" sm="12" md="9" xl="9" lg="9">
-          <v-row justify="start"> </v-row>
+          <v-row justify="start">
+            <v-col cols="6" sm="12" md="6" xl="6" lg="6"> </v-col>
+
+            <v-col cols="6" sm="12" md="6" xl="6" lg="6"> </v-col>
+          </v-row>
         </v-col>
       </v-row>
     </v-card>
@@ -29,7 +29,6 @@ import { mapState } from 'vuex'
 
 import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue'
 import CategoriesSwitcher from '@/components/Shop/CategoriesSwitcher.vue'
-
 export default {
   name: 'Shop',
   components: {
@@ -40,24 +39,14 @@ export default {
   data () {
     return {
       selectedBlock: 0,
-      selectedSection: 'Cuticle nippers',
-      mobileMenu: window.innerWidth < 960
+      mobileMenu: window.innerWidth < 960,
+      selectedSection: {},
+      commodityId: this.$route.params.commodityId
     }
   },
   computed: {
-    ...mapState(['commodities', 'viewportWidth']),
-    menuItems () {
-      return this.commodities.map((section) => Object.keys(section))
-    },
-    cards () {
-      return this.commodities[this.selectedBlock][this.selectedSection].slice(0, 8)
-    },
-    pagination () {
-      return {
-        page: 1,
-        total: this.cards.length / 4
-      }
-    }
+    ...mapState(['viewportWidth']),
+    ...mapState('shop', ['categories', 'commodities', 'commodity'])
   },
   methods: {
     setSelectedSection (val) {
@@ -68,13 +57,19 @@ export default {
     }
   },
   watch: {
-    selectedSection (val) {
-      this.selectedBlock = this.commodities.findIndex((item) => !!item[val])
+    categories () {
+      if (this.categories && this.categories.length && this.commodity) {
+        this.selectedSection = this.categories.flat().find((el) => el._id === this.commodity.categoryId)
+      }
+    },
+    commodity () {
+      if (this.categories && this.categories.length && this.commodity) {
+        this.selectedSection = this.categories.flat().find((el) => el._id === this.commodity.categoryId)
+      }
     }
   },
   mounted () {
-    this.selectedBlock = 0
-    this.selectedSection = 'Cuticle nippers'
+    this.$store.dispatch('shop/GET_COMMODITY', { commodityId: this.commodityId })
     this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
     this.mobileMenu = window.innerWidth < 960
     window.addEventListener('resize', this.onResizeHandler, { passive: true })
