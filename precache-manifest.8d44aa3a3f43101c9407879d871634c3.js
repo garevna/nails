@@ -16,11 +16,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/browserconfig.xml"
   },
   {
-    "revision": "7c5158203ebba26c87a7",
-    "url": "/nails/css/app.7d1e5e9f.css"
+    "revision": "fa0ab9020423efc8df35",
+    "url": "/nails/css/app.c1de1fc1.css"
   },
   {
-    "revision": "c666ef274992e9531f1b",
+    "revision": "c25f72b4825844083123",
     "url": "/nails/css/chunk-vendors.05a7fdfd.css"
   },
   {
@@ -28,8 +28,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/course-detail.43eef82e.css"
   },
   {
-    "revision": "07334b42ced5b573f165",
-    "url": "/nails/css/shop.3f18303a.css"
+    "revision": "cf6d35589a2adb03232f",
+    "url": "/nails/css/shop-item.2db7506f.css"
+  },
+  {
+    "revision": "0df4da3d1eb907d627e4",
+    "url": "/nails/css/shop.894ecba5.css"
   },
   {
     "revision": "cba1e6344148e0fb0e2b9313b65c7054",
@@ -100,16 +104,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/image-2.37c343fd.png"
   },
   {
-    "revision": "aaf71a229c4ff8d12a8496f7a0e22d50",
+    "revision": "78baccbf8a959d405835f2ce54497025",
     "url": "/nails/index.html"
   },
   {
-    "revision": "7c5158203ebba26c87a7",
-    "url": "/nails/js/app.00c8d427.js"
+    "revision": "fa0ab9020423efc8df35",
+    "url": "/nails/js/app.6fde05e8.js"
   },
   {
-    "revision": "c666ef274992e9531f1b",
-    "url": "/nails/js/chunk-vendors.eed5e78b.js"
+    "revision": "c25f72b4825844083123",
+    "url": "/nails/js/chunk-vendors.ac1dfd92.js"
   },
   {
     "revision": "080a5c48968dced9a90f",
@@ -120,8 +124,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/courses.ddbe8108.js"
   },
   {
-    "revision": "07334b42ced5b573f165",
-    "url": "/nails/js/shop.f2829c39.js"
+    "revision": "cf6d35589a2adb03232f",
+    "url": "/nails/js/shop-item.53b5d22f.js"
+  },
+  {
+    "revision": "0df4da3d1eb907d627e4",
+    "url": "/nails/js/shop.252e87e0.js"
   },
   {
     "revision": "78c075108313d75f5274f16ea283f1e1",
