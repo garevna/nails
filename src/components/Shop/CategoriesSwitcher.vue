@@ -10,7 +10,7 @@
               expand-icon="mdi-menu-down"
               :hide-actions="!mobileMenu"
             >
-              {{ selectedSection }}
+              {{ selectedSection.name }}
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <LeftSideMenu
@@ -67,8 +67,13 @@ export default {
   },
   methods: {
     setNewCategory (val) {
-      this.setSelectedSection(val)
+      this.setSelectedSection(val.name)
       this.isOpened = !this.isOpened
+    }
+  },
+  mounted () {
+    if (!this.categories) {
+      this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
     }
   }
 }
