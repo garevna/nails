@@ -171,6 +171,11 @@ export default {
       this.panel = []
       if (this.$route.name !== 'courses') this.$router.push({ name: 'courses' })
     }
+  },
+  mounted () {
+    if (!this.categories) {
+      this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
+    }
   }
 }
 </script>

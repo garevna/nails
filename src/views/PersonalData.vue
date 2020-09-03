@@ -1,70 +1,13 @@
 <template>
-  <v-form ref="form">
-    <v-container>
-      <!-- <v-row justify="center" align="center" align-content="center" class="flex-column"> -->
-      <v-row>
-        <v-col cols="12" offset-sm="4" sm="4">
-          <v-text-field
-            v-model="email"
-            :rules="[rules.required, rules.mailValidation]"
-            label="E-mail"
-            outlined
-            dark
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" offset-sm="4" sm="4">
-          <v-text-field
-            v-model="phone"
-            :rules="[rules.required, rules.phoneValidation]"
-            label="Phone number"
-            outlined
-            dark
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" offset-sm="4" sm="4">
-          <v-text-field
-            v-model="fullName"
-            :rules="[rules.required]"
-            label="Full name"
-            outlined
-            dark
-          ></v-text-field>
-        </v-col>
-        <v-col cols="12" offset-sm="4" sm="4">
-          <v-textarea v-model="message" label="Message" outlined dark no-resize></v-textarea>
-        </v-col>
-        <v-col cols="12" offset-sm="4" sm="4">
-          <v-checkbox
-            v-model="checkbox"
-            :rules="[rules.required]"
-            label="Agree to privacy policy"
-            dark
-          ></v-checkbox>
-        </v-col>
-        <v-col cols="12" style="text-align:center">
-          <v-btn
-            color="buttons"
-            rounded
-            outlined
-            small
-            dark
-            min-width="90"
-            class="yellow-button mt-4"
-            @click="checkForm"
-          >submit</v-btn>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-form>
+  <FormForCourse/>
 </template>
-<style scoped>
-/* .v-text-field {
-  min-width: 300px;
-} */
-</style>
 <script>
+import FormForCourse from '@/components/forms/FormForCourse.vue'
 export default {
   name: 'personal-data',
+  components: {
+    FormForCourse
+  },
   data () {
     return {
       fullName: '',

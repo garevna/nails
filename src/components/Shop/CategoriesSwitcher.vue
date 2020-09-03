@@ -10,7 +10,7 @@
               expand-icon="mdi-menu-down"
               :hide-actions="!mobileMenu"
             >
-              {{ selectedSection.name }}
+              <h4>{{ selectedSection.name }}</h4>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <LeftSideMenu
