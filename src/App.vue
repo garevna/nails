@@ -2,6 +2,7 @@
   <v-app dark>
     <v-container fluid class="mx-auto homefone">
       <SystemBar />
+      <MainMenu v-if="maimMenuShowInRouteNames.includes(this.$route.name)" />
       <v-main class="main-content">
         <router-view></router-view>
       </v-main>
@@ -59,17 +60,19 @@ h1, h2, h3 {
 <script>
 import SystemBar from './components/SystemBar.vue'
 import Footer from './components/Footer.vue'
+import MainMenu from '@/components/MainMenu.vue'
 
 export default {
   name: 'App',
 
   components: {
     SystemBar,
-    Footer
+    Footer,
+    MainMenu
   },
 
   data: () => ({
-    //
+    maimMenuShowInRouteNames: ['home', 'add-course', 'add-course-payment']
   }),
   methods: {
 

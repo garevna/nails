@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     setNewCategory (val) {
-      this.setSelectedSection(val)
+      this.setSelectedSection(val.name)
       this.isOpened = !this.isOpened
     }
   },

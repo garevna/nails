@@ -1,12 +1,12 @@
 <template>
   <v-card
-      class="transparent my-12"
+      class="transparent main-menu"
       dark
       flat
       height="80px"
       tile
   >
-    <v-card flat class="my-10 transparent text-center">
+    <v-card flat class="transparent text-center">
       <v-btn text>
         Nippers
       </v-btn>
@@ -31,3 +31,11 @@
     </v-card>
   </v-card>
 </template>
+  <style scoped>
+    .main-menu {
+      display:flex;
+      margin-top:80px;
+      justify-content:center;
+      align-items: center;
+    }
+  </style>
