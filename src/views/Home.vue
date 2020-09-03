@@ -1,6 +1,6 @@
 <template>
   <v-container fluid style="padding: 0; margin: 0">
-    <MainMenu />
+    <!-- <MainMenu /> -->
     <v-card flat dark class="transparent mx-auto" max-width="1440">
       <v-row align="center" justify="center">
         <v-col cols="12" md="5">
@@ -70,6 +70,7 @@
                   dark
                   min-width="160"
                   class="yellow-button mr-4 mb-4"
+                  @click="addCourseHandler"
               >
                 ADD COURSE
               </v-btn>
@@ -108,14 +109,14 @@ p {
 import { mapState } from 'vuex'
 
 import Slider from '@/components/Slider.vue'
-import MainMenu from '@/components/MainMenu.vue'
+// import MainMenu from '@/components/MainMenu.vue'
 import Courses from '@/components/Courses/Courses.vue'
 
 export default {
   name: 'Home',
   components: {
     Slider,
-    MainMenu,
+    // MainMenu,
     Courses
   },
   data: () => ({
@@ -125,6 +126,11 @@ export default {
   }),
   computed: {
     ...mapState(['about', 'shop', 'courses'])
+  },
+  methods: {
+    addCourseHandler () {
+      this.$router.push('/add-course')
+    }
   }
 }
 </script>

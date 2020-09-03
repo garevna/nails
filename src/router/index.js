@@ -28,22 +28,32 @@ const routes = [
   {
     path: '/course-offline/:id',
     name: 'course-offline',
-    component: () => import(/* webpackChunkName: "course-detail" */ '../views/OffLineCourse.vue')
+    component: () => import(/* webpackChunkName: "course-offline/:id" */ '../views/OffLineCourse.vue')
   },
   {
     path: '/course-online/:id',
     name: 'course-online',
-    component: () => import(/* webpackChunkName: "course-detail" */ '../views/OnlineCourse.vue')
+    component: () => import(/* webpackChunkName: "course-online" */ '../views/OnlineCourse.vue')
   },
   {
     path: '/personal-data',
     name: 'personal-data',
-    component: () => import(/* webpackChunkName: "course-detail" */ '../views/PersonalData.vue')
+    component: () => import(/* webpackChunkName: "personal-data" */ '../views/PersonalData.vue')
   },
   {
     path: '/payment-details',
     name: 'payment-details',
-    component: () => import(/* webpackChunkName: "course-detail" */ '../views/PaymentDetails.vue')
+    component: () => import(/* webpackChunkName: "payment-details" */ '../views/PaymentDetails.vue')
+  },
+  {
+    path: '/add-course',
+    name: 'add-course',
+    component: () => import(/* webpackChunkName: "add-course" */ '../views/AddCourse.vue')
+  },
+  {
+    path: '/add-course-payment',
+    name: 'add-course-payment',
+    component: () => import(/* webpackChunkName: "add-course" */ '../views/AddCoursePayment.vue')
   }
 ]
 
