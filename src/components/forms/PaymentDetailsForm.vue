@@ -37,7 +37,7 @@
         >
           <v-text-field
             :value="cardNumber"
-            :rules="[rules.required]"
+            :rules="[rules.required,rules.lengthOfCardNumber]"
             label="Card number"
             outlined
             dark
@@ -56,8 +56,8 @@
           xl="3"
           class="pa-0 d-flex"
         >
-          <v-select :items="month" v-model="cardMonth" class="pr-4" label="Month" dark outlined></v-select>
-          <v-select :items="arrayOfYears" v-model="cardYear" class="pl-4" label="Year" dark outlined></v-select>
+          <v-select :items="month" v-model="cardMonth" :rules="[rules.required]" class="pr-4" label="Month" dark outlined></v-select>
+          <v-select :items="arrayOfYears" v-model="cardYear" :rules="[rules.required]" class="pl-4" label="Year" dark outlined></v-select>
         </v-col>
         <v-col
           cols="12"
@@ -73,7 +73,7 @@
           <v-text-field
             class="field"
             v-model="cvc"
-            :rules="[rules.required, rules.onlyDigits]"
+            :rules="[rules.required, rules.onlyDigits,rules.cvcLength]"
             label="CVC"
             outlined
             maxlength="3"
@@ -158,8 +158,9 @@ export default {
       month: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
       rules: {
         required: (v) => !!v || 'input is required',
-        minLengthName: (v) => v.length <= 15 || 'the maximum number of characters entered',
-        onlyDigits: (v) => !/\D/g.test(v) || 'input should consist only of digits'
+        lengthOfCardNumber: (v) => v.length === 19 || 'length of card number must be 16 digits',
+        onlyDigits: (v) => !/\D/g.test(v) || 'input should consist only of digits',
+        cvcLength: (v) => v.length === 3 || 'length of cvc number must be 3 digits'
       }
     }
   },
