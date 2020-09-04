@@ -57,7 +57,7 @@
           class="pa-0 d-flex"
         >
           <v-select :items="month" v-model="cardMonth" :rules="[rules.required]" class="pr-4" label="Month" dark outlined></v-select>
-          <v-select :items="arrayOfYears" v-model="cardYear" :rules="[rules.required]" class="pl-4" label="Year" dark outlined></v-select>
+          <v-select :items="years" v-model="cardYear" :rules="[rules.required]" class="pl-4" label="Year" dark outlined></v-select>
         </v-col>
         <v-col
           cols="12"
@@ -156,6 +156,7 @@ export default {
       checkbox: '',
       checkbox2: '',
       month: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+      years: [],
       rules: {
         required: (v) => !!v || 'input is required',
         lengthOfCardNumber: (v) => v.length === 19 || 'length of card number must be 16 digits',
@@ -167,18 +168,24 @@ export default {
 
   computed: {
     // eslint-disable-next-line vue/return-in-computed-property
-    arrayOfYears () {
-      const arr = []
-      let currentYear = Number(new Date().getFullYear())
-      for (let item = 0; item <= 12; item++) {
-        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
-        arr.push(currentYear++)
-      }
-      return arr
-    }
+    // arrayOfYears () {
+    //   const arr = []
+    //   let currentYear = Number(new Date().getFullYear())
+    //   for (let item = 0; item <= 12; item++) {
+    //     // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+    //     arr.push(currentYear++)
+    //   }
+    //   return arr
+    // }
 
   },
   methods: {
+    addYears () {
+      let currentYear = Number(new Date().getFullYear())
+      for (let item = 0; item <= 12; item++) {
+        this.years.push(currentYear++)
+      }
+    },
     sendData () {
       this.$store.dispatch('', {
         cardHolderName: this.cardHolderName,
@@ -205,6 +212,9 @@ export default {
         // this.$router.push('/')
       }
     }
+  },
+  mounted () {
+    this.addYears()
   }
 }
 </script>

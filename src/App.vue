@@ -2,7 +2,7 @@
   <v-app dark>
     <v-container fluid class="mx-auto homefone">
       <SystemBar />
-      <MainMenu v-if="maimMenuShowInRouteNames.includes(this.$route.name)" />
+      <MainMenu v-if="maimMenuShowInRouteNames.includes(this.$route.name) && viewportWidth > 900"/>
       <v-main class="main-content">
         <router-view></router-view>
       </v-main>
@@ -62,6 +62,8 @@ import SystemBar from './components/SystemBar.vue'
 import Footer from './components/Footer.vue'
 import MainMenu from '@/components/MainMenu.vue'
 
+import { mapState } from 'vuex'
+
 export default {
   name: 'App',
 
@@ -74,8 +76,22 @@ export default {
   data: () => ({
     maimMenuShowInRouteNames: ['home', 'add-course', 'add-course-payment']
   }),
+  computed: {
+    ...mapState(['viewportWidth'])
+  },
   methods: {
-
+    onResize () {
+      this.$store.commit('CHANGE_VIEWPORT_WIDTH')
+    }
+  },
+  mounted () {
+    this.onResize()
+    window.addEventListener('resize', this.onResize, { passive: true })
+  },
+  beforeDestroy () {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.onResize, { passive: true })
+    }
   }
 }
 </script>
