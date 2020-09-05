@@ -31,7 +31,9 @@
     </v-row>
   </v-app-bar>-->
 
-  <v-app-bar app color="primary" dark>
+  <v-app-bar app color="primary" outlined dark style="top:20px;-webkit-box-shadow: 0px 15px 8px 0px rgba(0,0,0,0.68);
+-moz-box-shadow: 0px 15px 8px 0px rgba(0,0,0,0.68);
+box-shadow: 0px 15px 8px 0px rgba(0,0,0,0.68);" class="pb-15">
     <div class="d-flex align-center">
       <h1>
         <span style="color: #000">NAILS</span>AUSTRALIA

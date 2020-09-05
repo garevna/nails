@@ -1,7 +1,9 @@
 <template>
   <v-app dark>
     <v-container fluid class="mx-auto homefone">
-      <SystemBar />
+      <div class="header-container" :style="{backgroundColor:backgroundColor}">
+        <SystemBar />
+      </div>
       <MainMenu v-if="maimMenuShowInRouteNames.includes(this.$route.name) && viewportWidth > 900"/>
       <v-main class="main-content">
         <router-view></router-view>
@@ -27,6 +29,14 @@ h1, h2, h3 {
 
 .main-content {
   margin-bottom: 400px!important;
+}
+.header-container  {
+  position:fixed;
+  height: 50px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index:20;
 }
 
 @media screen and (max-width: 800px) {
@@ -77,7 +87,10 @@ export default {
     maimMenuShowInRouteNames: ['home', 'add-course', 'add-course-payment']
   }),
   computed: {
-    ...mapState(['viewportWidth'])
+    ...mapState(['viewportWidth']),
+    backgroundColor () {
+      return this.$vuetify.theme.themes.light.homefone
+    }
   },
   methods: {
     onResize () {
