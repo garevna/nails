@@ -37,7 +37,7 @@ h1, h2, h3 {
   width: 100%;
   top: 0;
   left: 0;
-  z-index:20;
+  z-index:5;
 }
 
 @media screen and (max-width: 800px) {
