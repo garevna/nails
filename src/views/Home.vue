@@ -15,7 +15,7 @@
               <h1>S H O P</h1>
             </v-card-text>
             <v-card-text class="text-center">
-              <p>{{ shop }}</p>
+              <p>{{ shopText }}</p>
             </v-card-text>
             <v-card-text class="text-center">
               <v-btn

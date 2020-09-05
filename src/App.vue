@@ -1,8 +1,10 @@
 <template>
   <v-app dark>
     <v-container fluid class="mx-auto homefone">
-      <SystemBar />
-      <MainMenu v-if="maimMenuShowInRouteNames.includes(this.$route.name)" />
+      <div class="header-container" :style="{backgroundColor:backgroundColor}">
+        <SystemBar />
+      </div>
+      <MainMenu v-if="maimMenuShowInRouteNames.includes(this.$route.name) && viewportWidth > 900"/>
       <v-main class="main-content">
         <router-view></router-view>
       </v-main>
@@ -26,12 +28,21 @@ h1, h2, h3 {
 }
 
 .main-content {
-  margin-bottom: 400px!important;
+  margin-bottom: 150px!important;
+  margin-top: 20px!important;
+}
+.header-container  {
+  position:fixed;
+  height: 50px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index:5;
 }
 
 @media screen and (max-width: 800px) {
   .main-content {
-    margin-bottom: 580px!important;
+    margin-bottom: 150px!important;
   }
   h1 {
     font-size: 28px;
@@ -39,17 +50,17 @@ h1, h2, h3 {
 }
 @media screen and (max-width: 960px) {
   .main-content {
-    margin-bottom: 470px!important;
+    margin-bottom: 150px!important;
   }
 }
 @media screen and (max-width: 600px) {
   .main-content {
-    margin-bottom: 780px!important;
+    margin-bottom: 200px!important;
   }
 }
 @media screen and (max-width: 540px) {
   .main-content {
-    margin-bottom: 840px!important;
+    margin-bottom: 150px!important;
   }
   h1 {
     font-size: 20px;
@@ -61,6 +72,8 @@ h1, h2, h3 {
 import SystemBar from './components/SystemBar.vue'
 import Footer from './components/Footer.vue'
 import MainMenu from '@/components/MainMenu.vue'
+
+import { mapState } from 'vuex'
 
 export default {
   name: 'App',
@@ -74,8 +87,25 @@ export default {
   data: () => ({
     maimMenuShowInRouteNames: ['home', 'add-course', 'add-course-payment']
   }),
+  computed: {
+    ...mapState(['viewportWidth']),
+    backgroundColor () {
+      return this.$vuetify.theme.themes.light.homefone
+    }
+  },
   methods: {
-
+    onResize () {
+      this.$store.commit('CHANGE_VIEWPORT_WIDTH')
+    }
+  },
+  mounted () {
+    this.onResize()
+    window.addEventListener('resize', this.onResize, { passive: true })
+  },
+  beforeDestroy () {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', this.onResize, { passive: true })
+    }
   }
 }
 </script>

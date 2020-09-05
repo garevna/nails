@@ -1,10 +1,13 @@
 <template>
   <div color="warning menu">
     <input class="search menu-app-bar" text/>
+    <v-btn icon>
+      <v-icon color="secondaryGray" >mdi-shopping</v-icon>
+    </v-btn>
     <v-menu bottom left>
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on">
-          <v-icon>mdi-dots-vertical</v-icon>
+          <v-icon color="secondaryGray" >mdi-dots-vertical</v-icon>
         </v-btn>
       </template>
 
@@ -24,9 +27,6 @@
 .v-treeview-node__children {
   color:#fff;
 }
-/* .v-treeview-node__root:first-child{
-  flex-direction: row-reverse;
-} */
 </style>
 <style scoped>
 .menu {
@@ -62,16 +62,16 @@
   display: flex;
   margin: 10px 0 10px 0;
   width: 100px;
-  /* height: 20px; */
   flex-grow: 0;
-  /* flex-basis: 50px; */
   border: 1px solid #000;
   padding-left: 5px;
   outline: none;
   font-family: 'Archivo Narrow';
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
 }
 .search:focus {
-  /* transform: scale(1.2); */
   width: 250px;
 }
 .drop-down-menu{

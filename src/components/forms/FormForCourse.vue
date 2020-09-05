@@ -58,9 +58,6 @@
   </v-form>
 </template>
 <style scoped>
-/* .v-text-field {
-  min-width: 300px;
-} */
 </style>
 <script>
 export default {

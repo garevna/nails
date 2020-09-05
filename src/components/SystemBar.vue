@@ -31,14 +31,14 @@
     </v-row>
   </v-app-bar>-->
 
-  <v-app-bar app color="primary" dark>
+  <v-app-bar app color="#FFC44A" outlined dark class="app-bar-header">
     <div class="d-flex align-center">
       <h1>
         <span style="color: #000">NAILS</span>AUSTRALIA
       </h1>
     </div>
     <v-spacer></v-spacer>
-    <div class="primary app-bar d-none d-md-block">
+    <div class="primary app-bar d-none d-md-block menu-app-bar-btn">
       <v-btn @click="goHome" text>HOME</v-btn>
       <v-btn @click="goToShop" text>SHOP</v-btn>
       <v-btn @click="goToCourses" text>COURSES</v-btn>
@@ -89,6 +89,18 @@
 </template>
 
 <style scoped>
+.app-bar-header {
+  top:20px !important;
+  -webkit-box-shadow: 0px 15px 8px 0px rgba(0,0,0,0.68)!important;
+  -moz-box-shadow: 0px 15px 8px 0px rgba(0,0,0,0.68)!important;
+  box-shadow: 0px 15px 8px 0px rgba(0,0,0,0.68)!important;
+  background-color: #FFC44A!important;
+}
+.menu-app-bar-btn button{
+  color: #000;
+  font-size:22px;
+  font-weight: 700;
+}
 .burger-menu {
   position: fixed;
   right: 24px;
