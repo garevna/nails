@@ -29,6 +29,7 @@ h1, h2, h3 {
 
 .main-content {
   margin-bottom: 400px!important;
+  margin-top: 20px!important;
 }
 .header-container  {
   position:fixed;
