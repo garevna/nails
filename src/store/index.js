@@ -1289,14 +1289,15 @@ export default new Vuex.Store({
     ],
     buttonForDetailOfflineShop: 'Apply',
     buttonForRegistrationOfflineShop: 'CONFIRM DETAILS AND PROCEED WITH PAYMENT',
-    buttonForRegistrationOnlineShop: 'BUY THIS COURSE'
+    buttonForRegistrationOnlineShop: 'BUY THIS COURSE',
+    viewportWidth: window.innerWidth
   },
   modules,
   getters: {
     //
   },
   mutations: {
-    //
+    CHANGE_VIEWPORT_WIDTH: (state) => { state.viewportWidth = window.innerWidth }
   },
   actions: {
     //
