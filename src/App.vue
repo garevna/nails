@@ -28,7 +28,7 @@ h1, h2, h3 {
 }
 
 .main-content {
-  margin-bottom: 400px!important;
+  margin-bottom: 150px!important;
   margin-top: 20px!important;
 }
 .header-container  {
@@ -42,7 +42,7 @@ h1, h2, h3 {
 
 @media screen and (max-width: 800px) {
   .main-content {
-    margin-bottom: 580px!important;
+    margin-bottom: 150px!important;
   }
   h1 {
     font-size: 28px;
@@ -50,17 +50,17 @@ h1, h2, h3 {
 }
 @media screen and (max-width: 960px) {
   .main-content {
-    margin-bottom: 470px!important;
+    margin-bottom: 150px!important;
   }
 }
 @media screen and (max-width: 600px) {
   .main-content {
-    margin-bottom: 780px!important;
+    margin-bottom: 200px!important;
   }
 }
 @media screen and (max-width: 540px) {
   .main-content {
-    margin-bottom: 840px!important;
+    margin-bottom: 150px!important;
   }
   h1 {
     font-size: 20px;

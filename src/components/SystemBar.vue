@@ -31,7 +31,7 @@
     </v-row>
   </v-app-bar>-->
 
-  <v-app-bar app color="primary" outlined dark class="app-bar-header">
+  <v-app-bar app color="#FFC44A" outlined dark class="app-bar-header">
     <div class="d-flex align-center">
       <h1>
         <span style="color: #000">NAILS</span>AUSTRALIA
@@ -94,6 +94,7 @@
   -webkit-box-shadow: 0px 15px 8px 0px rgba(0,0,0,0.68)!important;
   -moz-box-shadow: 0px 15px 8px 0px rgba(0,0,0,0.68)!important;
   box-shadow: 0px 15px 8px 0px rgba(0,0,0,0.68)!important;
+  background-color: #FFC44A!important;
 }
 .menu-app-bar-btn button{
   color: #000;
