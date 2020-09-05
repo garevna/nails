@@ -1,24 +1,26 @@
 <template>
-  <v-bottom-navigation v-model="bottomNav" absolute shift height="auto" background-color="#fa0" color="#000">
-    <v-card flat class="transparent mx-auto" max-width="2400">
-      <v-row align="start" justify="center">
+  <v-bottom-navigation v-model="bottomNav" absolute shift height="auto" background-color="#fa0" class='footer'>
+    <v-card flat class="transparent mx-auto" max-width="2400" width="80%">
+      <v-row align="start" justify="end" width="100%">
         <v-col cols="12" sm="6" md="5" lg="5">
-          <v-btn  href="https://www.facebook.com/" target="_blank" fab width='80' >
-            <v-img :src="require('@/assets/images/facebookico2.svg')" width='100%' contain/>
-          </v-btn>
-
-          <v-btn height="80">
-            <v-icon x-large href="https://www.instagram.com/nailsaustralia" target="_blank" fab>mdi-linkedin</v-icon>
-          </v-btn>
-
-          <v-btn height="80">
-            <v-icon x-large href="https://www.instagram.com/nailsaustralia" target="_blank" fab>mdi-instagram</v-icon>
-          </v-btn>
-
+          <v-row class='mt-5'>
+            <a href="https://www.instagram.com/nailsaustralia" target="_blank" fab width="70" height="70">
+              <v-img :src="require('@/assets/images/instagramico.svg')" class='mx-5' width="70" height="70" />
+            </a>
+            <a href="https://www.instagram.com/nailsaustralia_shop" target="_blank" fab width="70" height="70">
+              <v-img :src="require('@/assets/images/instagramico.svg')" class='mx-5' width="70" height="70" />
+            </a>
+            <a href="https://www.facebook.com/nailsaustralia" target="_blank" fab>
+              <v-img :src="require('@/assets/images/facebookico.svg')" class='mx-5' width="70" height="70" />
+            </a>
+          </v-row>
+<v-row class='mt-5'>
           <v-card-text>
-            <h3>32 Brewer rd, Bentligh 3204 VIC</h3>
-            <h3>nailsauinfo@gmail.com</h3>
+            <h2>32 Brewer rd, Bentligh 3204 VIC</h2>
+            <a href="mailto:nailsauinfo@gmail.com" class='mail-link'><h3>nailsauinfo@gmail.com</h3></a>
           </v-card-text>
+          </v-row>
+
         </v-col>
 
         <v-col cols="12" sm="6" md="2" lg="2">
@@ -60,7 +62,19 @@
   </v-bottom-navigation>
 </template>
 
-<style scoped></style>
+<style scoped>
+.social {
+
+  margin-bottom: 210px;
+}
+.footer{
+  color: #333333
+}
+.mail-link{
+  text-decoration: none;
+  color: #333333
+}
+</style>
 
 <script>
 export default {
