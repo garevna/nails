@@ -3,16 +3,16 @@
     <v-card flat class="transparent mx-auto" max-width="2400">
       <v-row align="start" justify="center">
         <v-col cols="12" sm="6" md="5" lg="5">
-          <v-btn height="80" href="https://www.facebook.com/" target="_blank" fab>
-            <v-icon x-large>mdi-facebook</v-icon>
+          <v-btn  href="https://www.facebook.com/" target="_blank" fab width='80' >
+            <v-img :src="require('@/assets/images/facebookico2.svg')" width='100%' contain/>
           </v-btn>
 
           <v-btn height="80">
-            <v-icon x-large>mdi-linkedin</v-icon>
+            <v-icon x-large href="https://www.instagram.com/nailsaustralia" target="_blank" fab>mdi-linkedin</v-icon>
           </v-btn>
 
           <v-btn height="80">
-            <v-icon x-large>mdi-instagram</v-icon>
+            <v-icon x-large href="https://www.instagram.com/nailsaustralia" target="_blank" fab>mdi-instagram</v-icon>
           </v-btn>
 
           <v-card-text>
