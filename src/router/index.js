@@ -26,14 +26,24 @@ const routes = [
     component: () => import(/* webpackChunkName: "courses" */ '../views/Courses.vue')
   },
   {
-    path: '/course-offline/:id',
-    name: 'course-offline',
-    component: () => import(/* webpackChunkName: "course-offline/:id" */ '../views/OffLineCourse.vue')
+    path: '/courses-offline',
+    name: 'courses-offline',
+    component: () => import(/* webpackChunkName: "" */ '../views/OffLineCourses.vue')
   },
   {
-    path: '/course-online/:id',
+    path: '/courses-offline/:id',
+    name: 'course-offline',
+    component: () => import(/* webpackChunkName: "" */ '../views/OffLineCourse.vue')
+  },
+  {
+    path: '/courses-online',
+    name: 'courses-online',
+    component: () => import(/* webpackChunkName: "" */ '../views/OnlineCourses.vue')
+  },
+  {
+    path: '/courses-online/:id',
     name: 'course-online',
-    component: () => import(/* webpackChunkName: "course-online" */ '../views/OnlineCourse.vue')
+    component: () => import(/* webpackChunkName: "" */ '../views/OnlineCourse.vue')
   },
   {
     path: '/personal-data',
