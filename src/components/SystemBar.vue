@@ -1,104 +1,72 @@
 <template>
-  <!-- Viewport width wider or equal lg -->
-  <!-- <v-app-bar
-            app
-            fixed
-            height="80"
-            flat
-            class="homefone app-bar d-none d-lg-block"
-    >
-        <v-row align="center" justify="center">
-          <span height="45" width="150" class="ml-10">
-            <v-img src="@/assets/logo.svg" contain width="150" height="45"></v-img>
-          </span>
-          <v-spacer></v-spacer>
-      <v-btn-toggle
-            group
-            flat
-            class="mr-10 d-none d-lg-flex"
-            color="transparent"
-            v-model="toggle"
+  <div class="header-container" :style="{ backgroundColor: backgroundColor }">
+    <v-app-bar app color="#FFC44A" outlined dark class="app-bar-header">
+      <div class="d-flex align-center">
+        <h1><span style="color: #000">NAILS</span>AUSTRALIA</h1>
+      </div>
+      <v-spacer></v-spacer>
+      <div class="primary app-bar d-none d-md-block menu-app-bar-btn">
+        <v-btn @click="goHome" text>HOME</v-btn>
+        <v-btn @click="goToShop" text>SHOP</v-btn>
+        <v-btn @click="goToCourses" text>COURSES</v-btn>
+      </div>
+      <MenuSystemBar class=" d-none d-md-flex" />
+
+      <!-- Viewport width less then lg -->
+      <v-expansion-panels
+        tile
+        flat
+        v-model="panel"
+        class="app-bar d-md-none"
+        width="100%"
+        style="position: fixed; left: 0; margin-top: -8px; z-index: 10;"
       >
-        <v-btn text
-               v-for="(page, index) in pages"
-               :key="index"
-               :class="getClassName(page)"
-               @click="$emit('update:selected', index)">
-          <ContactUs v-if="page === 'Contact Us'" style="width: 50px; height:50px;" />
-              {{ page }}
-        </v-btn>
-      </v-btn-toggle>
-    </v-row>
-  </v-app-bar>-->
-
-  <v-app-bar app color="#FFC44A" outlined dark class="app-bar-header">
-    <div class="d-flex align-center">
-      <h1>
-        <span style="color: #000">NAILS</span>AUSTRALIA
-      </h1>
-    </div>
-    <v-spacer></v-spacer>
-    <div class="primary app-bar d-none d-md-block menu-app-bar-btn">
-      <v-btn @click="goHome" text>HOME</v-btn>
-      <v-btn @click="goToShop" text>SHOP</v-btn>
-      <v-btn @click="goToCourses" text>COURSES</v-btn>
-    </div>
-    <MenuSystemBar class=" d-none d-md-flex"/>
-
-    <!-- Viewport width less then lg -->
-    <v-expansion-panels
-      tile
-      flat
-      v-model="panel"
-      class="app-bar d-md-none"
-      width="100%"
-      style="position: fixed; left: 0; margin-top: -8px; z-index: 10;"
-    >
-      <v-expansion-panel style="background: transparent">
-        <v-expansion-panel-header expand-icon="none" hide-actions height="80">
-          <v-btn text class="burger-menu" height="48" width="48">
-            <span :class="burgerMenuClassFirst"></span>
-            <span :class="burgerMenuClassSecond"></span>
-          </v-btn>
-        </v-expansion-panel-header>
-        <v-expansion-panel-content
-          class="main-menu-content"
-          style="margin-top: 128px; padding: 64px 16px 16px!important"
-        >
-          <v-list flat class="main-menu-content text-center">
-            <!-- <v-list-item
+        <v-expansion-panel style="background: transparent">
+          <v-expansion-panel-header expand-icon="none" hide-actions height="80">
+            <v-btn text class="burger-menu" height="48" width="48">
+              <span :class="burgerMenuClassFirst"></span>
+              <span :class="burgerMenuClassSecond"></span>
+            </v-btn>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content
+            class="main-menu-content"
+            style="margin-top: 128px; padding: 64px 16px 16px!important"
+          >
+            <v-list flat class="main-menu-content text-center">
+              <!-- <v-list-item
                     v-for="(page, index) in pages"
                     :key="index"
                     @click="$emit('update:selected', index); panel = []"
                     style="background: #CACACA"
             >-->
-            <v-list-item class="main-menu-content" @click="goHome">
-              <v-list-item-title class="main-menu-content main-menu-items">Home</v-list-item-title>
-            </v-list-item>
-            <v-list-item class="main-menu-content" @click="goToShop">
-              <v-list-item-title class="main-menu-content main-menu-items">Shop</v-list-item-title>
-            </v-list-item>
-            <v-list-item class="main-menu-content" @click="goToCourses">
-              <v-list-item-title class="main-menu-content main-menu-items">Courses</v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
-  </v-app-bar>
+              <v-list-item class="main-menu-content" @click="goHome">
+                <v-list-item-title class="main-menu-content main-menu-items">Home</v-list-item-title>
+              </v-list-item>
+              <v-list-item class="main-menu-content" @click="goToShop">
+                <v-list-item-title class="main-menu-content main-menu-items">Shop</v-list-item-title>
+              </v-list-item>
+              <v-list-item class="main-menu-content" @click="goToCourses">
+                <v-list-item-title class="main-menu-content main-menu-items">Courses</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </v-app-bar>
+  </div>
 </template>
 
 <style scoped>
 .app-bar-header {
-  top:20px !important;
-  -webkit-box-shadow: 0px 15px 8px 0px rgba(0,0,0,0.68)!important;
-  -moz-box-shadow: 0px 15px 8px 0px rgba(0,0,0,0.68)!important;
-  box-shadow: 0px 15px 8px 0px rgba(0,0,0,0.68)!important;
-  background-color: #FFC44A!important;
+  top: 20px !important;
+  -webkit-box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
+  -moz-box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
+  box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
+  background-color: #ffc44a !important;
 }
-.menu-app-bar-btn button{
+.menu-app-bar-btn button {
   color: #000;
-  font-size:22px;
+  font-size: 22px;
   font-weight: 700;
 }
 .burger-menu {
@@ -142,6 +110,14 @@
   font-size: 18px;
   line-height: 40px;
 }
+.header-container {
+  position: fixed;
+  height: 50px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 5;
+}
 </style>
 
 <script>
@@ -164,6 +140,9 @@ export default {
     },
     burgerMenuClassSecond () {
       return this.panel === 0 ? 'burger-menu-active--second' : 'burger-menu--second'
+    },
+    backgroundColor () {
+      return this.$vuetify.theme.themes.light.homefone
     }
   },
   methods: {

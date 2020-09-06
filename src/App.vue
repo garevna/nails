@@ -1,10 +1,8 @@
 <template>
   <v-app dark>
     <v-container fluid class="mx-auto homefone">
-      <div class="header-container" :style="{backgroundColor:backgroundColor}">
-        <SystemBar />
-      </div>
-      <MainMenu v-if="maimMenuShowInRouteNames.includes(this.$route.name) && viewportWidth > 900"/>
+      <SystemBar />
+      <MainMenu v-if="maimMenuShowInRouteNames.includes(this.$route.name) && viewportWidth > 900" />
       <v-main class="main-content">
         <router-view></router-view>
       </v-main>
@@ -14,35 +12,29 @@
 </template>
 
 <style>
-
-html, body,
+html,
+body,
 .v-application {
   font-family: 'Archivo Narrow' !important;
 }
 .v-application--wrap {
-  background: #000!important;
+  background: #000 !important;
 }
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   font-family: 'Archivo Black' !important;
   line-height: 150%;
 }
 
 .main-content {
-  margin-bottom: 150px!important;
-  margin-top: 20px!important;
-}
-.header-container  {
-  position:fixed;
-  height: 50px;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index:5;
+  margin-bottom: 150px !important;
+  margin-top: 20px !important;
 }
 
 @media screen and (max-width: 800px) {
   .main-content {
-    margin-bottom: 150px!important;
+    margin-bottom: 150px !important;
   }
   h1 {
     font-size: 28px;
@@ -50,17 +42,17 @@ h1, h2, h3 {
 }
 @media screen and (max-width: 960px) {
   .main-content {
-    margin-bottom: 150px!important;
+    margin-bottom: 150px !important;
   }
 }
 @media screen and (max-width: 600px) {
   .main-content {
-    margin-bottom: 200px!important;
+    margin-bottom: 200px !important;
   }
 }
 @media screen and (max-width: 540px) {
   .main-content {
-    margin-bottom: 150px!important;
+    margin-bottom: 150px !important;
   }
   h1 {
     font-size: 20px;
@@ -88,10 +80,7 @@ export default {
     maimMenuShowInRouteNames: ['home', 'add-course', 'add-course-payment']
   }),
   computed: {
-    ...mapState(['viewportWidth']),
-    backgroundColor () {
-      return this.$vuetify.theme.themes.light.homefone
-    }
+    ...mapState(['viewportWidth'])
   },
   methods: {
     onResize () {
