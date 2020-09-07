@@ -4,10 +4,10 @@
       <v-col>
         <v-row fluid justify="center" style="background-color: #414242">
           <v-col d-flex cols="12" xs="12">
-            <h2 style="text-align:center;">Online course</h2>
+            <h2 style="text-align:center;" class="ref" @click="toOnlineCourses">Online courses</h2>
           </v-col>
           <CoursesCard
-            v-for="(card) in onlineShop"
+            v-for="(card) in onlineCards"
             :key="card.name"
             :img="card.img"
             :name="card.name"
@@ -18,10 +18,10 @@
         </v-row>
       </v-col>
       <v-col justify-content-center cols="12" xs="12">
-        <h2 class="homefone" style="text-align:center;">Offline course</h2>
+        <h2 class="homefone ref" style="text-align:center;" @click="toOfflineCourses">Offline courses</h2>
       </v-col>
       <CoursesCard
-        v-for="(card) in offlineShop"
+        v-for="(card) in offlineCards"
         :key="card.name"
         :img="card.img"
         :name="card.name"
@@ -32,10 +32,22 @@
     </v-row>
   </v-container>
 </template>
+
+<style scoped lang="scss">
+h2 {
+  color: white;
+}
+.ref:hover {
+  cursor: pointer;
+  color: blue;
+}
+</style>
+
 <script>
 import { mapState } from 'vuex'
 import CoursesCard from '@/components/Courses/CoursesCard.vue'
 export default {
+  props: ['offlineLimit', 'onlineLimit'],
   components: {
     CoursesCard
   },
@@ -46,7 +58,21 @@ export default {
     }
   },
   computed: {
-    ...mapState(['offlineShop', 'onlineShop'])
+    ...mapState('course', ['offlineShop', 'onlineShop']),
+    offlineCards () {
+      return this.offlineShop.filter((item, index) => index < this.offlineLimit)
+    },
+    onlineCards () {
+      return this.onlineShop.filter((item, index) => index < this.onlineLimit)
+    }
+  },
+  methods: {
+    toOfflineCourses () {
+      this.$router.push('/courses-offline')
+    },
+    toOnlineCourses () {
+      this.$router.push('/courses-online')
+    }
   }
 }
 </script>

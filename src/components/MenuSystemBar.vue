@@ -72,10 +72,25 @@
   letter-spacing: 0.1em;
 }
 .search:focus {
-  width: 250px;
+  width: 300px;
 }
 .drop-down-menu{
   background-color: #000;
+}
+@media screen and (max-width: 1330px) {
+  .search:focus {
+  width: 250px;
+}
+}
+@media screen and (max-width: 1230px) {
+  .search:focus {
+  width: 200px;
+}
+}
+@media screen and (max-width: 1030px) {
+  .search:focus {
+  width: 150px;
+}
 }
 </style>
 <script>

@@ -59,6 +59,7 @@
                   dark
                   min-width="160"
                   class="yellow-button mr-4 mb-4"
+                  @click="toAllCourses"
               >
                 ALL COURSES
               </v-btn>
@@ -86,7 +87,7 @@
       <Slider />
     </v-card>
     <v-card flat dark class="mx-auto secondary" max-width="1440">
-      <Courses/>
+      <Courses offlineLimit="6" onlineLimit="6"/>
     </v-card>
   </v-container>
 </template>
@@ -120,16 +121,20 @@ export default {
     Courses
   },
   data: () => ({
-    aboutText: [...Array(100)].map(i => (String.fromCharCode(Math.max(Math.floor(Math.random() * 122), 32)))).join(''),
-    coursesText: [...Array(100)].map(i => (String.fromCharCode(Math.max(Math.floor(Math.random() * 122), 32)))).join(''),
-    shopText: 'Shopping is an activity in which a customer browses the available goods or services presented by one or more retailers with the potential intent to purchase a suitable selection of them. A typology of shopper types has been developed by scholars which identifies one group of shoppers as recreational shoppers, that is, those who enjoy shopping and view it as a leisure activity. Online shopping has become a major disruptor in the retail industry as consumers can now search for product information and place product orders across different regions. Online retailers deliver their products directly to the consumers` home, offices or wherever they want. The B2C (business to consumer) process has made it easy for consumers to select any product online from a retailer`s website and to have it delivered relatively quickly. Using online shopping methods, consumers do not need to consume energy by physically visiting physical stores. This way they save time and the cost of travelling. A retailer or a shop is a business that presents a selection of goods and offers to trade or sell them to customers for money or other goods. Shoppers` shopping experiences may vary. They are based on a variety of factors including how the customer is treated, convenience, the type of goods being purchased, and mood. According to a 2000 report, in New York State, women purchase 80% of all consumer goods.'
+    // REVIEW: are these lines needed?
+    // aboutText: [...Array(100)].map(i => (String.fromCharCode(Math.max(Math.floor(Math.random() * 122), 32)))).join(''),
+    // coursesText: [...Array(100)].map(i => (String.fromCharCode(Math.max(Math.floor(Math.random() * 122), 32)))).join('')
   }),
   computed: {
-    ...mapState(['about', 'shop', 'courses'])
+    // INFO: 'shop' no used
+    ...mapState('home', ['about', 'shop', 'shopText', 'courses'])
   },
   methods: {
     addCourseHandler () {
       this.$router.push('/add-course')
+    },
+    toAllCourses () {
+      this.$router.push('/courses')
     }
   }
 }
