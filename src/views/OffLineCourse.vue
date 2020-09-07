@@ -40,7 +40,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['offlineShop', 'buttonForDetailOfflineShop', 'buttonForRegistrationOfflineShop']),
+    ...mapState('course', ['offlineShop']),
+    ...mapState(['buttonForDetailOfflineShop', 'buttonForRegistrationOfflineShop']),
     getDetailCourse () {
       return this.offlineShop.find(item => item.id === this.$route.params.id)
     }
@@ -50,6 +51,5 @@ export default {
       this.$router.push('/personal-data')
     }
   }
-
 }
 </script>

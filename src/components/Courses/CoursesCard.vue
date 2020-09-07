@@ -63,7 +63,7 @@ export default {
       this.$router.push(`/courses-online/${this.id}`)
     },
     payDetail () {
-      console.log('i`m work!')
+      this.$router.push('/personal-data')
     }
   }
 }

@@ -40,7 +40,8 @@ export default {
     }
   },
   computed: {
-    ...mapState(['onlineShop', 'buttonForRegistrationOnlineShop']),
+    ...mapState('course', ['onlineShop']),
+    ...mapState(['buttonForRegistrationOnlineShop']),
     getDetailCourse () {
       return this.onlineShop.find(item => item.id === this.$route.params.id)
     }
