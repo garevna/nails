@@ -61,13 +61,8 @@ export default {
   },
   methods: {
     setNewCategory (val) {
-      this.setSelectedSection(val.name)
+      this.setSelectedSection(val)
       this.isOpened = !this.isOpened
-    }
-  },
-  mounted () {
-    if (!this.categories) {
-      this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
     }
   }
 }

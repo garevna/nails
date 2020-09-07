@@ -156,7 +156,7 @@ export default {
       if (this.categories && this.categories[0] && this.categories[0][0] && this.categories[0][0]._id) {
         selectedSection = this.categories[0][0]
       }
-      if (this.$route.name !== 'shop') this.$router.push({ name: 'shop', params: { categoryId: selectedSection._id } })
+      if (this.$route.name !== 'shop') this.$router.push({ name: 'shop', params: { categoryName: selectedSection.name.replaceAll(' ', '-').toLowerCase() } })
     },
     goToCourses () {
       this.panel = []
@@ -164,9 +164,7 @@ export default {
     }
   },
   mounted () {
-    if (!this.categories) {
-      this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
-    }
+
   }
 }
 </script>

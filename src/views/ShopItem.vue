@@ -142,6 +142,9 @@ export default {
     }
   },
   mounted () {
+    if (!this.categories) {
+      this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
+    }
     this.$store.dispatch('shop/GET_COMMODITY', { commodityId: this.commodityId })
     this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
     this.mobileMenu = window.innerWidth < 960
