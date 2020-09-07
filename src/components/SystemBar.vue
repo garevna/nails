@@ -2,7 +2,7 @@
   <div class="header-container" :style="{ backgroundColor: backgroundColor }">
     <v-app-bar app color="#FFC44A" outlined dark class="app-bar-header">
       <div class="d-flex align-center">
-        <h1><span style="color: #000">NAILS</span>AUSTRALIA</h1>
+         <h1><span  @click="goHome" class="logo">NAILS</span>AUSTRALIA</h1>
       </div>
       <v-spacer></v-spacer>
       <div class="primary app-bar d-none d-md-block menu-app-bar-btn">
@@ -18,8 +18,7 @@
         flat
         v-model="panel"
         class="app-bar d-md-none"
-        width="100%"
-        style="position: fixed; left: 0; margin-top: -8px; z-index: 10;"
+        style="position: fixed; left: 0; margin-top: -8px; z-index: 0;"
       >
         <v-expansion-panel style="background: transparent">
           <v-expansion-panel-header expand-icon="none" hide-actions height="80">
@@ -56,7 +55,11 @@
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.logo {
+  color:black !important;
+  cursor: pointer;
+}
 .app-bar-header {
   top: 20px !important;
   -webkit-box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
@@ -73,6 +76,7 @@
   position: fixed;
   right: 24px;
   top: 8px;
+  z-index: 10;
 }
 .burger-menu--first,
 .burger-menu--second,
@@ -109,6 +113,13 @@
 .main-menu-items {
   font-size: 18px;
   line-height: 40px;
+}
+.v-expansion-panel-header {
+  width: 0 !important;
+  position: absolute;
+  right: 30px;
+  top: -15px;
+
 }
 .header-container {
   position: fixed;

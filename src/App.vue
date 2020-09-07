@@ -77,7 +77,7 @@ export default {
   },
 
   data: () => ({
-    maimMenuShowInRouteNames: ['home', 'add-course', 'add-course-payment']
+    maimMenuShowInRouteNames: ['home', 'add-course', 'add-course-payment', 'course-card', 'course-offline', 'course-online', 'personal-data', 'payment-details']
   }),
   computed: {
     ...mapState(['viewportWidth'])
