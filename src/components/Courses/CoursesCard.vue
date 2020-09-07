@@ -1,5 +1,5 @@
 <template>
-  <v-card class="cardfone ma-16" width="360" min-height="360">
+  <v-card dark class="cardfone ma-16" width="360" min-height="360">
     <v-img :src="img" contain />
     <v-card-text>
       <h4>{{ name }}</h4>
@@ -49,7 +49,7 @@
 <script>
 
 export default {
-  name: 'course-offline-card',
+  name: 'course-card',
   props: ['img', 'name', 'price', 'id', 'offline', 'online'],
   data () {
     return {
@@ -57,13 +57,13 @@ export default {
   },
   methods: {
     detailOfflineInfo () {
-      this.$router.push(`/course-offline/${this.id}`)
+      this.$router.push(`/courses-offline/${this.id}`)
     },
     detailOnlineInfo () {
-      this.$router.push(`/course-online/${this.id}`)
+      this.$router.push(`/courses-online/${this.id}`)
     },
     payDetail () {
-      console.log('i`m work!')
+      this.$router.push('/personal-data')
     }
   }
 }
