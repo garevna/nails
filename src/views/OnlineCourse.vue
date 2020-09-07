@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     goToPersonalData () {
-      this.$router.push('/personal-data')
+      this.$router.push({ name: 'personal-data' })
     }
   }
 }
