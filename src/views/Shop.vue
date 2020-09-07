@@ -90,7 +90,7 @@ export default {
     }
   },
   mounted () {
-    this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
+    if (!this.categories) this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
     if (this.categories) {
       const allcat = this.categories.flat()
       this.selectedSection = allcat.find((el) => el.name.replaceAll(' ', '-').toLowerCase() === this.categoryName)

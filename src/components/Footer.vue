@@ -27,13 +27,13 @@
             <v-card-text class="gray-text no-wrap">
               <h3>Shop</h3>
               <v-divider></v-divider>
-              <h4>Nippers</h4>
-              <h4>Scissors</h4>
-              <h4>Pushers\Curette</h4>
-              <h4>Drill bits</h4>
-              <h4>Cosmetics</h4>
-              <h4>Brushes</h4>
-              <h4>Promotions</h4>
+              <h4 class='route' @click="goToShopRoute('Cuticle nipper')">Nippers</h4>
+              <h4 class='route' @click="goToShopRoute('Cuticle scissors')">Scissors</h4>
+              <h4 class='route' @click="goToShopRoute('Pushers')">Pushers\Curette</h4>
+              <h4 class='route' @click="goToShopRoute('Diamond Drill bits')">Drill bits</h4>
+              <h4 class='route' @click="goToShopRoute('Cosmetics')">Cosmetics</h4>
+              <h4 class='route' @click="goToShopRoute('Brushes')">Brushes</h4>
+              <h4 class='route' @click="goToShopRoute('Promotions')">Promotions</h4>
             </v-card-text>
           </v-col>
 
@@ -49,12 +49,12 @@
 
           <v-col cols="12" sm="5" md="3" lg="3">
             <v-card-text class="gray-text no-wrap">
-              <h2>Payment</h2>
-              <h2>Delivery</h2>
-              <h2>Return</h2>
+              <h2 class='route'>Payment</h2>
+              <h2 class='route'>Delivery</h2>
+              <h2 class='route'>Return</h2>
               <p></p>
-              <h2>Add course</h2>
-              <h2>Cooperation</h2>
+              <h2 class='route'>Add course</h2>
+              <h2 class='route'>Cooperation</h2>
             </v-card-text>
           </v-col>
         </v-row>
@@ -64,6 +64,9 @@
 </template>
 
 <style scoped>
+.route{
+  cursor: pointer
+}
 .social {
   margin-bottom: 210px;
 }
@@ -103,6 +106,12 @@ export default {
       return this.$vuetify.theme.themes.light.homefone
     }
 
+  },
+  methods: {
+    goToShopRoute (route) {
+      this.$router.push({ name: 'shop', params: { categoryName: route.replaceAll(' ', '-').toLowerCase() } })
+    }
   }
+
 }
 </script>

@@ -89,6 +89,7 @@ export default {
   },
   mounted () {
     this.onResize()
+    this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
     window.addEventListener('resize', this.onResize, { passive: true })
   },
   beforeDestroy () {
