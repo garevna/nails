@@ -26,7 +26,7 @@ export default new Vuetify({
         substrate: '#F4F4F4',
         secondaryGray: '#000',
         whitefone: '#ffffff',
-        shopfont: '#808080;',
+        shopfont: '#808080',
         // courses
         coursesGray: '#4D4D4D'
       },
