@@ -57,13 +57,13 @@ export default {
   },
   methods: {
     detailOfflineInfo () {
-      this.$router.push(`/courses-offline/${this.id}`)
+      this.$router.push({ name: 'course-offline', params: { id: this.id } })
     },
     detailOnlineInfo () {
-      this.$router.push(`/courses-online/${this.id}`)
+      this.$router.push({ name: 'course-online', params: { id: this.id } })
     },
     payDetail () {
-      this.$router.push('/personal-data')
+      this.$router.push({ name: 'personal-data' })
     }
   }
 }

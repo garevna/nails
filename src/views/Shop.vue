@@ -62,7 +62,7 @@ export default {
     ...mapState(['viewportWidth']),
     ...mapState('shop', ['categories', 'commodities']),
     mobileMenu () {
-      return window.innerWidth < 960
+      return this.viewportWidth < 960
     },
     pagination () {
       return {
@@ -79,6 +79,9 @@ export default {
         this.selectedSection = allcat.find((el) => el.name.replaceAll(' ', '-').toLowerCase() === this.categoryName)
         this.$store.dispatch('shop/GET_SHOP_COMMODITIES', { categoryId: this.selectedSection._id })
       }
+    },
+    viewportWidth () {
+      this.mobileMenu = this.viewportWidth < 960
     }
   },
   methods: {
