@@ -3,7 +3,7 @@
     <v-container>
       <!-- <v-row justify="center" align="center" align-content="center" class="flex-column"> -->
       <v-row>
-        <v-col cols="12" offset-sm="4" sm="4">
+        <v-col cols="12" offset-sm="2" sm="8" offset-md="3" md="6">
           <v-text-field
             v-model="email"
             :rules="[rules.required, rules.mailValidation]"
@@ -12,7 +12,7 @@
             dark
           ></v-text-field>
         </v-col>
-        <v-col cols="12" offset-sm="4" sm="4">
+        <v-col cols="12" offset-sm="2" sm="8" offset-md="3" md="6">
           <v-text-field
             v-model="phone"
             :rules="[rules.required, rules.phoneValidation]"
@@ -21,7 +21,7 @@
             dark
           ></v-text-field>
         </v-col>
-        <v-col cols="12" offset-sm="4" sm="4">
+        <v-col cols="12" offset-sm="2" sm="8" offset-md="3" md="6">
           <v-text-field
             v-model="fullName"
             :rules="[rules.required]"
@@ -30,10 +30,10 @@
             dark
           ></v-text-field>
         </v-col>
-        <v-col cols="12" offset-sm="4" sm="4">
+        <v-col cols="12" offset-sm="2" sm="8" offset-md="3" md="6">
           <v-textarea v-model="message" label="Message" outlined dark no-resize></v-textarea>
         </v-col>
-        <v-col cols="12" offset-sm="4" sm="4">
+        <v-col cols="12" offset-sm="2" sm="8" offset-md="3" md="6">
           <v-checkbox
             v-model="checkbox"
             :rules="[rules.required]"
