@@ -83,10 +83,7 @@
         <Slider />
       </v-card>
     </v-card>
-    <v-card flat dark class="mx-auto secondary" max-width="1440">
-      <Slider />
-    </v-card>
-    <v-card flat dark class="mx-auto secondary" max-width="1440">
+    <v-card flat dark class="mx-auto secondary">
       <Courses offlineLimit="6" onlineLimit="6"/>
     </v-card>
   </v-container>
@@ -102,6 +99,9 @@ p {
   color: #000!important;
   font-weight: bold;
   font-size: 16px!important;
+}
+.container{
+  padding: 0;
 }
 </style>
 
