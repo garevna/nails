@@ -28,24 +28,36 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/add-course~payment-details~personal-data.3e361247.css"
   },
   {
-    "revision": "6d2ee7a1a7f7f006ac13",
-    "url": "/nails/css/app.c5a21790.css"
+    "revision": "b9a9fae70fe33f3bdbf0",
+    "url": "/nails/css/app.6575ef79.css"
+  },
+  {
+    "revision": "d4030d06aaa6cc747378",
+    "url": "/nails/css/chunk-25704416.fa9b20ea.css"
+  },
+  {
+    "revision": "102928fb61fbca3c8da4",
+    "url": "/nails/css/chunk-671b5d80.ff5d33d5.css"
   },
   {
     "revision": "836aca257e630e9f79ab",
     "url": "/nails/css/chunk-vendors.05a7fdfd.css"
   },
   {
-    "revision": "963f511617ef9b939282",
+    "revision": "cd64a8526274bb7f267b",
+    "url": "/nails/css/courses.c73ff0b9.css"
+  },
+  {
+    "revision": "566b86b760fc856ae889",
     "url": "/nails/css/personal-data.9d21c0d7.css"
   },
   {
-    "revision": "8e539ec54316d38731f8",
-    "url": "/nails/css/shop-item.a0d4e9cc.css"
+    "revision": "1af06884fbdc526e7c8e",
+    "url": "/nails/css/shop-item.e5f3022b.css"
   },
   {
-    "revision": "890780769d5af8e0076d",
-    "url": "/nails/css/shop.894ecba5.css"
+    "revision": "e2bcf6a0a6095385f378",
+    "url": "/nails/css/shop.0856cdfa.css"
   },
   {
     "revision": "cba1e6344148e0fb0e2b9313b65c7054",
@@ -124,7 +136,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/instagramico.e58b42cf.svg"
   },
   {
-    "revision": "1605822bc84440b91f1df985d493324f",
+    "revision": "faadaebd00926edf5f059caa56ae661c",
     "url": "/nails/index.html"
   },
   {
@@ -140,40 +152,48 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/add-course~payment-details~personal-data.7b8a94b7.js"
   },
   {
-    "revision": "6d2ee7a1a7f7f006ac13",
-    "url": "/nails/js/app.bc729f65.js"
+    "revision": "b9a9fae70fe33f3bdbf0",
+    "url": "/nails/js/app.6695d9f2.js"
+  },
+  {
+    "revision": "d4030d06aaa6cc747378",
+    "url": "/nails/js/chunk-25704416.f4a5180a.js"
+  },
+  {
+    "revision": "1be0b09edadbc7f03530",
+    "url": "/nails/js/chunk-2d0c1b39.77bcf801.js"
+  },
+  {
+    "revision": "9cf6e26441b8f803e85d",
+    "url": "/nails/js/chunk-2d2133b3.00240eb3.js"
+  },
+  {
+    "revision": "102928fb61fbca3c8da4",
+    "url": "/nails/js/chunk-671b5d80.aa6f0705.js"
   },
   {
     "revision": "836aca257e630e9f79ab",
     "url": "/nails/js/chunk-vendors.508b2a69.js"
   },
   {
-    "revision": "e79e3a2b2aaaf2e7f819",
-    "url": "/nails/js/course-offline/:id.53ead140.js"
-  },
-  {
-    "revision": "b9cba150a1aa9932c1d2",
-    "url": "/nails/js/course-online.12092091.js"
-  },
-  {
-    "revision": "d815352c2403219c71f3",
-    "url": "/nails/js/courses.ddbe8108.js"
+    "revision": "cd64a8526274bb7f267b",
+    "url": "/nails/js/courses.f9c6b400.js"
   },
   {
     "revision": "366692d227ab8c5884aa",
     "url": "/nails/js/payment-details.7668a96d.js"
   },
   {
-    "revision": "963f511617ef9b939282",
-    "url": "/nails/js/personal-data.6d8fee86.js"
+    "revision": "566b86b760fc856ae889",
+    "url": "/nails/js/personal-data.ebcafcc2.js"
   },
   {
-    "revision": "8e539ec54316d38731f8",
-    "url": "/nails/js/shop-item.04cd6e47.js"
+    "revision": "1af06884fbdc526e7c8e",
+    "url": "/nails/js/shop-item.e48ee390.js"
   },
   {
-    "revision": "890780769d5af8e0076d",
-    "url": "/nails/js/shop.a213b5ff.js"
+    "revision": "e2bcf6a0a6095385f378",
+    "url": "/nails/js/shop.e347fef9.js"
   },
   {
     "revision": "78c075108313d75f5274f16ea283f1e1",
