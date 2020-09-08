@@ -41,8 +41,11 @@ export default {
       this.setSelectedSection(val)
       if (this.$route.name === 'shop') {
         this.$store.dispatch('shop/GET_SHOP_COMMODITIES', { categoryId: val._id })
-        if (this.$route.params.categoryId !== val._id) this.$router.push({ name: 'shop', params: { categoryId: val._id } })
-      } else { this.$router.push({ name: 'shop', params: { categoryId: val._id } }) }
+        if (this.$route.params.categoryName !== val.name.replaceAll(' ', '-').toLowerCase()) { this.$router.push({ name: 'shop', params: { categoryName: val.name.replaceAll(' ', '-').toLowerCase() } }) }
+      } else {
+        this.$store.dispatch('shop/GET_SHOP_COMMODITIES', { categoryId: val._id })
+        this.$router.push({ name: 'shop', params: { categoryName: val.name.replaceAll(' ', '-').toLowerCase() } })
+      }
     }
   }
 }

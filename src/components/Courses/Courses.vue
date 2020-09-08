@@ -34,12 +34,13 @@
 </template>
 
 <style scoped lang="scss">
+@import '@/css/variables.scss';
 h2 {
   color: white;
 }
 .ref:hover {
   cursor: pointer;
-  color: blue;
+  color: #FFC44A;
 }
 </style>
 

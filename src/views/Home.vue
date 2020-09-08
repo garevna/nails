@@ -59,7 +59,7 @@
                   dark
                   min-width="160"
                   class="yellow-button mr-4 mb-4"
-                  @click="toAllCourses"
+                  @click="$vuetify.goTo(target, options)"
               >
                 ALL COURSES
               </v-btn>
@@ -79,12 +79,12 @@
           </v-card>
         </v-col>
       </v-row>
-      <v-card flat class="transparent mx-auto my-10" max-width="940">
-        <Slider />
+      <v-card flat class="transparent mx-auto my-10" max-width="1360">
+        <Carousel />
       </v-card>
     </v-card>
-    <v-card flat dark class="mx-auto secondary">
-      <Courses offlineLimit="6" onlineLimit="6"/>
+    <v-card flat dark class="mx-auto secondary" max-width="1440">
+      <Courses offlineLimit="2" onlineLimit="2" id="scroll-with-options"/>
     </v-card>
   </v-container>
 </template>
@@ -109,25 +109,38 @@ p {
 
 import { mapState } from 'vuex'
 
-import Slider from '@/components/Slider.vue'
+import Carousel from '@/components/Carousel.vue'
 // import MainMenu from '@/components/MainMenu.vue'
 import Courses from '@/components/Courses/Courses.vue'
 
 export default {
   name: 'Home',
   components: {
-    Slider,
+    Carousel,
     // MainMenu,
     Courses
   },
   data: () => ({
+    selector: '#scroll-with-options'
     // REVIEW: are these lines needed?
     // aboutText: [...Array(100)].map(i => (String.fromCharCode(Math.max(Math.floor(Math.random() * 122), 32)))).join(''),
     // coursesText: [...Array(100)].map(i => (String.fromCharCode(Math.max(Math.floor(Math.random() * 122), 32)))).join('')
   }),
   computed: {
     // INFO: 'shop' no used
-    ...mapState('home', ['about', 'shop', 'shopText', 'courses'])
+    ...mapState('home', ['about', 'shop', 'shopText', 'courses']),
+    target () {
+      const value = this.selector
+      if (!isNaN(value)) return Number(value)
+      else return value
+    },
+    options () {
+      return {
+        duration: 300,
+        offset: 0,
+        easing: 'easeInOutCubic'
+      }
+    }
   },
   methods: {
     addCourseHandler () {

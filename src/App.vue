@@ -77,7 +77,7 @@ export default {
   },
 
   data: () => ({
-    maimMenuShowInRouteNames: ['home', 'add-course', 'add-course-payment']
+    maimMenuShowInRouteNames: ['home', 'add-course', 'add-course-payment', 'course-card', 'course-offline', 'course-online', 'personal-data', 'payment-details']
   }),
   computed: {
     ...mapState(['viewportWidth'])
@@ -89,6 +89,7 @@ export default {
   },
   mounted () {
     this.onResize()
+    this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
     window.addEventListener('resize', this.onResize, { passive: true })
   },
   beforeDestroy () {

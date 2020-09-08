@@ -11,12 +11,12 @@ const routes = [
     component: Home
   },
   {
-    path: '/shop/:categoryId',
+    path: '/shop/:categoryName',
     name: 'shop',
     component: () => import(/* webpackChunkName: "shop" */ '../views/Shop.vue')
   },
   {
-    path: '/shop/:categoryId/:commodityId',
+    path: '/shop/:categoryName/:commodityId',
     name: 'shop-item',
     component: () => import(/* webpackChunkName: "shop-item" */ '../views/ShopItem.vue')
   },
