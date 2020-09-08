@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/add-course~payment-details~personal-data.3e361247.css"
   },
   {
-    "revision": "31299b35e7659ca45f4d",
-    "url": "/nails/css/app.34ec3295.css"
+    "revision": "40ae1cda06e7ace7aa26",
+    "url": "/nails/css/app.b4735209.css"
   },
   {
     "revision": "d4030d06aaa6cc747378",
@@ -52,11 +52,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/personal-data.9d21c0d7.css"
   },
   {
-    "revision": "1af06884fbdc526e7c8e",
-    "url": "/nails/css/shop-item.e5f3022b.css"
+    "revision": "175544155d3b78a576bd",
+    "url": "/nails/css/shop-item.0df7d46f.css"
   },
   {
-    "revision": "e2bcf6a0a6095385f378",
+    "revision": "a1e526ba70b67d043d87",
     "url": "/nails/css/shop.0856cdfa.css"
   },
   {
@@ -136,7 +136,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/instagramico.e58b42cf.svg"
   },
   {
-    "revision": "6383e84256359f319d7730c7fb93b550",
+    "revision": "c3825596e1186318aeebbd3c3c56dc7e",
     "url": "/nails/index.html"
   },
   {
@@ -152,8 +152,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/add-course~payment-details~personal-data.7b8a94b7.js"
   },
   {
-    "revision": "31299b35e7659ca45f4d",
-    "url": "/nails/js/app.a729be1a.js"
+    "revision": "40ae1cda06e7ace7aa26",
+    "url": "/nails/js/app.14f30aa2.js"
   },
   {
     "revision": "d4030d06aaa6cc747378",
@@ -188,12 +188,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/personal-data.ebcafcc2.js"
   },
   {
-    "revision": "1af06884fbdc526e7c8e",
-    "url": "/nails/js/shop-item.e48ee390.js"
+    "revision": "175544155d3b78a576bd",
+    "url": "/nails/js/shop-item.d7893921.js"
   },
   {
-    "revision": "e2bcf6a0a6095385f378",
-    "url": "/nails/js/shop.e347fef9.js"
+    "revision": "a1e526ba70b67d043d87",
+    "url": "/nails/js/shop.a7934540.js"
   },
   {
     "revision": "78c075108313d75f5274f16ea283f1e1",
