@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid fill-height class="homefone mt-16" >
-    <v-row justify="center">
+  <v-container fluid fill-height class="homefone mt-16 mx-0 px-0" >
+    <v-row justify="center" class="mx-0">
       <v-col>
         <v-row fluid justify="center" style="background-color: #414242">
           <v-col d-flex cols="12" xs="12">

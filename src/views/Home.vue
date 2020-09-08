@@ -100,9 +100,6 @@ p {
   font-weight: bold;
   font-size: 16px!important;
 }
-.container{
-  padding: 0;
-}
 </style>
 
 <script>
