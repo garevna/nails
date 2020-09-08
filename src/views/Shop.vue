@@ -18,7 +18,7 @@
               :images="card.image"
               :name="card.name"
               :price="card.price"
-              :description="card.description"
+              :brand="card.brand"
               :id="card._id"
             />
           </v-row>
@@ -28,15 +28,23 @@
         <v-pagination
           v-model="pagination.page"
           :length="pagination.total"
+          @input="setPage"
           prev-icon="mdi-menu-left"
           next-icon="mdi-menu-right"
+          class="pagination-buttons"
         ></v-pagination>
       </v-row>
     </v-card>
   </v-container>
 </template>
 
-<style></style>
+<style  lang="scss">
+.pagination-buttons {
+  button {
+    outline: none !important;
+  }
+}
+</style>
 
 <script>
 import { mapState } from 'vuex'
@@ -60,16 +68,17 @@ export default {
   },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState('shop', ['categories', 'commodities']),
+    ...mapState('shop', ['categories', 'commodities', 'totalCommodities']),
+    pagination () {
+      const page = +this.$route.query.page
+      return {
+        page: !isNaN(page) ? page : 1,
+        total: Math.ceil(this.totalCommodities / 8),
+        skip: !isNaN(page) ? page * 8 - 8 : 0
+      }
+    },
     mobileMenu () {
       return this.viewportWidth < 960
-    },
-    pagination () {
-      return {
-        page: 1,
-        total: 8,
-        categoryId: ''
-      }
     }
   },
   watch: {
@@ -77,11 +86,8 @@ export default {
       if (this.categories.length && !this.commodities.length) {
         const allcat = this.categories.flat()
         this.selectedSection = allcat.find((el) => el.name.replaceAll(' ', '-').toLowerCase() === this.categoryName)
-        this.$store.dispatch('shop/GET_SHOP_COMMODITIES', { categoryId: this.selectedSection._id })
+        this.getCommodities()
       }
-    },
-    viewportWidth () {
-      this.mobileMenu = this.viewportWidth < 960
     }
   },
   methods: {
@@ -90,16 +96,30 @@ export default {
     },
     onResizeHandler () {
       this.mobileMenu = this.viewportWidth < 960
+    },
+    getCommodities () {
+      this.$store.dispatch('shop/GET_SHOP_COMMODITIES', {
+        categoryId: this.selectedSection._id,
+        skip: this.pagination.skip
+      })
+    },
+    setPage (page) {
+      if (page !== this.$route.query.page) {
+        this.$router.replace({ name: 'shop', params: { categoryId: this.categoryId }, query: { page } })
+        this.pagination.page = page
+        this.pagination.skip = page * 8 - 8
+        this.getCommodities()
+      }
     }
   },
+  created () {},
   mounted () {
     if (!this.categories) this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
     if (this.categories) {
       const allcat = this.categories.flat()
       this.selectedSection = allcat.find((el) => el.name.replaceAll(' ', '-').toLowerCase() === this.categoryName)
-      this.$store.dispatch('shop/GET_SHOP_COMMODITIES', { categoryId: this.selectedSection._id })
+      this.getCommodities(this.pagination.skip)
     }
-    console.log(this.selectedSection)
     // if (this.categories && this.categoryId) {
     //   const allcat = this.categories.flat()
     //   this.selectedSection = allcat.find((el) => el._id === this.categoryId)

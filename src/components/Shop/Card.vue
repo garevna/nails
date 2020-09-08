@@ -5,7 +5,7 @@
     </v-card>
     <v-card-text class="text-wrap">
       <h4 class="color-black">{{ name }}</h4>
-      <h4>{{ description }}</h4>
+      <h4>{{ brand }}</h4>
     </v-card-text>
     <v-card-text class="price-wrap">
       <h4 class="color-black">{{ price }} AUD</h4>
@@ -63,7 +63,7 @@
 <script>
 export default {
   name: 'Card',
-  props: ['images', 'name', 'price', 'description', 'id'],
+  props: ['images', 'name', 'price', 'brand', 'id'],
   methods: {
     goToItem () {
       this.$router.push({ name: 'shop-item', params: { commodityId: this.id } })

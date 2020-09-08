@@ -4,6 +4,7 @@
 const state = {
   categories: null,
   commodities: [],
+  totalCommodities: 0,
   commodity: null
 }
 
@@ -19,6 +20,7 @@ const mutations = {
   },
   SHOP_COMMODITIES: (state, payload) => {
     state.commodities = payload.commodities
+    state.totalCommodities = payload.total
   },
   SHOP_COMMODITY: (state, payload) => {
     state.commodity = payload.commodity[0]
@@ -30,8 +32,8 @@ const actions = {
     commit('SHOP_CATEGORIES', response)
     return state.categories
   },
-  async GET_SHOP_COMMODITIES ({ state, getters, commit }, { categoryId }) {
-    const response = (await (await fetch(`${getters.commoditiesEndpoint}/${categoryId}`)).json())
+  async GET_SHOP_COMMODITIES ({ state, getters, commit }, { categoryId, skip }) {
+    const response = (await (await fetch(`${getters.commoditiesEndpoint}/${categoryId}?skip=${skip}`)).json())
     commit('SHOP_COMMODITIES', response)
     return state.comodities
   },

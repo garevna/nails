@@ -23,12 +23,9 @@
             <v-col cols="12" sm="12" md="5" xl="4" lg="4"  class='px-0'>
               <v-col cols="12" class="gray-font px-0" >
                 <h2 class="dark-gray-font " >{{ commodity.name }}</h2>
-                <h4>{{ commodity.description }}</h4>
+                <h4>{{ commodity.brand }}</h4>
                 <div class="caption">
-                  <h2>Working part diametr, mm: 2.3</h2>
-                  <h2>Grain size: medium</h2>
-                  <h2>Working part length, mm: 10.0</h2>
-                  <h2>Shank diameter, mm: 2.3</h2>
+                  <h2 class='speciﬁcations'>{{commodity.speciﬁcations}}</h2>
                 </div>
                 <div class="price">
                   <h3 class="dark-gray-font">{{ commodity.price }} AUD</h3>
@@ -48,6 +45,9 @@
 
 <style lang="scss">
 @import '@/css/variables.scss';
+.speciﬁcations{
+  white-space: pre;
+}
 .caption {
   margin-top: 50px;
   h2 {
