@@ -38,7 +38,7 @@
   </v-container>
 </template>
 
-<style  lang="scss">
+<style lang="scss">
 .pagination-buttons {
   button {
     outline: none !important;
@@ -81,16 +81,15 @@ export default {
       return this.viewportWidth < 960
     }
   },
-  watch: {
-    categories () {
-      if (this.categories.length && !this.commodities.length) {
-        const allcat = this.categories.flat()
-        this.selectedSection = allcat.find((el) => el.name.replaceAll(' ', '-').toLowerCase() === this.categoryName)
-        this.getCommodities()
-      }
-    }
-  },
   methods: {
+    async getData () {
+      await this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
+      const allcat = await this.categories.length && this.categories.flat()
+      this.selectedSection = await allcat.length && allcat.find(
+        (el) => el.name.replaceAll(' ', '-').toLowerCase() === this.categoryName
+      )
+      await this.selectedSection && this.getCommodities()
+    },
     setSelectedSection (val) {
       this.selectedSection = val
     },
@@ -112,18 +111,8 @@ export default {
       }
     }
   },
-  created () {},
   mounted () {
-    if (!this.categories) this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
-    if (this.categories) {
-      const allcat = this.categories.flat()
-      this.selectedSection = allcat.find((el) => el.name.replaceAll(' ', '-').toLowerCase() === this.categoryName)
-      this.getCommodities(this.pagination.skip)
-    }
-    // if (this.categories && this.categoryId) {
-    //   const allcat = this.categories.flat()
-    //   this.selectedSection = allcat.find((el) => el._id === this.categoryId)
-    // }
+    this.getData()
     this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
   },
   beforeDestroy () {
