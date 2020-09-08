@@ -14,18 +14,35 @@
           <v-row justify="start" class="description">
             <v-col cols="1" sm="1" md="1" xl="2" lg="2"> </v-col>
 
-            <v-col cols="12" sm="6" md="4" xl="4" lg="4" xs="12" class='px-0'>
-              <v-img :src="commodity.image[0]" max-width="100%" max-height="100%" contain></v-img>
+            <v-col cols="12" sm="6" md="4" xl="4" lg="4" xs="12" class="px-0">
+              <v-row class='image-row' >
+                <v-img :src="activeCard" max-width="100%" max-height="400px" contain></v-img>
+              </v-row>
+              <v-row class="justify-center">
+                <v-slide-group :model="activeCard" class="px-0 justify-center" center-active mandatory>
+                  <v-slide-item v-for="img in commodity.image" :key="img" v-slot:default="{ active, toggle }">
+                      <v-img
+                        @click="setPhoto(img, toggle)"
+                        :src="img"
+                        width="60px"
+                        height="60px"
+                        contain
+                        active
+                        :class="[active ? 'card-active' : 'card-disabled', 'mx-2']"
+                      ></v-img>
+                  </v-slide-item>
+                </v-slide-group>
+              </v-row>
             </v-col>
 
             <v-col cols="1" md="0"></v-col>
 
-            <v-col cols="12" sm="12" md="5" xl="4" lg="4"  class='px-0'>
-              <v-col cols="12" class="gray-font px-0" >
-                <h2 class="dark-gray-font " >{{ commodity.name }}</h2>
+            <v-col cols="12" sm="12" md="5" xl="4" lg="4" class="px-0">
+              <v-col cols="12" class="gray-font px-0">
+                <h2 class="dark-gray-font ">{{ commodity.name }}</h2>
                 <h4>{{ commodity.brand }}</h4>
                 <div class="caption">
-                  <h2 class='speciﬁcations'>{{commodity.speciﬁcations}}</h2>
+                  <h2 class="speciﬁcations">{{ commodity.speciﬁcations }}</h2>
                 </div>
                 <div class="price">
                   <h3 class="dark-gray-font">{{ commodity.price }} AUD</h3>
@@ -45,7 +62,23 @@
 
 <style lang="scss">
 @import '@/css/variables.scss';
-.speciﬁcations{
+.card-active {
+  opacity: 1;
+}
+.image-row{
+  height: 430px;
+}
+.card-disabled {
+  // :before {
+  //   content: '';
+  //   background: #18171740;
+  //   width: 100%;
+  //   height: 100%;
+  //   position: absolute;
+  // }
+  opacity: 0.4
+}
+.speciﬁcations {
   white-space: pre;
 }
 .caption {
@@ -111,21 +144,25 @@ export default {
   data () {
     return {
       selectedBlock: 0,
-      mobileMenu: window.innerWidth < 960,
       selectedSection: {},
-      commodityId: this.$route.params.commodityId
+      commodityId: this.$route.params.commodityId,
+      activeCard: ''
     }
   },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState('shop', ['categories', 'commodities', 'commodity'])
+    ...mapState('shop', ['categories', 'commodities', 'commodity']),
+    mobileMenu () {
+      return this.viewportWidth < 960
+    }
   },
   methods: {
     setSelectedSection (val) {
       this.selectedSection = val
     },
-    onResizeHandler () {
-      this.mobileMenu = window.innerWidth < 960
+    setPhoto (val, toggle) {
+      toggle()
+      this.activeCard = val
     }
   },
   watch: {
@@ -134,11 +171,11 @@ export default {
         this.selectedSection = this.categories.flat().find((el) => el._id === this.commodity.categoryId)
       }
     },
-    commodity () {
+    commodity (newVal) {
       if (this.categories && this.categories.length && this.commodity) {
         this.selectedSection = this.categories.flat().find((el) => el._id === this.commodity.categoryId)
       }
-      console.log(this.commodity)
+      this.activeCard = newVal.image[0]
     }
   },
   mounted () {
@@ -147,12 +184,9 @@ export default {
     }
     this.$store.dispatch('shop/GET_COMMODITY', { commodityId: this.commodityId })
     this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
-    this.mobileMenu = window.innerWidth < 960
-    window.addEventListener('resize', this.onResizeHandler, { passive: true })
   },
   beforeDestroy () {
     this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
-    window.removeEventListener('resize', this.onResizeHandler)
   }
 }
 </script>
