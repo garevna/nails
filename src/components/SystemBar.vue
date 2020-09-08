@@ -163,11 +163,7 @@ export default {
     },
     goToShop () {
       this.panel = []
-      let selectedSection
-      if (this.categories && this.categories[0] && this.categories[0][0] && this.categories[0][0]._id) {
-        selectedSection = this.categories[0][0]
-      }
-      if (this.$route.name !== 'shop') this.$router.push({ name: 'shop', params: { categoryName: selectedSection.name.replaceAll(' ', '-').toLowerCase() } })
+      if (this.$route.name !== 'shop') this.$router.push({ name: 'shop' })
     },
     goToCourses () {
       this.panel = []

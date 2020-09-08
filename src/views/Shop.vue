@@ -83,10 +83,12 @@ export default {
   },
   methods: {
     async getData () {
-      await this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
+      !this.categories && await this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
       const allcat = await this.categories.length && this.categories.flat()
+      !this.categoryName && await this.$router.replace({ name: 'shop', params: { categoryName: allcat[0].slug } })
+      this.categoryName = await this.categoryName ? this.categoryName : allcat[0].slug
       this.selectedSection = await allcat.length && allcat.find(
-        (el) => el.name.replaceAll(' ', '-').toLowerCase() === this.categoryName
+        (el) => el.slug === this.categoryName
       )
       await this.selectedSection && this.getCommodities()
     },
