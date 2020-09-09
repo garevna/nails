@@ -8,7 +8,7 @@
     <v-row align="center" justify="center">
       <v-col>
         <v-card>
-          <Courses offlineLimit="12" onlineLimit="12" />
+          <Courses/>
         </v-card>
       </v-col>
     </v-row>
