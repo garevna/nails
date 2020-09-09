@@ -134,6 +134,7 @@ export default {
   },
   beforeDestroy () {
     this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
+    this.$store.commit('shop/CLEAR_COMMODITIES')
   }
 }
 </script>

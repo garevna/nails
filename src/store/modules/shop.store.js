@@ -24,6 +24,12 @@ const mutations = {
   },
   SHOP_COMMODITY: (state, payload) => {
     state.commodity = payload.commodity[0]
+  },
+  CLEAR_COMMODITY: (state) => {
+    state.commodity = null
+  },
+  CLEAR_COMMODITIES: (state) => {
+    state.commodities = []
   }
 }
 const actions = {

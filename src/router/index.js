@@ -88,6 +88,11 @@ const routes = [
     path: '/cooperation',
     name: 'cooperation',
     component: () => import(/* webpackChunkName: "cooperation" */ '../views/Cooperation.vue')
+  },
+  {
+    path: '/shop-payment',
+    name: 'shop-payment',
+    component: () => import(/* webpackChunkName: "shop-payment" */ '../views/ShopPayment.vue')
   }
 ]
 
