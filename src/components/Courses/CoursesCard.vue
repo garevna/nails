@@ -14,16 +14,6 @@
       <v-btn
         color="buttons"
         rounded
-        outlined
-        small
-        min-width="90"
-        dark
-        class="yellow-button mr-4"
-        @click="detailOfflineInfo"
-      >more</v-btn>
-      <v-btn
-        color="buttons"
-        rounded
         small
         outlined
         primary
@@ -31,6 +21,16 @@
         class="yellow-button mr-4"
         @click="payDetail"
       >pay</v-btn>
+      <v-btn
+        color="buttons"
+        rounded
+        outlined
+        small
+        min-width="90"
+        dark
+        class="yellow-button"
+        @click="detailOnlineInfo"
+      >more</v-btn>
     </v-card>
     <v-card v-else flat class="ml-4 mb-4 d-flex">
       <v-btn
@@ -41,7 +41,7 @@
         dark
         min-width="90"
         class="yellow-button"
-        @click="detailOnlineInfo"
+        @click="detailOfflineInfo"
       >more</v-btn>
     </v-card>
   </v-card>
