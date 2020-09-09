@@ -28,16 +28,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/add-course~payment-details~personal-data.3e361247.css"
   },
   {
-    "revision": "40ae1cda06e7ace7aa26",
-    "url": "/nails/css/app.b4735209.css"
+    "revision": "46f34aedf0aadce68e50",
+    "url": "/nails/css/app.36da0c5b.css"
   },
   {
-    "revision": "d4030d06aaa6cc747378",
-    "url": "/nails/css/chunk-25704416.fa9b20ea.css"
+    "revision": "8822c4bc945c611e5c60",
+    "url": "/nails/css/chunk-137b3e6a.55bccfc5.css"
   },
   {
-    "revision": "102928fb61fbca3c8da4",
-    "url": "/nails/css/chunk-671b5d80.ff5d33d5.css"
+    "revision": "581c42e1ece3c0cadbb2",
+    "url": "/nails/css/chunk-56f753be.f5d2333c.css"
   },
   {
     "revision": "ed049c8d089fa6fd0fe0",
@@ -52,11 +52,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/personal-data.9d21c0d7.css"
   },
   {
-    "revision": "175544155d3b78a576bd",
+    "revision": "5e251ae8fe722819e989",
     "url": "/nails/css/shop-item.0df7d46f.css"
   },
   {
-    "revision": "a1e526ba70b67d043d87",
+    "revision": "861064235272690b7975",
     "url": "/nails/css/shop.0856cdfa.css"
   },
   {
@@ -136,7 +136,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/instagramico.e58b42cf.svg"
   },
   {
-    "revision": "c3825596e1186318aeebbd3c3c56dc7e",
+    "revision": "0030c8f3af5d9131180355ca07d7f8d3",
     "url": "/nails/index.html"
   },
   {
@@ -152,24 +152,24 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/add-course~payment-details~personal-data.7b8a94b7.js"
   },
   {
-    "revision": "40ae1cda06e7ace7aa26",
-    "url": "/nails/js/app.14f30aa2.js"
+    "revision": "46f34aedf0aadce68e50",
+    "url": "/nails/js/app.c526fd8a.js"
   },
   {
-    "revision": "d4030d06aaa6cc747378",
-    "url": "/nails/js/chunk-25704416.f4a5180a.js"
+    "revision": "8822c4bc945c611e5c60",
+    "url": "/nails/js/chunk-137b3e6a.9b4c4123.js"
   },
   {
-    "revision": "1be0b09edadbc7f03530",
-    "url": "/nails/js/chunk-2d0c1b39.77bcf801.js"
+    "revision": "013e9a4d2284fc30c1f2",
+    "url": "/nails/js/chunk-2d0c1b39.3c26252f.js"
   },
   {
-    "revision": "9cf6e26441b8f803e85d",
-    "url": "/nails/js/chunk-2d2133b3.00240eb3.js"
+    "revision": "b335710ff86d37371d1a",
+    "url": "/nails/js/chunk-2d2133b3.bba28c42.js"
   },
   {
-    "revision": "102928fb61fbca3c8da4",
-    "url": "/nails/js/chunk-671b5d80.aa6f0705.js"
+    "revision": "581c42e1ece3c0cadbb2",
+    "url": "/nails/js/chunk-56f753be.698b3299.js"
   },
   {
     "revision": "ed049c8d089fa6fd0fe0",
@@ -188,12 +188,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/personal-data.ebcafcc2.js"
   },
   {
-    "revision": "175544155d3b78a576bd",
-    "url": "/nails/js/shop-item.d7893921.js"
+    "revision": "5e251ae8fe722819e989",
+    "url": "/nails/js/shop-item.0e06fd60.js"
   },
   {
-    "revision": "a1e526ba70b67d043d87",
-    "url": "/nails/js/shop.a7934540.js"
+    "revision": "861064235272690b7975",
+    "url": "/nails/js/shop.775bb7c7.js"
   },
   {
     "revision": "78c075108313d75f5274f16ea283f1e1",
