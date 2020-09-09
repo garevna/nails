@@ -1,10 +1,15 @@
 <template>
   <v-card dark class="cardfone ma-16" width="360" min-height="360">
     <v-img :src="img" contain />
-    <v-card-text>
-      <h4>{{ name }}</h4>
-      <h4>Price {{ price }}</h4>
-    </v-card-text>
+    <v-card-title class="buttons--text pa-0 pl-4 pt-4">
+       {{accessDays}} days | $ {{ price }}
+    </v-card-title>
+    <v-card-title class="pa-0 pl-4">
+       {{ name }}
+    </v-card-title>
+     <v-card-text class="pa-0 pl-4 pb-4">
+        {{subtitle}}
+     </v-card-text>
     <v-card flat class="ml-4 mb-4 d-flex">
       <v-btn
         color="buttons"
@@ -50,7 +55,7 @@
 
 export default {
   name: 'course-card',
-  props: ['img', 'name', 'price', 'id', 'offline', 'online'],
+  props: ['img', 'name', 'price', 'id', 'offline', 'online', 'subtitle', 'accessDays'],
   data () {
     return {
     }
