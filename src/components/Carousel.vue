@@ -18,7 +18,7 @@
             flat
             class="ma-4"
             height="250"
-            width="376"
+            width="380"
             @click="toggle"
           >
             <v-img :src="image" contain />
@@ -70,16 +70,18 @@
   </v-container>
 </template>
 
-<style>
+<style scoped>
 .carousel .v-btn__content,
 .carousel .mdi::before,
 .carousel .mdi-chevron-right::before,
 .carousel .v-icon::after {
   color: #fff !important;
 }
-</style>
 
-<style scoped>
+.theme--light.v-icon {
+  color:#fff;
+}
+
 .v-carousel__controls {
   z-index: 0 !important;
 }

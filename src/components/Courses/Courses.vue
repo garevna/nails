@@ -15,7 +15,7 @@
             :subtitle="card.subtitle"
             :price="card.price"
             :id="card._id"
-            :offline="true"
+            :online="true"
           />
         </v-row>
       </v-col>
@@ -31,7 +31,6 @@
         :subtitle="card.subtitle"
         :price="card.price"
         :id="card._id"
-        :offline="true"
       />
     </v-row>
   </v-container>

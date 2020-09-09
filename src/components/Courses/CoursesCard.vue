@@ -10,7 +10,7 @@
      <v-card-text class="pa-0 pl-4 pb-4">
         {{subtitle}}
      </v-card-text>
-    <v-card flat class="ml-4 mb-4 d-flex">
+    <v-card v-if="online" flat class="ml-4 mb-4 d-flex">
       <v-btn
         color="buttons"
         rounded
@@ -18,8 +18,7 @@
         small
         min-width="90"
         dark
-        class="yellow-button"
-        v-if="offline"
+        class="yellow-button mr-4"
         @click="detailOfflineInfo"
       >more</v-btn>
       <v-btn
@@ -30,9 +29,10 @@
         primary
         min-width="90"
         class="yellow-button mr-4"
-        v-if="online"
         @click="payDetail"
       >pay</v-btn>
+    </v-card>
+    <v-card v-else flat class="ml-4 mb-4 d-flex">
       <v-btn
         color="buttons"
         rounded
@@ -41,7 +41,6 @@
         dark
         min-width="90"
         class="yellow-button"
-        v-if="online"
         @click="detailOnlineInfo"
       >more</v-btn>
     </v-card>
