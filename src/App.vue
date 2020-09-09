@@ -31,6 +31,9 @@ h3 {
   margin-bottom: 150px !important;
   margin-top: 20px !important;
 }
+.theme--light.v-icon {
+  color:#fff !important;
+}
 
 @media screen and (max-width: 800px) {
   .main-content {

@@ -7,12 +7,14 @@
             <h2 style="text-align:center;" class="ref" @click="toOnlineCourses">Online courses</h2>
           </v-col>
           <CoursesCard
-            v-for="(card) in onlineCards"
-            :key="card.name"
-            :img="card.img"
-            :name="card.name"
+            v-for="(card, index) in onlineCards"
+            :key="index"
+            :accessDays="card.accessDays"
+            :img="card.photo"
+            :name="card.nameOfCourse"
+            :subtitle="card.subtitle"
             :price="card.price"
-            :id="card.id"
+            :id="card._id"
             :online="true"
           />
         </v-row>
@@ -20,14 +22,15 @@
       <v-col justify-content-center cols="12" xs="12">
         <h2 class="homefone ref" style="text-align:center;" @click="toOfflineCourses">Offline courses</h2>
       </v-col>
-      <CoursesCard
-        v-for="(card) in offlineCards"
-        :key="card.name"
-        :img="card.img"
-        :name="card.name"
+         <CoursesCard
+        v-for="(card, index) in offlineCards"
+        :key="index"
+        :accessDays="card.accessDays"
+        :img="card.photo"
+        :name="card.nameOfCourse"
+        :subtitle="card.subtitle"
         :price="card.price"
-        :id="card.id"
-        :offline="true"
+        :id="card._id"
       />
     </v-row>
   </v-container>
@@ -59,21 +62,29 @@ export default {
     }
   },
   computed: {
-    ...mapState('course', ['offlineShop', 'onlineShop']),
+    ...mapState('offlineCourses', ['offlineCourses']),
+    ...mapState('onlineCourses', ['onlineCourses']),
     offlineCards () {
-      return this.offlineShop.filter((item, index) => index < this.offlineLimit)
+      return this.offlineCourses.filter((item, index) => index < this.offlineLimit)
     },
     onlineCards () {
-      return this.onlineShop.filter((item, index) => index < this.onlineLimit)
+      return this.onlineCourses.filter((item, index) => index < this.onlineLimit)
     }
   },
   methods: {
     toOfflineCourses () {
-      this.$router.push('/courses-offline')
+      this.$router.push({ name: 'courses-offline' })
     },
     toOnlineCourses () {
-      this.$router.push('/courses-online')
+      this.$router.push({ name: 'courses-online' })
+    },
+    async getCourses () {
+      await this.$store.dispatch('offlineCourses/GET_OFFLINE_COURSES')
+      await this.$store.dispatch('onlineCourses/GET_ONLINE_COURSES')
     }
+  },
+  mounted () {
+    this.getCourses()
   }
 }
 </script>

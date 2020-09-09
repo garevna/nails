@@ -5,13 +5,15 @@
         <h2 class="header" style="text-align:center;">All online courses</h2>
       </v-col>
       <CoursesCard
-        v-for="(card) in onlineShop"
-        :key="card.name"
-        :img="card.img"
-        :name="card.name"
+        v-for="(card, index) in onlineCourses"
+        :key="index"
+        :accessDays="card.accessDays"
+        :img="card.photo"
+        :name="card.nameOfCourse"
+        :subtitle="card.subtitle"
         :price="card.price"
-        :id="card.id"
-        :online="true"
+        :id="card._id"
+        :offline="true"
       />
     </v-row>
   </v-container>
@@ -35,8 +37,15 @@ export default {
     return {}
   },
   computed: {
-    ...mapState('course', ['onlineShop'])
+    ...mapState('onlineCourses', ['onlineCourses'])
   },
-  methods: {}
+  methods: {
+    async getCourses () {
+      await this.$store.dispatch('onlineCourses/GET_ONLINE_COURSES')
+    }
+  },
+  mounted () {
+    this.getCourses()
+  }
 }
 </script>
