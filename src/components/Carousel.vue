@@ -77,11 +77,6 @@
 .carousel .v-icon::after {
   color: #fff !important;
 }
-
-.theme--light.v-icon {
-  color:#fff;
-}
-
 .v-carousel__controls {
   z-index: 0 !important;
 }
