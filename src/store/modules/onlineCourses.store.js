@@ -1,5 +1,6 @@
 const state = {
-  onlineCourses: []
+  onlineCourses: [],
+  onlineCourseById: {}
 }
 
 const getters = {
@@ -9,6 +10,9 @@ const getters = {
 const mutations = {
   ONLINE_COURSES: (state, payload) => {
     state.onlineCourses = payload.onlineCourses
+  },
+  ONLINE_COURSE_BY_ID: (state, payload) => {
+    state.onlineCourseById = payload.onlineCourse
   }
 }
 
@@ -17,6 +21,11 @@ const actions = {
     const response = await (await fetch(`${getters.onlineCoursesEndpoint}`)).json()
     commit('ONLINE_COURSES', response)
     return state.onlineCourses
+  },
+  async GET_ONLINE_COURSE_BY_ID ({ state, getters, commit }, { id }) {
+    const response = await (await fetch(`${getters.onlineCoursesEndpoint}/${id}`)).json()
+    commit('ONLINE_COURSE_BY_ID', response)
+    return state.onlineCourseById
   }
 }
 

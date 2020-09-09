@@ -69,16 +69,13 @@ export default {
       'buttonForDetailOfflineShop',
       'buttonForRegistrationOfflineShop'
     ])
-    // getDetailCourse () {
-    //   return this.offlineShop.find((item) => item.id === this.$route.params.id)
-    // }
   },
   methods: {
     goToPersonalData () {
       this.$router.push({ name: 'personal-data' })
     },
     async getCourse () {
-      this.$store.dispatch('offlineCourses/GET_OFFLINE_COURSE_BY_ID', { id: this.$route.params.id })
+      await this.$store.dispatch('offlineCourses/GET_OFFLINE_COURSE_BY_ID', { id: this.$route.params.id })
     }
   },
   mounted () {
