@@ -7,13 +7,15 @@
             <h2 style="text-align:center;" class="ref" @click="toOnlineCourses">Online courses</h2>
           </v-col>
           <CoursesCard
-            v-for="(card) in null"
-            :key="card.name"
-            :img="card.img"
-            :name="card.name"
+            v-for="(card, index) in onlineCards"
+            :key="index"
+            :accessDays="card.accessDays"
+            :img="card.photo"
+            :name="card.nameOfCourse"
+            :subtitle="card.subtitle"
             :price="card.price"
-            :id="card.id"
-            :online="true"
+            :id="card._id"
+            :offline="true"
           />
         </v-row>
       </v-col>
@@ -62,12 +64,13 @@ export default {
   },
   computed: {
     ...mapState('offlineCourses', ['offlineCourses']),
+    ...mapState('onlineCourses', ['onlineCourses']),
     offlineCards () {
       return this.offlineCourses.filter((item, index) => index < this.offlineLimit)
+    },
+    onlineCards () {
+      return this.onlineCourses.filter((item, index) => index < this.onlineLimit)
     }
-    // onlineCards () {
-    //   return this.onlineShop.filter((item, index) => index < this.onlineLimit)
-    // }
   },
   methods: {
     toOfflineCourses () {
@@ -78,6 +81,7 @@ export default {
     },
     async getCourses () {
       await this.$store.dispatch('offlineCourses/GET_OFFLINE_COURSES')
+      await this.$store.dispatch('onlineCourses/GET_ONLINE_COURSES')
     }
   },
   mounted () {

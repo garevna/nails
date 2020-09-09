@@ -1,7 +1,14 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" xs="12"  order="2" sm="6"  order-sm="2" class="d-flex flex-column justify-space-between align-center align-sm-start">
+      <v-col
+        cols="12"
+        xs="12"
+        order="2"
+        sm="6"
+        order-sm="2"
+        class="d-flex flex-column justify-space-between align-center align-sm-start"
+        >
         <v-card flat class="mb-8 transparent" dark>
           <v-card-title class="pa-0 pl-4">{{getDetailCourse.category}}</v-card-title>
           <v-card-text class="pa-0 pl-4 buttons--text" >Online course</v-card-text>

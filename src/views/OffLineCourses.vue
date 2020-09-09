@@ -5,7 +5,7 @@
         <h2 class="header" style="text-align:center;">All offline courses</h2>
       </v-col>
       <CoursesCard
-        v-for="(card,index) in offlineCourses"
+        v-for="(card, index) in offlineCourses"
         :key="index"
         :accessDays="card.accessDays"
         :img="card.photo"
