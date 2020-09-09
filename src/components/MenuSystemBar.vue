@@ -11,7 +11,7 @@
         </v-btn>
       </template>
 
-      <v-treeview dark class="drop-down-menu" dense :items="items" open-on-click key="key">
+      <v-treeview dark class="drop-down-menu" dense :items="items" open-on-click >
         <template slot="label" slot-scope="{ item }">
           <a @click="openDialog(item)" class="item-link">{{ item.name }}</a>
         </template>
@@ -156,21 +156,14 @@ export default {
   },
   methods: {
     openDialog (treeElem) {
-      console.log('treeElem', treeElem)
-      console.log('route', this.$route)
       if (treeElem.routeName) {
         this.isOpened = false
-        this.key = this.key + 1
         if (treeElem.routeName !== 'shop' && this.$route.name !== treeElem.routeName) {
           this.$router.push({ name: treeElem.routeName, params: treeElem.params })
         } else if (treeElem.routeName === 'shop' && this.$route.params.categoryName !== treeElem.params.categoryName) {
           this.$router.push({ name: treeElem.routeName, params: treeElem.params })
         }
       }
-    },
-    menuToggle () {
-      this.isOpened = !this.isOpened
-      console.log('toggle')
     }
   }
 }

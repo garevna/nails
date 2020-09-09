@@ -14,6 +14,9 @@
 <style>
 html,
 body,
+.homefone{
+
+}
 .v-application {
   font-family: 'Archivo Narrow' !important;
 }
@@ -30,6 +33,8 @@ h3 {
 .main-content {
   margin-bottom: 150px !important;
   margin-top: 20px !important;
+    min-height: calc(100vh - 500px);
+
 }
 .theme--light.v-icon {
   color:#fff !important;
@@ -38,6 +43,7 @@ h3 {
 @media screen and (max-width: 800px) {
   .main-content {
     margin-bottom: 150px !important;
+    min-height: calc(100vh - 650px);
   }
   h1 {
     font-size: 28px;
@@ -46,6 +52,7 @@ h3 {
 @media screen and (max-width: 960px) {
   .main-content {
     margin-bottom: 150px !important;
+    min-height: calc(100vh - 400px);
   }
 }
 @media screen and (max-width: 600px) {

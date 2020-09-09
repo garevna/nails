@@ -83,7 +83,6 @@ export default {
   },
   watch: {
     $route (to, from) {
-      console.log(to)
       if (from.name === 'shop' && to.params.categoryName !== from.params.categoryName) {
         this.categoryName = to.params.categoryName
         this.getData()

@@ -1,5 +1,5 @@
 <template>
-  <div class="footer-wrapper" :style="{backgroundColor: homefone}">
+  <div class="footer-wrapper" :style="{ backgroundColor: homefone }">
     <v-bottom-navigation v-model="bottomNav" shift height="auto" background-color="#FFC44A" class="footer">
       <v-card flat class="transparent mx-auto" max-width="2400" width="80%">
         <v-row align="start" justify="end" width="100%">
@@ -27,13 +27,13 @@
             <v-card-text class="gray-text no-wrap">
               <h3>Shop</h3>
               <v-divider></v-divider>
-              <h4 class='route' @click="goToShopRoute('Cuticle nipper')">Nippers</h4>
-              <h4 class='route' @click="goToShopRoute('Cuticle scissors')">Scissors</h4>
-              <h4 class='route' @click="goToShopRoute('Pushers')">Pushers\Curette</h4>
-              <h4 class='route' @click="goToShopRoute('Diamond Drill bits')">Drill bits</h4>
-              <h4 class='route' @click="goToShopRoute('Cosmetics')">Cosmetics</h4>
-              <h4 class='route' @click="goToShopRoute('Brushes')">Brushes</h4>
-              <h4 class='route' @click="goToShopRoute('Promotions')">Promotions</h4>
+              <h4 class="route" @click="goToShopRoute('cuticle-nippers')">Nippers</h4>
+              <h4 class="route" @click="goToShopRoute('cuticle-scissors')">Scissors</h4>
+              <h4 class="route" @click="goToShopRoute('pushers')">Pushers\Curette</h4>
+              <h4 class="route" @click="goToShopRoute('diamond-drill-bits')">Drill bits</h4>
+              <h4 class="route" @click="goToShopRoute('cosmetics')">Cosmetics</h4>
+              <h4 class="route" @click="goToShopRoute('brushes')">Brushes</h4>
+              <h4 class="route" @click="goToShopRoute('promotions')">Promotions</h4>
             </v-card-text>
           </v-col>
 
@@ -49,12 +49,12 @@
 
           <v-col cols="12" sm="5" md="3" lg="3">
             <v-card-text class="gray-text no-wrap">
-              <h2 class='route'>Payment</h2>
-              <h2 class='route'>Delivery</h2>
-              <h2 class='route'>Return</h2>
+              <h2 class="route" v-on:click="goToRoute('payment')">Payment</h2>
+              <h2 class="route" v-on:click="goToRoute('delivery')">Delivery</h2>
+              <h2 class="route" v-on:click="goToRoute('return')">Return</h2>
               <p></p>
-              <h2 class='route'>Add course</h2>
-              <h2 class='route'>Cooperation</h2>
+              <h2 class="route" v-on:click="goToRoute('add-course')">Add course</h2>
+              <h2 class="route" v-on:click="goToRoute('cooperation')">Cooperation</h2>
             </v-card-text>
           </v-col>
         </v-row>
@@ -64,8 +64,8 @@
 </template>
 
 <style scoped>
-.route{
-  cursor: pointer
+.route {
+  cursor: pointer;
 }
 .social {
   margin-bottom: 210px;
@@ -105,13 +105,18 @@ export default {
     homefone () {
       return this.$vuetify.theme.themes.light.homefone
     }
-
   },
   methods: {
     goToShopRoute (route) {
-      this.$router.push({ name: 'shop', params: { categoryName: route.replaceAll(' ', '-').toLowerCase() } })
+      if (this.$route.params.categoryName !== route) {
+        this.$router.push({ name: 'shop', params: { categoryName: route } })
+      }
+    },
+    goToRoute (route) {
+      if (this.$route.name !== route) {
+        this.$router.push({ name: route })
+      }
     }
   }
-
 }
 </script>
