@@ -81,6 +81,15 @@ export default {
       return this.viewportWidth < 960
     }
   },
+  watch: {
+    $route (to, from) {
+      console.log(to)
+      if (from.name === 'shop' && to.params.categoryName !== from.params.categoryName) {
+        this.categoryName = to.params.categoryName
+        this.getData()
+      }
+    }
+  },
   methods: {
     async getData () {
       !this.categories && await this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
@@ -94,9 +103,6 @@ export default {
     },
     setSelectedSection (val) {
       this.selectedSection = val
-    },
-    onResizeHandler () {
-      this.mobileMenu = this.viewportWidth < 960
     },
     getCommodities () {
       this.$store.dispatch('shop/GET_SHOP_COMMODITIES', {

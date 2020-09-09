@@ -1,17 +1,21 @@
 <template>
   <div color="warning menu">
-    <input class="search menu-app-bar" text/>
+    <input class="search menu-app-bar" text />
     <v-btn icon>
-      <v-icon color="secondaryGray" >mdi-shopping</v-icon>
+      <v-icon color="secondaryGray">mdi-shopping</v-icon>
     </v-btn>
-    <v-menu bottom left>
+    <v-menu v-model="isOpened" bottom left :close-on-content-click="false">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on">
-          <v-icon color="secondaryGray" >mdi-dots-vertical</v-icon>
+        <v-btn icon v-bind="attrs" v-on="on" @click="isOpened = true">
+          <v-icon color="secondaryGray">mdi-dots-vertical</v-icon>
         </v-btn>
       </template>
 
-      <v-treeview dark class="drop-down-menu" dense :items="items"></v-treeview>
+      <v-treeview dark class="drop-down-menu" dense :items="items" open-on-click key="key">
+        <template slot="label" slot-scope="{ item }">
+          <a @click="openDialog(item)" class="item-link">{{ item.name }}</a>
+        </template>
+      </v-treeview>
     </v-menu>
   </div>
 </template>
@@ -20,12 +24,12 @@
   cursor: pointer;
   /* color:yellow; */
 }
-.v-treeview-node__root .v-treeview-node__content{
+.v-treeview-node__root .v-treeview-node__content {
   cursor: pointer;
-  color:yellow;
+  color: yellow;
 }
 .v-treeview-node__children {
-  color:#fff;
+  color: #fff;
 }
 </style>
 <style scoped>
@@ -71,47 +75,52 @@
   font-weight: 700;
   letter-spacing: 0.1em;
 }
+.item-link {
+  width: 100%;
+}
 .search:focus {
   width: 300px;
 }
-.drop-down-menu{
+.drop-down-menu {
   background-color: #000;
 }
 @media screen and (max-width: 1330px) {
   .search:focus {
-  width: 250px;
-}
+    width: 250px;
+  }
 }
 @media screen and (max-width: 1230px) {
   .search:focus {
-  width: 200px;
-}
+    width: 200px;
+  }
 }
 @media screen and (max-width: 1030px) {
   .search:focus {
-  width: 150px;
-}
+    width: 150px;
+  }
 }
 </style>
 <script>
 export default {
   data () {
     return {
+      isOpened: false,
+      key: 1,
       items: [
         {
           id: 1,
           name: 'Shop',
           children: [
-            { id: 2, name: 'Nippers' },
-            { id: 3, name: 'Scissors' },
-            { id: 4, name: 'Drill bits' },
-            { id: 5, name: 'Brushers' },
+            { id: 2, name: 'Nippers', params: { categoryName: 'cuticle-nippers' }, routeName: 'shop' },
+            { id: 3, name: 'Scissors', params: { categoryName: 'cuticle-scissors' }, routeName: 'shop' },
+            { id: 4, name: 'Drill bits', params: { categoryName: 'diamond-drill-bits' }, routeName: 'shop' },
+            { id: 5, name: 'Brushers', params: { categoryName: 'brushes' }, routeName: 'shop' },
             {
               id: 6,
               name: 'more...',
               children: [
-                { id: 7, name: 'Cosmetics' },
-                { id: 8, name: 'Promotions' }
+                { id: 7, name: 'Cosmetics', params: { categoryName: 'cosmetics' }, routeName: 'shop' },
+                { id: 8, name: 'Promotions', params: { categoryName: 'Promotions' }, routeName: 'shop' }
               ]
             }
           ]
@@ -122,23 +131,46 @@ export default {
           children: [
             {
               id: 10,
-              name: 'Online courses'
+              name: 'Online courses',
+              routeName: 'courses-online'
             },
             {
               id: 11,
-              name: 'Offline courses'
+              name: 'Offline courses',
+              routeName: 'courses-offline'
             }
           ]
         },
         {
           id: 12,
-          name: 'All courses'
+          name: 'All courses',
+          routeName: 'courses'
         },
         {
           id: 13,
-          name: 'Add courses'
+          name: 'Add courses',
+          routeName: 'add-course'
         }
       ]
+    }
+  },
+  methods: {
+    openDialog (treeElem) {
+      console.log('treeElem', treeElem)
+      console.log('route', this.$route)
+      if (treeElem.routeName) {
+        this.isOpened = false
+        this.key = this.key + 1
+        if (treeElem.routeName !== 'shop' && this.$route.name !== treeElem.routeName) {
+          this.$router.push({ name: treeElem.routeName, params: treeElem.params })
+        } else if (treeElem.routeName === 'shop' && this.$route.params.categoryName !== treeElem.params.categoryName) {
+          this.$router.push({ name: treeElem.routeName, params: treeElem.params })
+        }
+      }
+    },
+    menuToggle () {
+      this.isOpened = !this.isOpened
+      console.log('toggle')
     }
   }
 }

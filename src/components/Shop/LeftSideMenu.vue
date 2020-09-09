@@ -1,5 +1,5 @@
 <template>
-  <v-card flat class="transparent" v-if='categories'>
+  <v-card flat class="transparent" v-if="categories">
     <v-card-text v-for="(section, index) in categories" :key="index">
       <h3
         v-for="(subsection, ind) in section"
@@ -40,8 +40,9 @@ export default {
     setSection (val) {
       this.setSelectedSection(val)
       if (this.$route.name === 'shop') {
-        this.$store.dispatch('shop/GET_SHOP_COMMODITIES', { categoryId: val._id })
-        if (this.$route.params.categoryName !== val.slug) { this.$router.push({ name: 'shop', params: { categoryName: val.slug } }) }
+        if (this.$route.params.categoryName !== val.slug) {
+          this.$router.push({ name: 'shop', params: { categoryName: val.slug } })
+        }
       } else {
         this.$router.push({ name: 'shop', params: { categoryName: val.slug } })
       }

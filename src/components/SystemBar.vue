@@ -2,7 +2,7 @@
   <div class="header-container" :style="{ backgroundColor: backgroundColor }">
     <v-app-bar app color="#FFC44A" outlined dark class="app-bar-header">
       <div class="d-flex align-center">
-         <h1><span  @click="goHome" class="logo">NAILS</span>AUSTRALIA</h1>
+        <h1><span @click="goHome" class="logo">NAILS</span>AUSTRALIA</h1>
       </div>
       <v-spacer></v-spacer>
       <div class="primary app-bar d-none d-md-block menu-app-bar-btn">
@@ -57,7 +57,7 @@
 
 <style scoped lang="scss">
 .logo {
-  color:black !important;
+  color: black !important;
   cursor: pointer;
 }
 .app-bar-header {
@@ -119,7 +119,6 @@
   position: absolute;
   right: 30px;
   top: -15px;
-
 }
 .header-container {
   position: fixed;
@@ -170,8 +169,6 @@ export default {
       if (this.$route.name !== 'courses') this.$router.push({ name: 'courses' })
     }
   },
-  mounted () {
-
-  }
+  mounted () {}
 }
 </script>
