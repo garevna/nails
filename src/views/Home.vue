@@ -70,8 +70,11 @@
       </v-col>
       <v-col cols="12" order="2">
         <v-row>
-           <Courses offlineLimit="2" onlineLimit="2" id="scroll-with-options" />
+           <Courses id="scroll-with-options" />
         </v-row>
+      </v-col>
+      <v-col cols="12" order="2" class=" d-flex justify-center">
+        <v-btn  dark @click="toAllCourses">MORE COURSES...</v-btn>
       </v-col>
     </v-row>
   </v-container>

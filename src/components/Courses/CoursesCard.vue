@@ -24,7 +24,6 @@
       <v-btn
         color="buttons"
         rounded
-        outlined
         small
         min-width="90"
         dark
