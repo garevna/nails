@@ -18,7 +18,7 @@
             <p>{{ shopText }}</p>
           </v-card-text>
           <v-card-text class="text-center">
-            <v-btn color="buttons" rounded large dark min-width="160" class="yellow-button">SHOP</v-btn>
+            <v-btn color="buttons" rounded large dark min-width="160" class="yellow-button" @click="goToRoute('shop')">SHOP</v-btn>
           </v-card-text>
         </v-card>
       </v-col>
@@ -58,7 +58,7 @@
               dark
               min-width="160"
               class="yellow-button mr-4 mb-4"
-              @click="addCourseHandler"
+              @click="goToRoute('add-course')"
             >ADD COURSE</v-btn>
           </v-card-text>
         </v-card>
@@ -74,7 +74,7 @@
         </v-row>
       </v-col>
       <v-col cols="12" order="2" class=" d-flex justify-center">
-        <v-btn  dark @click="toAllCourses">MORE COURSES...</v-btn>
+        <v-btn  dark @click="goToRoute('courses')">MORE COURSES...</v-btn>
       </v-col>
     </v-row>
   </v-container>
@@ -133,11 +133,8 @@ export default {
     }
   },
   methods: {
-    addCourseHandler () {
-      this.$router.push({ name: 'add-course' })
-    },
-    toAllCourses () {
-      this.$router.push({ name: 'courses' })
+    goToRoute (route) {
+      this.$router.push({ name: route })
     }
   }
 }
