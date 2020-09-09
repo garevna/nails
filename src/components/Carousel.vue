@@ -7,7 +7,7 @@
         class="pa-4"
         center-active
         show-arrows
-
+        dark
       >
         <v-slide-item
           v-for="(image, index) in images"

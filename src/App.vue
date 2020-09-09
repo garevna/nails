@@ -14,9 +14,6 @@
 <style>
 html,
 body,
-.homefone{
-
-}
 .v-application {
   font-family: 'Archivo Narrow' !important;
 }
@@ -34,12 +31,7 @@ h3 {
   margin-bottom: 150px !important;
   margin-top: 20px !important;
     min-height: calc(100vh - 500px);
-
 }
-.theme--light.v-icon {
-  color:#fff !important;
-}
-
 @media screen and (max-width: 800px) {
   .main-content {
     margin-bottom: 150px !important;
