@@ -11,7 +11,7 @@
           <LeftSideMenu :setSelectedSection="setSelectedSection"></LeftSideMenu>
         </v-col>
         <v-col cols="12" sm="12" md="9" xl="9" lg="9">
-          <v-row justify="start">
+          <v-row justify="start" v-if='totalCommodities'>
             <Card
               v-for="card in commodities"
               :key="card.id"
@@ -22,10 +22,14 @@
               :id="card._id"
             />
           </v-row>
+          <v-row  v-else class='empty-message' align='center' justify='center'>
+           <h2>Unfortunately, there are no products <br/> suitable for your request...</h2>
+          </v-row>
         </v-col>
       </v-row>
       <v-row justify="center">
         <v-pagination
+          v-if="totalCommodities"
           v-model="pagination.page"
           :length="pagination.total"
           @input="setPage"
@@ -39,10 +43,16 @@
 </template>
 
 <style lang="scss">
+@import '@/css/variables.scss';
 .pagination-buttons {
   button {
     outline: none !important;
   }
+}
+.empty-message{
+  height: 100%;
+  text-align: center;
+   color: $shopGrayFont;
 }
 </style>
 

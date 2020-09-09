@@ -39,11 +39,11 @@
 
           <v-col cols="6" sm="3" md="2" lg="2">
             <v-card-text class="gray-text no-wrap">
-              <h3>Courses</h3>
+              <h3 class="route">Courses</h3>
               <v-divider></v-divider>
-              <h4>Manicure</h4>
-              <h4>Pedicure</h4>
-              <h4>Design</h4>
+              <h4 class="route" v-on:click="goToRoute('courses')">Manicure</h4>
+              <h4 class="route" v-on:click="goToRoute('courses')">Pedicure</h4>
+              <h4 class="route" v-on:click="goToRoute('courses')">Design</h4>
             </v-card-text>
           </v-col>
 
