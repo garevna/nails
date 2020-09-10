@@ -1,18 +1,8 @@
 <template>
-  <v-container fluid fill-height class="homefone">
-    <v-row align="center" justify="center">
-      <v-col align="center">
-        <h2>All courses</h2>
-      </v-col>
-    </v-row>
-    <v-row align="center" justify="center">
-      <v-col>
-        <v-card>
-          <Courses/>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  <div style="margin-left:-12px; margin-right:-12px;">
+    <h2 class="d-flex justify-center my-12">All courses</h2>
+    <Courses />
+  </div>
 </template>
 
 <style scoped lang="scss">
