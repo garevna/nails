@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="pt-12" style="background-color: #414242">
+    <v-card class="py-12" style="background-color: #414242">
       <div class="d-flex justify-center">
         <v-btn
           color="buttons"
@@ -25,19 +25,20 @@
           :online="true"
         />
       </div>
-
-      <!-- <v-btn
-        color="buttons"
+      <div class="d-flex justify-center">
+        <v-btn
+          color="buttons"
           rounded
           small
           outlined
           primary
           class="ref d-flex justify-center yellow-button pa-6"
-        v-if="isHideMoreButtonOnline && this.$route.name !== 'home'"
-        @click="getMoreOnlineCourses"
-      >more courses</v-btn>-->
+          v-if="isHideMoreButtonOnline && this.$route.name !== 'home'"
+          @click="getMoreOnlineCourses"
+        >more online courses</v-btn>
+      </div>
     </v-card>
-    <v-card flat class="homefone pt-12">
+    <v-card flat class="homefone py-12">
       <div class="d-flex justify-center">
         <v-btn
           color="buttons"
@@ -60,6 +61,18 @@
           :price="card.price"
           :id="card._id"
         />
+      </div>
+      <div class="d-flex justify-center">
+        <v-btn
+          color="buttons"
+          rounded
+          small
+          outlined
+          primary
+          class="ref d-flex justify-center yellow-button pa-6"
+          v-if="isHideMoreButtonOnline && this.$route.name !== 'home'"
+          @click="getMoreOfflineCourses"
+        >more offline courses</v-btn>
       </div>
     </v-card>
   </div>
