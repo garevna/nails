@@ -1,71 +1,77 @@
 <template>
-  <v-container fluid class="homefone mt-16 mx-0 ma-0 px-0">
-    <v-row justify="center" class="mx-0">
-      <v-col>
-        <v-row fluid justify="center" style="background-color: #414242">
-          <v-col cols="12" xs="12" class="d-flex justify-center">
-            <h2 class="ref" @click="toOnlineCourses">Online courses</h2>
-          </v-col>
-          <CoursesCard
-            v-for="(card, index) in onlineCourses"
-            :key="index"
-            :accessDays="card.accessDays"
-            :img="card.photo"
-            :name="card.nameOfCourse"
-            :subtitle="card.subtitle"
-            :price="card.price"
-            :id="card._id"
-            :online="true"
-          />
-          <v-col class="d-flex justify-center" cols="12" xs="12">
-            <v-btn
-              color="buttons"
-              rounded
-              outlined
-              small
-              dark
-              min-width="90"
-              class="yellow-button"
-              v-if="isHideMoreButtonOnline && this.$route.name !== 'home'"
-              @click="getMoreOnlineCourses"
-            >more courses</v-btn>
-          </v-col>
-        </v-row>
-      </v-col>
-      <v-col cols="12" xs="12" class="d-flex justify-center">
-        <h2 class="homefone ref" @click="toOfflineCourses">Offline courses</h2>
-      </v-col>
-      <CoursesCard
-        v-for="(card, index) in offlineCourses"
-        :key="index"
-        :accessDays="card.accessDays"
-        :img="card.photo"
-        :name="card.nameOfCourse"
-        :subtitle="card.subtitle"
-        :price="card.price"
-        :id="card._id"
-      />
-      <v-col class="d-flex justify-center" cols="12" xs="12">
+  <div>
+    <v-card class="pt-12" style="background-color: #414242">
+      <div class="d-flex justify-center">
+        <v-btn
+          color="buttons"
+          rounded
+          small
+          outlined
+          primary
+          class="ref d-flex justify-center yellow-button pa-6"
+          @click="toOnlineCourses"
+        >Online courses</v-btn>
+      </div>
+      <div class="d-flex flex-wrap justify-center">
+        <CoursesCard
+          v-for="(card, index) in onlineCourses"
+          :key="index"
+          :accessDays="card.accessDays"
+          :img="card.photo"
+          :name="card.nameOfCourse"
+          :subtitle="card.subtitle"
+          :price="card.price"
+          :id="card._id"
+          :online="true"
+        />
+      </div>
+
+      <!-- <v-btn
+        color="buttons"
+          rounded
+          small
+          outlined
+          primary
+          class="ref d-flex justify-center yellow-button pa-6"
+        v-if="isHideMoreButtonOnline && this.$route.name !== 'home'"
+        @click="getMoreOnlineCourses"
+      >more courses</v-btn>-->
+    </v-card>
+    <v-card flat class="homefone pt-12">
+      <div class="d-flex justify-center">
         <v-btn
           color="buttons"
           rounded
           outlined
-          small
+          large
           dark
-          min-width="90"
-          class="yellow-button"
-          v-if="isHideMoreButtonOffline && this.$route.name !== 'home'"
-          @click="getMoreOfflineCourses"
-        >more courses</v-btn>
-      </v-col>
-    </v-row>
-  </v-container>
+          class="ref d-flex justify-center yellow-button pa-6"
+          @click="toOfflineCourses"
+        >Offline courses</v-btn>
+      </div>
+      <div class="d-flex flex-wrap justify-center mx-6">
+        <CoursesCard
+          v-for="(card, index) in offlineCourses"
+          :key="index"
+          :accessDays="card.accessDays"
+          :img="card.photo"
+          :name="card.nameOfCourse"
+          :subtitle="card.subtitle"
+          :price="card.price"
+          :id="card._id"
+        />
+      </div>
+    </v-card>
+  </div>
 </template>
 
 <style scoped lang="scss">
 @import "@/css/variables.scss";
 h2 {
   color: white;
+}
+.ref {
+  font-size: 20px !important;
 }
 .ref:hover {
   cursor: pointer;

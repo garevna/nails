@@ -68,13 +68,21 @@
           <Carousel />
         </v-card>
       </v-col>
-      <v-col cols="12" order="2">
-        <v-row>
-           <Courses id="scroll-with-options" />
-        </v-row>
+      <v-col cols="12" order="2" class="pa-0">
+        <!-- <v-row> -->
+        <Courses id="scroll-with-options" />
+        <!-- </v-row> -->
       </v-col>
-      <v-col cols="12" order="2" class=" d-flex justify-center">
-        <v-btn  dark @click="goToRoute('courses')">MORE COURSES...</v-btn>
+      <v-col cols="12" order="2" class="d-flex justify-center">
+        <v-btn
+          color="buttons"
+          rounded
+          large
+          dark
+          min-width="160"
+          class="yellow-button mr-4 mb-4"
+          @click="goToRoute('courses')"
+        >MORE COURSES...</v-btn>
       </v-col>
     </v-row>
   </v-container>
