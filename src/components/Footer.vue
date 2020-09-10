@@ -24,7 +24,7 @@
           </v-col>
 
           <v-col cols="6" sm="4" md="2" lg="2">
-            <v-card-text class="gray-text no-wrap">
+            <v-card-text class="gray-text no-wrap links-block">
               <h3>Shop</h3>
               <v-divider></v-divider>
               <h4 class="route" @click="goToShopRoute('cuticle-nippers')">Nippers</h4>
@@ -38,7 +38,7 @@
           </v-col>
 
           <v-col cols="6" sm="3" md="2" lg="2">
-            <v-card-text class="gray-text no-wrap">
+            <v-card-text class="gray-text no-wrap links-block">
               <h3 class="route">Courses</h3>
               <v-divider></v-divider>
               <h4 class="route" v-on:click="goToRoute('courses')">Manicure</h4>
@@ -48,7 +48,7 @@
           </v-col>
 
           <v-col cols="12" sm="5" md="3" lg="3">
-            <v-card-text class="gray-text no-wrap">
+            <v-card-text class="gray-text no-wrap right-block">
               <h2 class="route" v-on:click="goToRoute('payment')">Payment</h2>
               <h2 class="route" v-on:click="goToRoute('delivery')">Delivery</h2>
               <h2 class="route" v-on:click="goToRoute('return')">Return</h2>
@@ -80,12 +80,25 @@
   text-decoration: none;
   color: #333333 !important;
 }
+
 .footer-wrapper {
   padding-bottom: 30px;
   position: absolute;
   width: 100%;
   left: 0;
   right: 0;
+}
+@media screen and (max-width: 600px) {
+  .right-block{
+    text-align: center
+}
+.links-block{
+  font-size: 120%;
+   text-align: center;
+   h4{
+     margin-bottom: 3px;
+   }
+}
 }
 @media screen and (max-width: 400px) {
   .icon-social {
