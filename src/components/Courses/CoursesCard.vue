@@ -1,5 +1,5 @@
 <template>
-  <v-card dark class="cardfone ma-16" width="550" min-height="360">
+  <v-card  dark class="cardfone ma-16">
     <v-img :src="img" contain />
     <v-card-title class="buttons--text pa-0 pl-4 pt-4">
        {{accessDays}} days | $ {{ price }}
@@ -47,6 +47,34 @@
 </template>
 
 <style scoped>
+.cardfone {
+  width: 550px;
+  min-height:360px;
+}
+@media screen and (max-width: 1380px) {
+.cardfone {
+  width: 450px;
+}
+}
+@media screen and (max-width: 1170px) {
+.cardfone {
+  /* width: 350px; */
+  margin: 22px !important;
+}
+}
+@media screen and (max-width: 1005px) {
+.cardfone {
+  width: 400px;
+  margin: 22px !important;
+}
+}
+@media screen and (max-width: 905px) {
+.cardfone {
+  width: 380px;
+  margin: 22px !important;
+}
+}
+
 </style>
 
 <script>

@@ -8,7 +8,7 @@
         v-for="(card, index) in offlineCourses"
         :key="index"
         :accessDays="card.accessDays"
-        :img="card.photo"
+        :img="card.photo[0]"
         :name="card.nameOfCourse"
         :subtitle="card.subtitle"
         :price="card.price"
