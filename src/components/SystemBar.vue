@@ -137,11 +137,11 @@
 </style>
 
 <script>
-import MenuSystemBar from "@/components/MenuSystemBar.vue";
-import { mapState } from "vuex";
+import MenuSystemBar from '@/components/MenuSystemBar.vue'
+import { mapState } from 'vuex'
 
 export default {
-  name: "SystemBar",
+  name: 'SystemBar',
   components: {
     MenuSystemBar
   },
@@ -150,36 +150,35 @@ export default {
     panel: undefined
   }),
   computed: {
-    ...mapState("shop", ["categories"]),
-    burgerMenuClassFirst() {
+    ...mapState('shop', ['categories']),
+    burgerMenuClassFirst () {
       return this.panel === 0
-        ? "burger-menu-active--first"
-        : "burger-menu--first";
+        ? 'burger-menu-active--first'
+        : 'burger-menu--first'
     },
-    burgerMenuClassSecond() {
+    burgerMenuClassSecond () {
       return this.panel === 0
-        ? "burger-menu-active--second"
-        : "burger-menu--second";
+        ? 'burger-menu-active--second'
+        : 'burger-menu--second'
     },
-    backgroundColor() {
-      return this.$vuetify.theme.themes.light.homefone;
+    backgroundColor () {
+      return this.$vuetify.theme.themes.light.homefone
     }
   },
   methods: {
-    goHome() {
-      this.panel = [];
-      if (this.$route.name !== "home") this.$router.push({ name: "home" });
+    goHome () {
+      this.panel = []
+      if (this.$route.name !== 'home') this.$router.push({ name: 'home' })
     },
-    goToShop() {
-      this.panel = [];
-      if (this.$route.name !== "shop") this.$router.push({ name: "shop" });
+    goToShop () {
+      this.panel = []
+      if (this.$route.name !== 'shop') this.$router.push({ name: 'shop' })
     },
-    goToCourses() {
-      this.panel = [];
-      if (this.$route.name !== "courses")
-        this.$router.push({ name: "courses" });
+    goToCourses () {
+      this.panel = []
+      if (this.$route.name !== 'courses') { this.$router.push({ name: 'courses' }) }
     }
   },
-  mounted() {}
-};
+  mounted () {}
+}
 </script>

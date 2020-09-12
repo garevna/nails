@@ -12,7 +12,7 @@
         </v-col>
         <v-col cols="12" sm="12" md="9" xl="9" lg="9" v-if="commodity">
           <v-row justify="start" class="description">
-            <v-col cols="1" sm="1" md="1" xl="2" lg="2"> </v-col>
+            <v-col cols="1" sm="1" md="1" xl="2" lg="2"></v-col>
 
             <v-col cols="12" sm="6" md="4" xl="4" lg="4" xs="12" class="px-0">
               <v-row class="image-row">
@@ -89,7 +89,7 @@
             </v-col>
             <v-col cols="12">
               <v-row class="viewed-block">
-                <v-card width="150" class="mx-5 my-10 " v-for="n in 4" :key="n">
+                <v-card width="150" class="mx-5 my-10" v-for="n in 4" :key="n">
                   <v-img
                     :src="activeCard"
                     max-width="150px"
@@ -180,73 +180,73 @@
 </style>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
-import LeftSideMenu from "@/components/Shop/LeftSideMenu.vue";
-import CategoriesSwitcher from "@/components/Shop/CategoriesSwitcher.vue";
+import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue'
+import CategoriesSwitcher from '@/components/Shop/CategoriesSwitcher.vue'
 export default {
-  name: "Shop",
+  name: 'Shop',
   components: {
     LeftSideMenu,
     CategoriesSwitcher
   },
-  props: ["section"],
-  data() {
+  props: ['section'],
+  data () {
     return {
       selectedBlock: 0,
       selectedSection: {},
       commodityId: this.$route.params.commodityId,
-      activeCard: ""
-    };
+      activeCard: ''
+    }
   },
   computed: {
-    ...mapState(["viewportWidth"]),
-    ...mapState("shop", ["categories", "commodities", "commodity"]),
-    mobileMenu() {
-      return this.viewportWidth < 960;
+    ...mapState(['viewportWidth']),
+    ...mapState('shop', ['categories', 'commodities', 'commodity']),
+    mobileMenu () {
+      return this.viewportWidth < 960
     }
   },
   methods: {
-    setSelectedSection(val) {
-      this.selectedSection = val;
+    setSelectedSection (val) {
+      this.selectedSection = val
     },
-    setPhoto(val, toggle) {
-      toggle();
-      this.activeCard = val;
+    setPhoto (val, toggle) {
+      toggle()
+      this.activeCard = val
     },
-    buyNow() {
-      this.$router.push({ name: "shop-payment" });
+    buyNow () {
+      this.$router.push({ name: 'shop-payment' })
     }
   },
   watch: {
-    categories() {
+    categories () {
       if (this.categories && this.categories.length && this.commodity) {
         this.selectedSection = this.categories
           .flat()
-          .find(el => el._id === this.commodity.categoryId);
+          .find(el => el._id === this.commodity.categoryId)
       }
     },
-    commodity(newVal) {
+    commodity (newVal) {
       if (this.categories && this.categories.length && this.commodity) {
         this.selectedSection = this.categories
           .flat()
-          .find(el => el._id === this.commodity.categoryId);
+          .find(el => el._id === this.commodity.categoryId)
       }
-      if (newVal) this.activeCard = newVal.image[0];
+      if (newVal) this.activeCard = newVal.image[0]
     }
   },
-  mounted() {
+  mounted () {
     if (!this.categories) {
-      this.$store.dispatch("shop/GET_SHOP_CATEGORIES");
+      this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
     }
-    this.$store.dispatch("shop/GET_COMMODITY", {
+    this.$store.dispatch('shop/GET_COMMODITY', {
       commodityId: this.commodityId
-    });
-    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone;
+    })
+    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
   },
-  beforeDestroy() {
-    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray;
-    this.$store.commit("shop/CLEAR_COMMODITY");
+  beforeDestroy () {
+    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
+    this.$store.commit('shop/CLEAR_COMMODITY')
   }
-};
+}
 </script>

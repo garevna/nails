@@ -117,45 +117,45 @@ p {
 </style>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
-import Carousel from "@/components/Carousel.vue";
+import Carousel from '@/components/Carousel.vue'
 // import MainMenu from '@/components/MainMenu.vue'
-import Courses from "@/components/Courses/Courses.vue";
+import Courses from '@/components/Courses/Courses.vue'
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     Carousel,
     // MainMenu,
     Courses
   },
   data: () => ({
-    selector: "#scroll-with-options"
+    selector: '#scroll-with-options'
     // REVIEW: are these lines needed?
     // aboutText: [...Array(100)].map(i => (String.fromCharCode(Math.max(Math.floor(Math.random() * 122), 32)))).join(''),
     // coursesText: [...Array(100)].map(i => (String.fromCharCode(Math.max(Math.floor(Math.random() * 122), 32)))).join('')
   }),
   computed: {
     // INFO: 'shop' no used
-    ...mapState("home", ["about", "shop", "shopText", "courses"]),
-    target() {
-      const value = this.selector;
-      if (!isNaN(value)) return Number(value);
-      else return value;
+    ...mapState('home', ['about', 'shop', 'shopText', 'courses']),
+    target () {
+      const value = this.selector
+      if (!isNaN(value)) return Number(value)
+      else return value
     },
-    options() {
+    options () {
       return {
         duration: 300,
         offset: 0,
-        easing: "easeInOutCubic"
-      };
+        easing: 'easeInOutCubic'
+      }
     }
   },
   methods: {
-    goToRoute(route) {
-      this.$router.push({ name: route });
+    goToRoute (route) {
+      this.$router.push({ name: route })
     }
   }
-};
+}
 </script>

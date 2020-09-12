@@ -62,15 +62,15 @@
 
 <script>
 export default {
-  name: "Card",
-  props: ["images", "name", "price", "brand", "id"],
+  name: 'Card',
+  props: ['images', 'name', 'price', 'brand', 'id'],
   methods: {
-    goToItem() {
+    goToItem () {
       this.$router.push({
-        name: "shop-item",
-        params: { commodityId: this.id },
-      });
-    },
-  },
-};
+        name: 'shop-item',
+        params: { commodityId: this.id }
+      })
+    }
+  }
+}
 </script>

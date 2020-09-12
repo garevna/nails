@@ -11,20 +11,20 @@
 <style lang="scss"></style>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 export default {
-  name: "Payment",
+  name: 'Payment',
   components: {},
-  data() {
-    return {};
+  data () {
+    return {}
   },
   computed: {
-    ...mapState(["viewportWidth"]),
-    mobileMenu() {
-      return this.viewportWidth < 960;
+    ...mapState(['viewportWidth']),
+    mobileMenu () {
+      return this.viewportWidth < 960
     }
   },
   watch: {},
   methods: {}
-};
+}
 </script>

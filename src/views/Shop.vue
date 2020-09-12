@@ -60,98 +60,98 @@
 </style>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex'
 
-import Card from "@/components/Shop/Card.vue";
-import LeftSideMenu from "@/components/Shop/LeftSideMenu.vue";
-import CategoriesSwitcher from "@/components/Shop/CategoriesSwitcher.vue";
+import Card from '@/components/Shop/Card.vue'
+import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue'
+import CategoriesSwitcher from '@/components/Shop/CategoriesSwitcher.vue'
 
 export default {
-  name: "Shop",
+  name: 'Shop',
   components: {
     Card,
     LeftSideMenu,
     CategoriesSwitcher
   },
-  data() {
+  data () {
     return {
       selectedSection: {},
       categoryName: this.$route.params.categoryName
-    };
+    }
   },
   computed: {
-    ...mapState(["viewportWidth"]),
-    ...mapState("shop", ["categories", "commodities", "totalCommodities"]),
-    pagination() {
-      const page = +this.$route.query.page;
+    ...mapState(['viewportWidth']),
+    ...mapState('shop', ['categories', 'commodities', 'totalCommodities']),
+    pagination () {
+      const page = +this.$route.query.page
       return {
         page: !isNaN(page) ? page : 1,
         total: Math.ceil(this.totalCommodities / 8),
         skip: !isNaN(page) ? page * 8 - 8 : 0
-      };
+      }
     },
-    mobileMenu() {
-      return this.viewportWidth < 960;
+    mobileMenu () {
+      return this.viewportWidth < 960
     }
   },
   watch: {
-    $route(to, from) {
+    $route (to, from) {
       if (
-        from.name === "shop" &&
+        from.name === 'shop' &&
         to.params.categoryName !== from.params.categoryName
       ) {
-        this.categoryName = to.params.categoryName;
-        this.getData();
+        this.categoryName = to.params.categoryName
+        this.getData()
       }
     }
   },
   methods: {
-    async getData() {
+    async getData () {
       !this.categories &&
-        (await this.$store.dispatch("shop/GET_SHOP_CATEGORIES"));
-      const allcat = (await this.categories.length) && this.categories.flat();
+        (await this.$store.dispatch('shop/GET_SHOP_CATEGORIES'))
+      const allcat = (await this.categories.length) && this.categories.flat()
       !this.categoryName &&
         (await this.$router.replace({
-          name: "shop",
+          name: 'shop',
           params: { categoryName: allcat[0].slug }
-        }));
+        }))
       this.categoryName = (await this.categoryName)
         ? this.categoryName
-        : allcat[0].slug;
+        : allcat[0].slug
       this.selectedSection =
         (await allcat.length) &&
         allcat.find(el => el.slug === this.categoryName);
-      (await this.selectedSection) && this.getCommodities();
+      (await this.selectedSection) && this.getCommodities()
     },
-    setSelectedSection(val) {
-      this.selectedSection = val;
+    setSelectedSection (val) {
+      this.selectedSection = val
     },
-    getCommodities() {
-      this.$store.dispatch("shop/GET_SHOP_COMMODITIES", {
+    getCommodities () {
+      this.$store.dispatch('shop/GET_SHOP_COMMODITIES', {
         categoryId: this.selectedSection._id,
         skip: this.pagination.skip
-      });
+      })
     },
-    setPage(page) {
+    setPage (page) {
       if (page !== this.$route.query.page) {
         this.$router.replace({
-          name: "shop",
+          name: 'shop',
           params: { categoryId: this.categoryId },
           query: { page }
-        });
-        this.pagination.page = page;
-        this.pagination.skip = page * 8 - 8;
-        this.getCommodities();
+        })
+        this.pagination.page = page
+        this.pagination.skip = page * 8 - 8
+        this.getCommodities()
       }
     }
   },
-  mounted() {
-    this.getData();
-    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone;
+  mounted () {
+    this.getData()
+    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
   },
-  beforeDestroy() {
-    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray;
-    this.$store.commit("shop/CLEAR_COMMODITIES");
+  beforeDestroy () {
+    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
+    this.$store.commit('shop/CLEAR_COMMODITIES')
   }
-};
+}
 </script>

@@ -108,54 +108,54 @@
 </style>
 <script>
 export default {
-  data() {
+  data () {
     return {
       isOpened: false,
       key: 1,
       items: [
         {
           id: 1,
-          name: "Shop",
+          name: 'Shop',
           children: [
             {
               id: 2,
-              name: "Nippers",
-              params: { categoryName: "cuticle-nippers" },
-              routeName: "shop"
+              name: 'Nippers',
+              params: { categoryName: 'cuticle-nippers' },
+              routeName: 'shop'
             },
             {
               id: 3,
-              name: "Scissors",
-              params: { categoryName: "cuticle-scissors" },
-              routeName: "shop"
+              name: 'Scissors',
+              params: { categoryName: 'cuticle-scissors' },
+              routeName: 'shop'
             },
             {
               id: 4,
-              name: "Drill bits",
-              params: { categoryName: "diamond-drill-bits" },
-              routeName: "shop"
+              name: 'Drill bits',
+              params: { categoryName: 'diamond-drill-bits' },
+              routeName: 'shop'
             },
             {
               id: 5,
-              name: "Brushers",
-              params: { categoryName: "brushes" },
-              routeName: "shop"
+              name: 'Brushers',
+              params: { categoryName: 'brushes' },
+              routeName: 'shop'
             },
             {
               id: 6,
-              name: "more...",
+              name: 'more...',
               children: [
                 {
                   id: 7,
-                  name: "Cosmetics",
-                  params: { categoryName: "cosmetics" },
-                  routeName: "shop"
+                  name: 'Cosmetics',
+                  params: { categoryName: 'cosmetics' },
+                  routeName: 'shop'
                 },
                 {
                   id: 8,
-                  name: "Promotions",
-                  params: { categoryName: "Promotions" },
-                  routeName: "shop"
+                  name: 'Promotions',
+                  params: { categoryName: 'Promotions' },
+                  routeName: 'shop'
                 }
               ]
             }
@@ -163,56 +163,56 @@ export default {
         },
         {
           id: 9,
-          name: "NailsAustralia courses",
+          name: 'NailsAustralia courses',
           children: [
             {
               id: 10,
-              name: "Online courses",
-              routeName: "courses-online"
+              name: 'Online courses',
+              routeName: 'courses-online'
             },
             {
               id: 11,
-              name: "Offline courses",
-              routeName: "courses-offline"
+              name: 'Offline courses',
+              routeName: 'courses-offline'
             }
           ]
         },
         {
           id: 12,
-          name: "All courses",
-          routeName: "courses"
+          name: 'All courses',
+          routeName: 'courses'
         },
         {
           id: 13,
-          name: "Add courses",
-          routeName: "add-course"
+          name: 'Add courses',
+          routeName: 'add-course'
         }
       ]
-    };
+    }
   },
   methods: {
-    openDialog(treeElem) {
+    openDialog (treeElem) {
       if (treeElem.routeName) {
-        this.isOpened = false;
+        this.isOpened = false
         if (
-          treeElem.routeName !== "shop" &&
+          treeElem.routeName !== 'shop' &&
           this.$route.name !== treeElem.routeName
         ) {
           this.$router.push({
             name: treeElem.routeName,
             params: treeElem.params
-          });
+          })
         } else if (
-          treeElem.routeName === "shop" &&
+          treeElem.routeName === 'shop' &&
           this.$route.params.categoryName !== treeElem.params.categoryName
         ) {
           this.$router.push({
             name: treeElem.routeName,
             params: treeElem.params
-          });
+          })
         }
       }
     }
   }
-};
+}
 </script>

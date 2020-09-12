@@ -48,14 +48,14 @@
 
 <script>
 export default {
-  name: "MainMenu",
-  props: ["light", "top"],
+  name: 'MainMenu',
+  props: ['light', 'top'],
   methods: {
-    goToShopRoute(route) {
+    goToShopRoute (route) {
       if (this.$route.params.categoryName !== route) {
-        this.$router.push({ name: "shop", params: { categoryName: route } });
+        this.$router.push({ name: 'shop', params: { categoryName: route } })
       }
     }
   }
-};
+}
 </script>
