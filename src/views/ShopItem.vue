@@ -16,11 +16,25 @@
 
             <v-col cols="12" sm="6" md="4" xl="4" lg="4" xs="12" class="px-0">
               <v-row class="image-row">
-                <v-img :src="activeCard" max-width="100%" max-height="400px" contain></v-img>
+                <v-img
+                  :src="activeCard"
+                  max-width="100%"
+                  max-height="400px"
+                  contain
+                ></v-img>
               </v-row>
               <v-row class="justify-center">
-                <v-slide-group :model="activeCard" class="px-0 justify-center" center-active mandatory>
-                  <v-slide-item v-for="img in commodity.image" :key="img" v-slot:default="{ active, toggle }">
+                <v-slide-group
+                  :model="activeCard"
+                  class="px-0 justify-center"
+                  center-active
+                  mandatory
+                >
+                  <v-slide-item
+                    v-for="img in commodity.image"
+                    :key="img"
+                    v-slot:default="{ active, toggle }"
+                  >
                     <v-img
                       @click="setPhoto(img, toggle)"
                       :src="img"
@@ -28,7 +42,10 @@
                       height="60px"
                       contain
                       active
-                      :class="[active ? 'card-active' : 'card-disabled', 'mx-2']"
+                      :class="[
+                        active ? 'card-active' : 'card-disabled',
+                        'mx-2'
+                      ]"
                     ></v-img>
                   </v-slide-item>
                 </v-slide-group>
@@ -47,8 +64,18 @@
                 <div class="price">
                   <h3 class="dark-gray-font">{{ commodity.price }} AUD</h3>
                   <div class="shop-buttons">
-                    <v-btn tile small width="100%" class="add" color="#FFC44A">Add to card</v-btn>
-                    <v-btn tile small width="100%" class="buy" color="#333333" @click='buyNow'>Buy it now</v-btn>
+                    <v-btn tile small width="100%" class="add" color="#FFC44A"
+                      >Add to card</v-btn
+                    >
+                    <v-btn
+                      tile
+                      small
+                      width="100%"
+                      class="buy"
+                      color="#333333"
+                      @click="buyNow"
+                      >Buy it now</v-btn
+                    >
                   </div>
                 </div>
               </v-col>
@@ -56,12 +83,19 @@
           </v-row>
           <v-row class="mt-10">
             <v-col cols="12">
-              <h2 class="dark-gray-font text-center">People who viewed this item also viewed</h2>
+              <h2 class="dark-gray-font text-center">
+                People who viewed this item also viewed
+              </h2>
             </v-col>
             <v-col cols="12">
               <v-row class="viewed-block">
                 <v-card width="150" class="mx-5 my-10 " v-for="n in 4" :key="n">
-                  <v-img :src="activeCard" max-width="150px" max-height="150px" contain></v-img>
+                  <v-img
+                    :src="activeCard"
+                    max-width="150px"
+                    max-height="150px"
+                    contain
+                  ></v-img>
                 </v-card>
               </v-row>
             </v-col>
@@ -73,7 +107,7 @@
 </template>
 
 <style lang="scss">
-@import '@/css/variables.scss';
+@import "@/css/variables.scss";
 .card-active {
   opacity: 1;
 }
@@ -146,67 +180,73 @@
 </style>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
-import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue'
-import CategoriesSwitcher from '@/components/Shop/CategoriesSwitcher.vue'
+import LeftSideMenu from "@/components/Shop/LeftSideMenu.vue";
+import CategoriesSwitcher from "@/components/Shop/CategoriesSwitcher.vue";
 export default {
-  name: 'Shop',
+  name: "Shop",
   components: {
     LeftSideMenu,
     CategoriesSwitcher
   },
-  props: ['section'],
-  data () {
+  props: ["section"],
+  data() {
     return {
       selectedBlock: 0,
       selectedSection: {},
       commodityId: this.$route.params.commodityId,
-      activeCard: ''
-    }
+      activeCard: ""
+    };
   },
   computed: {
-    ...mapState(['viewportWidth']),
-    ...mapState('shop', ['categories', 'commodities', 'commodity']),
-    mobileMenu () {
-      return this.viewportWidth < 960
+    ...mapState(["viewportWidth"]),
+    ...mapState("shop", ["categories", "commodities", "commodity"]),
+    mobileMenu() {
+      return this.viewportWidth < 960;
     }
   },
   methods: {
-    setSelectedSection (val) {
-      this.selectedSection = val
+    setSelectedSection(val) {
+      this.selectedSection = val;
     },
-    setPhoto (val, toggle) {
-      toggle()
-      this.activeCard = val
+    setPhoto(val, toggle) {
+      toggle();
+      this.activeCard = val;
     },
-    buyNow () {
-      this.$router.push({ name: 'shop-payment' })
+    buyNow() {
+      this.$router.push({ name: "shop-payment" });
     }
   },
   watch: {
-    categories () {
+    categories() {
       if (this.categories && this.categories.length && this.commodity) {
-        this.selectedSection = this.categories.flat().find((el) => el._id === this.commodity.categoryId)
+        this.selectedSection = this.categories
+          .flat()
+          .find(el => el._id === this.commodity.categoryId);
       }
     },
-    commodity (newVal) {
+    commodity(newVal) {
       if (this.categories && this.categories.length && this.commodity) {
-        this.selectedSection = this.categories.flat().find((el) => el._id === this.commodity.categoryId)
+        this.selectedSection = this.categories
+          .flat()
+          .find(el => el._id === this.commodity.categoryId);
       }
-      if (newVal) this.activeCard = newVal.image[0]
+      if (newVal) this.activeCard = newVal.image[0];
     }
   },
-  mounted () {
+  mounted() {
     if (!this.categories) {
-      this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
+      this.$store.dispatch("shop/GET_SHOP_CATEGORIES");
     }
-    this.$store.dispatch('shop/GET_COMMODITY', { commodityId: this.commodityId })
-    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
+    this.$store.dispatch("shop/GET_COMMODITY", {
+      commodityId: this.commodityId
+    });
+    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone;
   },
-  beforeDestroy () {
-    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
-    this.$store.commit('shop/CLEAR_COMMODITY')
+  beforeDestroy() {
+    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray;
+    this.$store.commit("shop/CLEAR_COMMODITY");
   }
-}
+};
 </script>

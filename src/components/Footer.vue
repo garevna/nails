@@ -1,24 +1,56 @@
 <template>
   <div class="footer-wrapper" :style="{ backgroundColor: homefone }">
-    <v-bottom-navigation v-model="bottomNav" shift height="auto" background-color="#FFC44A" class="footer">
+    <v-bottom-navigation
+      v-model="bottomNav"
+      shift
+      height="auto"
+      background-color="#FFC44A"
+      class="footer"
+    >
       <v-card flat class="transparent mx-auto" max-width="2400" width="80%">
         <v-row align="start" justify="end" width="100%">
           <v-col cols="12" sm="12" md="5" lg="5">
             <v-row class="mt-5 justify-sm-center justify-center">
-              <a href="https://www.instagram.com/nailsaustralia" target="_blank" fab>
-                <v-img :src="require('@/assets/images/instagramico.svg')" class="mx-5 icon-social" max-width="70" />
+              <a
+                href="https://www.instagram.com/nailsaustralia"
+                target="_blank"
+                fab
+              >
+                <v-img
+                  :src="require('@/assets/images/instagramico.svg')"
+                  class="mx-5 icon-social"
+                  max-width="70"
+                />
               </a>
-              <a href="https://www.instagram.com/nailsaustralia_shop" target="_blank" fab>
-                <v-img :src="require('@/assets/images/instagramico.svg')" class="mx-5 icon-social" max-width="70" />
+              <a
+                href="https://www.instagram.com/nailsaustralia_shop"
+                target="_blank"
+                fab
+              >
+                <v-img
+                  :src="require('@/assets/images/instagramico.svg')"
+                  class="mx-5 icon-social"
+                  max-width="70"
+                />
               </a>
-              <a href="https://www.facebook.com/nailsaustralia" target="_blank" fab>
-                <v-img :src="require('@/assets/images/facebookico.svg')" class="mx-5 icon-social" max-width="70" />
+              <a
+                href="https://www.facebook.com/nailsaustralia"
+                target="_blank"
+                fab
+              >
+                <v-img
+                  :src="require('@/assets/images/facebookico.svg')"
+                  class="mx-5 icon-social"
+                  max-width="70"
+                />
               </a>
             </v-row>
             <v-row class="mt-5 text-sm-center text-center">
               <v-card-text class="justify-sm-center gray-text">
                 <h2>32 Brewer rd, Bentligh 3204 VIC</h2>
-                <a href="mailto:nailsauinfo@gmail.com" class="mail-link"><h3>nailsauinfo@gmail.com</h3></a>
+                <a href="mailto:nailsauinfo@gmail.com" class="mail-link">
+                  <h3>nailsauinfo@gmail.com</h3>
+                </a>
               </v-card-text>
             </v-row>
           </v-col>
@@ -27,13 +59,25 @@
             <v-card-text class="gray-text no-wrap links-block">
               <h3>Shop</h3>
               <v-divider></v-divider>
-              <h4 class="route" @click="goToShopRoute('cuticle-nippers')">Nippers</h4>
-              <h4 class="route" @click="goToShopRoute('cuticle-scissors')">Scissors</h4>
-              <h4 class="route" @click="goToShopRoute('pushers')">Pushers\Curette</h4>
-              <h4 class="route" @click="goToShopRoute('diamond-drill-bits')">Drill bits</h4>
-              <h4 class="route" @click="goToShopRoute('cosmetics')">Cosmetics</h4>
+              <h4 class="route" @click="goToShopRoute('cuticle-nippers')">
+                Nippers
+              </h4>
+              <h4 class="route" @click="goToShopRoute('cuticle-scissors')">
+                Scissors
+              </h4>
+              <h4 class="route" @click="goToShopRoute('pushers')">
+                Pushers\Curette
+              </h4>
+              <h4 class="route" @click="goToShopRoute('diamond-drill-bits')">
+                Drill bits
+              </h4>
+              <h4 class="route" @click="goToShopRoute('cosmetics')">
+                Cosmetics
+              </h4>
               <h4 class="route" @click="goToShopRoute('brushes')">Brushes</h4>
-              <h4 class="route" @click="goToShopRoute('promotions')">Promotions</h4>
+              <h4 class="route" @click="goToShopRoute('promotions')">
+                Promotions
+              </h4>
             </v-card-text>
           </v-col>
 
@@ -53,8 +97,12 @@
               <h2 class="route" v-on:click="goToRoute('delivery')">Delivery</h2>
               <h2 class="route" v-on:click="goToRoute('return')">Return</h2>
               <p></p>
-              <h2 class="route" v-on:click="goToRoute('add-course')">Add course</h2>
-              <h2 class="route" v-on:click="goToRoute('cooperation')">Cooperation</h2>
+              <h2 class="route" v-on:click="goToRoute('add-course')">
+                Add course
+              </h2>
+              <h2 class="route" v-on:click="goToRoute('cooperation')">
+                Cooperation
+              </h2>
             </v-card-text>
           </v-col>
         </v-row>
@@ -63,7 +111,7 @@
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .route {
   cursor: pointer;
 }
@@ -89,16 +137,16 @@
   right: 0;
 }
 @media screen and (max-width: 600px) {
-  .right-block{
-    text-align: center
-}
-.links-block{
-  font-size: 120%;
-   text-align: center;
-   h4{
-     margin-bottom: 3px;
-   }
-}
+  .right-block {
+    text-align: center;
+  }
+  .links-block {
+    font-size: 120%;
+    text-align: center;
+    h4 {
+      margin-bottom: 3px;
+    }
+  }
 }
 @media screen and (max-width: 400px) {
   .icon-social {
@@ -109,27 +157,27 @@
 
 <script>
 export default {
-  name: 'Footer',
+  name: "Footer",
   props: [],
   data: () => ({
     bottomNav: null
   }),
   computed: {
-    homefone () {
-      return this.$vuetify.theme.themes.light.homefone
+    homefone() {
+      return this.$vuetify.theme.themes.light.homefone;
     }
   },
   methods: {
-    goToShopRoute (route) {
+    goToShopRoute(route) {
       if (this.$route.params.categoryName !== route) {
-        this.$router.push({ name: 'shop', params: { categoryName: route } })
+        this.$router.push({ name: "shop", params: { categoryName: route } });
       }
     },
-    goToRoute (route) {
+    goToRoute(route) {
       if (this.$route.name !== route) {
-        this.$router.push({ name: route })
+        this.$router.push({ name: route });
       }
     }
   }
-}
+};
 </script>

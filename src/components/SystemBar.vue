@@ -39,13 +39,19 @@
                     style="background: #CACACA"
             >-->
               <v-list-item class="main-menu-content" @click="goHome">
-                <v-list-item-title class="main-menu-content main-menu-items">Home</v-list-item-title>
+                <v-list-item-title class="main-menu-content main-menu-items"
+                  >Home</v-list-item-title
+                >
               </v-list-item>
               <v-list-item class="main-menu-content" @click="goToShop">
-                <v-list-item-title class="main-menu-content main-menu-items">Shop</v-list-item-title>
+                <v-list-item-title class="main-menu-content main-menu-items"
+                  >Shop</v-list-item-title
+                >
               </v-list-item>
               <v-list-item class="main-menu-content" @click="goToCourses">
-                <v-list-item-title class="main-menu-content main-menu-items">Courses</v-list-item-title>
+                <v-list-item-title class="main-menu-content main-menu-items"
+                  >Courses</v-list-item-title
+                >
               </v-list-item>
             </v-list>
           </v-expansion-panel-content>
@@ -131,11 +137,11 @@
 </style>
 
 <script>
-import MenuSystemBar from '@/components/MenuSystemBar.vue'
-import { mapState } from 'vuex'
+import MenuSystemBar from "@/components/MenuSystemBar.vue";
+import { mapState } from "vuex";
 
 export default {
-  name: 'SystemBar',
+  name: "SystemBar",
   components: {
     MenuSystemBar
   },
@@ -144,31 +150,36 @@ export default {
     panel: undefined
   }),
   computed: {
-    ...mapState('shop', ['categories']),
-    burgerMenuClassFirst () {
-      return this.panel === 0 ? 'burger-menu-active--first' : 'burger-menu--first'
+    ...mapState("shop", ["categories"]),
+    burgerMenuClassFirst() {
+      return this.panel === 0
+        ? "burger-menu-active--first"
+        : "burger-menu--first";
     },
-    burgerMenuClassSecond () {
-      return this.panel === 0 ? 'burger-menu-active--second' : 'burger-menu--second'
+    burgerMenuClassSecond() {
+      return this.panel === 0
+        ? "burger-menu-active--second"
+        : "burger-menu--second";
     },
-    backgroundColor () {
-      return this.$vuetify.theme.themes.light.homefone
+    backgroundColor() {
+      return this.$vuetify.theme.themes.light.homefone;
     }
   },
   methods: {
-    goHome () {
-      this.panel = []
-      if (this.$route.name !== 'home') this.$router.push({ name: 'home' })
+    goHome() {
+      this.panel = [];
+      if (this.$route.name !== "home") this.$router.push({ name: "home" });
     },
-    goToShop () {
-      this.panel = []
-      if (this.$route.name !== 'shop') this.$router.push({ name: 'shop' })
+    goToShop() {
+      this.panel = [];
+      if (this.$route.name !== "shop") this.$router.push({ name: "shop" });
     },
-    goToCourses () {
-      this.panel = []
-      if (this.$route.name !== 'courses') this.$router.push({ name: 'courses' })
+    goToCourses() {
+      this.panel = [];
+      if (this.$route.name !== "courses")
+        this.$router.push({ name: "courses" });
     }
   },
-  mounted () {}
-}
+  mounted() {}
+};
 </script>

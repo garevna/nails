@@ -26,7 +26,8 @@
           class="yellow-button"
           v-if="isHideMoreButtonOnline"
           @click="getMoreOnlineCourses"
-        >more courses</v-btn>
+          >more courses</v-btn
+        >
       </v-col>
     </v-row>
   </v-container>
@@ -39,34 +40,34 @@
 </style>
 
 <script>
-import { mapState } from 'vuex'
-import CoursesCard from '@/components/Courses/CoursesCard.vue'
+import { mapState } from "vuex";
+import CoursesCard from "@/components/Courses/CoursesCard.vue";
 export default {
-  name: 'courses-online',
+  name: "courses-online",
   components: {
     CoursesCard
   },
-  data () {
-    return {}
+  data() {
+    return {};
   },
   computed: {
-    ...mapState('onlineCourses', ['onlineCourses', 'totalOnlineCourses']),
-    isHideMoreButtonOnline () {
-      return this.onlineCourses.length < this.totalOnlineCourses
+    ...mapState("onlineCourses", ["onlineCourses", "totalOnlineCourses"]),
+    isHideMoreButtonOnline() {
+      return this.onlineCourses.length < this.totalOnlineCourses;
     }
   },
   methods: {
-    async getCourses () {
-      await this.$store.dispatch('onlineCourses/GET_ONLINE_COURSES')
+    async getCourses() {
+      await this.$store.dispatch("onlineCourses/GET_ONLINE_COURSES");
     },
-    async getMoreOnlineCourses () {
-      await this.$store.dispatch('onlineCourses/GET_MORE_ONLINE_COURSES', {
+    async getMoreOnlineCourses() {
+      await this.$store.dispatch("onlineCourses/GET_MORE_ONLINE_COURSES", {
         skip: this.onlineCourses.length
-      })
+      });
     }
   },
-  mounted () {
-    this.getCourses()
+  mounted() {
+    this.getCourses();
   }
-}
+};
 </script>

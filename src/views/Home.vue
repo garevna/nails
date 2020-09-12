@@ -18,7 +18,16 @@
             <p>{{ shopText }}</p>
           </v-card-text>
           <v-card-text class="text-center">
-            <v-btn color="buttons" rounded large dark min-width="160" class="yellow-button" @click="goToRoute('shop')">SHOP</v-btn>
+            <v-btn
+              color="buttons"
+              rounded
+              large
+              dark
+              min-width="160"
+              class="yellow-button"
+              @click="goToRoute('shop')"
+              >SHOP</v-btn
+            >
           </v-card-text>
         </v-card>
       </v-col>
@@ -49,7 +58,8 @@
               min-width="160"
               class="yellow-button mr-4 mb-4"
               @click="$vuetify.goTo(target, options)"
-            >ALL COURSES</v-btn>
+              >ALL COURSES</v-btn
+            >
             <v-btn
               color="buttons"
               rounded
@@ -59,7 +69,8 @@
               min-width="160"
               class="yellow-button mr-4 mb-4"
               @click="goToRoute('add-course')"
-            >ADD COURSE</v-btn>
+              >ADD COURSE</v-btn
+            >
           </v-card-text>
         </v-card>
       </v-col>
@@ -82,7 +93,8 @@
           min-width="160"
           class="yellow-button mr-4 mb-4"
           @click="goToRoute('courses')"
-        >MORE COURSES...</v-btn>
+          >MORE COURSES...</v-btn
+        >
       </v-col>
     </v-row>
   </v-container>
@@ -105,45 +117,45 @@ p {
 </style>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
-import Carousel from '@/components/Carousel.vue'
+import Carousel from "@/components/Carousel.vue";
 // import MainMenu from '@/components/MainMenu.vue'
-import Courses from '@/components/Courses/Courses.vue'
+import Courses from "@/components/Courses/Courses.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
     Carousel,
     // MainMenu,
     Courses
   },
   data: () => ({
-    selector: '#scroll-with-options'
+    selector: "#scroll-with-options"
     // REVIEW: are these lines needed?
     // aboutText: [...Array(100)].map(i => (String.fromCharCode(Math.max(Math.floor(Math.random() * 122), 32)))).join(''),
     // coursesText: [...Array(100)].map(i => (String.fromCharCode(Math.max(Math.floor(Math.random() * 122), 32)))).join('')
   }),
   computed: {
     // INFO: 'shop' no used
-    ...mapState('home', ['about', 'shop', 'shopText', 'courses']),
-    target () {
-      const value = this.selector
-      if (!isNaN(value)) return Number(value)
-      else return value
+    ...mapState("home", ["about", "shop", "shopText", "courses"]),
+    target() {
+      const value = this.selector;
+      if (!isNaN(value)) return Number(value);
+      else return value;
     },
-    options () {
+    options() {
       return {
         duration: 300,
         offset: 0,
-        easing: 'easeInOutCubic'
-      }
+        easing: "easeInOutCubic"
+      };
     }
   },
   methods: {
-    goToRoute (route) {
-      this.$router.push({ name: route })
+    goToRoute(route) {
+      this.$router.push({ name: route });
     }
   }
-}
+};
 </script>

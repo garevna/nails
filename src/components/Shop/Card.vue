@@ -14,7 +14,7 @@
 </template>
 
 <style scoped lang="scss">
-@import '@/css/variables.scss';
+@import "@/css/variables.scss";
 .shop-card {
   cursor: pointer;
 }
@@ -62,12 +62,15 @@
 
 <script>
 export default {
-  name: 'Card',
-  props: ['images', 'name', 'price', 'brand', 'id'],
+  name: "Card",
+  props: ["images", "name", "price", "brand", "id"],
   methods: {
-    goToItem () {
-      this.$router.push({ name: 'shop-item', params: { commodityId: this.id } })
-    }
-  }
-}
+    goToItem() {
+      this.$router.push({
+        name: "shop-item",
+        params: { commodityId: this.id },
+      });
+    },
+  },
+};
 </script>
