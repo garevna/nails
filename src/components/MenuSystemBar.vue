@@ -1,9 +1,7 @@
 <template>
   <div color="warning menu">
     <input class="search menu-app-bar" text />
-    <v-btn icon>
-      <v-icon color="secondaryGray">mdi-shopping</v-icon>
-    </v-btn>
+    <ProductsCart/>
     <v-menu v-model="isOpened" bottom left :close-on-content-click="false">
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on" @click="isOpened = true">
@@ -107,7 +105,9 @@
 }
 </style>
 <script>
+import ProductsCart from '@/components/Shop/ProductsCart.vue'
 export default {
+  components: { ProductsCart },
   data () {
     return {
       isOpened: false,

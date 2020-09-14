@@ -91,7 +91,7 @@
               <v-row class="viewed-block">
                 <v-card width="150" class="mx-5 my-10" v-for="n in 4" :key="n">
                   <v-img
-                    :src="activeCard"
+                    :src="commodity.image[0]"
                     max-width="150px"
                     max-height="150px"
                     contain
