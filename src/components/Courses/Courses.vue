@@ -17,7 +17,7 @@
           v-for="(card, index) in onlineCourses"
           :key="index"
           :accessDays="card.accessDays"
-          :img="card.photo"
+          :img="card.photo.length > 0 ? card.photo[0].link  : 'https://www.classify24.com/wp-content/uploads/2017/04/no-image.png'"
           :name="card.nameOfCourse"
           :subtitle="card.subtitle"
           :price="card.price"
@@ -55,7 +55,7 @@
           v-for="(card, index) in offlineCourses"
           :key="index"
           :accessDays="card.accessDays"
-          :img="card.photo[0]"
+          :img="card.photo.length > 0 ? card.photo[0].link  :  'https://www.classify24.com/wp-content/uploads/2017/04/no-image.png'"
           :name="card.nameOfCourse"
           :subtitle="card.subtitle"
           :price="card.price"
@@ -99,6 +99,7 @@ h2 {
 
 <script>
 import { mapState } from 'vuex'
+
 import CoursesCard from '@/components/Courses/CoursesCard.vue'
 export default {
   components: {

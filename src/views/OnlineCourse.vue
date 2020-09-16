@@ -24,7 +24,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" xs="12"  order="1" sm="6" order-sm="2" align="center" justify="center" >
-        <v-img width="400px" :src="onlineCourseById.photo"></v-img>
+        <v-img width="400px" :src=" error ? 'https://www.classify24.com/wp-content/uploads/2017/04/no-image.png' : onlineCourseByIdImg " contain  @error="onError"></v-img>
       </v-col>
       <v-col cols="12" xs="12"  order="2">
         <v-card-text class="mt-16 whitefone--text d-flex justify-center justify-sm-start ">Author and instructor of the course: {{onlineCourseById.author}}</v-card-text>
@@ -57,10 +57,12 @@ import { mapState } from 'vuex'
 export default {
   name: 'course-online',
   data () {
-    return {}
+    return {
+      error: false
+    }
   },
   computed: {
-    ...mapState('onlineCourses', ['onlineCourseById']),
+    ...mapState('onlineCourses', ['onlineCourseById', 'onlineCourseByIdImg']),
     ...mapState(['buttonForRegistrationOnlineShop'])
   },
   methods: {
@@ -69,6 +71,9 @@ export default {
     },
     async getCourse () {
       await this.$store.dispatch('onlineCourses/GET_ONLINE_COURSE_BY_ID', { id: this.$route.params.id })
+    },
+    onError () {
+      this.error = true
     }
   },
   mounted () {

@@ -26,7 +26,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" xs="12" order="1" sm="6" order-sm="2" align="center" justify="center">
-        <v-img width="400px" :src="offlineCourseById.photo"></v-img>
+        <v-img width="400px" :src=" error ? 'https://www.classify24.com/wp-content/uploads/2017/04/no-image.png' : offlineCourseByIdImg " contain  @error="onError"></v-img>
       </v-col>
       <v-col cols="12" xs="12" order="2">
         <v-card-text
@@ -61,10 +61,12 @@ import { mapState } from 'vuex'
 export default {
   name: 'course-offline',
   data () {
-    return {}
+    return {
+      error: false
+    }
   },
   computed: {
-    ...mapState('offlineCourses', ['offlineCourseById']),
+    ...mapState('offlineCourses', ['offlineCourseById', 'offlineCourseByIdImg']),
     ...mapState([
       'buttonForDetailOfflineShop',
       'buttonForRegistrationOfflineShop'
@@ -76,6 +78,9 @@ export default {
     },
     async getCourse () {
       await this.$store.dispatch('offlineCourses/GET_OFFLINE_COURSE_BY_ID', { id: this.$route.params.id })
+    },
+    onError () {
+      this.error = true
     }
   },
   mounted () {

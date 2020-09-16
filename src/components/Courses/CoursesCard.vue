@@ -1,6 +1,6 @@
 <template>
   <v-card  dark class="cardfone ma-16">
-    <v-img :src="img" contain />
+    <v-img :src=" error ? 'https://www.classify24.com/wp-content/uploads/2017/04/no-image.png' : img " contain  @error="onError" />
     <v-card-title class="buttons--text pa-0 pl-4 pt-4">
        {{accessDays}} days | $ {{ price }}
     </v-card-title>
@@ -84,7 +84,10 @@ export default {
   props: ['img', 'name', 'price', 'id', 'offline', 'online', 'subtitle', 'accessDays'],
   data () {
     return {
+      error: false
     }
+  },
+  computed: {
   },
   methods: {
     detailOfflineInfo () {
@@ -95,7 +98,12 @@ export default {
     },
     payDetail () {
       this.$router.push({ name: 'personal-data' })
+    },
+    onError () {
+      this.error = true
     }
+  },
+  mounted () {
   }
 }
 </script>
