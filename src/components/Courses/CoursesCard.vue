@@ -1,6 +1,6 @@
 <template>
-  <v-card  dark class="cardfone ma-16">
-    <v-img :src=" error ? 'https://www.classify24.com/wp-content/uploads/2017/04/no-image.png' : img " contain  @error="onError" />
+  <v-card  dark class="cardfone ma-12">
+    <v-img :src=" error ? 'https://www.classify24.com/wp-content/uploads/2017/04/no-image.png' : img "  @error="onError" class="image-course"/>
     <v-card-title class="buttons--text pa-0 pl-4 pt-4">
        {{accessDays}} days | $ {{ price }}
     </v-card-title>
@@ -51,27 +51,30 @@
   width: 550px;
   min-height:360px;
 }
-@media screen and (max-width: 1380px) {
+.image-course {
+  height: 360px;
+}
+@media screen and (max-width: 1300px) {
 .cardfone {
-  width: 450px;
+  width: 440px;
 }
 }
-@media screen and (max-width: 1170px) {
+@media screen and (max-width: 1100px) {
 .cardfone {
-  /* width: 350px; */
-  margin: 22px !important;
+  width: 350px;
+}
+.image-course {
+  height:300px;
 }
 }
-@media screen and (max-width: 1005px) {
+@media screen and (max-width: 1000px) {
 .cardfone {
-  width: 400px;
-  margin: 22px !important;
+  width: 320px;
 }
 }
 @media screen and (max-width: 905px) {
 .cardfone {
   width: 380px;
-  margin: 22px !important;
 }
 }
 
