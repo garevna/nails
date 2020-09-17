@@ -12,7 +12,7 @@
           @click="toOnlineCourses"
         >Online courses</v-btn>
       </div>
-      <div class="d-flex flex-wrap justify-center mobile">
+      <div class="d-flex flex-wrap  justify-center ">
         <CoursesCard
           v-for="(card, index) in onlineCourses"
           :key="index"
@@ -50,7 +50,7 @@
           @click="toOfflineCourses"
         >Offline courses</v-btn>
       </div>
-      <div class="d-flex flex-wrap justify-center mobile">
+      <div class="d-flex flex-wrap justify-center">
         <CoursesCard
           v-for="(card, index) in offlineCourses"
           :key="index"
@@ -89,11 +89,6 @@ h2 {
 .ref:hover {
   cursor: pointer;
   color: #ffc44a;
-}
-@media screen and (max-width: 1170px) {
-.mobile {
-  justify-content: space-around !important;
-}
 }
 </style>
 
