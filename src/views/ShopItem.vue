@@ -20,7 +20,7 @@
               </v-row>
               <v-row class="justify-center">
                 <v-slide-group :model="activeCard" class="px-0 justify-center" center-active mandatory>
-                  <v-slide-item v-for="img in commodity.image" :key="img" v-slot:default="{ active, toggle }">
+                  <v-slide-item v-for="img in commodity.images" :key="img" v-slot:default="{ active, toggle }">
                     <v-img
                       @click="setPhoto(img, toggle)"
                       :src="img"
@@ -178,7 +178,7 @@ export default {
     },
     setPhoto (val, toggle) {
       toggle()
-      this.activeCard = val
+      this.activeCard = val.link
     },
     buyNow () {
       this.$router.push({ name: 'shop-payment' })
@@ -194,7 +194,7 @@ export default {
       if (this.categories && this.categories.length && this.commodity) {
         this.selectedSection = this.categories.flat().find((el) => el._id === this.commodity.categoryId)
       }
-      if (newVal) this.activeCard = newVal.image[0]
+      if (newVal) this.activeCard = newVal.images[0].link
     }
   },
   mounted () {

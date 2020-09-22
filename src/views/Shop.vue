@@ -11,15 +11,16 @@
           <LeftSideMenu :setSelectedSection="setSelectedSection"></LeftSideMenu>
         </v-col>
         <v-col cols="12" sm="12" md="9" xl="9" lg="9">
-          <v-row justify="start" v-if='totalCommodities'>
+          <v-row justify="center" v-if='totalCommodities'>
             <Card
               v-for="card in commodities"
               :key="card.id"
-              :images="card.image"
+              :image="card.previewImage[0].link"
               :name="card.name"
               :price="card.price"
               :brand="card.brand"
               :id="card._id"
+              :clickHandler="goToItem"
             />
           </v-row>
           <v-row  v-else class='empty-message' align='center' justify='center'>
@@ -90,10 +91,11 @@ export default {
     mobileMenu () {
       return this.viewportWidth < 960
     }
+
   },
   watch: {
     $route (to, from) {
-      if (from.name === 'shop' && to.params.categoryName !== from.params.categoryName) {
+      if (from.name === 'shop' && from.path !== '/' && to.params.categoryName !== from.params.categoryName) {
         this.categoryName = to.params.categoryName
         this.getData()
       }
@@ -126,9 +128,17 @@ export default {
         this.pagination.skip = page * 8 - 8
         this.getCommodities()
       }
+    },
+    goToItem (id) {
+      this.$router.push({
+        name: 'shop-item',
+        params: {
+          commodityId: id
+        }
+      })
     }
   },
-  mounted () {
+  created () {
     this.getData()
     this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
   },
