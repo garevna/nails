@@ -11,7 +11,7 @@
           <LeftSideMenu :setSelectedSection="setSelectedSection"></LeftSideMenu>
         </v-col>
         <v-col cols="12" sm="12" md="9" xl="9" lg="9">
-          <v-row justify="start" v-if="!totalCommodities">
+          <v-row justify="start" v-if="totalCommodities">
             <ShopCard
               v-for="card in commodities"
               :key="card.id"
