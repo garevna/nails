@@ -11,15 +11,15 @@
           <LeftSideMenu :setSelectedSection="setSelectedSection"></LeftSideMenu>
         </v-col>
         <v-col cols="12" sm="12" md="9" xl="9" lg="9">
-          <v-row justify="start" v-if="totalCommodities">
+          <v-row justify="start" v-if="!totalCommodities">
             <ShopCard
-              v-for="card in 4"
-              :key="card"
-              image="https://epikriz.com.ua/images/product_images/popup_images/41674_0.jpg"
-              name="Name of card"
-              price="4"
-              brand="card.brand"
-              :id="card"
+              v-for="card in commodities"
+              :key="card.id"
+              :image="card.previewImage[0].link"
+              :name="card.name"
+              :price="card.price"
+              :brand="card.brand"
+              :id="card._id"
               :handler="goToItem"
             />
           </v-row>
