@@ -12,15 +12,15 @@
         </v-col>
         <v-col cols="12" sm="12" md="9" xl="9" lg="9">
           <v-row justify="start" v-if="totalCommodities">
-            <Card
-              v-for="card in commodities"
-              :key="card.id"
-              :image="card.previewImage[0].link"
-              :name="card.name"
-              :price="card.price"
-              :brand="card.brand"
-              :id="card._id"
-              :clickHandler="goToItem"
+            <ShopCard
+              v-for="card in 4"
+              :key="card"
+              image="https://epikriz.com.ua/images/product_images/popup_images/41674_0.jpg"
+              name="Name of card"
+              price="4"
+              brand="card.brand"
+              :id="card"
+              :handler="goToItem"
             />
           </v-row>
           <v-row v-else class="empty-message" align="center" justify="center">
@@ -58,19 +58,59 @@
   text-align: center;
   color: $shopGrayFont;
 }
+.shop-card {
+  background-color: #f4f4f4;
+  margin: 20px;
+  width: calc(25% - 65px);
+  height: 350px;
+}
+.price-wrap {
+  padding: 5px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.text-wrap {
+  padding: 10px;
+  flex: 1;
+}
+.color-black {
+  color: black;
+}
+.gray-background {
+  background-color: #f4f4f4;
+}
+@media screen and (max-width: 1450px) {
+  .shop-card {
+    margin: 10px;
+    width: calc(33% - 65px);
+  }
+}
+@media screen and (max-width: 1095px) {
+  .shop-card {
+    margin: 10px;
+    width: calc(50% - 65px);
+  }
+}
+@media screen and (max-width: 569px) {
+  .shop-card {
+    margin: 10px;
+    width: -webkit-fill-available;
+  }
+}
 </style>
 
 <script>
 import { mapState } from 'vuex'
 
-import Card from '@/components/Shop/Card.vue'
+// import Card from '@/components/Shop/Card.vue'
 import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue'
 import CategoriesSwitcher from '@/components/Shop/CategoriesSwitcher.vue'
+import 'nails-shop-card'
 
 export default {
   name: 'Shop',
   components: {
-    Card,
     LeftSideMenu,
     CategoriesSwitcher
   },
@@ -94,7 +134,6 @@ export default {
     mobileMenu () {
       return this.viewportWidth < 960
     }
-
   },
   watch: {
     $route (to, from) {
@@ -122,7 +161,7 @@ export default {
         : allcat[0].slug
       this.selectedSection =
         (await allcat.length) &&
-        allcat.find(el => el.slug === this.categoryName);
+        allcat.find((el) => el.slug === this.categoryName);
       (await this.selectedSection) && this.getCommodities()
     },
     setSelectedSection (val) {

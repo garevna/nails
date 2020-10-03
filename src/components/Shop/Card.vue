@@ -65,12 +65,7 @@ export default {
   name: 'Card',
   props: ['image', 'name', 'price', 'brand', 'id', 'clickHandler'],
   methods: {
-    goToItem () {
-      this.$router.push({
-        name: 'shop-item',
-        params: { commodityId: this.id }
-      })
-    }
+
   }
 }
 </script>
