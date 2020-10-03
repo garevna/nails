@@ -15,11 +15,12 @@
             <Card
               v-for="card in commodities"
               :key="card.id"
-              :images="card.image"
+              :image="card.previewImage[0].link"
               :name="card.name"
               :price="card.price"
               :brand="card.brand"
               :id="card._id"
+              :clickHandler="goToItem"
             />
           </v-row>
           <v-row v-else class="empty-message" align="center" justify="center">
@@ -93,6 +94,7 @@ export default {
     mobileMenu () {
       return this.viewportWidth < 960
     }
+
   },
   watch: {
     $route (to, from) {
@@ -143,9 +145,17 @@ export default {
         this.pagination.skip = page * 8 - 8
         this.getCommodities()
       }
+    },
+    goToItem (id) {
+      this.$router.push({
+        name: 'shop-item',
+        params: {
+          commodityId: id
+        }
+      })
     }
   },
-  mounted () {
+  created () {
     this.getData()
     this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
   },

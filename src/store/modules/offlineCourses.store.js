@@ -2,6 +2,7 @@ const state = {
   courses: 'Integer a erat accumsan, facilisis massa a, fringilla lacus. Praesent eget mollis metus, eu blandit erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed id rutrum nisl. In quis nulla et libero pretium consectetur ultricies vel elit. Cras commodo diam vitae porta viverra. Vestibulum dapibus imperdiet lacinia. Phasellus interdum quis erat a aliquam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed vel mauris nec dolor rutrum vulputate dapibus quis lectus.',
   offlineCourses: [],
   offlineCourseById: {},
+  offlineCourseByIdImg: '',
   totalOfflineCourses: 0
 }
 
@@ -20,6 +21,9 @@ const mutations = {
   },
   OFFLINE_COURSE_BY_ID: (state, payload) => {
     state.offlineCourseById = payload.offlineCourse
+  },
+  OFFLINE_COURSE_BY_ID_IMG: (state, payload) => {
+    state.offlineCourseByIdImg = payload
   }
 }
 
@@ -36,7 +40,12 @@ const actions = {
   },
   async GET_OFFLINE_COURSE_BY_ID ({ state, getters, commit }, { id }) {
     const response = await (await fetch(`${getters.offlineCoursesEndpoint}/${id}`)).json()
+    let img = response.offlineCourse?.photo[0]?.link
+    if (!img) {
+      img = 'https://www.classify24.com/wp-content/uploads/2017/04/no-image.png'
+    }
     commit('OFFLINE_COURSE_BY_ID', response)
+    commit('OFFLINE_COURSE_BY_ID_IMG', img)
     return state.offlineCourseById
   }
 }

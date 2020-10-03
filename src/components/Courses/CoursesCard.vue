@@ -47,6 +47,37 @@
 </template>
 
 <style scoped>
+.cardfone {
+  width: 550px;
+  min-height:360px;
+}
+.image-course {
+  height: 360px;
+}
+@media screen and (max-width: 1300px) {
+.cardfone {
+  width: 440px;
+}
+}
+@media screen and (max-width: 1100px) {
+.cardfone {
+  width: 350px;
+}
+.image-course {
+  height:300px;
+}
+}
+@media screen and (max-width: 1000px) {
+.cardfone {
+  width: 320px;
+}
+}
+@media screen and (max-width: 905px) {
+.cardfone {
+  width: 380px;
+}
+}
+
 </style>
 
 <script>
@@ -56,7 +87,10 @@ export default {
   props: ['img', 'name', 'price', 'id', 'offline', 'online', 'subtitle', 'accessDays'],
   data () {
     return {
+      error: false
     }
+  },
+  computed: {
   },
   methods: {
     detailOfflineInfo () {
@@ -67,7 +101,12 @@ export default {
     },
     payDetail () {
       this.$router.push({ name: 'personal-data' })
+    },
+    onError () {
+      this.error = true
     }
+  },
+  mounted () {
   }
 }
 </script>

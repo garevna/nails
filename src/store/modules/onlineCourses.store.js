@@ -1,6 +1,7 @@
 const state = {
   onlineCourses: [],
   onlineCourseById: {},
+  onlineCourseByIdImg: '',
   totalOnlineCourses: 0
 }
 
@@ -19,6 +20,9 @@ const mutations = {
   },
   ONLINE_COURSE_BY_ID: (state, payload) => {
     state.onlineCourseById = payload.onlineCourse
+  },
+  ONLINE_COURSE_BY_ID_IMG: (state, payload) => {
+    state.onlineCourseByIdImg = payload
   }
 }
 
@@ -35,7 +39,12 @@ const actions = {
   },
   async GET_ONLINE_COURSE_BY_ID ({ state, getters, commit }, { id }) {
     const response = await (await fetch(`${getters.onlineCoursesEndpoint}/${id}`)).json()
+    let img = response.onlineCourse?.photo[0]?.link
+    if (!img) {
+      img = 'https://www.classify24.com/wp-content/uploads/2017/04/no-image.png'
+    }
     commit('ONLINE_COURSE_BY_ID', response)
+    commit('ONLINE_COURSE_BY_ID_IMG', img)
     return state.onlineCourseById
   }
 }

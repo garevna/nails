@@ -44,7 +44,7 @@
                       active
                       :class="[
                         active ? 'card-active' : 'card-disabled',
-                        'mx-2'
+                        'mx-2',
                       ]"
                     ></v-img>
                   </v-slide-item>
@@ -212,7 +212,7 @@ export default {
     },
     setPhoto (val, toggle) {
       toggle()
-      this.activeCard = val
+      this.activeCard = val.link
     },
     buyNow () {
       this.$router.push({ name: 'shop-payment' })
@@ -223,16 +223,16 @@ export default {
       if (this.categories && this.categories.length && this.commodity) {
         this.selectedSection = this.categories
           .flat()
-          .find(el => el._id === this.commodity.categoryId)
+          .find((el) => el._id === this.commodity.categoryId)
       }
     },
     commodity (newVal) {
       if (this.categories && this.categories.length && this.commodity) {
         this.selectedSection = this.categories
           .flat()
-          .find(el => el._id === this.commodity.categoryId)
+          .find((el) => el._id === this.commodity.categoryId)
       }
-      if (newVal) this.activeCard = newVal.image[0]
+      if (newVal) this.activeCard = newVal.images[0].link
     }
   },
   mounted () {
