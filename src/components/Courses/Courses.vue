@@ -13,16 +13,19 @@
         >Online courses</v-btn>
       </div>
       <div class="d-flex flex-wrap  justify-center ">
-        <CoursesCard
+        <CourseCard
           v-for="(card, index) in onlineCourses"
           :key="index"
           :accessDays="card.accessDays"
-          :img="card.photo.length > 0 ? card.photo[0].link  : 'https://www.classify24.com/wp-content/uploads/2017/04/no-image.png'"
+          :url="card.photo.length > 0 ? card.photo[0].link  : coverImageSrc"
           :name="card.nameOfCourse"
           :subtitle="card.subtitle"
           :price="card.price"
           :id="card._id"
-          :online="true"
+          type="online"
+          :detailInfo="detailInfo"
+          :payDetail="payDetail"
+          :coverImageSrc="coverImageSrc"
         />
       </div>
       <div class="d-flex justify-center">
@@ -51,15 +54,19 @@
         >Offline courses</v-btn>
       </div>
       <div class="d-flex flex-wrap justify-center">
-        <CoursesCard
+         <CourseCard
           v-for="(card, index) in offlineCourses"
           :key="index"
           :accessDays="card.accessDays"
-          :img="card.photo.length > 0 ? card.photo[0].link  :  'https://www.classify24.com/wp-content/uploads/2017/04/no-image.png'"
+          :url="card.photo.length > 0 ? card.photo[0].link  :  coverImageSrc"
           :name="card.nameOfCourse"
           :subtitle="card.subtitle"
           :price="card.price"
           :id="card._id"
+          type="offline"
+          :detailInfo="detailInfo"
+          :payDetail="payDetail"
+          :coverImageSrc="coverImageSrc"
         />
       </div>
       <div class="d-flex justify-center">
@@ -94,14 +101,15 @@ h2 {
 
 <script>
 import { mapState } from 'vuex'
-
-import CoursesCard from '@/components/Courses/CoursesCard.vue'
+import 'nails-courses-card'
+import 'nails-courses-card/dist/nails-courses-card.css'
 export default {
   components: {
-    CoursesCard
   },
   data () {
-    return {}
+    return {
+      coverImageSrc: require('@/assets/noImage.jpg')
+    }
   },
   computed: {
     ...mapState('offlineCourses', ['offlineCourses', 'totalOfflineCourses']),
@@ -114,6 +122,12 @@ export default {
     }
   },
   methods: {
+    detailInfo (route, id) {
+      this.$router.push({ name: route, params: { id } })
+    },
+    payDetail () {
+      this.$router.push({ name: 'personal-data' })
+    },
     toOfflineCourses () {
       this.$router.push({ name: 'courses-offline' })
     },

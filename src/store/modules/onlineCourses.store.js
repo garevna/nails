@@ -41,7 +41,7 @@ const actions = {
     const response = await (await fetch(`${getters.onlineCoursesEndpoint}/${id}`)).json()
     let img = response.onlineCourse?.photo[0]?.link
     if (!img) {
-      img = 'https://www.classify24.com/wp-content/uploads/2017/04/no-image.png'
+      img = require('@/assets/noImage.jpg')
     }
     commit('ONLINE_COURSE_BY_ID', response)
     commit('ONLINE_COURSE_BY_ID_IMG', img)

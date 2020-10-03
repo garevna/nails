@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row>
+    <!-- <v-row>
       <v-col
         cols="12"
         xs="12"
@@ -51,29 +51,46 @@
           @click="goToPersonalData"
         >{{buttonForDetailOfflineShop}}</v-btn>
       </v-col>
-    </v-row>
+    </v-row> -->
+    <CourseCardDetail
+      :category="offlineCourseById.category"
+      :days="offlineCourseById.days"
+      :nameOfCourse="offlineCourseById.nameOfCourse"
+      :subtitle="offlineCourseById.subtitle"
+      :price="offlineCourseById.price"
+      :author="offlineCourseById.author"
+      :instructor="offlineCourseById.instructor"
+      :infoBonus="offlineCourseById.infoBonus"
+      :courseSuitable="offlineCourseById.thisCourseIsSuitableFor"
+      :description="offlineCourseById.description"
+      :dateOfCourses="offlineCourseById.dateOfCourses"
+      :url="offlineCourseByIdImg"
+      :type="typeCourse"
+      :coverImageSrc="coverImageSrc"
+        btnTitle="APPLY"
+      :btnCallBack="btnCallBack"
+    />
   </v-container>
 </template>
 <style scoped>
 </style>
 <script>
 import { mapState } from 'vuex'
+import 'nails-courses-card-detail'
+import 'nails-courses-card-detail/dist/nails-courses-card-detail.css'
 export default {
   name: 'course-offline',
   data () {
     return {
-      error: false
+      coverImageSrc: require('@/assets/noImage.jpg'),
+      typeCourse: 'offline'
     }
   },
   computed: {
-    ...mapState('offlineCourses', ['offlineCourseById', 'offlineCourseByIdImg']),
-    ...mapState([
-      'buttonForDetailOfflineShop',
-      'buttonForRegistrationOfflineShop'
-    ])
+    ...mapState('offlineCourses', ['offlineCourseById', 'offlineCourseByIdImg'])
   },
   methods: {
-    goToPersonalData () {
+    btnCallBack () {
       this.$router.push({ name: 'personal-data' })
     },
     async getCourse () {

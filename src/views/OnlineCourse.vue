@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row>
+    <!-- <v-row>
       <v-col
         cols="12"
         xs="12"
@@ -47,37 +47,54 @@
           @click="goToPersonalData"
         >{{buttonForRegistrationOnlineShop}}</v-btn>
       </v-col>
-    </v-row>
+    </v-row> -->
+    <CourseCardDetail
+      :category="onlineCourseById.category"
+      :days="onlineCourseById.days"
+      :nameOfCourse="onlineCourseById.nameOfCourse"
+      :subtitle="onlineCourseById.subtitle"
+      :price="onlineCourseById.price"
+      :author="onlineCourseById.author"
+      :instructor="onlineCourseById.instructor"
+      :infoBonus="onlineCourseById.infoBonus"
+      :courseSuitable="onlineCourseById.thisCourseIsSuitableFor"
+      :description="onlineCourseById.description"
+      :dateOfCourses="onlineCourseById.dateOfCourses"
+      :url="onlineCourseByIdImg"
+      :type="typeCourse"
+      :coverImageSrc="coverImageSrc"
+        btnTitle="BUY THIS COURSE"
+      :btnCallBack="btnCallBack"
+    />
   </v-container>
 </template>
 <style scoped>
 </style>
 <script>
 import { mapState } from 'vuex'
+import 'nails-courses-card-detail'
+import 'nails-courses-card-detail/dist/nails-courses-card-detail.css'
 export default {
   name: 'course-online',
   data () {
     return {
-      error: false
+      coverImageSrc: require('@/assets/noImage.jpg'),
+      typeCourse: 'online'
     }
   },
   computed: {
-    ...mapState('onlineCourses', ['onlineCourseById', 'onlineCourseByIdImg']),
-    ...mapState(['buttonForRegistrationOnlineShop'])
+    ...mapState('onlineCourses', ['onlineCourseById', 'onlineCourseByIdImg'])
   },
   methods: {
-    goToPersonalData () {
+    btnCallBack () {
       this.$router.push({ name: 'personal-data' })
     },
-    async getCourse () {
-      await this.$store.dispatch('onlineCourses/GET_ONLINE_COURSE_BY_ID', { id: this.$route.params.id })
-    },
-    onError () {
-      this.error = true
+    getCourse () {
+
     }
   },
   mounted () {
-    this.getCourse()
+    this.$store.dispatch('onlineCourses/GET_ONLINE_COURSE_BY_ID', { id: this.$route.params.id })
   }
 }
 </script>
