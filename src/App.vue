@@ -32,6 +32,9 @@ h3 {
   margin-top: 20px !important;
     min-height: calc(100vh - 500px);
 }
+.v-btn__content{
+  justify-content: center !important;
+}
 @media screen and (max-width: 800px) {
   .main-content {
     margin-bottom: 150px !important;

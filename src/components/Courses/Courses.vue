@@ -17,7 +17,7 @@
           v-for="(card, index) in onlineCourses"
           :key="index"
           :accessDays="card.accessDays"
-          :url="card.photo.length > 0 ? card.photo[0].link  : coverImageSrc"
+          :url="checkUrl(card)"
           :name="card.nameOfCourse"
           :subtitle="card.subtitle"
           :price="card.price"
@@ -58,7 +58,7 @@
           v-for="(card, index) in offlineCourses"
           :key="index"
           :accessDays="card.accessDays"
-          :url="card.photo.length > 0 ? card.photo[0].link  :  coverImageSrc"
+          :url="checkUrl(card)"
           :name="card.nameOfCourse"
           :subtitle="card.subtitle"
           :price="card.price"
@@ -148,6 +148,15 @@ export default {
       await this.$store.dispatch('offlineCourses/GET_MORE_OFFLINE_COURSES', {
         skip: this.offlineCourses.length
       })
+    },
+    checkUrl (card) {
+      let img
+      if (card.photo && Array.isArray(card.photo) && card.photo.length) {
+        img = card.photo[0].link
+      }
+      if (!img) {
+        img = this.coverImageSrc
+      }
     }
   },
   mounted () {

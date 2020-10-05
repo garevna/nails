@@ -4,16 +4,19 @@
       <v-col cols="12" xs="12" class="d-flex justify-center">
         <h2 class="header">All offline courses</h2>
       </v-col>
-      <CoursesCard
+      <CourseCard
         v-for="(card, index) in offlineCourses"
         :key="index"
         :accessDays="card.accessDays"
-        :img="card.photo.length > 0 ? card.photo[0].link  :  'https://www.classify24.com/wp-content/uploads/2017/04/no-image.png'"
+        :url="checkUrl(card)"
         :name="card.nameOfCourse"
         :subtitle="card.subtitle"
         :price="card.price"
         :id="card._id"
-        :offline="true"
+        type="offline"
+        :detailInfo="detailInfo"
+        :payDetail="payDetail"
+        :coverImageSrc="coverImageSrc"
       />
       <v-col class="d-flex justify-center" cols="12" xs="12">
         <v-btn
@@ -40,14 +43,16 @@
 
 <script>
 import { mapState } from 'vuex'
-import CoursesCard from '@/components/Courses/CoursesCard.vue'
+import 'nails-courses-card'
+import 'nails-courses-card/dist/nails-courses-card.css'
 export default {
   name: 'courses-offline',
   components: {
-    CoursesCard
   },
   data () {
-    return {}
+    return {
+      coverImageSrc: require('@/assets/noImage.jpg')
+    }
   },
   computed: {
     ...mapState('offlineCourses', ['offlineCourses', 'totalOfflineCourses']),
@@ -56,6 +61,12 @@ export default {
     }
   },
   methods: {
+    detailInfo (route, id) {
+      this.$router.push({ name: route, params: { id } })
+    },
+    payDetail () {
+      this.$router.push({ name: 'personal-data' })
+    },
     async getCourses () {
       await this.$store.dispatch('offlineCourses/GET_OFFLINE_COURSES')
     },
@@ -63,6 +74,15 @@ export default {
       await this.$store.dispatch('offlineCourses/GET_MORE_OFFLINE_COURSES', {
         skip: this.offlineCourses.length
       })
+    },
+    checkUrl (card) {
+      let img
+      if (card.photo && Array.isArray(card.photo) && card.photo.length) {
+        img = card.photo[0].link
+      }
+      if (!img) {
+        img = this.coverImageSrc
+      }
     }
   },
   mounted () {
