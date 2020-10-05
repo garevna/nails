@@ -1,14 +1,14 @@
 <template>
-  <v-container fluid fill-height class="whitefone align-start" >
+  <v-container fluid fill-height class="whitefone align-start">
     <v-card flat class="transparent mx-auto" max-width="1440" width="100%">
-      <MainMenu :light='true' :top='true'/>
-      <PaymentDetailsForm :light='true'/>
+      <MainMenu :light="true" :top="true" />
+      <PaymentDetailsForm :light="true" />
     </v-card>
   </v-container>
 </template>
 
 <style lang="scss">
-@import '@/css/variables.scss';
+@import "@/css/variables.scss";
 .pagination-buttons {
   button {
     outline: none !important;

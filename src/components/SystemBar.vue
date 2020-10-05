@@ -39,13 +39,19 @@
                     style="background: #CACACA"
             >-->
               <v-list-item class="main-menu-content" @click="goHome">
-                <v-list-item-title class="main-menu-content main-menu-items">Home</v-list-item-title>
+                <v-list-item-title class="main-menu-content main-menu-items"
+                  >Home</v-list-item-title
+                >
               </v-list-item>
               <v-list-item class="main-menu-content" @click="goToShop">
-                <v-list-item-title class="main-menu-content main-menu-items">Shop</v-list-item-title>
+                <v-list-item-title class="main-menu-content main-menu-items"
+                  >Shop</v-list-item-title
+                >
               </v-list-item>
               <v-list-item class="main-menu-content" @click="goToCourses">
-                <v-list-item-title class="main-menu-content main-menu-items">Courses</v-list-item-title>
+                <v-list-item-title class="main-menu-content main-menu-items"
+                  >Courses</v-list-item-title
+                >
               </v-list-item>
             </v-list>
           </v-expansion-panel-content>
@@ -146,10 +152,14 @@ export default {
   computed: {
     ...mapState('shop', ['categories']),
     burgerMenuClassFirst () {
-      return this.panel === 0 ? 'burger-menu-active--first' : 'burger-menu--first'
+      return this.panel === 0
+        ? 'burger-menu-active--first'
+        : 'burger-menu--first'
     },
     burgerMenuClassSecond () {
-      return this.panel === 0 ? 'burger-menu-active--second' : 'burger-menu--second'
+      return this.panel === 0
+        ? 'burger-menu-active--second'
+        : 'burger-menu--second'
     },
     backgroundColor () {
       return this.$vuetify.theme.themes.light.homefone
@@ -166,7 +176,7 @@ export default {
     },
     goToCourses () {
       this.panel = []
-      if (this.$route.name !== 'courses') this.$router.push({ name: 'courses' })
+      if (this.$route.name !== 'courses') { this.$router.push({ name: 'courses' }) }
     }
   },
   mounted () {}

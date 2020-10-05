@@ -736,6 +736,14 @@
     "@babel/helper-create-regexp-features-plugin" "^7.10.4"
     "@babel/helper-plugin-utils" "^7.10.4"
 
+"@babel/polyfill@^7.11.5":
+  version "7.11.5"
+  resolved "https://registry.yarnpkg.com/@babel/polyfill/-/polyfill-7.11.5.tgz#df550b2ec53abbc2ed599367ec59e64c7a707bb5"
+  integrity sha512-FunXnE0Sgpd61pKSj2OSOs1D44rKTD3pGOfGilZ6LGrrIH0QEtJlTjqOqdF8Bs98JmjfGhni2BBkTfv9KcKJ9g==
+  dependencies:
+    core-js "^2.6.5"
+    regenerator-runtime "^0.13.4"
+
 "@babel/preset-env@^7.11.0":
   version "7.11.5"
   resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.11.5.tgz#18cb4b9379e3e92ffea92c07471a99a2914e4272"
@@ -1066,6 +1074,11 @@
     "@types/istanbul-lib-coverage" "^2.0.0"
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^13.0.0"
+
+"@mdi/font@^5.5.55":
+  version "5.6.55"
+  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-5.6.55.tgz#3536d7a7671eda9d5d9ba191b9fb9aceccc0a07e"
+  integrity sha512-6wWrpTXiv2wBtoCL+EJ9Xxfy6Tv6Q1KxmrX54/M23tBNmdGmh417y1tn327oXQxO1nq7BiHGAKkWQZ/GQPLTCA==
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -3502,7 +3515,7 @@ core-js-compat@^3.6.2, core-js-compat@^3.6.5:
     browserslist "^4.8.5"
     semver "7.0.0"
 
-core-js@^2.4.0:
+core-js@^2.4.0, core-js@^2.6.5:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
   integrity sha512-5wjnpaT/3dV+XB4borEsnAYQchn00XSgTAWKDkEqv+K8KevjbzmofK6hfJ9TZIlpj2N0xQpazy7PiRQiWHqzWg==
@@ -8023,6 +8036,7 @@ mz@^2.4.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
+<<<<<<< HEAD
 nails-courses-card-detail@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/nails-courses-card-detail/-/nails-courses-card-detail-0.1.2.tgz#0af9de6e0f812e74366cbb4f068576332dca3cab"
@@ -8041,6 +8055,15 @@ nails-courses-card@^0.0.7:
   resolved "https://registry.yarnpkg.com/nails-courses-card/-/nails-courses-card-0.0.7.tgz#f762fd93bd60e5a58148780e852f9309365ecd73"
   integrity sha512-qtK5E+nOvhS6UhygG63/a8Y4dZoYC2/o+qsR7lT+V/lHlfvgcb/pzvh2/FAZmRvRDE0j7e+1TxPotT3gI9MT2A==
   dependencies:
+=======
+nails-shop-card@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/nails-shop-card/-/nails-shop-card-0.0.4.tgz#e624f26fb65b0bcce626ba1311d9dff77382f559"
+  integrity sha512-jq9hIrVmtJ2dQBLESq/eswhEArQ37kC9KG3WNBACvWw9m5qxa20q+dbUW0pbAhSPggFDbflhdtIdYi9IB1OYXQ==
+  dependencies:
+    "@babel/polyfill" "^7.11.5"
+    "@mdi/font" "^5.5.55"
+>>>>>>> 7724361bb2593eff0799fa7067c804828a2bae20
     core-js "^3.6.5"
     nails-styles "^0.0.3"
     vue "^2.6.11"

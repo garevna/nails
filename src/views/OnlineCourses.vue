@@ -26,7 +26,8 @@
           class="yellow-button"
           v-if="isHideMoreButtonOnline"
           @click="getMoreOnlineCourses"
-        >more courses</v-btn>
+          >more courses</v-btn
+        >
       </v-col>
     </v-row>
   </v-container>

@@ -1,5 +1,5 @@
 <template>
-  <FormForCourse/>
+  <FormForCourse />
 </template>
 <script>
 import FormForCourse from '@/components/forms/FormForCourse.vue'

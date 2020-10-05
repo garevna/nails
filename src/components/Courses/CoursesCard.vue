@@ -1,6 +1,6 @@
 <template>
-  <v-card  dark class="cardfone ma-12">
-    <v-img :src=" error ? 'https://www.classify24.com/wp-content/uploads/2017/04/no-image.png' : img "  @error="onError" class="image-course"/>
+  <v-card dark class="cardfone ma-16" width="40%" min-height="360">
+    <v-img :src="img" contain />
     <v-card-title class="buttons--text pa-0 pl-4 pt-4">
        {{accessDays}} days | $ {{ price }}
     </v-card-title>

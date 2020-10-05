@@ -1,5 +1,5 @@
 <template>
- <PaymentDetailsForm/>
+  <PaymentDetailsForm />
 </template>
 <script>
 import PaymentDetailsForm from '@/components/forms/PaymentDetailsForm.vue'
@@ -9,8 +9,7 @@ export default {
     PaymentDetailsForm
   },
   data () {
-    return {
-    }
+    return {}
   }
 }
 </script>

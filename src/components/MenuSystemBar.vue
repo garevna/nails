@@ -1,9 +1,7 @@
 <template>
   <div color="warning menu">
     <input class="search menu-app-bar" text />
-    <v-btn icon>
-      <v-icon color="secondaryGray">mdi-shopping</v-icon>
-    </v-btn>
+    <ProductsCart/>
     <v-menu v-model="isOpened" bottom left :close-on-content-click="false">
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on" @click="isOpened = true">
@@ -11,7 +9,13 @@
         </v-btn>
       </template>
 
-      <v-treeview dark class="drop-down-menu" dense :items="items" open-on-click >
+      <v-treeview
+        dark
+        class="drop-down-menu"
+        dense
+        :items="items"
+        open-on-click
+      >
         <template slot="label" slot-scope="{ item }">
           <a @click="openDialog(item)" class="item-link">{{ item.name }}</a>
         </template>
@@ -70,7 +74,7 @@
   border: 1px solid #000;
   padding-left: 5px;
   outline: none;
-  font-family: 'Archivo Narrow';
+  font-family: "Archivo Narrow";
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -101,7 +105,9 @@
 }
 </style>
 <script>
+import ProductsCart from '@/components/Shop/ProductsCart.vue'
 export default {
+  components: { ProductsCart },
   data () {
     return {
       isOpened: false,
@@ -111,16 +117,46 @@ export default {
           id: 1,
           name: 'Shop',
           children: [
-            { id: 2, name: 'Nippers', params: { categoryName: 'cuticle-nippers' }, routeName: 'shop' },
-            { id: 3, name: 'Scissors', params: { categoryName: 'cuticle-scissors' }, routeName: 'shop' },
-            { id: 4, name: 'Drill bits', params: { categoryName: 'diamond-drill-bits' }, routeName: 'shop' },
-            { id: 5, name: 'Brushers', params: { categoryName: 'brushes' }, routeName: 'shop' },
+            {
+              id: 2,
+              name: 'Nippers',
+              params: { categoryName: 'cuticle-nippers' },
+              routeName: 'shop'
+            },
+            {
+              id: 3,
+              name: 'Scissors',
+              params: { categoryName: 'cuticle-scissors' },
+              routeName: 'shop'
+            },
+            {
+              id: 4,
+              name: 'Drill bits',
+              params: { categoryName: 'diamond-drill-bits' },
+              routeName: 'shop'
+            },
+            {
+              id: 5,
+              name: 'Brushers',
+              params: { categoryName: 'brushes' },
+              routeName: 'shop'
+            },
             {
               id: 6,
               name: 'more...',
               children: [
-                { id: 7, name: 'Cosmetics', params: { categoryName: 'cosmetics' }, routeName: 'shop' },
-                { id: 8, name: 'Promotions', params: { categoryName: 'Promotions' }, routeName: 'shop' }
+                {
+                  id: 7,
+                  name: 'Cosmetics',
+                  params: { categoryName: 'cosmetics' },
+                  routeName: 'shop'
+                },
+                {
+                  id: 8,
+                  name: 'Promotions',
+                  params: { categoryName: 'Promotions' },
+                  routeName: 'shop'
+                }
               ]
             }
           ]
@@ -158,10 +194,22 @@ export default {
     openDialog (treeElem) {
       if (treeElem.routeName) {
         this.isOpened = false
-        if (treeElem.routeName !== 'shop' && this.$route.name !== treeElem.routeName) {
-          this.$router.push({ name: treeElem.routeName, params: treeElem.params })
-        } else if (treeElem.routeName === 'shop' && this.$route.params.categoryName !== treeElem.params.categoryName) {
-          this.$router.push({ name: treeElem.routeName, params: treeElem.params })
+        if (
+          treeElem.routeName !== 'shop' &&
+          this.$route.name !== treeElem.routeName
+        ) {
+          this.$router.push({
+            name: treeElem.routeName,
+            params: treeElem.params
+          })
+        } else if (
+          treeElem.routeName === 'shop' &&
+          this.$route.params.categoryName !== treeElem.params.categoryName
+        ) {
+          this.$router.push({
+            name: treeElem.routeName,
+            params: treeElem.params
+          })
         }
       }
     }

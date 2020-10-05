@@ -1,24 +1,44 @@
 <template>
   <div class="footer-wrapper" :style="{ backgroundColor: homefone }">
-    <v-bottom-navigation v-model="bottomNav" shift height="auto" background-color="#FFC44A" class="footer">
+    <v-bottom-navigation
+      v-model="bottomNav"
+      shift
+      height="auto"
+      background-color="#FFC44A"
+      class="footer"
+    >
       <v-card flat class="transparent mx-auto" max-width="2400" width="80%">
         <v-row align="start" justify="end" width="100%">
           <v-col cols="12" sm="12" md="5" lg="5">
             <v-row class="mt-5 justify-sm-center justify-center">
               <a href="https://www.instagram.com/nailsaustralia" target="_blank" fab>
-                <v-img :src="require('@/assets/images/instagramico.svg')" class="mx-5 icon-social" max-width="70" />
+                <v-img
+                  :src="require('@/assets/images/instagramico.svg')"
+                  class="mx-5 icon-social"
+                  max-width="70"
+                />
               </a>
               <a href="https://www.instagram.com/nailsaustralia_shop" target="_blank" fab>
-                <v-img :src="require('@/assets/images/instagramico.svg')" class="mx-5 icon-social" max-width="70" />
+                <v-img
+                  :src="require('@/assets/images/instagramico.svg')"
+                  class="mx-5 icon-social"
+                  max-width="70"
+                />
               </a>
               <a href="https://www.facebook.com/nailsaustralia" target="_blank" fab>
-                <v-img :src="require('@/assets/images/facebookico.svg')" class="mx-5 icon-social" max-width="70" />
+                <v-img
+                  :src="require('@/assets/images/facebookico.svg')"
+                  class="mx-5 icon-social"
+                  max-width="70"
+                />
               </a>
             </v-row>
             <v-row class="mt-5 text-sm-center text-center">
               <v-card-text class="justify-sm-center gray-text">
                 <h2>32 Brewer rd, Bentligh 3204 VIC</h2>
-                <a href="mailto:nailsauinfo@gmail.com" class="mail-link"><h3>nailsauinfo@gmail.com</h3></a>
+                <a href="mailto:nailsauinfo@gmail.com" class="mail-link">
+                  <h3>nailsauinfo@gmail.com</h3>
+                </a>
               </v-card-text>
             </v-row>
           </v-col>
@@ -63,7 +83,7 @@
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .route {
   cursor: pointer;
 }
@@ -89,16 +109,16 @@
   right: 0;
 }
 @media screen and (max-width: 600px) {
-  .right-block{
-    text-align: center
-}
-.links-block{
-  font-size: 120%;
-   text-align: center;
-   h4{
-     margin-bottom: 3px;
-   }
-}
+  .right-block {
+    text-align: center;
+  }
+  .links-block {
+    font-size: 120%;
+    text-align: center;
+    h4 {
+      margin-bottom: 3px;
+    }
+  }
 }
 @media screen and (max-width: 400px) {
   .icon-social {

@@ -65,9 +65,7 @@ export default {
   name: 'Card',
   props: ['image', 'name', 'price', 'brand', 'id', 'clickHandler'],
   methods: {
-    cardClick () {
-      this.clickHandler(this.id)
-    }
+
   }
 }
 </script>

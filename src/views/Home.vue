@@ -18,7 +18,16 @@
             <p>{{ shopText }}</p>
           </v-card-text>
           <v-card-text class="text-center">
-            <v-btn color="buttons" rounded large dark min-width="160" class="yellow-button" @click="goToRoute('shop')">SHOP</v-btn>
+            <v-btn
+              color="buttons"
+              rounded
+              large
+              dark
+              min-width="160"
+              class="yellow-button"
+              @click="goToRoute('shop')"
+              >SHOP</v-btn
+            >
           </v-card-text>
         </v-card>
       </v-col>
@@ -49,7 +58,8 @@
               min-width="160"
               class="yellow-button mr-4 mb-4"
               @click="$vuetify.goTo(target, options)"
-            >ALL COURSES</v-btn>
+              >ALL COURSES</v-btn
+            >
             <v-btn
               color="buttons"
               rounded
@@ -59,7 +69,8 @@
               min-width="160"
               class="yellow-button mr-4 mb-4"
               @click="goToRoute('add-course')"
-            >ADD COURSE</v-btn>
+              >ADD COURSE</v-btn
+            >
           </v-card-text>
         </v-card>
       </v-col>
@@ -82,7 +93,8 @@
           min-width="160"
           class="yellow-button mr-4 mb-4"
           @click="goToRoute('courses')"
-        >MORE COURSES...</v-btn>
+          >MORE COURSES...</v-btn
+        >
       </v-col>
     </v-row>
   </v-container>

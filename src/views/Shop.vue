@@ -11,8 +11,8 @@
           <LeftSideMenu :setSelectedSection="setSelectedSection"></LeftSideMenu>
         </v-col>
         <v-col cols="12" sm="12" md="9" xl="9" lg="9">
-          <v-row justify="center" v-if='totalCommodities'>
-            <Card
+          <v-row justify="start" v-if="totalCommodities">
+            <ShopCard
               v-for="card in commodities"
               :key="card.id"
               :image="card.previewImage[0].link"
@@ -20,11 +20,14 @@
               :price="card.price"
               :brand="card.brand"
               :id="card._id"
-              :clickHandler="goToItem"
+              :handler="goToItem"
             />
           </v-row>
-          <v-row  v-else class='empty-message' align='center' justify='center'>
-           <h2>Unfortunately, there are no products <br/> suitable for your request...</h2>
+          <v-row v-else class="empty-message" align="center" justify="center">
+            <h2>
+              Unfortunately, there are no products <br />
+              suitable for your request...
+            </h2>
           </v-row>
         </v-col>
       </v-row>
@@ -44,30 +47,70 @@
 </template>
 
 <style lang="scss">
-@import '@/css/variables.scss';
+@import "@/css/variables.scss";
 .pagination-buttons {
   button {
     outline: none !important;
   }
 }
-.empty-message{
+.empty-message {
   height: 100%;
   text-align: center;
-   color: $shopGrayFont;
+  color: $shopGrayFont;
+}
+.shop-card {
+  background-color: #f4f4f4;
+  margin: 20px;
+  width: calc(25% - 65px);
+  height: 350px;
+}
+.price-wrap {
+  padding: 5px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.text-wrap {
+  padding: 10px;
+  flex: 1;
+}
+.color-black {
+  color: black;
+}
+.gray-background {
+  background-color: #f4f4f4;
+}
+@media screen and (max-width: 1450px) {
+  .shop-card {
+    margin: 10px;
+    width: calc(33% - 65px);
+  }
+}
+@media screen and (max-width: 1095px) {
+  .shop-card {
+    margin: 10px;
+    width: calc(50% - 65px);
+  }
+}
+@media screen and (max-width: 569px) {
+  .shop-card {
+    margin: 10px;
+    width: -webkit-fill-available;
+  }
 }
 </style>
 
 <script>
 import { mapState } from 'vuex'
 
-import Card from '@/components/Shop/Card.vue'
+// import Card from '@/components/Shop/Card.vue'
 import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue'
 import CategoriesSwitcher from '@/components/Shop/CategoriesSwitcher.vue'
+import 'nails-shop-card'
 
 export default {
   name: 'Shop',
   components: {
-    Card,
     LeftSideMenu,
     CategoriesSwitcher
   },
@@ -91,11 +134,13 @@ export default {
     mobileMenu () {
       return this.viewportWidth < 960
     }
-
   },
   watch: {
     $route (to, from) {
-      if (from.name === 'shop' && from.path !== '/' && to.params.categoryName !== from.params.categoryName) {
+      if (
+        from.name === 'shop' &&
+        to.params.categoryName !== from.params.categoryName
+      ) {
         this.categoryName = to.params.categoryName
         this.getData()
       }
@@ -103,14 +148,21 @@ export default {
   },
   methods: {
     async getData () {
-      !this.categories && await this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
-      const allcat = await this.categories.length && this.categories.flat()
-      !this.categoryName && await this.$router.replace({ name: 'shop', params: { categoryName: allcat[0].slug } })
-      this.categoryName = await this.categoryName ? this.categoryName : allcat[0].slug
-      this.selectedSection = await allcat.length && allcat.find(
-        (el) => el.slug === this.categoryName
-      )
-      await this.selectedSection && this.getCommodities()
+      !this.categories &&
+        (await this.$store.dispatch('shop/GET_SHOP_CATEGORIES'))
+      const allcat = (await this.categories.length) && this.categories.flat()
+      !this.categoryName &&
+        (await this.$router.replace({
+          name: 'shop',
+          params: { categoryName: allcat[0].slug }
+        }))
+      this.categoryName = (await this.categoryName)
+        ? this.categoryName
+        : allcat[0].slug
+      this.selectedSection =
+        (await allcat.length) &&
+        allcat.find((el) => el.slug === this.categoryName);
+      (await this.selectedSection) && this.getCommodities()
     },
     setSelectedSection (val) {
       this.selectedSection = val
@@ -123,7 +175,11 @@ export default {
     },
     setPage (page) {
       if (page !== this.$route.query.page) {
-        this.$router.replace({ name: 'shop', params: { categoryId: this.categoryId }, query: { page } })
+        this.$router.replace({
+          name: 'shop',
+          params: { categoryId: this.categoryId },
+          query: { page }
+        })
         this.pagination.page = page
         this.pagination.skip = page * 8 - 8
         this.getCommodities()
