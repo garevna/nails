@@ -19,10 +19,14 @@ const mutations = {
     state.totalOnlineCourses = payload.total
   },
   ONLINE_COURSE_BY_ID: (state, payload) => {
-    state.onlineCourseById = payload.onlineCourse
+    state.onlineCourseById = payload
   },
   ONLINE_COURSE_BY_ID_IMG: (state, payload) => {
     state.onlineCourseByIdImg = payload
+  },
+  ONLINE_COURSE_BY_ID_CLEAR: (state) => {
+    state.onlineCourseById = {}
+    state.onlineCourseByIdImg = ''
   }
 }
 
@@ -38,14 +42,20 @@ const actions = {
     return state.onlineCourses
   },
   async GET_ONLINE_COURSE_BY_ID ({ state, getters, commit }, { id }) {
-    const response = await (await fetch(`${getters.onlineCoursesEndpoint}/${id}`)).json()
-    let img = response.onlineCourse?.photo[0]?.link
+    const { onlineCourse } = await (await fetch(`${getters.onlineCoursesEndpoint}/${id}`)).json()
+    let img
+    if (onlineCourse.photo && Array.isArray(onlineCourse.photo) && onlineCourse.photo.length) {
+      img = onlineCourse.photo[0].link
+    }
     if (!img) {
       img = require('@/assets/noImage.jpg')
     }
-    commit('ONLINE_COURSE_BY_ID', response)
+    commit('ONLINE_COURSE_BY_ID', onlineCourse)
     commit('ONLINE_COURSE_BY_ID_IMG', img)
     return state.onlineCourseById
+  },
+  async CLEAR_ONLINE_COURSE_BY_ID ({ commit }) {
+    commit('ONLINE_COURSE_BY_ID_CLEAR')
   }
 }
 

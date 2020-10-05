@@ -20,10 +20,14 @@ const mutations = {
     state.totalOfflineCourses = payload.total
   },
   OFFLINE_COURSE_BY_ID: (state, payload) => {
-    state.offlineCourseById = payload.offlineCourse
+    state.offlineCourseById = payload
   },
   OFFLINE_COURSE_BY_ID_IMG: (state, payload) => {
     state.offlineCourseByIdImg = payload
+  },
+  OFFLINE_COURSE_BY_ID_CLEAR: (state) => {
+    state.offlineCourseById = {}
+    state.offlineCourseByIdImg = ''
   }
 }
 
@@ -39,14 +43,20 @@ const actions = {
     return state.offlineCourses
   },
   async GET_OFFLINE_COURSE_BY_ID ({ state, getters, commit }, { id }) {
-    const response = await (await fetch(`${getters.offlineCoursesEndpoint}/${id}`)).json()
-    let img = response.offlineCourse?.photo[0]?.link
-    if (!img) {
-      img = 'https://www.classify24.com/wp-content/uploads/2017/04/no-image.png'
+    const { offlineCourse } = await (await fetch(`${getters.offlineCoursesEndpoint}/${id}`)).json()
+    let img
+    if (offlineCourse.photo && Array.isArray(offlineCourse.photo) && offlineCourse.photo.length) {
+      img = offlineCourse.photo[0].link
     }
-    commit('OFFLINE_COURSE_BY_ID', response)
+    if (!img) {
+      img = require('@/assets/noImage.jpg')
+    }
+    commit('OFFLINE_COURSE_BY_ID', offlineCourse)
     commit('OFFLINE_COURSE_BY_ID_IMG', img)
     return state.offlineCourseById
+  },
+  async CLEAR_OFFLINE_COURSE_BY_ID ({ commit }) {
+    commit('OFFLINE_COURSE_BY_ID_CLEAR')
   }
 }
 
