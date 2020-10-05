@@ -83,6 +83,7 @@ export default {
       if (!img) {
         img = this.coverImageSrc
       }
+      return img
     }
   },
   mounted () {

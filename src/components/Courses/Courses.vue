@@ -108,7 +108,7 @@ export default {
   },
   data () {
     return {
-      coverImageSrc: require('@/assets/noImage.jpg')
+      coverImageSrc: require('../../assets/noImage.jpg')
     }
   },
   computed: {
@@ -157,6 +157,7 @@ export default {
       if (!img) {
         img = this.coverImageSrc
       }
+      return img
     }
   },
   mounted () {
