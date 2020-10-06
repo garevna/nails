@@ -11,26 +11,30 @@
         <v-row align="start" justify="end" width="100%">
           <v-col cols="12" sm="12" md="5" lg="5">
             <v-row class="mt-5 justify-sm-center justify-center">
-              <a href="https://www.instagram.com/nailsaustralia" target="_blank" fab>
-                <v-img
-                  :src="require('@/assets/images/instagramico.svg')"
-                  class="mx-5 icon-social"
-                  max-width="70"
-                />
+              <a
+                href="https://www.instagram.com/nailsaustralia"
+                target="_blank"
+                fab
+                class="social-icon"
+              >
+                <IconInstagram />
               </a>
-              <a href="https://www.instagram.com/nailsaustralia_shop" target="_blank" fab>
-                <v-img
-                  :src="require('@/assets/images/instagramico.svg')"
-                  class="mx-5 icon-social"
-                  max-width="70"
-                />
+
+              <a
+                href="https://www.instagram.com/nailsaustralia_shop"
+                target="_blank"
+                fab
+                class="social-icon"
+              >
+              <IconInstagram/>
               </a>
-              <a href="https://www.facebook.com/nailsaustralia" target="_blank" fab>
-                <v-img
-                  :src="require('@/assets/images/facebookico.svg')"
-                  class="mx-5 icon-social"
-                  max-width="70"
-                />
+              <a
+                href="https://www.facebook.com/nailsaustralia"
+                target="_blank"
+                fab
+                class="social-icon"
+              >
+             <IconFacebook/>
               </a>
             </v-row>
             <v-row class="mt-5 text-sm-center text-center">
@@ -47,13 +51,25 @@
             <v-card-text class="gray-text no-wrap links-block">
               <h3>Shop</h3>
               <v-divider></v-divider>
-              <h4 class="route" @click="goToShopRoute('cuticle-nippers')">Nippers</h4>
-              <h4 class="route" @click="goToShopRoute('cuticle-scissors')">Scissors</h4>
-              <h4 class="route" @click="goToShopRoute('pushers')">Pushers\Curette</h4>
-              <h4 class="route" @click="goToShopRoute('diamond-drill-bits')">Drill bits</h4>
-              <h4 class="route" @click="goToShopRoute('cosmetics')">Cosmetics</h4>
+              <h4 class="route" @click="goToShopRoute('cuticle-nippers')">
+                Nippers
+              </h4>
+              <h4 class="route" @click="goToShopRoute('cuticle-scissors')">
+                Scissors
+              </h4>
+              <h4 class="route" @click="goToShopRoute('pushers')">
+                Pushers\Curette
+              </h4>
+              <h4 class="route" @click="goToShopRoute('diamond-drill-bits')">
+                Drill bits
+              </h4>
+              <h4 class="route" @click="goToShopRoute('cosmetics')">
+                Cosmetics
+              </h4>
               <h4 class="route" @click="goToShopRoute('brushes')">Brushes</h4>
-              <h4 class="route" @click="goToShopRoute('promotions')">Promotions</h4>
+              <h4 class="route" @click="goToShopRoute('promotions')">
+                Promotions
+              </h4>
             </v-card-text>
           </v-col>
 
@@ -73,8 +89,12 @@
               <h2 class="route" v-on:click="goToRoute('delivery')">Delivery</h2>
               <h2 class="route" v-on:click="goToRoute('return')">Return</h2>
               <p></p>
-              <h2 class="route" v-on:click="goToRoute('add-course')">Add course</h2>
-              <h2 class="route" v-on:click="goToRoute('cooperation')">Cooperation</h2>
+              <h2 class="route" v-on:click="goToRoute('add-course')">
+                Add course
+              </h2>
+              <h2 class="route" v-on:click="goToRoute('cooperation')">
+                Cooperation
+              </h2>
             </v-card-text>
           </v-col>
         </v-row>
@@ -86,6 +106,13 @@
 <style scoped lang="scss">
 .route {
   cursor: pointer;
+}
+.social-icon {
+  width: 70px;
+  height: 70px;
+}
+.social-icon:not(:last-child) {
+  margin-right: 25px;
 }
 .social {
   margin-bottom: 210px;
@@ -121,16 +148,22 @@
   }
 }
 @media screen and (max-width: 400px) {
-  .icon-social {
+  .social-icon {
     width: 53px;
   }
 }
 </style>
 
 <script>
+import IconInstagram from '@/components/svg/IconInstagram.vue'
+import IconFacebook from '@/components/svg/IconFacebook.vue'
 export default {
   name: 'Footer',
   props: [],
+  components: {
+    IconInstagram,
+    IconFacebook
+  },
   data: () => ({
     bottomNav: null
   }),

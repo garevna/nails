@@ -2,7 +2,8 @@
   <div class="header-container" :style="{ backgroundColor: backgroundColor }">
     <v-app-bar app color="#FFC44A" outlined dark class="app-bar-header">
       <div class="d-flex align-center">
-        <h1><span @click="goHome" class="logo">NAILS</span>AUSTRALIA</h1>
+        <Logo :goHome="goHome" class="logo"/>
+        <!-- <h1><span @click="goHome" class="logo">NAILS</span>AUSTRALIA</h1> -->
       </div>
       <v-spacer></v-spacer>
       <div class="primary app-bar d-none d-md-block menu-app-bar-btn">
@@ -63,7 +64,7 @@
 
 <style scoped lang="scss">
 .logo {
-  color: black !important;
+  width: 300px;
   cursor: pointer;
 }
 .app-bar-header {
@@ -134,16 +135,23 @@
   left: 0;
   z-index: 5;
 }
+@media screen and (max-width: 600px) {
+  .logo {
+    width: 250px;
+  }
+}
 </style>
 
 <script>
 import MenuSystemBar from '@/components/MenuSystemBar.vue'
+import Logo from '@/components/svg/Logo.vue'
 import { mapState } from 'vuex'
 
 export default {
   name: 'SystemBar',
   components: {
-    MenuSystemBar
+    MenuSystemBar,
+    Logo
   },
   data: () => ({
     toggle: 0,

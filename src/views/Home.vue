@@ -11,8 +11,8 @@
           <v-card-text class="text-center">
             <p>{{ about }}</p>
           </v-card-text>
-          <v-card v-if="viewportWidth <= 600" flat class="transparent mx-auto my-auto" max-width="700">
-            <v-img :src="require('@/assets/images/image-1.png')" />
+          <v-card v-if="viewportWidth <= 600" flat class="transparent mx-auto my-auto">
+          <ImageShop/>
           </v-card>
           <v-card-text class="text-center secondary--text">
             <h2>S H O P</h2>
@@ -36,12 +36,12 @@
       </v-col>
       <v-col v-if="viewportWidth > 600" cols="12" sm="7">
         <v-card flat class="transparent mx-auto my-auto" max-width="700">
-          <v-img :src="require('@/assets/images/image-1.png')" />
+         <ImageShop/>
         </v-card>
       </v-col>
       <v-col cols="12" sm="7">
-        <v-card flat class="transparent mx-auto my-auto" max-width="700">
-          <v-img :src="require('@/assets/images/image-2.png')" />
+        <v-card flat class="transparent mx-auto my-auto"  max-width="700">
+        <ImageCourses/>
         </v-card>
       </v-col>
       <v-col cols="12" sm="5">
@@ -122,6 +122,8 @@ p {
 <script>
 import { mapState } from 'vuex'
 
+import ImageShop from '@/components/svg/ImageShop.vue'
+import ImageCourses from '@/components/svg/ImageCourses.vue'
 import Carousel from '@/components/Carousel.vue'
 // import MainMenu from '@/components/MainMenu.vue'
 import Courses from '@/components/Courses/Courses.vue'
@@ -131,6 +133,8 @@ export default {
   components: {
     Carousel,
     // MainMenu,
+    ImageShop,
+    ImageCourses,
     Courses
   },
   data: () => ({
