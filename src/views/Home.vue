@@ -3,7 +3,7 @@
     <!-- <MainMenu /> -->
     <!-- <v-card flat dark class="transparent mx-auto" max-width="1440"> -->
     <v-row align="center" justify="center">
-      <v-col cols="12" sm="5" order="2">
+      <v-col cols="12" sm="5">
         <v-card flat class="transparent mx-auto my-auto" max-width="480">
           <v-card-text class="text-center secondary--text">
             <h2>ABOUT</h2>
@@ -11,6 +11,9 @@
           <v-card-text class="text-center">
             <p>{{ about }}</p>
           </v-card-text>
+          <v-card v-if="viewportWidth <= 600" flat class="transparent mx-auto my-auto" max-width="700">
+            <v-img :src="require('@/assets/images/image-1.png')" />
+          </v-card>
           <v-card-text class="text-center secondary--text">
             <h2>S H O P</h2>
           </v-card-text>
@@ -31,17 +34,17 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="12" sm="7" order="1" order-sm="2">
+      <v-col v-if="viewportWidth > 600" cols="12" sm="7">
         <v-card flat class="transparent mx-auto my-auto" max-width="700">
           <v-img :src="require('@/assets/images/image-1.png')" />
         </v-card>
       </v-col>
-      <v-col cols="12" sm="7" order="2">
+      <v-col cols="12" sm="7">
         <v-card flat class="transparent mx-auto my-auto" max-width="700">
           <v-img :src="require('@/assets/images/image-2.png')" />
         </v-card>
       </v-col>
-      <v-col cols="12" sm="5" order="2">
+      <v-col cols="12" sm="5">
         <v-card flat class="transparent mx-auto my-auto" max-width="480">
           <v-card-text class="text-center secondary--text">
             <h2>C O U R S E S</h2>
@@ -74,17 +77,17 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="12" order="2">
+      <v-col cols="12" >
         <v-card flat class="transparent mx-auto my-10" max-width="1360">
           <Carousel />
         </v-card>
       </v-col>
-      <v-col cols="12" order="2" class="pa-0">
+      <v-col cols="12" class="pa-0">
         <!-- <v-row> -->
         <Courses id="scroll-with-options" />
         <!-- </v-row> -->
       </v-col>
-      <v-col cols="12" order="2" class="d-flex justify-center">
+      <v-col cols="12" class="d-flex justify-center">
         <v-btn
           color="buttons"
           rounded
@@ -138,6 +141,7 @@ export default {
   }),
   computed: {
     // INFO: 'shop' no used
+    ...mapState(['viewportWidth']),
     ...mapState('home', ['about', 'shop', 'shopText', 'courses']),
     target () {
       const value = this.selector
