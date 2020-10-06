@@ -32,8 +32,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/add-course~add-course-payment~payment-details~personal-data~shop-payment.3e361247.css"
   },
   {
-    "revision": "5b9bf2a13f45fb6e9c33",
-    "url": "/nails/css/app.e7a48d8a.css"
+    "revision": "3548eee8f19af715fcbc",
+    "url": "/nails/css/app.7f1b6a18.css"
   },
   {
     "revision": "422478fa0138aa4fe663",
@@ -132,22 +132,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/archivo-narrow-v11-latin-regular.a48c4880.svg"
   },
   {
-    "revision": "407a9b5e17f0a22abf3589d61f78b9e6",
-    "url": "/nails/img/facebookico.407a9b5e.svg"
-  },
-  {
-    "revision": "804a1c1cd576af0d274bfdf8fc171914",
-    "url": "/nails/img/image-1.804a1c1c.png"
-  },
-  {
-    "revision": "37c343fd27b70c7ac12428ede426153f",
-    "url": "/nails/img/image-2.37c343fd.png"
-  },
-  {
-    "revision": "e58b42cfee3ff064ff4b009f98b07f9f",
-    "url": "/nails/img/instagramico.e58b42cf.svg"
-  },
-  {
     "revision": "92110cbaa5b0c5e3fc4a21c148d69788",
     "url": "/nails/img/no-image.png"
   },
@@ -156,7 +140,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/noImage.7ee3931e.jpg"
   },
   {
-    "revision": "27b9acdf32867b0e212c3fc80ebc58c0",
+    "revision": "1685e550353d599567f1e15afcb26098",
     "url": "/nails/index.html"
   },
   {
@@ -176,8 +160,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/add-course~add-course-payment~payment-details~personal-data~shop-payment.80477f3b.js"
   },
   {
-    "revision": "5b9bf2a13f45fb6e9c33",
-    "url": "/nails/js/app.0794c0f2.js"
+    "revision": "3548eee8f19af715fcbc",
+    "url": "/nails/js/app.05743257.js"
   },
   {
     "revision": "422478fa0138aa4fe663",
