@@ -15,15 +15,15 @@
 html,
 body,
 .v-application {
-  font-family: 'Archivo Narrow' !important;
+  font-family: 'Arial' !important;
 }
-.v-application--wrap {
+/* .v-application--wrap {
   background: #000 !important;
-}
+} */
 h1,
 h2,
 h3 {
-  font-family: 'Archivo Black' !important;
+  font-family: 'Arial Bold' !important;
   line-height: 150%;
 }
 

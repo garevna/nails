@@ -19,12 +19,12 @@ export default new Vuetify({
         // light gray
         secondary: '#dde',
         darkGrey: '#333333',
-        buttons: '#fa0',
-        homefone: '#000',
+        buttons: '#FFC44A',
+        homefone: '#262624',
         warning: '#FAFF00',
         // shop
         substrate: '#F4F4F4',
-        secondaryGray: '#000',
+        secondaryGray: '#262624',
         whitefone: '#ffffff',
         shopfont: '#808080',
         // courses
@@ -36,8 +36,8 @@ export default new Vuetify({
         // light gray
         secondary: '#dde',
         darkGrey: '#333333',
-        buttons: '#fa0',
-        homefone: '#000',
+        buttons: '#FFC44A',
+        homefone: '#262624',
         warning: '#FAFF00',
         // shop
         substrate: '#F4F4F4',

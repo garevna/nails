@@ -25,3 +25,28 @@
        url('../fonts/archivo-black-v9-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
        url('../fonts/archivo-black-v9-latin-regular.svg#ArchivoBlack') format('svg'); /* Legacy iOS */
 }
+
+@font-face {
+  font-family: 'Arial';
+  src: url('../fonts/arial-webfont.eot');
+  src: url('../fonts/arial-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/arial-webfont.woff2') format('woff2'),
+       url('../fonts/arial-webfont.woff') format('woff'),
+       url('../fonts/arial-webfont.ttf') format('truetype'),
+       url('../fonts/arial-webfont.svg#arialregular') format('svg');
+  font-weight: 400;
+  font-style: normal;
+
+}
+@font-face {
+  font-family: 'Arial Bold';
+  src: url('../fonts/arialbd-webfont.eot');
+  src: url('../fonts/arialbd-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/arialbd-webfont.woff2') format('woff2'),
+       url('../fonts/arialbd-webfont.woff') format('woff'),
+       url('../fonts/arialbd-webfont.ttf') format('truetype'),
+       url('../fonts/arialbd-webfont.svg#arialbold') format('svg');
+  font-weight: 400;
+  font-style: normal;
+
+}
