@@ -31,8 +31,8 @@
                   mandatory
                 >
                   <v-slide-item
-                    v-for="img in commodity.image"
-                    :key="img"
+                    v-for="img in commodity.images"
+                    :key="img._id"
                     v-slot:default="{ active, toggle }"
                   >
                     <v-img
@@ -42,6 +42,7 @@
                       height="60px"
                       contain
                       active
+                      alt="Commodity image"
                       :class="[
                         active ? 'card-active' : 'card-disabled',
                         'mx-2',
