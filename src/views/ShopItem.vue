@@ -31,8 +31,8 @@
                   mandatory
                 >
                   <v-slide-item
-                    v-for="img in commodity.image"
-                    :key="img"
+                    v-for="img in commodity.images"
+                    :key="img._id"
                     v-slot:default="{ active, toggle }"
                   >
                     <v-img
@@ -91,7 +91,7 @@
               <v-row class="viewed-block">
                 <v-card width="150" class="mx-5 my-10" v-for="n in 4" :key="n">
                   <v-img
-                    :src="commodity.image[0]"
+                    :src="commodity.images[0]"
                     max-width="150px"
                     max-height="150px"
                     contain
