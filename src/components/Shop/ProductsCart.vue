@@ -1,15 +1,13 @@
 <template>
-<v-dialog v-model="dialog" scrollable max-width="500px">
+<v-dialog v-model="dialog" scrollable max-width="60vw">
   <template v-slot:activator="{ on, attrs }">
     <v-btn icon v-bind="attrs" v-on="on">
       <v-badge
         color="green"
         v-model="getCart.length"
+        :content="getTotalItem"
         >
-          <template v-slot:badge>
-            <span>{{getCart.length}}</span>
-          </template>
-          <v-icon color="secondaryGray">mdi-shopping</v-icon>
+        <v-icon color="secondaryGray">mdi-shopping</v-icon>
       </v-badge>
     </v-btn>
   </template>
@@ -29,29 +27,42 @@
         ></v-img>
       </div>
       <div class="product-item__content">
-      <v-card-title class="white--text">
-        <p class="">
+        <v-card-text>
           {{item.name}}
-        </p>
-      </v-card-title>
-      <v-card-text>
-        Price: {{cart.price}} AUD
-      </v-card-text>
+        </v-card-text>
+        <div style="display: flex; justify-content: center; padding-top: 20px;">
+          <v-btn fab small text @click="decrementCount(item)" :disabled="item.count === 1">
+            <v-icon>
+              mdi-minus
+            </v-icon>
+          </v-btn>
+          <v-text-field style="width: 75px;"
+            outlined  dense v-model="item.count" @change="handleChangeCount" type='number'
+          ></v-text-field>
+          <v-btn fab small text @click="incrementCount(item)">
+            <v-icon>
+              mdi-plus
+            </v-icon>
+          </v-btn>
+        <v-card-text>
+           {{getSummPriceItem(item.count, item.price)}} AUD
+        </v-card-text>
+        </div>
       </div>
-        <v-btn
+      <v-btn
         class="mx-2"
         fab
         dark
-        small
+        x-small
         color="primary"
         @click="deleteCart(item)"
-       >
-      <v-icon dark>
-        mdi-minus
-      </v-icon>
-    </v-btn>
+      >
+        <v-icon dark>
+          mdi-delete
+        </v-icon>
+      </v-btn>
     </v-card>
-    <span v-if="getCart.length" id="total-summ">Total items: {{getCart.length}}. Summ: {{getPrice}} AUD.</span>
+    <span v-if="getCart.length" id="total-summ">Total items: {{getTotalItem}}. Summ: {{(getSumPrice)}} AUD.</span>
     </v-card-text>
     <v-divider></v-divider>
     <v-card-actions class="justify-center">
@@ -72,10 +83,19 @@
 .product-item__content{
   flex-grow: 1;
 }
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
 </style>
 
 <script>
 import { mapGetters } from 'vuex'
+import { createPersistData } from '../../store/modules/productCart.store'
 export default {
   name: 'ProductCart',
   props: [],
@@ -91,7 +111,8 @@ export default {
   },
   computed: mapGetters({
     getCart: 'productCart/getCart',
-    getPrice: 'productCart/getPrice'
+    getSumPrice: 'productCart/getSumPrice',
+    getTotalItem: 'productCart/getTotalItem'
   }),
   methods: {
     checkUrl (card) {
@@ -105,7 +126,19 @@ export default {
       return img
     },
     deleteCart (card) {
-      this.$store.dispatch('productCart/DELETE_CART', card)
+      this.$store.dispatch('productCart/DELETE_FROM_CART', card)
+    },
+    incrementCount (card) {
+      this.$store.dispatch('productCart/INCREMENT_COUNT', card)
+    },
+    decrementCount (card) {
+      this.$store.dispatch('productCart/DECREMENT_COUNT', card)
+    },
+    handleChangeCount () {
+      createPersistData()
+    },
+    getSummPriceItem (count, price) {
+      return count * price
     }
   },
   created () {

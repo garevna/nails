@@ -31,8 +31,8 @@
                   mandatory
                 >
                   <v-slide-item
-                    v-for="img in commodity.image"
-                    :key="img"
+                    v-for="img in commodity.images"
+                    :key="img._id"
                     v-slot:default="{ active, toggle }"
                   >
                     <v-img
@@ -64,7 +64,7 @@
                 <div class="price">
                   <h3 class="dark-gray-font">{{ commodity.price }} AUD</h3>
                   <div class="shop-buttons">
-                    <v-btn tile small width="100%" class="add" color="#FFC44A"
+                    <v-btn tile small width="100%" class="add" color="#FFC44A" @click="addToCart(commodity)"
                       >Add to card</v-btn
                     >
                     <v-btn
@@ -91,7 +91,7 @@
               <v-row class="viewed-block">
                 <v-card width="150" class="mx-5 my-10" v-for="n in 4" :key="n">
                   <v-img
-                    :src="commodity.image[0]"
+                    :src="commodity.images[0]"
                     max-width="150px"
                     max-height="150px"
                     contain
@@ -181,7 +181,6 @@
 
 <script>
 import { mapState } from 'vuex'
-
 import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue'
 import CategoriesSwitcher from '@/components/Shop/CategoriesSwitcher.vue'
 export default {
@@ -196,12 +195,14 @@ export default {
       selectedBlock: 0,
       selectedSection: {},
       commodityId: this.$route.params.commodityId,
-      activeCard: ''
+      activeCard: '',
+      isDisabled: false
     }
   },
   computed: {
     ...mapState(['viewportWidth']),
     ...mapState('shop', ['categories', 'commodities', 'commodity']),
+    ...mapState('productCart', ['cart']),
     mobileMenu () {
       return this.viewportWidth < 960
     }
@@ -216,6 +217,9 @@ export default {
     },
     buyNow () {
       this.$router.push({ name: 'shop-payment' })
+    },
+    addToCart (card) {
+      this.$store.dispatch('productCart/ADD_TO_CART', card)
     }
   },
   watch: {
