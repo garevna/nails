@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// import store from '../store/modules/auth.store'
 import Home from '../views/Home.vue'
+import store from '../store/modules/auth.store'
 
 Vue.use(VueRouter)
 
@@ -66,7 +68,12 @@ const routes = [
   {
     path: '/add-course',
     name: 'add-course',
-    component: () => import(/* webpackChunkName: "add-course" */ '../views/AddCourse.vue')
+    component: () => import(/* webpackChunkName: "add-course" */ '../views/AddCourse.vue'),
+    beforeEnter: (to, from, next) => {
+      if (store.state.isLogged) {
+        return next()
+      } else next({ name: 'login' })
+    }
   },
   {
     path: '/add-course-payment',
@@ -97,6 +104,11 @@ const routes = [
     path: '/shop-payment',
     name: 'shop-payment',
     component: () => import(/* webpackChunkName: "shop-payment" */ '../views/ShopPayment.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
   }
 ]
 

@@ -69,6 +69,7 @@ h3 {
 import SystemBar from './components/SystemBar.vue'
 import Footer from './components/Footer.vue'
 import MainMenu from '@/components/MainMenu.vue'
+// import { checkAuth } from '@/helper/checkAuth.js'
 
 import { mapState } from 'vuex'
 
@@ -96,6 +97,8 @@ export default {
     this.onResize()
     this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
     window.addEventListener('resize', this.onResize, { passive: true })
+    this.$store.dispatch('auth/GET_TOKEN')
+    this.$store.dispatch('auth/GET_USER')
   },
   beforeDestroy () {
     if (typeof window !== 'undefined') {

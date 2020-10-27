@@ -1,7 +1,7 @@
 <template>
   <div color="warning menu">
     <input class="search menu-app-bar" text />
-    <ProductsCart/>
+    <ProductsCart />
     <v-menu v-model="isOpened" bottom left :close-on-content-click="false">
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on" @click="isOpened = true">
@@ -13,7 +13,7 @@
         dark
         class="drop-down-menu"
         dense
-        :items="items"
+        :items="newItems"
         open-on-click
       >
         <template slot="label" slot-scope="{ item }">
@@ -21,6 +21,29 @@
         </template>
       </v-treeview>
     </v-menu>
+    <v-dialog v-model="dialog" persistent max-width="290">
+      <!-- <template v-slot:activator="{ on, attrs }">
+        <v-btn color="primary" dark v-bind="attrs" v-on="on">
+          Open Dialog
+        </v-btn>
+      </template> -->
+      <v-card>
+        <v-card-title class="headline">
+          Use Google's location service?
+        </v-card-title>
+        <v-card-text
+          >Let Google help apps determine location. This means sending anonymous
+          location data to Google, even when no apps are running.</v-card-text
+        >
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" text @click="dialog = false">
+            Disagree
+          </v-btn>
+          <v-btn color="green darken-1" text @click="logoutUser"> Agree </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <style>
@@ -105,13 +128,27 @@
 }
 </style>
 <script>
+import { mapState } from 'vuex'
+
 import ProductsCart from '@/components/Shop/ProductsCart.vue'
+
 export default {
   components: { ProductsCart },
   data () {
     return {
       isOpened: false,
+      dialog: false,
+      // token: localStorage.getItem('token'),
       key: 1,
+      logout: {
+        id: 122,
+        name: 'Logout'
+      },
+      register: {
+        id: 111,
+        name: 'Login or Register',
+        routeName: 'login'
+      },
       items: [
         {
           id: 1,
@@ -190,8 +227,23 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapState('auth', ['isLogged']),
+    newItems () {
+      const additionalItem = !this.isLogged ? this.register : this.logout
+      return [additionalItem, ...this.items]
+    }
+  },
   methods: {
+    logoutUser () {
+      // this.token = localStorage.setItem('token', '')
+      this.$store.dispatch('auth/LOGOUT')
+      this.dialog = false
+    },
     openDialog (treeElem) {
+      if (treeElem.name === 'Logout') {
+        this.dialog = true
+      }
       if (treeElem.routeName) {
         this.isOpened = false
         if (
