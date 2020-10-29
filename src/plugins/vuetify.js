@@ -20,7 +20,7 @@ export default new Vuetify({
         secondary: '#dde',
         darkGrey: '#333333',
         buttons: '#FFC44A',
-        homefone: '#262624',
+        homefone: '#ffffff',
         warning: '#FAFF00',
         // shop
         substrate: '#F4F4F4',
@@ -39,6 +39,7 @@ export default new Vuetify({
         buttons: '#FFC44A',
         homefone: '#262624',
         warning: '#FAFF00',
+        secondaryGray: '#262624',
         // shop
         substrate: '#F4F4F4',
         lightFont: '#808080',

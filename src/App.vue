@@ -2,9 +2,16 @@
   <v-app dark>
     <v-container fluid class="mx-auto homefone">
       <SystemBar />
-      <MainMenu v-if="maimMenuShowInRouteNames.includes(this.$route.name) && viewportWidth > 900" />
+      <MainMenu
+        v-if="
+          maimMenuShowInRouteNames.includes(this.$route.name) &&
+          viewportWidth > 900
+        "
+      />
       <v-main class="main-content">
-        <router-view></router-view>
+        <component :is="layout">
+          <!-- <router-view /> -->
+        </component>
       </v-main>
       <Footer />
     </v-container>
@@ -15,24 +22,21 @@
 html,
 body,
 .v-application {
-  font-family: 'Arial' !important;
+  font-family: "Arial" !important;
 }
-/* .v-application--wrap {
-  background: #000 !important;
-} */
 h1,
 h2,
 h3 {
-  font-family: 'Arial Bold' !important;
+  font-family: "Arial Bold" !important;
   line-height: 150%;
 }
 
 .main-content {
   margin-bottom: 150px !important;
   margin-top: 20px !important;
-    min-height: calc(100vh - 500px);
+  min-height: calc(100vh - 500px);
 }
-.v-btn__content{
+.v-btn__content {
   justify-content: center !important;
 }
 @media screen and (max-width: 800px) {
@@ -69,24 +73,38 @@ h3 {
 import SystemBar from './components/SystemBar.vue'
 import Footer from './components/Footer.vue'
 import MainMenu from '@/components/MainMenu.vue'
-// import { checkAuth } from '@/helper/checkAuth.js'
-
+import WhitefoneLayout from './layouts/WhitefoneLayout.vue'
+import DefaultLayout from './layouts/DefaultLayout.vue'
 import { mapState } from 'vuex'
-
 export default {
   name: 'App',
 
   components: {
     SystemBar,
     Footer,
-    MainMenu
+    MainMenu,
+    WhitefoneLayout,
+    DefaultLayout
   },
-
-  data: () => ({
-    maimMenuShowInRouteNames: ['home', 'add-course', 'add-course-payment', 'course-card', 'course-offline', 'course-online', 'personal-data', 'payment-details']
-  }),
+  data () {
+    return {
+      maimMenuShowInRouteNames: [
+        'home',
+        'add-course',
+        'add-course-payment',
+        'course-card',
+        'course-offline',
+        'course-online',
+        'personal-data',
+        'payment-details'
+      ]
+    }
+  },
   computed: {
-    ...mapState(['viewportWidth'])
+    ...mapState(['viewportWidth']),
+    layout () {
+      return `${this.$route.meta?.layout || 'default'}-layout`
+    }
   },
   methods: {
     onResize () {

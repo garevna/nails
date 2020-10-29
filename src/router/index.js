@@ -23,6 +23,7 @@ const routes = [
   {
     path: '/shop/:categoryName',
     name: 'shop',
+    meta: { layout: 'whitefone' },
     component: () => import(/* webpackChunkName: "shop" */ '../views/Shop.vue')
   },
   {
@@ -108,11 +109,13 @@ const routes = [
   {
     path: '/sign-in',
     name: 'sign-in',
+    meta: { layout: 'whitefone' },
     component: () => import(/* webpackChunkName: "sign-in" */ '../views/SignIn.vue')
   },
   {
     path: '/sign-up',
     name: 'sign-up',
+    meta: { layout: 'whitefone' },
     component: () => import(/* webpackChunkName: "sign-up" */ '../views/SignUp.vue')
   },
   {

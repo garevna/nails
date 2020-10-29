@@ -131,14 +131,14 @@ export default {
     remindPassHandler () {
       // push to path
     }
-  },
-  created () {
-    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
-    console.log(this.$vuetify.theme.themes.light.homefone)
-  },
-  beforeDestroy () {
-    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
-    console.log(this.$vuetify.theme.themes.light.homefone)
   }
+  // created () {
+  //   this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
+  //   console.log(this.$vuetify.theme.themes.light.homefone)
+  // },
+  // beforeDestroy () {
+  //   this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
+  //   console.log(this.$vuetify.theme.themes.light.homefone)
+  // }
 }
 </script>

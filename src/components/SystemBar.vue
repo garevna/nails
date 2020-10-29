@@ -1,5 +1,5 @@
 <template>
-  <div class="header-container" :style="{ backgroundColor: backgroundColor }">
+  <div class="header-container homefone">
     <v-app-bar app color="#FFC44A" outlined dark  elevate-on-scroll class="app-bar-header">
       <div class="d-flex align-center">
         <Logo :goHome="goHome" class="logo"/>
@@ -168,10 +168,10 @@ export default {
       return this.panel === 0
         ? 'burger-menu-active--second'
         : 'burger-menu--second'
-    },
-    backgroundColor () {
-      return this.$vuetify.theme.themes.light.homefone
     }
+    // backgroundColor () {
+    //   return this.$vuetify.theme.themes.light.homefone
+    // }
   },
   methods: {
     goHome () {

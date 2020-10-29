@@ -1,5 +1,5 @@
 <template>
-  <div class="footer-wrapper" :style="{ backgroundColor: homefone }">
+  <div class="footer-wrapper homefone">
     <v-bottom-navigation
       v-model="bottomNav"
       shift
@@ -168,9 +168,9 @@ export default {
     bottomNav: null
   }),
   computed: {
-    homefone () {
-      return this.$vuetify.theme.themes.light.homefone
-    }
+    // homefone () {
+    //   return this.$vuetify.theme.themes.light.homefone
+    // }
   },
   methods: {
     goToShopRoute (route) {
