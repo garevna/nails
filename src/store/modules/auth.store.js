@@ -85,6 +85,49 @@ const actions = {
         }
       )
     if (!response.error) {
+      // tttttttttttttttttttttttttttttttttttuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
+
+      const res = await fetch(
+        getters.authorizationEndpoint,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ password: payload.password, email: payload.email })
+        }
+      )
+      const bearer = res.headers.get('Authorization')
+      if (bearer) {
+        const token = bearer.split(' ')[1]
+        localStorage.setItem('token', token)
+        commit('TOKEN', token)
+        // commit('ISLOGGED', true)
+        const { user } = await (await fetch(
+          getters.checkTokenEndpoint,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${state.token}`
+            }
+          }
+        )).json()
+        if (user) {
+          commit('USER', user)
+          commit('ISLOGGED', !!user)
+        }
+      } else {
+        const { error } = await res.json()
+        Vue.notify({
+          group: 'foo',
+          type: 'error',
+          text: error
+        })
+        commit('TOKEN', null)
+        commit('ISLOGGED', false)
+      }
+      // iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
     }
     console.log(response)
   },

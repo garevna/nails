@@ -119,8 +119,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "sign-up" */ '../views/SignUp.vue')
   },
   {
-    path: '/cabinet',
+    path: '/user-cabinet',
     name: 'user-cabinet',
+    meta: { layout: 'whitefone' },
     component: () => import(/* webpackChunkName: "user-cabinet" */ '../views/UserCabinet.vue'),
     // children: [
     //   path: ''
@@ -128,7 +129,7 @@ const routes = [
     beforeEnter: (to, from, next) => {
       if (store.state.isLogged) {
         return next()
-      } else next({ name: 'login' })
+      } else next({ name: 'sign-in' })
     }
   }
 ]

@@ -1,32 +1,56 @@
 <template>
-  <v-card class="homefone" flat height="600px">
-    <v-navigation-drawer v-model="drawer" :mini-variant.sync="mini" permanent class="primary">
-      <v-list-item class="px-2">
-        <v-list-item-avatar>
-          <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
-        </v-list-item-avatar>
-
-        <v-list-item-title>{{user.login}}</v-list-item-title>
-
-        <v-btn icon @click.stop="mini = !mini">
-          <v-icon>mdi-chevron-left</v-icon>
-        </v-btn>
-      </v-list-item>
-
-      <v-divider></v-divider>
-
-      <v-list dense>
-        <v-list-item v-for="item in items" :key="item.title" link>
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+  <v-card flat class="homefone d-flex justify-space-between">
+    <v-card flat>
+      <h3>My account</h3>
+      <div class="d-flex align-baseline">
+        <span width="100px" class="mr-4">User name</span>
+        <v-text-field />
+      </div>
+      <div class="d-flex align-baseline">
+        <span class="mr-4">Full name</span>
+        <v-text-field />
+      </div>
+      <div class="d-flex align-baseline">
+        <span class="mr-4">Email</span>
+        <v-text-field />
+      </div>
+      <div class="d-flex align-baseline">
+        <span class="mr-4">Phone number</span>
+        <v-text-field />
+      </div>
+    </v-card>
+    <div class="d-flex flex-column">
+      <v-btn @click="dialog = true">Log out</v-btn>
+      <v-btn> My courses</v-btn>
+      <v-btn>Shoping card</v-btn>
+    </div>
+    <v-dialog v-model="dialog" persistent max-width="320">
+      <v-card>
+        <v-card-title> Do you really want to leave ?</v-card-title>
+        <v-card-actions class="justify-center">
+          <v-btn
+            color="buttons"
+            rounded
+            large
+            class="yellow-button"
+            text
+            @click="dialog = false"
+          >
+            Disagree
+          </v-btn>
+          <v-btn
+            color="buttons"
+            rounded
+            large
+            class="yellow-button"
+            text
+            @click="logoutUser"
+          >
+            Agree
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -36,19 +60,17 @@ export default {
   name: 'UserCabinet',
   data () {
     return {
-      drawer: true,
-      items: [
-        { title: 'Cabinet', icon: 'mdi-home-city' },
-        { title: 'Profile', icon: 'mdi-account' },
-        { title: 'Courses', icon: 'mdi-video' },
-        { title: 'add Course', icon: 'mdi-video-plus' },
-        { title: 'Settings', icon: 'mdi-cog' }
-      ],
-      mini: true
+      dialog: false
     }
   },
   computed: {
     ...mapState('auth', ['user'])
+  },
+  methods: {
+    logoutUser () {
+      this.$store.dispatch('auth/LOGOUT')
+      this.dialog = false
+    }
   }
 }
 </script>

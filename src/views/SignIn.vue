@@ -17,7 +17,6 @@
           />
           <v-checkbox
             label="Show"
-            dark
             class="show-pass pa-0 ma-0"
             v-model="showPass"
             >show</v-checkbox
@@ -34,7 +33,6 @@
         <v-btn
           @click="submit"
           color="buttons"
-          dark
           rounded
           class="yellow-button"
           >sign in</v-btn
@@ -121,24 +119,9 @@ export default {
           this.$store.dispatch('auth/AUTHORIZATION_USER', { email, password })
         }
       }
-    },
-    refHandler () {
-      this.registration = !this.registration
-      const temp = this.submitText
-      this.submitText = this.refText
-      this.refText = temp
-    },
-    remindPassHandler () {
-      // push to path
     }
+
   }
-  // created () {
-  //   this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
-  //   console.log(this.$vuetify.theme.themes.light.homefone)
-  // },
-  // beforeDestroy () {
-  //   this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
-  //   console.log(this.$vuetify.theme.themes.light.homefone)
-  // }
+
 }
 </script>

@@ -19,7 +19,7 @@
         dark
         class="drop-down-menu"
         dense
-        :items="newItems"
+        :items="items"
         open-on-click
       >
         <template slot="label" slot-scope="{ item }">
@@ -27,29 +27,6 @@
         </template>
       </v-treeview>
     </v-menu>
-    <v-dialog v-model="dialog" persistent max-width="290">
-      <!-- <template v-slot:activator="{ on, attrs }">
-        <v-btn color="primary" dark v-bind="attrs" v-on="on">
-          Open Dialog
-        </v-btn>
-      </template> -->
-      <v-card>
-        <v-card-title class="headline">
-          Use Google's location service?
-        </v-card-title>
-        <v-card-text
-          >Let Google help apps determine location. This means sending anonymous
-          location data to Google, even when no apps are running.</v-card-text
-        >
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="green darken-1" text @click="dialog = false">
-            Disagree
-          </v-btn>
-          <v-btn color="green darken-1" text @click="logoutUser"> Agree </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </div>
 </template>
 <style>
@@ -147,17 +124,16 @@ export default {
   data () {
     return {
       isOpened: false,
-      dialog: false,
       key: 1,
-      logout: {
-        id: 122,
-        name: 'Logout'
-      },
-      register: {
-        id: 111,
-        name: 'Login or Register',
-        routeName: 'login'
-      },
+      // logout: {
+      //   id: 122,
+      //   name: 'Logout'
+      // },
+      // register: {
+      //   id: 111,
+      //   name: 'Login or Register',
+      //   routeName: 'login'
+      // },
       items: [
         {
           id: 1,
@@ -237,24 +213,22 @@ export default {
     }
   },
   computed: {
-    ...mapState('auth', ['isLogged']),
-    newItems () {
-      const additionalItem = !this.isLogged ? this.register : this.logout
-      return [additionalItem, ...this.items]
-    }
+    ...mapState('auth', ['isLogged'])
+    // newItems () {
+    //   const additionalItem = !this.isLogged ? this.register : this.logout
+    //   return [additionalItem, ...this.items]
+    // }
   },
   methods: {
-    logoutUser () {
-      this.$store.dispatch('auth/LOGOUT')
-      this.dialog = false
-    },
+    // logoutUser () {
+    //   this.$store.dispatch('auth/LOGOUT')
+    //   this.dialog = false
+    // },
     goToLogin (name) {
       if (this.$route.name !== name) this.$router.push({ name })
     },
     goToCabinet () {
-      this.$router.push({
-        name: 'user-cabinet'
-      })
+      if (this.$route.name !== 'user-cabinet') this.$router.push({ name: 'user-cabinet' })
     },
     openDialog (treeElem) {
       if (treeElem.name === 'Logout') {

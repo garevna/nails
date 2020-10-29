@@ -1,124 +1,113 @@
 <template>
   <v-form ref="form" class="form mt-16">
-    <div class="d-flex flex-column align-center input_wrap">
-      <div v-if="!registration">
-        <v-text-field
-          v-model="email"
-          :rules="[rules.required]"
-          label="E-Mail"
-          outlined
-          dark
-        />
-        <v-text-field
-          v-model="password"
-          type="password"
-          :rules="[rules.required]"
-          label="password"
-          outlined
-          dark
-        />
-      </div>
-      <div v-if="registration">
+    <div class="d-flex flex-column align-center">
+      <h2>Create an account</h2>
+      <div class="input-container pa-4">
+        <div class="d-flex">
+          <v-text-field
+            v-model="firstName"
+            :rules="[rules.required]"
+            label="First name"
+            class="pr-4"
+          />
+          <v-text-field
+            v-model="lastName"
+            :rules="[rules.required]"
+            label="Last name"
+            class="pl-4"
+          />
+        </div>
         <v-text-field
           v-model="email"
           :rules="[rules.required, rules.mailValidation]"
           label="E-Mail"
-          outlined
-          dark
         />
         <v-text-field
-          v-model="password"
-          type="password"
+          v-model="phone"
           :rules="[rules.required]"
-          label="password"
-          outlined
-          dark
+          label="Phone number"
         />
-        <v-text-field
+        <div class="input-pass">
+          <v-text-field
+            v-model="password"
+            :type="showPass ? 'text' : 'password'"
+            :rules="[rules.required]"
+            label="password"
+          />
+          <v-checkbox
+            label="Show"
+            class="show-pass pa-0 ma-0"
+            v-model="showPass"
+            >show</v-checkbox
+          >
+        </div>
+        <!-- <v-text-field
           v-model="confirmPass"
           type="password"
           :rules="[rules.required, rules.confirmPass]"
           label="confirm password"
           outlined
           dark
-        />
-        <v-text-field
-          v-model="login"
-          :rules="[rules.required]"
-          label="login"
-          outlined
-          dark
-        />
-        <v-text-field
-          v-model="phone"
-          :rules="[rules.required]"
-          label="phone"
-          outlined
-          dark
-        />
-        <v-text-field
+        /> -->
+        <!-- <v-text-field
           v-model="role"
           :rules="[rules.required]"
           label="Role"
-          outlined
-          dark
-        />
+        /> -->
         <v-checkbox
           v-model="isPoliticAgree"
           :rules="[rules.required]"
-          label="Agree to privacy policy"
-          outlined
-          dark
+          label="Agree to terms and conditions"
         ></v-checkbox>
       </div>
 
-      <div v-if="!registration" class="mb-8">
-        <a>forget password?</a>
-      </div>
       <div class="d-flex">
-        <v-btn @click="submit" color="buttons" dark class=" yellow-button mr-8">{{ submitText }}</v-btn>
-        <a @click.prevent="refHandler" class="d-flex align-center">{{
-          refText
-        }}</a>
+        <v-btn @click="submit" color="buttons" rounded class="yellow-button"
+          >Create account</v-btn
+        >
       </div>
     </div>
   </v-form>
 </template>
 <style scoped>
-/* .form {
-  position: relative;
-  width: 100%;
-  height: 100%;
+.input-container {
+  min-width: 350px;
 }
-.input_wrap {
+.input-pass {
+  position: relative;
+}
+</style>
+<style lang="scss">
+.show-pass {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-} */
+  bottom:0;
+  right: 0;
+  & .v-label,
+  .v-icon.v-icon {
+    font-size: 14px !important;
+  }
+}
 </style>
 <script>
 import { mapState } from 'vuex'
 
 export default {
-  props: ['type'],
-  name: 'login',
+  name: 'sign-up',
   data () {
     return {
-      login: '',
+      firstName: '',
+      lastName: '',
       password: '',
       phone: '',
-      role: '',
-      confirmPass: '',
+      role: 'User',
+      // confirmPass: '',
       email: '',
       isPoliticAgree: false,
-      registration: false,
-      submitText: 'Login',
-      refText: 'Registration',
+      showPass: false,
       rules: {
-        required: v => !!v || 'input is required',
-        confirmPass: v => v === this.password || 'Passwords do not match',
-        mailValidation: v =>
+        required: (v) => !!v || 'input is required',
+        confirmPass: (v) => v === this.password || 'Passwords do not match',
+        mailValidation: (v) =>
           /^(\w+\.?\w+\.?\w+?|\d+\.?\d+\.?\d+)([@])(\w+|\d+)\.{1}[a-zA-Z]{2,3}$/.test(
             v
           ) || 'invalid email'
@@ -137,39 +126,21 @@ export default {
   },
   methods: {
     submit () {
-      const {
-        email,
-        phone,
-        role,
-        isPoliticAgree,
-        registration,
-        login,
-        password
-      } = this
+      const { email, phone, role, isPoliticAgree, login, password } = this
       if (this.$refs.form.validate()) {
-        if (registration) {
-          const data = {
-            email,
-            phone,
-            login,
-            role,
-            isPoliticAgree,
-            password
-          }
-          this.$store.dispatch('auth/REGISTRATION_USER', data)
-        } else {
-          this.$store.dispatch('auth/AUTHORIZATION_USER', { email, password })
+        const data = {
+          email,
+          phone,
+          login,
+          role,
+          isPoliticAgree,
+          password
         }
+        this.$store.dispatch('auth/REGISTRATION_USER', data)
+        // } else {
+        //   this.$store.dispatch('auth/AUTHORIZATION_USER', { email, password })
+        // }
       }
-    },
-    refHandler () {
-      this.registration = !this.registration
-      const temp = this.submitText
-      this.submitText = this.refText
-      this.refText = temp
-    },
-    remindPassHandler () {
-    // push to path
     }
   }
 }
