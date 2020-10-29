@@ -1,12 +1,11 @@
 /* eslint-disable quote-props */
+import Vue from 'vue'
+
 const state = {
   token: null,
   role: 'Guest',
   isLogged: false,
   user: {}
-  // email: '',
-  // phone: '',
-  // login: ''
 }
 
 const getters = {
@@ -42,12 +41,33 @@ const actions = {
         body: JSON.stringify(payload)
       }
     )
-    const token = res.headers.get('Authorization').split(' ')[1]
-    if (token) {
+    const bearer = res.headers.get('Authorization')
+    if (bearer) {
+      const token = bearer.split(' ')[1]
       localStorage.setItem('token', token)
       commit('TOKEN', token)
-      commit('ISLOGGED', true)
+      // commit('ISLOGGED', true)
+      const { user } = await (await fetch(
+        getters.checkTokenEndpoint,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${state.token}`
+          }
+        }
+      )).json()
+      if (user) {
+        commit('USER', user)
+        commit('ISLOGGED', !!user)
+      }
     } else {
+      const { error } = await res.json()
+      Vue.notify({
+        group: 'foo',
+        type: 'error',
+        text: error
+      })
       commit('TOKEN', null)
       commit('ISLOGGED', false)
     }

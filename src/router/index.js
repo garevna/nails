@@ -106,9 +106,27 @@ const routes = [
     component: () => import(/* webpackChunkName: "shop-payment" */ '../views/ShopPayment.vue')
   },
   {
-    path: '/login',
-    name: 'login',
-    component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue')
+    path: '/sign-in',
+    name: 'sign-in',
+    component: () => import(/* webpackChunkName: "sign-in" */ '../views/SignIn.vue')
+  },
+  {
+    path: '/sign-up',
+    name: 'sign-up',
+    component: () => import(/* webpackChunkName: "sign-up" */ '../views/SignUp.vue')
+  },
+  {
+    path: '/cabinet',
+    name: 'user-cabinet',
+    component: () => import(/* webpackChunkName: "user-cabinet" */ '../views/UserCabinet.vue'),
+    // children: [
+    //   path: ''
+    // ],
+    beforeEnter: (to, from, next) => {
+      if (store.state.isLogged) {
+        return next()
+      } else next({ name: 'login' })
+    }
   }
 ]
 

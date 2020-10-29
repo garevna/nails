@@ -1,6 +1,6 @@
 <template>
   <div class="header-container" :style="{ backgroundColor: backgroundColor }">
-    <v-app-bar app color="#FFC44A" outlined dark class="app-bar-header">
+    <v-app-bar app color="#FFC44A" outlined dark  elevate-on-scroll class="app-bar-header">
       <div class="d-flex align-center">
         <Logo :goHome="goHome" class="logo"/>
         <!-- <h1><span @click="goHome" class="logo">NAILS</span>AUSTRALIA</h1> -->
@@ -11,7 +11,7 @@
         <v-btn @click="goToShop" text>SHOP</v-btn>
         <v-btn @click="goToCourses" text>COURSES</v-btn>
       </div>
-      <MenuSystemBar class=" d-none d-md-flex" />
+      <MenuSystemBar class=" d-none d-md-flex align-center" />
 
       <!-- Viewport width less then lg -->
       <v-expansion-panels

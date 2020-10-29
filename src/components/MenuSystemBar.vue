@@ -1,7 +1,13 @@
 <template>
   <div color="warning menu">
-    <input class="search menu-app-bar" text />
+    <v-btn v-if="!isLogged" @click="goToLogin('sign-in')" class="registration" text> Sign in </v-btn>
+    <v-btn v-if="!isLogged" @click="goToLogin('sign-up')" class="registration" text> Sign up </v-btn>
+    <!-- <input class="search menu-app-bar" text /> -->
     <ProductsCart />
+    <v-btn icon v-if="isLogged" @click="goToCabinet">
+      <v-icon color="secondaryGray">mdi-account</v-icon>
+    </v-btn>
+
     <v-menu v-model="isOpened" bottom left :close-on-content-click="false">
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on" @click="isOpened = true">
@@ -111,6 +117,10 @@
 .drop-down-menu {
   background-color: #000;
 }
+.registration {
+  color:#000 !important;
+  font-size: 18px !important;
+}
 @media screen and (max-width: 1330px) {
   .search:focus {
     width: 250px;
@@ -138,7 +148,6 @@ export default {
     return {
       isOpened: false,
       dialog: false,
-      // token: localStorage.getItem('token'),
       key: 1,
       logout: {
         id: 122,
@@ -236,9 +245,16 @@ export default {
   },
   methods: {
     logoutUser () {
-      // this.token = localStorage.setItem('token', '')
       this.$store.dispatch('auth/LOGOUT')
       this.dialog = false
+    },
+    goToLogin (name) {
+      if (this.$route.name !== name) this.$router.push({ name })
+    },
+    goToCabinet () {
+      this.$router.push({
+        name: 'user-cabinet'
+      })
     },
     openDialog (treeElem) {
       if (treeElem.name === 'Logout') {
