@@ -73,7 +73,14 @@ const routes = [
     beforeEnter: (to, from, next) => {
       if (store.state.isLogged) {
         return next()
-      } else next({ name: 'login' })
+      } else {
+        next({ name: 'sign-in' })
+        Vue.notify({
+          group: 'foo',
+          type: 'error',
+          text: 'Please, sign in or create an account '
+        })
+      }
     }
   },
   {
