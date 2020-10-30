@@ -29,6 +29,7 @@ const routes = [
   {
     path: '/shop/:categoryName/:commodityId',
     name: 'shop-item',
+    meta: { layout: 'whitefone' },
     component: () => import(/* webpackChunkName: "shop-item" */ '../views/ShopItem.vue')
   },
   {

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid fill-height class="whitefone shop-layout">
+  <v-container fluid fill-height class="homefone shop-layout">
     <v-card flat class="transparent mx-auto" max-width="1440" width="100%">
       <CategoriesSwitcher
         :selectedSection="selectedSection"
@@ -242,10 +242,10 @@ export default {
     this.$store.dispatch('shop/GET_COMMODITY', {
       commodityId: this.commodityId
     })
-    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
+    // this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
   },
   beforeDestroy () {
-    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
+    // this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
     this.$store.commit('shop/CLEAR_COMMODITY')
   }
 }

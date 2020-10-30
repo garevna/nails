@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid fill-height class="whitefone align-start">
+  <v-container fluid fill-height class="homefone align-start">
     <v-card flat class="transparent mx-auto" max-width="1440" width="100%">
       <MainMenu :light="true" :top="true" />
       <PaymentDetailsForm :light="true" />
@@ -38,12 +38,12 @@ export default {
     }
   },
   watch: {},
-  methods: {},
-  mounted () {
-    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
-  },
-  beforeDestroy () {
-    this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
-  }
+  methods: {}
+  // mounted () {
+  //   this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
+  // },
+  // beforeDestroy () {
+  //   this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
+  // }
 }
 </script>
