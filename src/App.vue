@@ -15,6 +15,7 @@
       </v-main>
       <Footer />
     </v-container>
+    <notifications group="foo" position="top center"/>
   </v-app>
 </template>
 
@@ -68,6 +69,22 @@ h3 {
   }
 }
 </style>
+<style lang="scss">
+  .vue-notification {
+    background-color:#fa0 !important;
+    padding: 5px;
+    margin: 10px 0 0 0 ;
+    font-size: 16px;
+    border-left:none;
+    text-align: center;
+    border-radius: 5px;
+    font-family: "Archivo Narrow" !important;
+    font-weight: 700;
+    &.error {
+      background: #E54D42;
+    }
+  }
+</style>
 
 <script>
 import SystemBar from './components/SystemBar.vue'
@@ -115,6 +132,10 @@ export default {
     this.onResize()
     this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
     window.addEventListener('resize', this.onResize, { passive: true })
+    // this.$store.dispatch('auth/GET_TOKEN')
+    // this.$store.dispatch('auth/GET_USER')
+  },
+  beforeCreate () {
     this.$store.dispatch('auth/GET_TOKEN')
     this.$store.dispatch('auth/GET_USER')
   },

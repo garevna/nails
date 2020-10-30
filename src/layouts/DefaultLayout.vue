@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  beforeMount () {
+  beforeCreate () {
     this.$vuetify.theme.dark = true
   },
   beforeDestroy () {

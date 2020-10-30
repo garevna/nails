@@ -11,7 +11,8 @@ const state = {
 const getters = {
   authorizationEndpoint: (state, getters, rootState) => `${rootState.host}/auth/signin`,
   registrationEndpoint: (state, getters, rootState) => `${rootState.host}/auth/signup`,
-  checkTokenEndpoint: (state, getters, rootState) => `${rootState.host}/user/findByJwt`
+  checkTokenEndpoint: (state, getters, rootState) => `${rootState.host}/user/findByJwt`,
+  editUserEndpoint: (state, getters, rootState) => `${rootState.host}/user/`
 }
 
 const mutations = {
@@ -74,7 +75,7 @@ const actions = {
   },
   async REGISTRATION_USER ({ getters, commit }, payload) {
     const response =
-      await fetch(
+      await (await fetch(
         getters.registrationEndpoint,
         {
           method: 'POST',
@@ -83,7 +84,8 @@ const actions = {
           },
           body: JSON.stringify(payload)
         }
-      )
+      )).json()
+    console.log(response)
     if (!response.error) {
       // tttttttttttttttttttttttttttttttttttuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu
 
@@ -128,8 +130,14 @@ const actions = {
         commit('ISLOGGED', false)
       }
       // iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+    } else {
+      console.log(response.error)
+      Vue.notify({
+        group: 'foo',
+        type: 'error',
+        text: response.error
+      })
     }
-    console.log(response)
   },
   async GET_USER ({ getters, commit }) {
     if (state.token) {
@@ -168,6 +176,28 @@ const actions = {
       }
     }
     return state.token
+  },
+  async EDIT_USER ({ getters, commit }, payload) {
+    const response = await (await fetch(
+      `${getters.editUserEndpoint}${state.user._id}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      }
+    )).json()
+    if (!response.error) {
+      console.log(response)
+      // commit('USER', user)
+    } else {
+      Vue.notify({
+        group: 'foo',
+        type: 'error',
+        text: response.error
+      })
+    }
   }
 }
 

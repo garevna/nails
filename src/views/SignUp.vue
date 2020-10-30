@@ -126,12 +126,13 @@ export default {
   },
   methods: {
     submit () {
-      const { email, phone, role, isPoliticAgree, login, password } = this
+      const { email, phone, role, isPoliticAgree, lastName, password, firstName } = this
       if (this.$refs.form.validate()) {
         const data = {
           email,
           phone,
-          login,
+          lastName,
+          firstName,
           role,
           isPoliticAgree,
           password
