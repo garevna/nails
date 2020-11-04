@@ -190,7 +190,7 @@ const actions = {
     )).json()
     if (!response.error) {
       console.log(response)
-      // commit('USER', user)
+      commit('USER', payload)
     } else {
       Vue.notify({
         group: 'foo',

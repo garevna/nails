@@ -85,9 +85,9 @@ const routes = [
     }
   },
   {
-    path: '/add-course-payment',
-    name: 'add-course-payment',
-    component: () => import(/* webpackChunkName: "add-course-payment" */ '../views/AddCoursePayment.vue')
+    path: '/add-course-videos',
+    name: 'add-course-videos',
+    component: () => import(/* webpackChunkName: "add-course-payment" */ '../views/AddCourseVideos.vue')
   },
   {
     path: '/payment',
@@ -131,9 +131,17 @@ const routes = [
     name: 'user-cabinet',
     meta: { layout: 'whitefone' },
     component: () => import(/* webpackChunkName: "user-cabinet" */ '../views/UserCabinet.vue'),
-    // children: [
-    //   path: ''
-    // ],
+    beforeEnter: (to, from, next) => {
+      if (store.state.isLogged) {
+        return next()
+      } else next({ name: 'sign-in' })
+    }
+
+  }, {
+    path: '/user-courses',
+    name: 'user-courses',
+    meta: { layout: 'whitefone' },
+    component: () => import(/* webpackChunkName: "user-courses" */'../views/UserCourses.vue'),
     beforeEnter: (to, from, next) => {
       if (store.state.isLogged) {
         return next()

@@ -17,19 +17,40 @@
         <v-card flat class="d-sm-flex align-baseline">
           <v-card flat min-width="140px" class="mr-4">
             <v-card-text class="pa-0 text-center text-sm-end"
-              >Full name</v-card-text
+              >First name</v-card-text
             >
           </v-card>
           <v-card flat width="100%" class="edit-container">
             <v-text-field
-              v-model="fullName"
-              :disabled="fullNameDisabled"
+              v-model="firstName"
+              :disabled="firstNameDisabled"
               class="pr-8"
             />
             <span
               class="edit-btn"
-              v-if="fullNameDisabled"
-              @click="editHandler('fullNameDisabled')"
+              v-if="firstNameDisabled"
+              @click="editHandler('firstNameDisabled')"
+              >edit</span
+            >
+          </v-card>
+        </v-card>
+        <!--  -->
+           <v-card flat class="d-sm-flex align-baseline">
+          <v-card flat min-width="140px" class="mr-4">
+            <v-card-text class="pa-0 text-center text-sm-end"
+              >Last name</v-card-text
+            >
+          </v-card>
+          <v-card flat width="100%" class="edit-container">
+            <v-text-field
+              v-model="lastName"
+              :disabled="lastNameDisabled"
+              class="pr-8"
+            />
+            <span
+              class="edit-btn"
+              v-if="lastNameDisabled"
+              @click="editHandler('lastNameDisabled')"
               >edit</span
             >
           </v-card>
@@ -126,7 +147,7 @@
         class="d-flex flex-column align-md-end"
       >
         <v-btn text @click="dialog = true">Log out</v-btn>
-        <v-btn text> My courses</v-btn>
+        <v-btn text @click="goToUserCourses"> My courses</v-btn>
         <v-btn text>Shoping card</v-btn>
       </v-col>
     </v-row>
@@ -177,8 +198,10 @@ export default {
     return {
       dialog: false,
       userName: '',
-      fullName: '',
-      fullNameDisabled: true,
+      firstName: '',
+      firstNameDisabled: true,
+      lastName: '',
+      lastNameDisabled: true,
       email: '',
       emailDisabled: true,
       phone: '',
@@ -193,7 +216,8 @@ export default {
     ...mapState('auth', ['user']),
     touched () {
       return !(
-        this.fullNameDisabled &&
+        this.firstNameDisabled &&
+        this.lastNameDisabled &&
         this.emailDisabled &&
         this.phoneDisabled &&
         this.deliveryAddressDisabled
@@ -220,8 +244,8 @@ export default {
     },
     confirm () {
       const data = {
-        firstName: this.fullName.split(' ')[0],
-        lastName: this.fullName.split(' ')[1],
+        firstName: this.firstName,
+        lastName: this.lastName,
         email: this.email,
         phone: this.phone,
         deliveryAddress: this.deliveryAddress,
@@ -233,16 +257,21 @@ export default {
 
     fillingInTheFields () {
       this.userName = this.user.firstName
-      this.fullName = `${this.user.firstName} ${this.user.lastName}`
+      this.firstName = this.user.firstName
+      this.lastName = this.user.lastName
       this.email = this.user.email
       this.phone = this.user.phone
       this.deliveryAddress = this.user.deliveryAddress
     },
     resetDisabled () {
-      this.fullNameDisabled = true
+      this.firstNameDisabled = true
+      this.lastNameDisabled = true
       this.emailDisabled = true
       this.phoneDisabled = true
       this.deliveryAddressDisabled = true
+    },
+    goToUserCourses () {
+      if (this.$route.name !== 'user-courses') this.$router.push({ name: 'user-courses' })
     }
   },
   beforeMount () {

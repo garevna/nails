@@ -1,5 +1,5 @@
 <template>
-  <v-container dark>
+  <v-container>
     <v-row>
       <v-col
         cols="12"
@@ -48,7 +48,7 @@
       </v-col>
       <v-col cols="12" xs="12" sm="6">
         <p>Upload video for moderation</p>
-        <v-expansion-panels class="homefone" flat :disabled="!isActive">
+        <v-expansion-panels flat :disabled="!isActive">
           <v-expansion-panel v-for="(item, i) in uploadFiles" :key="i">
             <v-expansion-panel-header
               class="btn-open-video"
@@ -127,10 +127,15 @@
     </v-row>
   </v-container>
 </template>
-<style>
+<style lang="scss">
+@import '@/css/variables.scss';
+
 .v-expansion-panel-content__wrap {
   /* GLOBAL  */
   padding: 0 0 0 !important;
+}
+.theme--dark.v-expansion-panels .v-expansion-panel {
+  background-color: $homefoneDark;
 }
 </style>
 <style scoped>
@@ -172,6 +177,8 @@
 </style>
 <script>
 // import PaymentDetailsForm from '@/components/forms/PaymentDetailsForm.vue'
+import { mapState } from 'vuex'
+
 export default {
   name: 'add-course-payment',
   components: {
@@ -226,7 +233,8 @@ export default {
         this.validateFile(item)
       )
       return this.validateFiles(validArray)
-    }
+    },
+    ...mapState('auth', ['user'])
   },
   methods: {
     validateFile (file) {
@@ -277,15 +285,15 @@ export default {
       }
       return emty
     },
-    sendData2 (fd) {
-      fetch(
-        'https://ptsv2.com/t/yeu3y-1602246042/post',
-        {
-          method: 'POST',
-          body: fd
-        }
-      )
-    },
+    // sendData2 (fd) {
+    //   fetch(
+    //     'https://ptsv2.com/t/yeu3y-1602246042/post',
+    //     {
+    //       method: 'POST',
+    //       body: fd
+    //     }
+    //   )
+    // },
     sendData () {
       const dataArr = this.filteredData(this.uploadFiles)
       dataArr.forEach((obj) => {
@@ -300,25 +308,26 @@ export default {
             else fd.append(name, value)
           }
         })
-        this.sendData2(fd)
+        // this.sendData2(fd)
+        this.$store.dispatch('userCourses/GREATE_VIDEO_COURSES ', { id: this.user._id, fd })
       })
     },
-    oldSendData () {
-      const dataArr = this.filteredData(this.uploadFiles)
-      dataArr.forEach((obj) => {
-        const fd = new FormData()
-        Object.entries(obj).forEach(([name, value]) => {
-          if (Array.isArray(obj[name])) {
-            Object.values(obj[name]).forEach((value) =>
-              fd.append(`${name}[]`, value)
-            )
-          } else {
-            fd.append(name, value)
-          }
-        })
-        this.sendData2(fd)
-      })
-    },
+    // oldSendData () {
+    //   const dataArr = this.filteredData(this.uploadFiles)
+    //   dataArr.forEach((obj) => {
+    //     const fd = new FormData()
+    //     Object.entries(obj).forEach(([name, value]) => {
+    //       if (Array.isArray(obj[name])) {
+    //         Object.values(obj[name]).forEach((value) =>
+    //           fd.append(`${name}[]`, value)
+    //         )
+    //       } else {
+    //         fd.append(name, value)
+    //       }
+    //     })
+    //     this.sendData2(fd)
+    //   })
+    // },
     toggleBtn () {
       this.isActive = !this.isActive
     }

@@ -34,12 +34,12 @@ const actions = {
   async GET_ONLINE_COURSES ({ state, getters, commit }) {
     const response = await (await fetch(`${getters.onlineCoursesEndpoint}`)).json()
     commit('ONLINE_COURSES', response)
-    return state.onlineCourses
+    // return state.onlineCourses
   },
   async GET_MORE_ONLINE_COURSES ({ state, getters, commit }, { skip }) {
     const response = await (await fetch(`${getters.onlineCoursesEndpoint}?skip=${skip}`)).json()
     commit('MORE_ONLINE_COURSES', response)
-    return state.onlineCourses
+    // return state.onlineCourses
   },
   async GET_ONLINE_COURSE_BY_ID ({ state, getters, commit }, { id }) {
     const { onlineCourse } = await (await fetch(`${getters.onlineCoursesEndpoint}/${id}`)).json()
@@ -52,7 +52,7 @@ const actions = {
     }
     commit('ONLINE_COURSE_BY_ID', onlineCourse)
     commit('ONLINE_COURSE_BY_ID_IMG', img)
-    return state.onlineCourseById
+    // return state.onlineCourseById
   },
   async CLEAR_ONLINE_COURSE_BY_ID ({ commit }) {
     commit('ONLINE_COURSE_BY_ID_CLEAR')

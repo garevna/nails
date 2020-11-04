@@ -35,12 +35,12 @@ const actions = {
   async GET_OFFLINE_COURSES ({ state, getters, commit }) {
     const response = await (await fetch(`${getters.offlineCoursesEndpoint}`)).json()
     commit('OFFLINE_COURSES', response)
-    return state.offlineCourses
+    // return state.offlineCourses
   },
   async GET_MORE_OFFLINE_COURSES ({ state, getters, commit }, { skip }) {
     const response = await (await fetch(`${getters.offlineCoursesEndpoint}?skip=${skip}`)).json()
     commit('MORE_OFFLINE_COURSES', response)
-    return state.offlineCourses
+    // return state.offlineCourses
   },
   async GET_OFFLINE_COURSE_BY_ID ({ state, getters, commit }, { id }) {
     const { offlineCourse } = await (await fetch(`${getters.offlineCoursesEndpoint}/${id}`)).json()
@@ -53,7 +53,7 @@ const actions = {
     }
     commit('OFFLINE_COURSE_BY_ID', offlineCourse)
     commit('OFFLINE_COURSE_BY_ID_IMG', img)
-    return state.offlineCourseById
+    // return state.offlineCourseById
   },
   async CLEAR_OFFLINE_COURSE_BY_ID ({ commit }) {
     commit('OFFLINE_COURSE_BY_ID_CLEAR')
