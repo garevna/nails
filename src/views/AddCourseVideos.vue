@@ -15,6 +15,7 @@
           min-width="160"
           class="yellow-button"
           :class="{ 'button-unactive': isActive }"
+          :disabled="!currentCourseId"
           @click="toggleBtn"
           >CONFIRM DETAILS</v-btn
         >
@@ -32,6 +33,7 @@
           dark
           min-width="160"
           class="yellow-button"
+          @click="goToUserCourse"
           >EDIT DETAILS</v-btn
         >
       </v-col>
@@ -234,7 +236,8 @@ export default {
       )
       return this.validateFiles(validArray)
     },
-    ...mapState('auth', ['user'])
+    ...mapState('auth', ['user']),
+    ...mapState('userCourses', ['currentCourseId'])
   },
   methods: {
     validateFile (file) {
@@ -330,6 +333,15 @@ export default {
     // },
     toggleBtn () {
       this.isActive = !this.isActive
+    },
+    goToUserCourse () {
+      this.$router.push({
+        name: 'user-course',
+        params: {
+          courseid: this.currentCourseId
+        }
+      })
+      // if (this.$route.name !== name) this.$router.push({ name: name })
     }
   }
 }

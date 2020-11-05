@@ -147,16 +147,16 @@
         class="d-flex flex-column align-md-end"
       >
         <v-btn text @click="dialog = true">Log out</v-btn>
-        <v-btn text @click="goToUserCourses"> My courses</v-btn>
+        <v-btn text @click="goTo('user-courses')"> My courses</v-btn>
         <v-btn text>Shoping card</v-btn>
       </v-col>
     </v-row>
     <div class="d-flex flex-column flex-sm-row align-center justify-sm-space-around mt-16">
-      <v-btn color="buttons" rounded class="yellow-button"
+      <v-btn @click="goTo('courses')" color="buttons" rounded class="yellow-button"
         >All courses</v-btn
       >
-      <v-btn color="buttons" rounded class="yellow-button my-12 my-sm-0">Shop</v-btn>
-      <v-btn color="buttons" rounded class="yellow-button"
+      <v-btn @click="goTo('shop')" color="buttons" rounded class="yellow-button my-12 my-sm-0">Shop</v-btn>
+      <v-btn @click="goTo('add-course')" color="buttons" rounded class="yellow-button"
         >Add course</v-btn
       >
     </div>
@@ -270,8 +270,8 @@ export default {
       this.phoneDisabled = true
       this.deliveryAddressDisabled = true
     },
-    goToUserCourses () {
-      if (this.$route.name !== 'user-courses') this.$router.push({ name: 'user-courses' })
+    goTo (name) {
+      if (this.$route.name !== name) this.$router.push({ name: name })
     }
   },
   beforeMount () {

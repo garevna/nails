@@ -281,33 +281,13 @@ export default {
       Object.entries(data).forEach(([name, value]) => {
         if (Array.isArray(value)) {
           Object.values(data[name]).forEach(value =>
-            fd.append(name, value)
+            fd.append(`${name}[]`, value)
           )
         } else {
-          // if (value instanceof File) fd.append(name, value)
-          // else fd.append(name, value)
           fd.append(name, value)
         }
       })
-      // [
-      //   'businessName',
-      //   'email',
-      //   'phone',
-      //   'author',
-      //   'instructor',
-      //   'category',
-      //   'nameOfCourse',
-      //   'subtitle',
-      //   'access',
-      //   'price',
-      //   'courseSuitable',
-      //   'description',
-      //   'checkbox1',
-      //   'checkbox2'
-      // ].forEach((item) => {
-      //   this[item] = ''
-      // })
-      this.$store.dispatch('userCourses/CREATE_VIDEO_COURSES', fd)
+      this.$store.dispatch('userCourses/CREATE_ONLINE_COURSE', fd)
     },
     checkForm () {
       if (this.$refs.form.validate()) {

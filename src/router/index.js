@@ -137,11 +137,34 @@ const routes = [
       } else next({ name: 'sign-in' })
     }
 
-  }, {
-    path: '/user-courses',
+  },
+  {
+    path: '/user-cabinet/user-courses',
     name: 'user-courses',
     meta: { layout: 'whitefone' },
     component: () => import(/* webpackChunkName: "user-courses" */'../views/UserCourses.vue'),
+    beforeEnter: (to, from, next) => {
+      if (store.state.isLogged) {
+        return next()
+      } else next({ name: 'sign-in' })
+    }
+  },
+  {
+    path: '/user-cabinet/user-courses/:courseid',
+    name: 'user-course',
+    // meta: { layout: 'whitefone' },
+    component: () => import(/* webpackChunkName: "user-course" */'../views/UserCourse.vue'),
+    beforeEnter: (to, from, next) => {
+      if (store.state.isLogged) {
+        return next()
+      } else next({ name: 'sign-in' })
+    }
+  },
+  {
+    path: '/user-cabinet/user-courses/:courseid/:videoid',
+    name: 'user-video',
+    meta: { layout: 'whitefone' },
+    component: () => import(/* webpackChunkName: "user-video" */'../views/UserCourseDatailVideo.vue'),
     beforeEnter: (to, from, next) => {
       if (store.state.isLogged) {
         return next()

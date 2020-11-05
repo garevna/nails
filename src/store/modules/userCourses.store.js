@@ -2,7 +2,8 @@
 
 // import Vue from 'vue'
 const state = {
-  userCourses: null
+  userCourses: null,
+  currentCourseId: null
 }
 const getters = {
   userCoursesEndpoint: (state, getters, rootState) => `${rootState.host}/course/online`,
@@ -11,6 +12,9 @@ const getters = {
 const mutations = {
   USER_COURSES: (state, payload) => {
     state.userCourses = payload
+  },
+  CURRENT_COURSE_ID: (state, payload) => {
+    state.currentCourseId = payload
   }
 }
 const actions = {
@@ -18,17 +22,26 @@ const actions = {
     getters,
     commit
   }, payload) {
-    const { onlineCourses } = await (await fetch(`${getters.userCoursesEndpoint}?userId=${payload}`)).json()
+    const {
+      onlineCourses
+    } = await (await fetch(`${getters.userCoursesEndpoint}?userId=${payload}`)).json()
     commit('USER_COURSES', onlineCourses)
   },
-  async CREATE_VIDEO_COURSES ({
-    getters
+  async CREATE_ONLINE_COURSE ({
+    getters, commit
   }, payload) {
-    const response = await (await fetch(getters.userCreateOnlineCourseEndpoint, {
+    const {
+      newOnlineCourse,
+      error
+    } = await (await fetch(getters.userCreateOnlineCourseEndpoint, {
       method: 'POST',
       body: payload
     })).json()
-    console.log(response)
+    if (!error) {
+      const { _id } = newOnlineCourse
+      commit('CURRENT_COURSE_ID', _id)
+    }
+    console.log(newOnlineCourse)
   }
 }
 export default {
