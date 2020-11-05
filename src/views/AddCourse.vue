@@ -275,7 +275,6 @@ export default {
         infoForBonus: this.infoForBonus,
         isPublished: false,
         file: this.file
-
       }
       const fd = new FormData()
       Object.entries(data).forEach(([name, value]) => {
@@ -292,7 +291,7 @@ export default {
     checkForm () {
       if (this.$refs.form.validate()) {
         this.sendData()
-        this.$router.push('add-course-videos')
+        this.$router.push({ name: 'add-course-videos' })
       }
     },
     addField (entryField) {

@@ -40,6 +40,7 @@
       :coverImageSrc="coverImageSrc"
     />
     <v-btn @click="showForm=true" v-if="!showForm">Edit</v-btn>
+    <v-btn @click="goToVideos" v-if="!showForm">Videos</v-btn>
   </div>
 </template>
 
@@ -129,6 +130,9 @@ export default {
     },
     backForm () {
       this.showForm = false
+    },
+    goToVideos () {
+      if (this.$route.name !== 'user-videos') this.$router.push({ name: 'user-videos' })
     }
   },
   created () {
