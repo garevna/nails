@@ -1,18 +1,21 @@
 <template>
   <v-container>
     <v-row>
-      <v-breadcrumbs :items="items">
-        <template v-slot:item="{ item }">
-          <v-breadcrumbs-item :disabled="item.disabled">
-            <router-link
-              :to="item.href"
-              :class="{ 'disabled-link': item.disabled }"
-            >
-              {{ item.text.toUpperCase() }}</router-link
-            >
-          </v-breadcrumbs-item>
-        </template>
-      </v-breadcrumbs>
+      <v-col cols="12" xs="12">
+        <v-breadcrumbs :items="items">
+          <template v-slot:item="{ item }">
+            <v-breadcrumbs-item :disabled="item.disabled">
+              <router-link
+                :to="item.href"
+                :class="{ 'disabled-link': item.disabled }"
+              >
+                {{ item.text.toUpperCase() }}</router-link
+              >
+            </v-breadcrumbs-item>
+          </template>
+        </v-breadcrumbs>
+      </v-col>
+
       <h2 v-if="!videos && ready">you don't have video yet</h2>
       <h2 v-if="!ready">loader</h2>
       <v-col v-if="videos" cols="12" xs="12" offset-sm="3" sm="6">
@@ -80,6 +83,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   components: {},
   data () {
@@ -88,6 +92,7 @@ export default {
       videos: null,
       ready: false,
       showForm: false,
+      course: null,
       coverImageSrc: require('@/assets/noImage.jpg'),
       items: [
         {
@@ -98,15 +103,16 @@ export default {
         {
           text: '',
           disabled: false,
-          href: '/user-cabinet/user-courses'
+          href: '/user-cabinet/courses'
         },
         {
           text: '',
-          disabled: true,
-          href: '#'
+          disabled: false,
+          href: `/user-cabinet/courses/${this.$route.params.courseid}`
+          // href: ''
         },
         {
-          text: '',
+          text: 'videos',
           disabled: true,
           href: '#'
         }
@@ -119,7 +125,25 @@ export default {
       pdfFiles: new Array(3).fill(null)
     }
   },
+  computed: {
+    ...mapState('userCourses', ['userCourses']),
+    ...mapState('auth', ['user'])
+  },
+  watch: {
+    user (newVal) {
+      this.items[0].text = `${newVal.firstName} cabinet`
+      this.items[1].text = `${newVal.firstName} courses`
+    },
+    course (val) {
+      if (!val) return
+      this.items[2].text = `${val.nameOfCourse}`
+    }
+  },
   methods: {
+    fillingInTheFields () {
+      this.items[0].text = `${this.user.firstName} cabinet`
+      this.items[1].text = `${this.user.firstName} courses`
+    },
     coverImage (index) {
       return this.videos[index].coverImg?.link || this.coverImageSrc
     },
@@ -167,6 +191,8 @@ export default {
         )
       ).json()
       if (!error) {
+        this.course = onlineCourse
+        console.log(onlineCourse)
         this.videos = onlineCourse.videos
         this.ready = true
       }
@@ -181,6 +207,7 @@ export default {
     }
   },
   created () {
+    this.fillingInTheFields()
     this.getCourseVideos()
   }
 }

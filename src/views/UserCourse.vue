@@ -70,7 +70,7 @@ export default {
         {
           text: '',
           disabled: false,
-          href: '/user-cabinet/user-courses'
+          href: '/user-cabinet/courses'
         },
         {
           text: '',
