@@ -172,10 +172,10 @@ const actions = {
       const token = localStorage.getItem('token')
       if (token) {
         commit('TOKEN', token)
-        return token
+        // return token
       }
     }
-    return state.token
+    // return state.token
   },
   async EDIT_USER ({ getters, commit }, payload) {
     const response = await (await fetch(

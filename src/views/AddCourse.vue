@@ -247,7 +247,19 @@ export default {
     }
   },
   computed: {
-    ...mapState('auth', ['user'])
+    ...mapState('auth', ['user']),
+    ...mapState('userCourses', ['currentCourseId'])
+  },
+  watch: {
+    currentCourseId (id) {
+      if (!id) return
+      this.$router.push({
+        name: 'add-course-videos',
+        params: {
+          courseid: id
+        }
+      })
+    }
   },
   methods: {
     Preview_image () {
@@ -291,7 +303,7 @@ export default {
     checkForm () {
       if (this.$refs.form.validate()) {
         this.sendData()
-        this.$router.push({ name: 'add-course-videos' })
+        // this.$router.push({ name: 'add-course-videos' })
       }
     },
     addField (entryField) {

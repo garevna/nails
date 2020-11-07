@@ -7,7 +7,8 @@ const state = {
 }
 const getters = {
   userCoursesEndpoint: (state, getters, rootState) => `${rootState.host}/course/online`,
-  userCreateOnlineCourseEndpoint: (state, getters, rootState) => `${rootState.host}/course/new/online`
+  userCreateOnlineCourseEndpoint: (state, getters, rootState) => `${rootState.host}/course/new/online`,
+  userCreateVideosCourse: (state, getters, rootState) => `${rootState.host}/course/online/video`
 }
 const mutations = {
   USER_COURSES: (state, payload) => {
@@ -26,6 +27,13 @@ const actions = {
       onlineCourses
     } = await (await fetch(`${getters.userCoursesEndpoint}?userId=${payload}`)).json()
     commit('USER_COURSES', onlineCourses)
+  },
+  async CREATE_VIDEOS_COURSE ({ getters }, payload) {
+    const response = await (await fetch(`${getters.userCreateVideosCourse}/${payload.id}`, {
+      method: 'POST',
+      body: payload.fd
+    })).json()
+    console.log(response)
   },
   async CREATE_ONLINE_COURSE ({
     getters, commit

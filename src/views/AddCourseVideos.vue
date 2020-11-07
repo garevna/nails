@@ -62,7 +62,7 @@
               <div class="d-flex">
                 <v-text-field
                   label="name of video"
-                  v-model="item.nameOfVideo"
+                  v-model="item.name"
                   outlined
                   dark
                   width="50"
@@ -189,38 +189,39 @@ export default {
   data () {
     return {
       isActive: false,
+      courseId: this.$route.params.courseid,
       skill: '50',
       uploadFiles: [
         {
-          nameOfVideo: '',
+          name: '',
           videoFile: null,
           description: '',
           imgFile: null,
           pdfFiles: new Array(3).fill(null)
         },
         {
-          nameOfVideo: '',
+          name: '',
           videoFile: null,
           description: '',
           imgFile: null,
           pdfFiles: new Array(3).fill(null)
         },
         {
-          nameOfVideo: '',
+          name: '',
           videoFile: null,
           description: '',
           imgFile: null,
           pdfFiles: new Array(3).fill(null)
         },
         {
-          nameOfVideo: '',
+          name: '',
           videoFile: null,
           description: '',
           imgFile: null,
           pdfFiles: new Array(3).fill(null)
         },
         {
-          nameOfVideo: '',
+          name: '',
           videoFile: null,
           description: '',
           imgFile: null,
@@ -256,7 +257,7 @@ export default {
       )
     },
     validateObj (obj) {
-      return obj.nameOfVideo && obj.videoFile && obj.description
+      return obj.name && obj.videoFile && obj.description
     },
     filteredData (arr) {
       return arr.filter((item) => !this.isEmtyObj(item)).map(obj => this.clearEmtyFields(obj))
@@ -304,15 +305,15 @@ export default {
         Object.entries(obj).forEach(([name, value]) => {
           if (Array.isArray(obj[name])) {
             Object.values(obj[name]).forEach((value) =>
-              fd.append('files[]', value)
+              fd.append('files', value)
             )
           } else {
-            if (obj[name] instanceof File) fd.append('files[]', value)
+            if (obj[name] instanceof File) fd.append('files', value)
             else fd.append(name, value)
           }
         })
         // this.sendData2(fd)
-        this.$store.dispatch('userCourses/GREATE_VIDEO_COURSES ', { id: this.user._id, fd })
+        this.$store.dispatch('userCourses/CREATE_VIDEOS_COURSE', { id: this.courseId, fd })
       })
     },
     // oldSendData () {

@@ -68,28 +68,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "payment-details" */ '../views/PaymentDetails.vue')
   },
   {
-    path: '/add-course',
-    name: 'add-course',
-    component: () => import(/* webpackChunkName: "add-course" */ '../views/AddCourse.vue'),
-    beforeEnter: (to, from, next) => {
-      if (store.state.isLogged) {
-        return next()
-      } else {
-        next({ name: 'sign-in' })
-        Vue.notify({
-          group: 'foo',
-          type: 'error',
-          text: 'Please, sign in or create an account '
-        })
-      }
-    }
-  },
-  {
-    path: '/add-course-videos',
-    name: 'add-course-videos',
-    component: () => import(/* webpackChunkName: "add-course-payment" */ '../views/AddCourseVideos.vue')
-  },
-  {
     path: '/payment',
     name: 'payment',
     component: () => import(/* webpackChunkName: "payment" */ '../views/Payment.vue')
@@ -139,7 +117,7 @@ const routes = [
 
   },
   {
-    path: '/user-cabinet/user-courses',
+    path: '/user-cabinet/courses',
     name: 'user-courses',
     meta: { layout: 'whitefone' },
     component: () => import(/* webpackChunkName: "user-courses" */'../views/UserCourses.vue'),
@@ -150,7 +128,24 @@ const routes = [
     }
   },
   {
-    path: '/user-cabinet/user-courses/:courseid',
+    path: '/user-cabinet/add-course',
+    name: 'add-course',
+    component: () => import(/* webpackChunkName: "add-course" */ '../views/AddCourse.vue'),
+    beforeEnter: (to, from, next) => {
+      if (store.state.isLogged) {
+        return next()
+      } else {
+        next({ name: 'sign-in' })
+        Vue.notify({
+          group: 'foo',
+          type: 'error',
+          text: 'Please, sign in or create an account '
+        })
+      }
+    }
+  },
+  {
+    path: '/user-cabinet/courses/:courseid',
     name: 'user-course',
     // meta: { layout: 'whitefone' },
     component: () => import(/* webpackChunkName: "user-course" */'../views/UserCourse.vue'),
@@ -161,7 +156,17 @@ const routes = [
     }
   },
   {
-    path: '/user-cabinet/user-courses/:courseid/videos',
+    path: '/user-cabinet/courses/:courseid/add-videos',
+    name: 'add-course-videos',
+    component: () => import(/* webpackChunkName: "add-course-payment" */ '../views/AddCourseVideos.vue'),
+    beforeEnter: (to, from, next) => {
+      if (store.state.isLogged) {
+        return next()
+      } else next({ name: 'sign-in' })
+    }
+  },
+  {
+    path: '/user-cabinet/courses/:courseid/videos',
     name: 'user-videos',
     meta: { layout: 'whitefone' },
     component: () => import(/* webpackChunkName: "user-videos" */'../views/UserCourseVideos.vue'),
@@ -172,7 +177,7 @@ const routes = [
     }
   },
   {
-    path: '/user-cabinet/user-courses/:courseid/videos/:videoid',
+    path: '/user-cabinet/courses/:courseid/videos/:videoid',
     name: 'user-video',
     meta: { layout: 'whitefone' },
     component: () => import(/* webpackChunkName: "user-video" */'../views/UserCourseDatailVideo.vue'),

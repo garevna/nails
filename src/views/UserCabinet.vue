@@ -233,6 +233,7 @@ export default {
   methods: {
     logoutUser () {
       this.$store.dispatch('auth/LOGOUT')
+      this.$router.push({ name: 'home' })
       this.dialog = false
     },
     editHandler (type) {

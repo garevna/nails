@@ -88,8 +88,19 @@ export default {
   },
   watch: {
     isLogged (newVal) {
+      // if (newVal) {
+      //   this.$router.push({ name: 'home' })
+      // }
       if (newVal) {
-        this.$router.push({ name: 'home' })
+        // перейти на одну запись назад, эквивалентно history.back()
+        const startPath = this.$router.history._startLocation
+        const currentPath = this.$router.history.current.fullPath
+        startPath === currentPath ? this.$router.push({ name: 'home' }) : this.$router.go(-1)
+
+        console.log('router', this.$router)
+        console.log('current full path', this.$router.history.current.fullPath)
+        console.log('start location', this.$router.history._startLocation)
+        // this.$router.push({ name: 'home' })
       }
     }
   },
