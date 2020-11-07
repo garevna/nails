@@ -22,27 +22,25 @@
           color="primary"
         ></v-progress-circular>
       </v-col>
-      <v-col cols="12" xs="12" offset-md="2" md="8">
+      <v-col cols="12" xs="12" offset-md="2" md="8" class="player-container" v-if="!loading && video">
         <vue-core-video-player
-          v-if="!loading && video"
           :src="video.link"
-          :volume.sync="volume"
         />
       </v-col>
-      <v-col cols="12" xs="12" offset-md="2" md="8">
+      <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
         <v-card-title>{{ video.description }}</v-card-title>
       </v-col>
-      <v-col cols="12" xs="12" offset-md="2" md="8">
+      <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
         <v-img :src="video.coverImg.link" contain></v-img>
-        <v-card  flat class="d-flex justify-center mt-16">
+        <v-card flat class="d-flex justify-center mt-16">
           <a
             v-for="pdf in video.pdfs"
             :key="pdf._id"
             :href="pdf.link"
             target="_blank"
             class="pdf-link"
-            ><v-img src="@/assets/images/pdf.svg" width="50px"/></a
-          >
+            ><v-img src="@/assets/images/pdf.svg" width="50px"
+          /></a>
         </v-card>
       </v-col>
     </v-row>
@@ -51,6 +49,7 @@
 
 <script>
 import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
@@ -148,7 +147,7 @@ export default {
 </script>
 
 <style scoped>
-.pdf-link:not(:last-child){
+.pdf-link:not(:last-child) {
   margin-right: 50px;
 }
 </style>

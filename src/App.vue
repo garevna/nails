@@ -145,7 +145,7 @@ export default {
     this.$store.dispatch('auth/GET_TOKEN')
     this.$store.dispatch('auth/GET_USER')
   },
-  beforeDestroy () {
+  destroyed () {
     if (typeof window !== 'undefined') {
       window.removeEventListener('resize', this.onResize, { passive: true })
     }
