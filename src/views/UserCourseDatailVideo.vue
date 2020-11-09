@@ -90,17 +90,26 @@ export default {
     }
   },
   computed: {
-    // ...mapState('userCourses', ['userCourses']),
+    ...mapState('userCourses', ['currentCourse', 'currentCourseId', 'currentVideoId', 'currentVideo']),
     ...mapState('auth', ['user'])
   },
   watch: {
     user (newVal) {
-      this.items[0].text = `${newVal.firstName} cabinet`
-      this.items[1].text = `${newVal.firstName} courses`
+      this.fillingInTheFields()
+    },
+    currentVideo (val) {
+      if (!val) return
+      this.video = val
     },
     video (val) {
       if (!val) return
       this.items[4].text = `${val.name}`
+      this.loading = false
+      this.ready = true
+    },
+    currentCourse (val) {
+      if (!val) return
+      this.course = val
     },
     course (val) {
       if (!val) return
@@ -111,37 +120,26 @@ export default {
     fillingInTheFields () {
       this.items[0].text = `${this.user.firstName} cabinet`
       this.items[1].text = `${this.user.firstName} courses`
-    },
-    async getCourseVideos () {
-      const { onlineCourse, error } = await (
-        await fetch(
-          `https://nails-australia-staging.herokuapp.com/course/online/${this.courseId}`
-        )
-      ).json()
-      if (!error) {
-        this.course = onlineCourse
-        console.log(onlineCourse)
-        // this.videos = onlineCourse.videos
-        this.ready = true
-      }
-    },
-    async getVideoById () {
-      const { video, error } = await (
-        await fetch(
-          `https://nails-australia-staging.herokuapp.com/course/online/findvideo/${this.videoId}`
-        )
-      ).json()
-      if (!error) {
-        this.video = video
-        this.loading = false
-      }
-      console.log(video)
     }
   },
   created () {
-    this.fillingInTheFields()
-    this.getVideoById()
-    this.getCourseVideos()
+    if (this.user) {
+      this.fillingInTheFields()
+    }
+    if (this.currentCourseId !== this.courseId) {
+      this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId)
+    }
+    if (this.currentVideoId !== this.videoId) {
+      this.$store.dispatch('userCourses/GET_VIDEOS_COURSE_ID', this.videoId)
+    }
+    if (this.courseId && this.videoId) {
+      this.course = this.currentCourse
+      this.video = this.currentVideo
+      this.items[2].text = `${this.course.nameOfCourse}`
+      this.items[4].text = `${this.video.name}`
+      this.loading = false
+      this.ready = true
+    }
   }
 }
 </script>

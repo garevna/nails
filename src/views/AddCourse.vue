@@ -298,7 +298,7 @@ export default {
           fd.append(name, value)
         }
       })
-      this.$store.dispatch('userCourses/CREATE_ONLINE_COURSE', fd)
+      this.$store.dispatch('userCourses/CREATE_ONLINE_COURSE', { fd, userId: this.user._id })
     },
     checkForm () {
       if (this.$refs.form.validate()) {

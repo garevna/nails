@@ -59,15 +59,18 @@ export default {
   },
   watch: {
     user (newVal) {
-      this.$store.dispatch('userCourses/GET_USER_COURSES', newVal._id)
-      this.items[0].text = `${newVal.firstName} cabinet`
-      this.items[1].text = `${this.user.firstName} courses`
+      if (!newVal) return
+      this.fillingInTheFields()
     }
   },
   methods: {
     fillingInTheFields () {
+      if (!this.user) return
       this.items[0].text = `${this.user.firstName} cabinet`
       this.items[1].text = `${this.user.firstName} courses`
+      if (!this.userCourses) {
+        this.$store.dispatch('userCourses/GET_USER_COURSES', this.user._id)
+      }
     },
     goToCourse (id) {
       this.$router.push({
@@ -79,10 +82,9 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('userCourses/GET_USER_COURSES', this.user._id)
+    this.fillingInTheFields()
   },
   beforeMount () {
-    this.fillingInTheFields()
   }
 }
 </script>

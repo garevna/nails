@@ -313,7 +313,7 @@ export default {
           }
         })
         // this.sendData2(fd)
-        this.$store.dispatch('userCourses/CREATE_VIDEOS_COURSE', { id: this.courseId, fd })
+        this.$store.dispatch('userCourses/CREATE_VIDEOS_COURSE', { id: this.courseId, fd, userId: this.user._id })
       })
     },
     // oldSendData () {

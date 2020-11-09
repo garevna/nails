@@ -81,52 +81,32 @@ export default {
     }
   },
   computed: {
-    ...mapState('userCourses', ['userCourses']),
+    ...mapState('userCourses', ['userCourses', 'currentCourse', 'currentCourseId']),
     ...mapState('auth', ['user'])
   },
   watch: {
     user (newVal) {
-      // this.$store.dispatch('userCourses/GET_USER_COURSES', newVal._id)
-      this.items[0].text = `${newVal.firstName} cabinet`
-      this.items[1].text = `${newVal.firstName} courses`
+      this.fillingInTheFields()
     },
     course (val) {
       this.items[2].text = `${val.nameOfCourse}`
+    },
+    currentCourse (course) {
+      if (!course) return
+      this.course = course
+      this.showForm = false
+      this.ready = true
     }
   },
   methods: {
     fillingInTheFields () {
+      if (!this.user) return
       this.items[0].text = `${this.user.firstName} cabinet`
       this.items[1].text = `${this.user.firstName} courses`
       // this.items[2].text = `${this.course.nameOfCourse}`
     },
-    async getCourseById () {
-      const response = await (
-        await fetch(
-          `https://nails-australia-staging.herokuapp.com/course/online/${this.courseId}`
-        )
-      ).json()
-      if (!response.error) {
-        console.log(response)
-        this.course = response.onlineCourse
-        this.ready = true
-      }
-    },
     async editCourseById (data) {
-      const response = await (
-        await fetch(
-          `https://nails-australia-staging.herokuapp.com/course/online/${this.courseId}`, {
-            method: 'PUT',
-            body: data
-          }
-        )
-      ).json()
-      if (!response.error) {
-        console.log(response)
-        this.course = response.updatedOnlineCourse
-        this.showForm = false
-        this.ready = true
-      }
+      this.$store.dispatch('userCourses/PUT_USER_COURSE_ID', { data, id: this.courseId })
     },
     backForm () {
       this.showForm = false
@@ -135,9 +115,16 @@ export default {
       if (this.$route.name !== 'user-videos') this.$router.push({ name: 'user-videos' })
     }
   },
-  created () {
+  mounted () {
     this.fillingInTheFields()
-    this.getCourseById()
+    // this.getCourseById()
+    if (this.currentCourseId !== this.courseId) {
+      this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId)
+    } else {
+      this.items[2].text = `${this.currentCourse.nameOfCourse}`
+      this.course = this.currentCourse
+      this.ready = true
+    }
   }
 }
 </script>
