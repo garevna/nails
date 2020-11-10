@@ -96,12 +96,21 @@
           large
           min-width="160"
           class="yellow-button"
-          @click="showForm = false"
+          @click="clearFormInputs()"
           >Cansel</v-btn
         >
       </v-col>
       <v-col cols="12" xs="12" class="d-flex justify-center" v-if="!showForm">
-        <v-btn @click="showForm = true"> add video</v-btn>
+        <v-btn
+          rounded
+          color="buttons"
+          large
+          min-width="160"
+          class="yellow-button"
+          @click="showForm = true"
+        >
+          add video</v-btn
+        >
       </v-col>
       <v-dialog v-model="dialog" persistent max-width="320">
         <v-card>
@@ -205,6 +214,14 @@ export default {
     }
   },
   methods: {
+    clearFormInputs () {
+      this.nameOfVideo = ''
+      this.videoFile = null
+      this.description = ''
+      this.imgFile = null
+      this.pdfFiles = new Array(3).fill(null)
+      this.showForm = false
+    },
     canselHandler () {
       this.dialog = false
       this.deleteId = null
@@ -225,7 +242,7 @@ export default {
     coverImage (index) {
       return this.videos[index].coverImg?.link || this.coverImageSrc
     },
-    async sendData () {
+    sendData () {
       const data = {
         name: this.nameOfVideo,
         videoFile: this.videoFile,
@@ -236,7 +253,7 @@ export default {
       const fd = new FormData()
       Object.entries(data).forEach(([name, value]) => {
         if (Array.isArray(value)) {
-          Object.values(data[name]).forEach(value => {
+          Object.values(data[name]).forEach((value) => {
             if (value) fd.append('files', value)
           })
         } else {
@@ -250,7 +267,8 @@ export default {
         fd,
         id: this.courseId
       })
-      this.showForm = false
+      this.clearFormInputs()
+      // this.showForm = false
     },
     goToDetailVideo (id) {
       this.$router.push({

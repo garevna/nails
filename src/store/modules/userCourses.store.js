@@ -80,7 +80,7 @@ const actions = {
     commit,
     dispatch
   }, {
-    data,
+    fd,
     id
   }) {
     const {
@@ -88,7 +88,7 @@ const actions = {
       // updatedonline
     } = await (await fetch(`${getters.userCreateVideosCourse}/${id}`, {
       method: 'PUT',
-      body: data
+      body: fd
     })).json()
     if (!error) dispatch('GET_USER_COURSE_ID', id)
   },
