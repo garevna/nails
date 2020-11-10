@@ -105,7 +105,7 @@ export default {
       this.items[1].text = `${this.user.firstName} courses`
       // this.items[2].text = `${this.course.nameOfCourse}`
     },
-    async editCourseById (data) {
+    editCourseById (data) {
       this.$store.dispatch('userCourses/PUT_USER_COURSE_ID', { data, id: this.courseId })
     },
     backForm () {

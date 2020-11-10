@@ -60,51 +60,70 @@ const actions = {
     getters,
     commit,
     dispatch
-  }, { data, id }) {
+  }, {
+    data,
+    id
+  }) {
+    console.log('fdsadfasdfasdf', data, id)
     const {
       error
       // updatedOnlineCourse
-    } = await (await fetch(`${getters.userCoursesEndpoint}/${id}`), {
+    } = await (await fetch(`${getters.userCoursesEndpoint}/${id}`, {
       method: 'PUT',
       body: data
-    }).json()
-    // commit('CURRENT_COURSE', updatedOnlineCourse)
-    // commit('CURRENT_COURSE_VIDEOS', updatedOnlineCourse.videos)
-    // userCourses/GET_USER_COURSE_ID
+    })).json()
     commit('CURRENT_COURSE_ID', id)
-    if (!error) dispatch('userCourses/GET_USER_COURSE_ID', id)
+    if (!error) dispatch('GET_USER_COURSE_ID', id)
   },
   async PUT_ONLINE_COURSE_ID ({ // ???!!!
     getters,
     commit,
     dispatch
-  }, { data, id }) {
+  }, {
+    data,
+    id
+  }) {
     const {
       error
       // updatedonline
-    } = await (await fetch(`${getters.userCreateVideosCourse}/${id}`), {
+    } = await (await fetch(`${getters.userCreateVideosCourse}/${id}`, {
       method: 'PUT',
       body: data
-    }).json()
-    if (!error) dispatch('userCourses/GET_USER_COURSE_ID', id)
+    })).json()
+    if (!error) dispatch('GET_USER_COURSE_ID', id)
   },
-  async CREATE_VIDEOS_COURSE ({ getters, dispatch }, payload) {
+  async CREATE_VIDEOS_COURSE ({
+    getters,
+    dispatch
+  }, payload) {
     const response = await (await fetch(`${getters.userCreateVideosCourse}/${payload.id}`, {
       method: 'POST',
       body: payload.fd
     })).json()
     console.log(response)
-    if (!response.error) dispatch('userCourses/GET_USER_COURSES', payload.userId)
+    if (!response.error) {
+      dispatch('GET_USER_COURSES', payload.userId)
+      dispatch('GET_USER_COURSE_ID', payload.id)
+    }
   },
-  async GET_VIDEOS_COURSE_ID ({ getters, commit, dispatch }, id) {
-    const { video, error } = await (await fetch(`${getters.userCourseFindVideoEndpoint}/${id}`)).json()
+  async GET_VIDEOS_COURSE_ID ({
+    getters,
+    commit,
+    dispatch
+  }, id) {
+    const {
+      video,
+      error
+    } = await (await fetch(`${getters.userCourseFindVideoEndpoint}/${id}`)).json()
     if (!error) {
       commit('CURRENT_VIDEOS', video)
       commit('CURRENT_VIDEOS_ID', id)
     }
   },
   async CREATE_ONLINE_COURSE ({
-    getters, commit, dispatch
+    getters,
+    commit,
+    dispatch
   }, payload) {
     const {
       newOnlineCourse,
@@ -114,11 +133,27 @@ const actions = {
       body: payload.fd
     })).json()
     if (!error) {
-      // const { _id } = newOnlineCourse // ???!!!
-      // commit('CURRENT_COURSE_ID', _id) // ???!!!
       dispatch('GET_USER_COURSES', payload.userId)
     }
     console.log(newOnlineCourse)
+  },
+  async REMOVE_VIDEO_COURSE ({
+    getters,
+    commit,
+    dispatch
+  }, {
+    id,
+    courseId
+  }) {
+    const {
+      error
+    } = await (await fetch(`${getters.userCreateVideosCourse}/${id}`, {
+      method: 'DELETE'
+    })).json()
+    if (!error) {
+      console.log(courseId)
+      dispatch('GET_USER_COURSE_ID', courseId)
+    }
   }
 }
 export default {

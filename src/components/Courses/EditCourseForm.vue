@@ -394,12 +394,12 @@ export default {
         // availableSpots: this.availableSpots,
       }
       const formData = new FormData()
-      if (this.typeCourse === 'offline') {
-        this.dateOfCourses.forEach(item =>
-          formData.append('dateOfCourses[]', item)
-        )
-        formData.append('availableSpots', this.availableSpots)
-      }
+      // if (this.typeCourse === 'offline') {
+      //   this.dateOfCourses.forEach(item =>
+      //     formData.append('dateOfCourses[]', item)
+      //   )
+      //   formData.append('availableSpots', this.availableSpots)
+      // }
 
       Object.entries(data).forEach(([name, value]) =>
         formData.append(name, value)

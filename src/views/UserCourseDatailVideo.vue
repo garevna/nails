@@ -132,15 +132,25 @@ export default {
     if (this.currentVideoId !== this.videoId) {
       this.$store.dispatch('userCourses/GET_VIDEOS_COURSE_ID', this.videoId)
     }
-    if (this.courseId && this.videoId) {
+    if (this.currentCourse && this.currentVideo) {
       this.course = this.currentCourse
       this.video = this.currentVideo
-      this.items[2].text = `${this.course.nameOfCourse}`
-      this.items[4].text = `${this.video.name}`
+      this.items[2].text = this.course.nameOfCourse
+      this.items[4].text = this.video.name
       this.loading = false
       this.ready = true
     }
   }
+  // mounted () {
+  //   if (this.currentCourse && this.currentVideo) {
+  //     this.course = this.currentCourse
+  //     this.video = this.currentVideo
+  //     this.items[2].text = this.course.nameOfCourse
+  //     this.items[4].text = this.video.name
+  //     this.loading = false
+  //     this.ready = true
+  //   }
+  // }
 }
 </script>
 
