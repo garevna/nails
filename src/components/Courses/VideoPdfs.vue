@@ -66,7 +66,7 @@
         </div>
       </div>
     </div>
-    <div v-if="!pdfFileShow1 || !pdfFileShow2 || !pdfFileShow3" class="my-8 d-flex justify-space-around">
+    <div v-if="!pdfFileShow1 || !pdfFileShow2 || !pdfFileShow3 || !!pdfFile1 || !!pdfFile2 || !!pdfFile3" class="my-8 d-flex justify-space-around">
       <v-btn @click="reset">Cansel</v-btn>
       <v-btn>Submit</v-btn>
     </div>
