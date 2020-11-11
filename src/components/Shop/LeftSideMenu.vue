@@ -1,6 +1,6 @@
 <template>
   <v-card flat class="transparent" v-if="categories">
-    <v-card-text v-for="(section, index) in categories" :key="index">
+    <!-- <v-card-text v-for="(section, index) in categories" :key="index">
       <h3
         v-for="(subsection, ind) in section"
         :key="ind"
@@ -12,6 +12,34 @@
       </h3>
       <v-divider v-if="section.length > 1" class="gray-divider"></v-divider>
     </v-card-text>
+    -->
+    <v-row justify="center">
+    <v-expansion-panels flat accordion>
+      <v-expansion-panel
+         v-for="(section, index) in categories" :key="index"
+      >
+        <v-expansion-panel-header class="text-body-1 gray-font font-weight-black" expand-icon="mdi-menu-down">{{section.name}}</v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <h3
+            v-for="(subsection, ind) in section.subcategories"
+            :key="ind"
+            style="cursor: pointer"
+            @click="setSection(subsection)"
+            class="gray-font text-body-1 ml-5 my-2 font-weight-bold"
+          >
+            {{ subsection.name }}
+           </h3>
+           <h3
+            style="cursor: pointer"
+            @click="setSection(section)"
+            class="gray-font gray-font text-body-1 ml-15 my-2 font-weight-bold text-decoration-underline"
+          >
+            View all
+           </h3>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+  </v-row>
   </v-card>
 </template>
 

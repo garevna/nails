@@ -1,6 +1,7 @@
 <template>
   <v-container fluid fill-height class="whitefone shop-layout">
     <v-card flat class="transparent mx-auto" max-width="1440" width="100%">
+     <Search/>
       <CategoriesSwitcher
         :selectedSection="selectedSection"
         :setSelectedSection="setSelectedSection"
@@ -15,7 +16,7 @@
             <ShopCard
               v-for="card in commodities"
               :key="card.id"
-              :image="card.previewImage[0].link"
+              :image="card.previewImage[0] ? card.previewImage[0].link : ''"
               :name="card.name"
               :price="card.price"
               :brand="card.brand"
@@ -106,13 +107,15 @@ import { mapState } from 'vuex'
 // import Card from '@/components/Shop/Card.vue'
 import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue'
 import CategoriesSwitcher from '@/components/Shop/CategoriesSwitcher.vue'
+import Search from '@/components/Shop/Search.vue'
 import 'nails-shop-card'
 
 export default {
   name: 'Shop',
   components: {
     LeftSideMenu,
-    CategoriesSwitcher
+    CategoriesSwitcher,
+    Search
   },
   data () {
     return {
@@ -136,6 +139,9 @@ export default {
     }
   },
   watch: {
+    totalCommodities () {
+      console.log(this.totalCommodities)
+    },
     $route (to, from) {
       if (
         from.name === 'shop' &&
