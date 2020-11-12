@@ -173,10 +173,13 @@ const actions = {
     }
   },
   async ADD_PDF ({
-    getters
+    getters,
+    dispatch
   }, {
     fd,
-    videoId
+    videoId,
+    userId,
+    currentCourseId
   }) {
     const {
       error
@@ -184,7 +187,11 @@ const actions = {
       method: 'POST',
       body: fd
     })).json()
-    if (!error) {}
+    if (!error) {
+      dispatch('GET_USER_COURSES', userId)
+      dispatch('GET_USER_COURSE_ID', currentCourseId)
+      dispatch('GET_VIDEOS_COURSE_ID', videoId)
+    }
   },
   async ADD_PDFS ({
     getters,
@@ -223,7 +230,10 @@ const actions = {
     dispatch,
     commit
   }, {
-    id
+    id,
+    userId,
+    videoId,
+    currentCourseId
   }) {
     commit('ERROR', null)
     const {
@@ -233,6 +243,9 @@ const actions = {
     })).json()
     if (!error) {
       commit('ERROR', null)
+      dispatch('GET_USER_COURSES', userId)
+      dispatch('GET_USER_COURSE_ID', currentCourseId)
+      dispatch('GET_VIDEOS_COURSE_ID', videoId)
     } else {
       commit('ERROR', error)
     }
