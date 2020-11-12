@@ -126,7 +126,7 @@ export default {
       if (this.$route.name !== 'user-videos') this.$router.push({ name: 'user-videos' })
     }
   },
-  mounted () {
+  created () {
     this.fillingInTheFields()
     // this.getCourseById()
     if (this.currentCourseId !== this.courseId) {

@@ -6,7 +6,9 @@ const state = {
   currentCourse: null,
   currentCourseVideos: null,
   currentVideoId: null,
-  currentVideo: null
+  currentVideo: null,
+  error: null,
+  loading: false
 }
 const getters = {
   userCoursesEndpoint: (state, getters, rootState) => `${rootState.host}/course/online`,
@@ -34,6 +36,12 @@ const mutations = {
   },
   CURRENT_VIDEOS: (state, payload) => {
     state.currentVideo = payload
+  },
+  ERROR: (state, payload) => {
+    state.error = payload
+  },
+  LOADING: (state, payload) => {
+    state.loading = payload
   }
 }
 
@@ -127,6 +135,8 @@ const actions = {
     commit,
     dispatch
   }, payload) {
+    commit('LOADING', true)
+    commit('ERROR', null)
     const {
       newOnlineCourse,
       error
@@ -136,6 +146,11 @@ const actions = {
     })).json()
     if (!error) {
       dispatch('GET_USER_COURSES', payload.userId)
+      dispatch('GET_USER_COURSE_ID', newOnlineCourse._id)
+      commit('LOADING', false)
+    } else {
+      commit('LOADING', false)
+      commit('ERROR', error)
     }
     console.log(newOnlineCourse)
   },
@@ -157,55 +172,99 @@ const actions = {
       dispatch('GET_USER_COURSE_ID', courseId)
     }
   },
-  async ADD_PDF ({ getters }, { fd, videoId }) {
-    const { error } = await (await fetch(`${getters.addPdfEndpoint}/${videoId}`, {
+  async ADD_PDF ({
+    getters
+  }, {
+    fd,
+    videoId
+  }) {
+    const {
+      error
+    } = await (await fetch(`${getters.addPdfEndpoint}/${videoId}`, {
       method: 'POST',
       body: fd
     })).json()
-    if (!error) {
-    }
+    if (!error) {}
   },
-  // async REMOVE_PDF ({ getters, dispatch }, { id }) {
-  //   const { error } = await (await fetch(`${getters.removePdfEndpoint}/${id}`, {
-  //     method: 'DELETE'
-  //   })).json()
-  //   if (!error) {
-
-  //   }
-  // },
-  async ADD_PDFS ({ getters, dispatch }, { fds, videoId }) {
+  async ADD_PDFS ({
+    getters,
+    dispatch
+  }, {
+    fds,
+    videoId
+  }) {
     fds.forEach(file => {
-      if (file) dispatch('ADD_PDF', { fd: file, videoId })
-    })
-    // const { error } = await (await fetch(`${getters.addPdfEndpoint}/${videoId}`, {
-    //   method: 'POST',
-    //   body: fd
-    // })).json()
-    // if (!error) {
-    // }
-  },
-  async REMOVE_PDFS ({ getters, dispatch }, { ids, files }) {
-    const promises = []
-    ids.forEach(async id => {
-      if (id) {
-        promises.push(
-          (await fetch(`${getters.removePdfEndpoint}/${id}`, {
-            method: 'DELETE'
-          })).json()
-        )
+      if (file) {
+        dispatch('ADD_PDF', {
+          fd: file,
+          videoId
+        })
       }
     })
-    Promise.all(promises).then((e) => {
-      console.log(e)
-      dispatch('ADD_PDFS', files)
+  },
+  // async ADD_PDFS ({
+  //   getters,
+  //   dispatch
+  // }, {
+  //   fds,
+  //   videoId
+  // }) {
+  //   fds.forEach(file => {
+  //     if (file) {
+  //       dispatch('ADD_PDF', {
+  //         fd: file,
+  //         videoId
+  //       })
+  //     }
+  //   })
+  // },
+  async REMOVE_PDF ({
+    getters,
+    dispatch,
+    commit
+  }, {
+    id
+  }) {
+    commit('ERROR', null)
+    const {
+      error
+    } = await (await fetch(`${getters.removePdfEndpoint}/${id}`, {
+      method: 'DELETE'
+    })).json()
+    if (!error) {
+      commit('ERROR', null)
+    } else {
+      commit('ERROR', error)
+    }
+  },
+
+  async REMOVE_PDFS ({
+    getters,
+    dispatch
+  }, {
+    ids
+  }) {
+    ids.forEach(async (id, index) => {
+      if (id) {
+        setTimeout(() => dispatch('REMOVE_PDF', id), index * 200)
+      }
     })
   }
-  //   const { error } = await (await fetch(`${getters.removePdfEndpoint}/${id}`, {
-  //     method: 'DELETE'
-  //   })).json()
-  //   if (!error) {
-
-  //   }
+  // async REMOVE_PDFS ({ getters, dispatch }, { ids, files }) {
+  //   const promises = []
+  //   ids.forEach(async id => {
+  //     if (id) {
+  //       promises.push(
+  //         (await fetch(`${getters.removePdfEndpoint}/${id}`, {
+  //           method: 'DELETE'
+  //         })).json()
+  //       )
+  //     }
+  //   })
+  //   Promise.all(promises).then((e) => {
+  //     console.log(e)
+  //     dispatch('ADD_PDFS', files)
+  //   })
   // }
 }
 export default {

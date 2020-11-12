@@ -289,15 +289,6 @@ export default {
       }
       return emty
     },
-    // sendData2 (fd) {
-    //   fetch(
-    //     'https://ptsv2.com/t/yeu3y-1602246042/post',
-    //     {
-    //       method: 'POST',
-    //       body: fd
-    //     }
-    //   )
-    // },
     sendData () {
       const dataArr = this.filteredData(this.uploadFiles)
       dataArr.forEach((obj) => {
@@ -312,7 +303,6 @@ export default {
             else fd.append(name, value)
           }
         })
-        // this.sendData2(fd)
         this.$store.dispatch('userCourses/CREATE_VIDEOS_COURSE', { id: this.courseId, fd, userId: this.user._id })
       })
     },

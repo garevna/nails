@@ -34,6 +34,7 @@
           @click="submit"
           color="buttons"
           rounded
+          :disabled="loading"
           class="yellow-button"
           >sign in</v-btn
         >
@@ -73,6 +74,7 @@ export default {
       email: '',
       isPoliticAgree: false,
       showPass: false,
+      // loading: false,
       rules: {
         required: (v) => !!v || 'input is required',
         confirmPass: (v) => v === this.password || 'Passwords do not match',
@@ -84,7 +86,9 @@ export default {
     }
   },
   computed: {
-    ...mapState('auth', ['isLogged'])
+    ...mapState('auth', ['isLogged']),
+    ...mapState('auth', ['error']),
+    ...mapState('auth', ['loading'])
   },
   watch: {
     isLogged (newVal) {
@@ -93,33 +97,45 @@ export default {
         const currentPath = this.$router.history.current.fullPath
         startPath === currentPath ? this.$router.push({ name: 'home' }) : this.$router.go(-1)
       }
+    },
+    error (val) {
+      if (val) {
+        this.$notify({
+          group: 'foo',
+          type: 'error',
+          text: val
+        })
+      }
+    },
+    loading (val) {
+      return val
     }
   },
   methods: {
     submit () {
       const {
         email,
-        phone,
-        role,
-        isPoliticAgree,
-        registration,
-        login,
+        // phone,
+        // role,
+        // isPoliticAgree,
+        // login,
         password
       } = this
       if (this.$refs.form.validate()) {
-        if (registration) {
-          const data = {
-            email,
-            phone,
-            login,
-            role,
-            isPoliticAgree,
-            password
-          }
-          this.$store.dispatch('auth/REGISTRATION_USER', data)
-        } else {
-          this.$store.dispatch('auth/AUTHORIZATION_USER', { email, password })
-        }
+        // if (registration) {
+        //   const data = {
+        //     email,
+        //     phone,
+        //     login,
+        //     role,
+        //     isPoliticAgree,
+        //     password
+        //   }
+        //   this.$store.dispatch('auth/REGISTRATION_USER', data)
+        // } else {
+        this.$store.dispatch('auth/SIGN_IN', { email, password })
+        // this.loading = true
+        // }
       }
     }
 

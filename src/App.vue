@@ -142,8 +142,9 @@ export default {
     // this.$store.dispatch('auth/GET_USER')
   },
   beforeCreate () {
-    this.$store.dispatch('auth/GET_TOKEN')
-    this.$store.dispatch('auth/GET_USER')
+    // this.$store.dispatch('auth/GET_TOKEN')
+    // this.$store.dispatch('auth/GET_USER')
+    this.$store.dispatch('auth/IS_SIGNED')
   },
   destroyed () {
     if (typeof window !== 'undefined') {

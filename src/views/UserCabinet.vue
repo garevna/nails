@@ -232,7 +232,7 @@ export default {
   },
   methods: {
     logoutUser () {
-      this.$store.dispatch('auth/LOGOUT')
+      this.$store.dispatch('auth/LOG_OUT')
       this.$router.push({ name: 'home' })
       this.dialog = false
     },

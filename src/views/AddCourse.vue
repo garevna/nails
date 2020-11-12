@@ -192,6 +192,7 @@
               small
               dark
               min-width="90"
+              :disabled="loading"
               class="yellow-button mt-4"
               @click="checkForm"
               >submit</v-btn
@@ -231,6 +232,7 @@ export default {
       checkbox1: '',
       checkbox2: '',
       url: null,
+      // loading: false,
       rules: {
         required: v => !!v || 'input is required',
         minLengthName: v =>
@@ -248,7 +250,9 @@ export default {
   },
   computed: {
     ...mapState('auth', ['user']),
-    ...mapState('userCourses', ['currentCourseId'])
+    ...mapState('userCourses', ['currentCourseId']),
+    ...mapState('userCourses', ['error']),
+    ...mapState('userCourses', ['loading'])
   },
   watch: {
     currentCourseId (id) {
@@ -259,6 +263,18 @@ export default {
           courseid: id
         }
       })
+    },
+    error (val) {
+      if (val) {
+        this.$notify({
+          group: 'foo',
+          type: 'error',
+          text: val
+        })
+      }
+    },
+    loading (val) {
+      return val
     }
   },
   methods: {
@@ -302,8 +318,8 @@ export default {
     },
     checkForm () {
       if (this.$refs.form.validate()) {
+        this.loading = true
         this.sendData()
-        // this.$router.push({ name: 'add-course-videos' })
       }
     },
     addField (entryField) {
