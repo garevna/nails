@@ -46,7 +46,7 @@
             class="pdf-link"
             ><v-img src="@/assets/images/pdf.svg" width="50px"
           /></a> -->
-          <VideoPdfs :pdfs="video.pdfs"/>
+          <VideoPdfs :pdfs="video.pdfs" :videoId="videoId"/>
         </v-card>
       </v-col>
       <v-col cols="12" v-if="!showForm" xs="12">

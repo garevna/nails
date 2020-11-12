@@ -12,7 +12,9 @@ const getters = {
   userCoursesEndpoint: (state, getters, rootState) => `${rootState.host}/course/online`,
   userCreateOnlineCourseEndpoint: (state, getters, rootState) => `${rootState.host}/course/new/online`,
   userCreateVideosCourse: (state, getters, rootState) => `${rootState.host}/course/online/video`,
-  userCourseFindVideoEndpoint: (state, getters, rootState) => `${rootState.host}/course/online/findvideo`
+  userCourseFindVideoEndpoint: (state, getters, rootState) => `${rootState.host}/course/online/findvideo`,
+  removePdfEndpoint: (state, getters, rootState) => `${rootState.host}/course/online/pdf`,
+  addPdfEndpoint: (state, getters, rootState) => `${rootState.host}/course/online/pdf`
 }
 const mutations = {
   USER_COURSES: (state, payload) => {
@@ -154,7 +156,57 @@ const actions = {
       console.log(courseId)
       dispatch('GET_USER_COURSE_ID', courseId)
     }
+  },
+  async ADD_PDF ({ getters }, { fd, videoId }) {
+    const { error } = await (await fetch(`${getters.addPdfEndpoint}/${videoId}`, {
+      method: 'POST',
+      body: fd
+    })).json()
+    if (!error) {
+    }
+  },
+  // async REMOVE_PDF ({ getters, dispatch }, { id }) {
+  //   const { error } = await (await fetch(`${getters.removePdfEndpoint}/${id}`, {
+  //     method: 'DELETE'
+  //   })).json()
+  //   if (!error) {
+
+  //   }
+  // },
+  async ADD_PDFS ({ getters, dispatch }, { fds, videoId }) {
+    fds.forEach(file => {
+      if (file) dispatch('ADD_PDF', { fd: file, videoId })
+    })
+    // const { error } = await (await fetch(`${getters.addPdfEndpoint}/${videoId}`, {
+    //   method: 'POST',
+    //   body: fd
+    // })).json()
+    // if (!error) {
+    // }
+  },
+  async REMOVE_PDFS ({ getters, dispatch }, { ids, files }) {
+    const promises = []
+    ids.forEach(async id => {
+      if (id) {
+        promises.push(
+          (await fetch(`${getters.removePdfEndpoint}/${id}`, {
+            method: 'DELETE'
+          })).json()
+        )
+      }
+    })
+    Promise.all(promises).then((e) => {
+      console.log(e)
+      dispatch('ADD_PDFS', files)
+    })
   }
+  //   const { error } = await (await fetch(`${getters.removePdfEndpoint}/${id}`, {
+  //     method: 'DELETE'
+  //   })).json()
+  //   if (!error) {
+
+  //   }
+  // }
 }
 export default {
   namespaced: true,

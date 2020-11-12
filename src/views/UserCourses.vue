@@ -25,7 +25,7 @@
           @click="goToCourse(course._id)"
         >
         <v-card-title class=" d-flex justify-center"><h2>{{course.nameOfCourse}}</h2></v-card-title>
-          <v-img :src="course.photo[0].link" contain></v-img>
+          <!-- <v-img :src="course.photo[0].link" contain></v-img> -->
         </v-card>
       </v-col>
     </v-row>
