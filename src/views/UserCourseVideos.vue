@@ -15,9 +15,12 @@
           </template>
         </v-breadcrumbs>
       </v-col>
-
-      <h2 v-if="!videos && ready">you don't have video yet</h2>
-      <h2 v-if="!ready">loader</h2>
+      <v-col cols="12" xs="12" v-if="noVideos">
+        <h2 align="center">You don't have video yet</h2>
+      </v-col>
+      <v-col cols="12" xs="12" v-if="!ready">
+        <Spinner />
+      </v-col>
       <v-col v-if="videos" cols="12" xs="12" offset-sm="3" sm="6">
         <v-card
           class="my-8"
@@ -30,10 +33,6 @@
               {{ video.name }}
             </h2></v-card-title
           >
-          <!-- <div>
-              <vue-core-video-player :src="video.link" :volume.sync="volume" />
-          </div> -->
-
           <v-img :src="coverImage(index)" contain></v-img>
           <v-card-actions class="d-flex justify-end">
             <v-btn
@@ -81,26 +80,33 @@
             <v-file-input v-model="pdfFiles[2]" label="add pdf file" outlined />
           </div>
         </form>
-        <v-btn
-          rounded
-          color="buttons"
-          large
-          min-width="160"
-          class="yellow-button mr-4"
-          @click="sendData"
-          >PROCEED AND CHECKOUT</v-btn
-        >
-        <v-btn
-          rounded
-          color="buttons"
-          large
-          min-width="160"
-          class="yellow-button"
-          @click="clearFormInputs()"
-          >Cansel</v-btn
-        >
+        <div align="center">
+          <v-btn
+            rounded
+            color="buttons"
+            large
+            min-width="160"
+            class="yellow-button my-8"
+            @click="clearFormInputs()"
+            >Cansel</v-btn
+          >
+          <v-btn
+            rounded
+            color="buttons"
+            large
+            min-width="160"
+            class="yellow-button"
+            @click="sendData"
+            >PROCEED AND CHECKOUT</v-btn
+          >
+        </div>
       </v-col>
-      <v-col cols="12" xs="12" class="d-flex justify-center" v-if="!showForm">
+      <v-col
+        cols="12"
+        xs="12"
+        class="d-flex justify-center"
+        v-if="!showForm && ready"
+      >
         <v-btn
           rounded
           color="buttons"
@@ -144,9 +150,12 @@
 </template>
 
 <script>
+import Spinner from '@/components/Spinner.vue'
 import { mapState } from 'vuex'
 export default {
-  components: {},
+  components: {
+    Spinner
+  },
   data () {
     return {
       courseId: this.$route.params.courseid,
@@ -172,7 +181,6 @@ export default {
           text: '',
           disabled: false,
           href: `/user-cabinet/courses/${this.$route.params.courseid}`
-          // href: ''
         },
         {
           text: 'videos',
@@ -194,7 +202,10 @@ export default {
       'currentCourseId',
       'currentCourseVideos'
     ]),
-    ...mapState('auth', ['user'])
+    ...mapState('auth', ['user']),
+    noVideos () {
+      return !this.videos?.length && this.ready
+    }
   },
   watch: {
     user (newVal) {

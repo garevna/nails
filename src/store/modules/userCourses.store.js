@@ -85,7 +85,7 @@ const actions = {
     commit('CURRENT_COURSE_ID', id)
     if (!error) dispatch('GET_USER_COURSE_ID', id)
   },
-  async PUT_ONLINE_COURSE_ID ({ // ???!!!
+  async PUT_CURRENT_VIDEO ({
     getters,
     commit,
     dispatch
@@ -100,7 +100,7 @@ const actions = {
       method: 'PUT',
       body: fd
     })).json()
-    if (!error) dispatch('GET_USER_COURSE_ID', id)
+    if (!error) dispatch('GET_VIDEO_COURSE_ID', id)
   },
   async CREATE_VIDEOS_COURSE ({
     getters,
@@ -116,7 +116,7 @@ const actions = {
       dispatch('GET_USER_COURSE_ID', payload.id)
     }
   },
-  async GET_VIDEOS_COURSE_ID ({
+  async GET_VIDEO_COURSE_ID ({
     getters,
     commit,
     dispatch
@@ -190,41 +190,9 @@ const actions = {
     if (!error) {
       dispatch('GET_USER_COURSES', userId)
       dispatch('GET_USER_COURSE_ID', currentCourseId)
-      dispatch('GET_VIDEOS_COURSE_ID', videoId)
+      dispatch('GET_VIDEO_COURSE_ID', videoId)
     }
   },
-  async ADD_PDFS ({
-    getters,
-    dispatch
-  }, {
-    fds,
-    videoId
-  }) {
-    fds.forEach(file => {
-      if (file) {
-        dispatch('ADD_PDF', {
-          fd: file,
-          videoId
-        })
-      }
-    })
-  },
-  // async ADD_PDFS ({
-  //   getters,
-  //   dispatch
-  // }, {
-  //   fds,
-  //   videoId
-  // }) {
-  //   fds.forEach(file => {
-  //     if (file) {
-  //       dispatch('ADD_PDF', {
-  //         fd: file,
-  //         videoId
-  //       })
-  //     }
-  //   })
-  // },
   async REMOVE_PDF ({
     getters,
     dispatch,
@@ -245,40 +213,12 @@ const actions = {
       commit('ERROR', null)
       dispatch('GET_USER_COURSES', userId)
       dispatch('GET_USER_COURSE_ID', currentCourseId)
-      dispatch('GET_VIDEOS_COURSE_ID', videoId)
+      dispatch('GET_VIDEO_COURSE_ID', videoId)
     } else {
       commit('ERROR', error)
     }
-  },
-
-  async REMOVE_PDFS ({
-    getters,
-    dispatch
-  }, {
-    ids
-  }) {
-    ids.forEach(async (id, index) => {
-      if (id) {
-        setTimeout(() => dispatch('REMOVE_PDF', id), index * 200)
-      }
-    })
   }
-  // async REMOVE_PDFS ({ getters, dispatch }, { ids, files }) {
-  //   const promises = []
-  //   ids.forEach(async id => {
-  //     if (id) {
-  //       promises.push(
-  //         (await fetch(`${getters.removePdfEndpoint}/${id}`, {
-  //           method: 'DELETE'
-  //         })).json()
-  //       )
-  //     }
-  //   })
-  //   Promise.all(promises).then((e) => {
-  //     console.log(e)
-  //     dispatch('ADD_PDFS', files)
-  //   })
-  // }
+
 }
 export default {
   namespaced: true,

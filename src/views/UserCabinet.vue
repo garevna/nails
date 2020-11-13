@@ -119,13 +119,13 @@
           </v-card>
         </v-card>
         <!--  -->
-        <v-card flat>
+        <v-card flat class="d-flex justify-center">
           <v-btn
             v-if="touched"
             @click="cancel"
             color="buttons"
             rounded
-            class="yellow-button"
+            class="yellow-button mr-8"
             >cancel</v-btn
           >
           <v-btn
@@ -133,6 +133,7 @@
             @click="confirm"
             color="buttons"
             rounded
+            :disabled="loading"
             class="yellow-button"
             >confirm</v-btn
           >
@@ -214,6 +215,8 @@ export default {
   },
   computed: {
     ...mapState('auth', ['user']),
+    ...mapState('auth', ['error']),
+    ...mapState('auth', ['loading']),
     touched () {
       return !(
         this.firstNameDisabled &&
@@ -228,6 +231,18 @@ export default {
     user () {
       this.fillingInTheFields()
       this.resetDisabled()
+    },
+    error (val) {
+      if (val) {
+        this.$notify({
+          group: 'foo',
+          type: 'error',
+          text: val
+        })
+      }
+    },
+    loading (val) {
+      return val
     }
   },
   methods: {

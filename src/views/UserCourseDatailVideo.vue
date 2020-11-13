@@ -46,7 +46,11 @@
             class="pdf-link"
             ><v-img src="@/assets/images/pdf.svg" width="50px"
           /></a> -->
-          <VideoPdfs :currentCourseId="currentCourseId" :videoId="videoId" :user="user"/>
+          <VideoPdfs
+            :currentCourseId="currentCourseId"
+            :videoId="videoId"
+            :user="user"
+          />
         </v-card>
       </v-col>
       <v-col cols="12" v-if="!showForm" xs="12">
@@ -71,44 +75,41 @@
               width="50"
             />
           </div>
-          <div class="d-flex">
+          <!-- <div class="d-flex">
             <v-file-input v-model="videoFile" label="add video file" outlined />
-            <!-- <v-progress-linear v-model="skill" color="blue-grey" height="25">
-              <template v-slot="{ value }">
-                <strong>{{ Math.ceil(value) }}%</strong>
-              </template>
-            </v-progress-linear> -->
-          </div>
+          </div> -->
           <div>
             <v-textarea label="description" v-model="description" outlined />
           </div>
           <div>
             <v-file-input v-model="imgFile" label="add cover image " outlined />
           </div>
-          <div class="d-flex">
+          <!-- <div class="d-flex">
             <v-file-input v-model="pdfFiles[0]" label="add pdf file" outlined />
             <v-file-input v-model="pdfFiles[1]" label="add pdf file" outlined />
             <v-file-input v-model="pdfFiles[2]" label="add pdf file" outlined />
-          </div>
+          </div> -->
         </form>
-        <v-btn
-          rounded
-          color="buttons"
-          large
-          min-width="160"
-          class="yellow-button mr-4"
-          @click="sendData"
-          >PROCEED AND CHECKOUT</v-btn
-        >
-        <v-btn
-          rounded
-          color="buttons"
-          large
-          min-width="160"
-          class="yellow-button"
-          @click="closeForm"
-          >Cansel</v-btn
-        >
+        <div class="d-flex justify-center">
+          <v-btn
+            rounded
+            color="buttons"
+            large
+            min-width="160"
+            class="yellow-button mr-4"
+            @click="sendData"
+            >PROCEED AND CHECKOUT</v-btn
+          >
+          <v-btn
+            rounded
+            color="buttons"
+            large
+            min-width="160"
+            class="yellow-button"
+            @click="closeForm"
+            >Cansel</v-btn
+          >
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -159,10 +160,8 @@ export default {
         }
       ],
       nameOfVideo: '',
-      videoFile: null,
       description: '',
-      imgFile: null,
-      pdfFiles: new Array(3).fill(null)
+      imgFile: null
     }
   },
   computed: {
@@ -182,10 +181,8 @@ export default {
       if (!val) return
       this.video = val
       this.nameOfVideo = val.name
-      this.videoFile = val.link
       this.description = val.description
-      this.imgFile = val.coverImg.link
-      this.pdfFiles = val.pdfs
+      // this.imgFile = val.coverImg.link
     },
     video (val) {
       if (!val) return
@@ -230,13 +227,13 @@ export default {
             if (value) fd.append('files', value)
           })
         } else {
-          if (value instanceof File) fd.append('files', value)
+          if (value instanceof File) fd.append('file', value)
           else {
             if (value) fd.append(name, value)
           }
         }
       })
-      this.$store.dispatch('userCourses/PUT_ONLINE_COURSE_ID', {
+      this.$store.dispatch('userCourses/PUT_CURRENT_VIDEO', {
         fd,
         id: this.videoId
       })
@@ -252,7 +249,7 @@ export default {
       this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId)
     }
     if (this.currentVideoId !== this.videoId) {
-      this.$store.dispatch('userCourses/GET_VIDEOS_COURSE_ID', this.videoId)
+      this.$store.dispatch('userCourses/GET_VIDEO_COURSE_ID', this.videoId)
     }
     if (this.currentCourse && this.currentVideo) {
       this.course = this.currentCourse

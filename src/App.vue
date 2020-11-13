@@ -31,7 +31,9 @@ h3 {
   font-family: "Arial Bold" !important;
   line-height: 150%;
 }
-
+.vue-core-video-player-layers {
+  z-index: 0 !important;
+}
 .main-content {
   margin-bottom: 150px !important;
   margin-top: 20px !important;
