@@ -74,7 +74,6 @@ const actions = {
     data,
     id
   }) {
-    console.log('fdsadfasdfasdf', data, id)
     const {
       error
       // updatedOnlineCourse
@@ -104,16 +103,23 @@ const actions = {
   },
   async CREATE_VIDEOS_COURSE ({
     getters,
+    commit,
     dispatch
   }, payload) {
-    const response = await (await fetch(`${getters.userCreateVideosCourse}/${payload.id}`, {
+    commit('LOADING', true)
+    commit('ERROR', null)
+    const { data, error } = await (await fetch(`${getters.userCreateVideosCourse}/${payload.id}`, {
       method: 'POST',
       body: payload.fd
     })).json()
-    console.log(response)
-    if (!response.error) {
+    if (!error) {
+      console.log(data)
+      commit('LOADING', false)
       dispatch('GET_USER_COURSES', payload.userId)
       dispatch('GET_USER_COURSE_ID', payload.id)
+    } else {
+      commit('ERROR', error)
+      commit('LOADING', false)
     }
   },
   async GET_VIDEO_COURSE_ID ({

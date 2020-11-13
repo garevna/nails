@@ -15,7 +15,7 @@
           min-width="160"
           class="yellow-button"
           :class="{ 'button-unactive': isActive }"
-          :disabled="!currentCourseId"
+          :disabled="!courseId"
           @click="toggleBtn"
           >CONFIRM DETAILS</v-btn
         >
@@ -119,7 +119,7 @@
           large
           dark
           min-width="160"
-          :disabled="!validate"
+          :disabled="!validate && !loading"
           class="yellow-button"
           @click="sendData"
           >PROCEED AND CHECKOUT</v-btn
@@ -238,7 +238,30 @@ export default {
       return this.validateFiles(validArray)
     },
     ...mapState('auth', ['user']),
-    ...mapState('userCourses', ['currentCourseId'])
+    ...mapState('userCourses', ['currentCourseId', 'error', 'loading'])
+  },
+  watch: {
+    error (val) {
+      if (val) {
+        this.$notify({
+          group: 'foo',
+          type: 'error',
+          text: val
+        })
+      }
+    },
+    currentCourseId (id) {
+      if (!id) return
+      this.$router.push({
+        name: 'user-course',
+        params: {
+          courseid: id
+        }
+      })
+    },
+    loading (val) {
+      return val
+    }
   },
   methods: {
     validateFile (file) {
@@ -306,22 +329,6 @@ export default {
         this.$store.dispatch('userCourses/CREATE_VIDEOS_COURSE', { id: this.courseId, fd, userId: this.user._id })
       })
     },
-    // oldSendData () {
-    //   const dataArr = this.filteredData(this.uploadFiles)
-    //   dataArr.forEach((obj) => {
-    //     const fd = new FormData()
-    //     Object.entries(obj).forEach(([name, value]) => {
-    //       if (Array.isArray(obj[name])) {
-    //         Object.values(obj[name]).forEach((value) =>
-    //           fd.append(`${name}[]`, value)
-    //         )
-    //       } else {
-    //         fd.append(name, value)
-    //       }
-    //     })
-    //     this.sendData2(fd)
-    //   })
-    // },
     toggleBtn () {
       this.isActive = !this.isActive
     },
@@ -332,7 +339,6 @@ export default {
           courseid: this.currentCourseId
         }
       })
-      // if (this.$route.name !== name) this.$router.push({ name: name })
     }
   }
 }

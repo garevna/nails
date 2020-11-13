@@ -87,8 +87,8 @@ export default {
   },
   computed: {
     ...mapState('auth', ['isLogged']),
-    ...mapState('auth', ['error']),
-    ...mapState('auth', ['loading'])
+    ...mapState('auth', ['error', 'loading'])
+    // ...mapState('auth', ['loading'])
   },
   watch: {
     isLogged (newVal) {

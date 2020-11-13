@@ -250,9 +250,7 @@ export default {
   },
   computed: {
     ...mapState('auth', ['user']),
-    ...mapState('userCourses', ['currentCourseId']),
-    ...mapState('userCourses', ['error']),
-    ...mapState('userCourses', ['loading'])
+    ...mapState('userCourses', ['currentCourseId', 'loading', 'error'])
   },
   watch: {
     currentCourseId (id) {
