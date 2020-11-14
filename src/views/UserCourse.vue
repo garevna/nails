@@ -100,7 +100,6 @@ export default {
   },
   methods: {
     checkUrl (card) {
-      // :url="course.photo[0].link"
       let img
       if (card.photo && Array.isArray(card.photo) && card.photo.length) {
         img = card.photo[0].link

@@ -119,7 +119,7 @@
           large
           dark
           min-width="160"
-          :disabled="!validate && !loading"
+          :disabled="!validate || loading"
           class="yellow-button"
           @click="sendData"
           >PROCEED AND CHECKOUT</v-btn
@@ -182,7 +182,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'add-course-payment',
+  name: 'add-course-videos',
   components: {
     // PaymentDetailsForm
   },
@@ -238,7 +238,7 @@ export default {
       return this.validateFiles(validArray)
     },
     ...mapState('auth', ['user']),
-    ...mapState('userCourses', ['currentCourseId', 'error', 'loading'])
+    ...mapState('userCourses', ['currentCourseVideos', 'error', 'loading'])
   },
   watch: {
     error (val) {
@@ -250,17 +250,14 @@ export default {
         })
       }
     },
-    currentCourseId (id) {
-      if (!id) return
+    currentCourseVideos (videos) {
+      if (!videos) return
       this.$router.push({
         name: 'user-course',
         params: {
-          courseid: id
+          courseid: this.courseId
         }
       })
-    },
-    loading (val) {
-      return val
     }
   },
   methods: {
@@ -336,7 +333,7 @@ export default {
       this.$router.push({
         name: 'user-course',
         params: {
-          courseid: this.currentCourseId
+          courseid: this.courseId
         }
       })
     }

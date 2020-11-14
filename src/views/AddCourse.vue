@@ -232,7 +232,6 @@ export default {
       checkbox1: '',
       checkbox2: '',
       url: null,
-      // loading: false,
       rules: {
         required: v => !!v || 'input is required',
         minLengthName: v =>
@@ -270,9 +269,6 @@ export default {
           text: val
         })
       }
-    },
-    loading (val) {
-      return val
     }
   },
   methods: {
@@ -316,7 +312,6 @@ export default {
     },
     checkForm () {
       if (this.$refs.form.validate()) {
-        this.loading = true
         this.sendData()
       }
     },

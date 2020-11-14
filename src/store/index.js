@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    host: process.env.VUE_APP_API_URL,
+    // host: process.env.VUE_APP_API_URL,
+    host: 'https://nails-australia-staging.herokuapp.com',
     buttonForRegistrationOfflineShop: 'CONFIRM DETAILS AND PROCEED WITH PAYMENT',
     viewportWidth: window.innerWidth
   },

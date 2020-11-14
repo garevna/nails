@@ -242,7 +242,6 @@ export default {
       this.items[1].text = `${this.user.firstName} courses`
     },
     deleteVideo () {
-      console.log(this.courseId)
       this.$store.dispatch('userCourses/REMOVE_VIDEO_COURSE', {
         id: this.deleteId,
         courseId: this.courseId

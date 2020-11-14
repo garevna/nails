@@ -86,9 +86,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('auth', ['isLogged']),
-    ...mapState('auth', ['error', 'loading'])
-    // ...mapState('auth', ['loading'])
+    ...mapState('auth', ['isLogged', 'error', 'loading'])
   },
   watch: {
     isLogged (newVal) {
@@ -106,9 +104,6 @@ export default {
           text: val
         })
       }
-    },
-    loading (val) {
-      return val
     }
   },
   methods: {

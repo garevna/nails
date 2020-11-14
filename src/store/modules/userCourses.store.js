@@ -16,6 +16,7 @@ const getters = {
   userCreateVideosCourse: (state, getters, rootState) => `${rootState.host}/course/online/video`,
   userCourseFindVideoEndpoint: (state, getters, rootState) => `${rootState.host}/course/online/findvideo`,
   removePdfEndpoint: (state, getters, rootState) => `${rootState.host}/course/online/pdf`,
+  removeCourseEndpoint: (state, getters, rootState) => `${rootState.host}/course/online`,
   addPdfEndpoint: (state, getters, rootState) => `${rootState.host}/course/online/pdf`
 }
 const mutations = {
@@ -31,7 +32,7 @@ const mutations = {
   CURRENT_COURSE: (state, payload) => {
     state.currentCourse = payload
   },
-  CURRENT_VIDEOS_ID: (state, payload) => {
+  CURRENT_VIDEO_ID: (state, payload) => {
     state.currentVideoId = payload
   },
   CURRENT_VIDEOS: (state, payload) => {
@@ -76,7 +77,6 @@ const actions = {
   }) {
     const {
       error
-      // updatedOnlineCourse
     } = await (await fetch(`${getters.userCoursesEndpoint}/${id}`, {
       method: 'PUT',
       body: data
@@ -133,7 +133,7 @@ const actions = {
     } = await (await fetch(`${getters.userCourseFindVideoEndpoint}/${id}`)).json()
     if (!error) {
       commit('CURRENT_VIDEOS', video)
-      commit('CURRENT_VIDEOS_ID', id)
+      commit('CURRENT_VIDEO_ID', id)
     }
   },
   async CREATE_ONLINE_COURSE ({
@@ -159,6 +159,18 @@ const actions = {
       commit('ERROR', error)
     }
     console.log(newOnlineCourse)
+  },
+  async REMOVE_COURSE ({
+    getters,
+    commit,
+    dispatch
+  }, { courseId, userId }) {
+    const response = await (await fetch(`${getters.removeCourseEndpoint}/${courseId}`, {
+      method: 'DELETE'
+    })).json()
+    if (!response.error) {
+      dispatch('GET_USER_COURSES', userId)
+    }
   },
   async REMOVE_VIDEO_COURSE ({
     getters,
