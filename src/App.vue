@@ -34,6 +34,9 @@ h3 {
 .vue-core-video-player-layers {
   z-index: 0 !important;
 }
+.v-expansion-panel-content__wrap {
+  padding-top: 50px !important;
+}
 .main-content {
   margin-bottom: 150px !important;
   margin-top: 20px !important;
