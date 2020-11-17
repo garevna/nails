@@ -4,7 +4,7 @@ const state = {
   role: 'Guest',
   isLogged: false,
   user: {},
-  error: null,
+  authError: null,
   loading: false
 }
 
@@ -29,7 +29,7 @@ const mutations = {
     state.user = payload
   },
   ERROR: (state, payload) => {
-    state.error = payload
+    state.authError = payload
   },
   LOADING: (state, payload) => {
     state.loading = payload

@@ -36,7 +36,8 @@
         <v-card-title>{{ video.description }}</v-card-title>
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
-        <v-img :src="video.coverImg.link" contain></v-img>
+        <!-- <v-img :src="video.coverImg.link" contain></v-img> -->
+        <v-img :src="checkUrl(video)" contain></v-img>
         <v-card flat class="d-flex justify-center mt-16">
           <!-- <a
             v-for="pdf in video.pdfs"
@@ -66,48 +67,33 @@
         </v-btn>
       </v-col>
       <v-col v-if="showForm" cols="12" xs="12">
-        <form ref="form">
-          <div class="d-flex">
+        <v-form ref="form" >
             <v-text-field
               label="name of video"
               v-model="nameOfVideo"
               outlined
-              width="50"
             />
-          </div>
-          <!-- <div class="d-flex">
-            <v-file-input v-model="videoFile" label="add video file" outlined />
-          </div> -->
-          <div>
             <v-textarea label="description" v-model="description" outlined />
-          </div>
-          <div>
             <v-file-input v-model="imgFile" label="add cover image " outlined />
-          </div>
-          <!-- <div class="d-flex">
-            <v-file-input v-model="pdfFiles[0]" label="add pdf file" outlined />
-            <v-file-input v-model="pdfFiles[1]" label="add pdf file" outlined />
-            <v-file-input v-model="pdfFiles[2]" label="add pdf file" outlined />
-          </div> -->
-        </form>
-        <div class="d-flex justify-center">
-          <v-btn
+        </v-form>
+        <div class="d-flex flex-column align-center flex-sm-row justify-sm-center">
+           <v-btn
             rounded
             color="buttons"
             large
             min-width="160"
-            class="yellow-button mr-4"
-            @click="sendData"
-            >PROCEED AND CHECKOUT</v-btn
+            class="yellow-button  my-8 my-sm-0 mr-sm-4"
+            @click="closeForm"
+            >Cansel</v-btn
           >
           <v-btn
             rounded
             color="buttons"
             large
             min-width="160"
-            class="yellow-button"
-            @click="closeForm"
-            >Cansel</v-btn
+            class="yellow-button "
+            @click="sendData"
+            >Submit</v-btn
           >
         </div>
       </v-col>
@@ -131,6 +117,7 @@ export default {
       loading: true,
       volume: 0,
       showForm: false,
+      coverImageSrc: require('@/assets/noImage.jpg'),
       items: [
         {
           text: '',
@@ -200,6 +187,16 @@ export default {
     }
   },
   methods: {
+    checkUrl (card) {
+      let img
+      if (card.coverImg?.link) {
+        img = card.coverImg.link
+      }
+      if (!img) {
+        img = this.coverImageSrc
+      }
+      return img
+    },
     fillingInTheFields () {
       this.items[0].text = `${this.user.firstName} cabinet`
       this.items[1].text = `${this.user.firstName} courses`

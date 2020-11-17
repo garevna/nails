@@ -147,12 +147,12 @@ const routes = [
     path: '/user-cabinet/courses/:courseid',
     name: 'user-course',
     // meta: { layout: 'whitefone' },
-    component: () => import(/* webpackChunkName: "user-course" */'../views/UserCourse.vue')
-    // beforeEnter: (to, from, next) => {
-    //   if (store.state.isLogged) {
-    //     return next()
-    //   } else next({ name: 'sign-in' })
-    // }
+    component: () => import(/* webpackChunkName: "user-course" */'../views/UserCourse.vue'),
+    beforeEnter: (to, from, next) => {
+      if (store.state.isLogged) {
+        return next()
+      } else next({ name: 'sign-in' })
+    }
   },
   {
     path: '/user-cabinet/courses/:courseid/add-videos',

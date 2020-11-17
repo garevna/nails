@@ -98,7 +98,7 @@
           <v-col cols="12" offset-sm="4" sm="4" class="pa-0">
             <v-text-field
               v-model="access"
-              :rules="[rules.required]"
+              :rules="[rules.required,rules.onlyDigits]"
               label="Access (days)"
               outlined
               dark
@@ -107,7 +107,7 @@
           <v-col cols="12" offset-sm="4" sm="4" class="pa-0">
             <v-text-field
               v-model="price"
-              :rules="[rules.required]"
+              :rules="[rules.required,rules.onlyDigits]"
               label="Price"
               outlined
               dark
@@ -125,12 +125,11 @@
             <v-file-input
               v-model="file"
               label="Cover picture"
-              placeholder="Select your file"
-              prepend-icon="mdi-paperclip"
+              :rules="[rules.imageRule]"
+              prepend-icon="mdi-camera"
               outlined
               dark
               @change="Preview_image"
-              :show-size="1000"
             ></v-file-input>
             <div
               v-for="(textField, i) in courseSuitable"
@@ -234,6 +233,7 @@ export default {
       url: null,
       rules: {
         required: v => !!v || 'input is required',
+        imageRule: v => !v || v.size < 2000000 || 'Image size should be less than 2 MB!',
         minLengthName: v =>
           v.length <= 15 || 'the maximum number of characters entered',
         mailValidation: v =>
@@ -243,13 +243,14 @@ export default {
         phoneValidation: v =>
           /^\({0,1}((0|\+61)(2|4|3|7|8)){0,1}\){0,1}( |-){0,1}[0-9]{2}( |-){0,1}[0-9]{2}( |-){0,1}[0-9]{1}( |-){0,1}[0-9]{3}$/.test(
             v
-          ) || 'invalid number'
+          ) || 'invalid number',
+        onlyDigits: (v) => !/\D/g.test(v) || 'input should consist only of digits'
       }
     }
   },
   computed: {
     ...mapState('auth', ['user']),
-    ...mapState('userCourses', ['currentCourseId', 'loading', 'error'])
+    ...mapState('userCourses', ['currentCourseId', 'loading'])
   },
   watch: {
     currentCourseId (id) {
@@ -260,15 +261,6 @@ export default {
           courseid: id
         }
       })
-    },
-    error (val) {
-      if (val) {
-        this.$notify({
-          group: 'foo',
-          type: 'error',
-          text: val
-        })
-      }
     }
   },
   methods: {
@@ -276,7 +268,7 @@ export default {
       try {
         this.url = URL.createObjectURL(this.file)
       } catch (e) {
-        console.log('uups')
+        console.log('no image')
       }
     },
     sendData () {

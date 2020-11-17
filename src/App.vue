@@ -130,8 +130,30 @@ export default {
   },
   computed: {
     ...mapState(['viewportWidth']),
+    ...mapState('auth', ['authError']),
+    ...mapState('userCourses', ['userCoursesError']),
     layout () {
       return `${this.$route.meta?.layout || 'default'}-layout`
+    }
+  },
+  watch: {
+    authError (val) {
+      if (val) {
+        this.$notify({
+          group: 'foo',
+          type: 'error',
+          text: val
+        })
+      }
+    },
+    userCoursesError (val) {
+      if (val) {
+        this.$notify({
+          group: 'foo',
+          type: 'error',
+          text: val
+        })
+      }
     }
   },
   methods: {

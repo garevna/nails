@@ -74,7 +74,6 @@ export default {
       email: '',
       isPoliticAgree: false,
       showPass: false,
-      // loading: false,
       rules: {
         required: (v) => !!v || 'input is required',
         confirmPass: (v) => v === this.password || 'Passwords do not match',
@@ -86,7 +85,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('auth', ['isLogged', 'error', 'loading'])
+    ...mapState('auth', ['isLogged', 'loading'])
   },
   watch: {
     isLogged (newVal) {
@@ -94,15 +93,6 @@ export default {
         const startPath = this.$router.history._startLocation
         const currentPath = this.$router.history.current.fullPath
         startPath === currentPath ? this.$router.push({ name: 'home' }) : this.$router.go(-1)
-      }
-    },
-    error (val) {
-      if (val) {
-        this.$notify({
-          group: 'foo',
-          type: 'error',
-          text: val
-        })
       }
     }
   },

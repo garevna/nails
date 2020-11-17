@@ -1,8 +1,20 @@
 <template>
   <div class="header-container homefone">
-    <v-app-bar app color="#FFC44A" outlined dark  elevate-on-scroll class="app-bar-header">
+    <v-progress-linear
+      v-if="uploading"
+      indeterminate
+      color="yellow darken-2"
+    ></v-progress-linear>
+    <v-app-bar
+      app
+      color="#FFC44A"
+      outlined
+      dark
+      elevate-on-scroll
+      class="app-bar-header"
+    >
       <div class="d-flex align-center">
-        <Logo :goHome="goHome" class="logo"/>
+        <Logo :goHome="goHome" class="logo" />
         <!-- <h1><span @click="goHome" class="logo">NAILS</span>AUSTRALIA</h1> -->
       </div>
       <v-spacer></v-spacer>
@@ -11,10 +23,10 @@
         <v-btn @click="goToShop" text>SHOP</v-btn>
         <v-btn @click="goToCourses" text>COURSES</v-btn>
       </div>
-      <MenuSystemBar class=" d-none d-lg-flex align-center" />
+      <MenuSystemBar class="d-none d-lg-flex align-center" />
 
       <!-- Viewport width less then lg -->
-      <BurgerMenu :panel.sync="panel"/>
+      <BurgerMenu :panel.sync="panel" />
       <!-- <v-expansion-panels
         tile
         flat
@@ -157,6 +169,7 @@ export default {
   }),
   computed: {
     ...mapState('shop', ['categories']),
+    ...mapState('userCourses', ['uploading']),
     burgerMenuClassFirst () {
       return this.panel === 0
         ? 'burger-menu-active--first'
@@ -167,6 +180,7 @@ export default {
         ? 'burger-menu-active--second'
         : 'burger-menu--second'
     }
+
     // backgroundColor () {
     //   return this.$vuetify.theme.themes.light.homefone
     // }

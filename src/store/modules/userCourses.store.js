@@ -7,8 +7,9 @@ const state = {
   currentCourseVideos: null,
   currentVideoId: null,
   currentVideo: null,
-  error: null,
-  loading: false
+  userCoursesError: null,
+  loading: false,
+  uploading: false
 }
 const getters = {
   userCoursesEndpoint: (state, getters, rootState) => `${rootState.host}/course/online`,
@@ -27,7 +28,8 @@ const mutations = {
     state.currentCourseId = payload
   },
   CURRENT_COURSE_VIDEOS: (state, payload) => {
-    state.currentCourseVideos = payload
+    if (!payload) state.currentCourseVideos = []
+    else state.currentCourseVideos = payload
   },
   CURRENT_COURSE: (state, payload) => {
     state.currentCourse = payload
@@ -39,10 +41,13 @@ const mutations = {
     state.currentVideo = payload
   },
   ERROR: (state, payload) => {
-    state.error = payload
+    state.userCoursesError = payload
   },
   LOADING: (state, payload) => {
     state.loading = payload
+  },
+  UPLOADING: (state, payload) => {
+    state.uploading = payload
   }
 }
 
@@ -108,18 +113,20 @@ const actions = {
   }, payload) {
     commit('LOADING', true)
     commit('ERROR', null)
-    const { data, error } = await (await fetch(`${getters.userCreateVideosCourse}/${payload.id}`, {
+    commit('UPLOADING', true)
+    const { error } = await (await fetch(`${getters.userCreateVideosCourse}/${payload.id}`, {
       method: 'POST',
       body: payload.fd
     })).json()
     if (!error) {
-      console.log(data)
       commit('LOADING', false)
+      commit('UPLOADING', false)
       dispatch('GET_USER_COURSES', payload.userId)
       dispatch('GET_USER_COURSE_ID', payload.id)
     } else {
       commit('ERROR', error)
       commit('LOADING', false)
+      commit('UPLOADING', false)
     }
   },
   async GET_VIDEO_COURSE_ID ({
@@ -158,7 +165,6 @@ const actions = {
       commit('LOADING', false)
       commit('ERROR', error)
     }
-    console.log(newOnlineCourse)
   },
   async REMOVE_COURSE ({
     getters,
@@ -186,7 +192,6 @@ const actions = {
       method: 'DELETE'
     })).json()
     if (!error) {
-      console.log(courseId)
       dispatch('GET_USER_COURSE_ID', courseId)
     }
   },
