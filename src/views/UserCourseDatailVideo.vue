@@ -242,12 +242,12 @@ export default {
     if (this.user) {
       this.fillingInTheFields()
     }
-    if (this.currentCourseId !== this.courseId) {
-      this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId)
-    }
-    if (this.currentVideoId !== this.videoId) {
-      this.$store.dispatch('userCourses/GET_VIDEO_COURSE_ID', this.videoId)
-    }
+    // if (this.currentCourseId !== this.courseId) {
+    //   this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId)
+    // }
+    // if (this.currentVideoId !== this.videoId) {
+    //   this.$store.dispatch('userCourses/GET_VIDEO_COURSE_ID', this.videoId)
+    // }
     if (this.currentCourse && this.currentVideo) {
       this.course = this.currentCourse
       this.video = this.currentVideo
@@ -255,6 +255,9 @@ export default {
       this.items[4].text = this.video.name
       this.loading = false
       this.ready = true
+    } else {
+      this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId)
+      this.$store.dispatch('userCourses/GET_VIDEO_COURSE_ID', this.videoId)
     }
   }
 }
