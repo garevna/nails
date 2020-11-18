@@ -60,16 +60,13 @@
           </v-card-actions>
         </v-card>
       </v-col>
-      <v-col cols="12" xs="12">
+      <v-col cols="12" xs="12"  v-if="!showForm">
         <h3 align="center">{{ currentCourse.description }}</h3>
       </v-col>
       <v-col
         v-if="showForm"
         cols="12"
         xs="12"
-        offset-sm="2"
-        sm="8"
-        offset-md="3"
         md="6"
       >
         <v-form ref="form">
