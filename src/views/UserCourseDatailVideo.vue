@@ -37,7 +37,7 @@
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
         <!-- <v-img :src="video.coverImg.link" contain></v-img> -->
-        <v-img :src="checkUrl(video)" contain></v-img>
+        <v-img :src="checkUrl(video)" height="500px"></v-img>
         <v-card flat class="d-flex justify-center mt-16">
           <!-- <a
             v-for="pdf in video.pdfs"

@@ -37,7 +37,7 @@
               class="yellow-button"
               @click.stop="
                 dialog = true;
-                deleteId = video._id;
+                deleteId = course._id;
               "
               >Delete</v-btn
             >

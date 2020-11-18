@@ -39,8 +39,30 @@
       :back="backForm"
       :coverImageSrc="coverImageSrc"
     />
-    <v-btn @click="showForm=true" v-if="!showForm">Edit</v-btn>
-    <v-btn @click="goToVideos" v-if="!showForm">Videos</v-btn>
+    <div class="d-flex flex-column align-center flex-sm-row justify-sm-center mt-8">
+      <v-btn
+        @click="showForm = true"
+        v-if="!showForm"
+        color="buttons"
+        rounded
+        large
+        dark
+        min-width="160"
+        class="yellow-button my-8 my-sm-0 mr-sm-8"
+        >Edit</v-btn
+      >
+      <v-btn
+        @click="goToVideos"
+        v-if="!showForm"
+        color="buttons"
+        rounded
+        large
+        dark
+        min-width="160"
+        class="yellow-button"
+        >Videos</v-btn
+      >
+    </div>
   </div>
 </template>
 
@@ -81,7 +103,11 @@ export default {
     }
   },
   computed: {
-    ...mapState('userCourses', ['userCourses', 'currentCourse', 'currentCourseId']),
+    ...mapState('userCourses', [
+      'userCourses',
+      'currentCourse',
+      'currentCourseId'
+    ]),
     ...mapState('auth', ['user'])
   },
   watch: {
@@ -116,13 +142,16 @@ export default {
       // this.items[2].text = `${this.course.nameOfCourse}`
     },
     editCourseById (data) {
-      this.$store.dispatch('userCourses/PUT_USER_COURSE_ID', { data, id: this.courseId })
+      this.$store.dispatch('userCourses/PUT_USER_COURSE_ID', {
+        data,
+        id: this.courseId
+      })
     },
     backForm () {
       this.showForm = false
     },
     goToVideos () {
-      if (this.$route.name !== 'user-videos') this.$router.push({ name: 'user-videos' })
+      if (this.$route.name !== 'user-videos') { this.$router.push({ name: 'user-videos' }) }
     }
   },
   created () {
