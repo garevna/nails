@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
-    <v-row>
-      <v-col cols="12" xs="12">
+    <v-row class="d-flex justify-center">
+      <v-col cols="12" xs="12" class="d-flex justify-start">
         <v-breadcrumbs :items="items">
           <template v-slot:item="{ item }">
             <v-breadcrumbs-item :disabled="item.disabled">
@@ -15,6 +15,9 @@
           </template>
         </v-breadcrumbs>
       </v-col>
+      <v-col cols="12" xs="12">
+        <h2 align="center">{{ currentCourse.nameOfCourse }}</h2>
+      </v-col>
       <v-col cols="12" xs="12" v-if="noVideos">
         <h2 align="center">You don't have video yet</h2>
       </v-col>
@@ -24,21 +27,23 @@
       <v-col
         cols="12"
         xs="12"
-        offset-sm="2"
-        sm="8"
-        offset-md="0"
-        md="6"
+        sm="6"
         lg="4"
         v-for="(video, index) in videos"
         :key="video._id"
       >
-        <v-card v-if="videos && !showForm" class="my-8" @click="goToDetailVideo(video._id)">
+        <v-card
+          v-if="videos && !showForm"
+          class="my-8"
+          @click="goToDetailVideo(video._id)"
+        >
           <v-card-title class="d-flex justify-center"
             ><h2>
               {{ video.name }}
             </h2></v-card-title
           >
-          <v-img :src="coverImage(index)" height="350px"></v-img>
+          <!-- <v-img :src="coverImage(index)" height="350px"></v-img> -->
+          <CoverImage :url="coverImage(index)" :height="350" />
           <v-card-actions class="d-flex justify-end">
             <v-btn
               rounded
@@ -54,6 +59,9 @@
             >
           </v-card-actions>
         </v-card>
+      </v-col>
+      <v-col cols="12" xs="12">
+        <h3 align="center">{{ currentCourse.description }}</h3>
       </v-col>
       <v-col
         v-if="showForm"
@@ -76,7 +84,7 @@
             show-size
             label="add video file"
             prepend-icon="mdi-video"
-            :rules="[rules.required,rules.videoRule]"
+            :rules="[rules.required, rules.videoRule]"
             outlined
           />
           <v-progress-linear
@@ -201,11 +209,15 @@
 </template>
 
 <script>
-import Spinner from '@/components/Spinner.vue'
 import { mapState } from 'vuex'
+
+import CoverImage from '@/components/CoverImage.vue'
+import Spinner from '@/components/Spinner.vue'
+
 export default {
   components: {
-    Spinner
+    Spinner,
+    CoverImage
   },
   data () {
     return {

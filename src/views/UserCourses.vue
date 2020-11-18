@@ -1,33 +1,35 @@
 <template>
-  <v-container>
-    <v-row>
-      <!-- <v-breadcrumbs :items="items" divider="-"></v-breadcrumbs> -->
-      <v-breadcrumbs :items="items">
-        <template v-slot:item="{ item }">
-          <v-breadcrumbs-item :disabled="item.disabled">
-            <router-link
-              :to="item.href"
-              :class="{ 'disabled-link': item.disabled }"
-            >
-              {{ item.text.toUpperCase() }}</router-link
-            >
-          </v-breadcrumbs-item>
-        </template>
-      </v-breadcrumbs>
-      <v-col cols="12" xs="12" class="d-flex justify-center">
+  <v-container fluid>
+    <v-row class="d-flex justify-center">
+      <v-col cols="12" xs="12" class="d-flex justify-start">
+        <v-breadcrumbs :items="items">
+          <template v-slot:item="{ item }">
+            <v-breadcrumbs-item :disabled="item.disabled">
+              <router-link
+                :to="item.href"
+                :class="{ 'disabled-link': item.disabled }"
+              >
+                {{ item.text.toUpperCase() }}</router-link
+              >
+            </v-breadcrumbs-item>
+          </template>
+        </v-breadcrumbs>
         <!-- <v-card-title> hello user courses</v-card-title> -->
       </v-col>
-      <v-col cols="12" xs="12" offset-sm="3" sm="6">
-        <v-card
-          flat
-          v-for="course in userCourses"
-          :key="course._id"
-          @click="goToCourse(course._id)"
-        >
+      <v-col
+        cols="12"
+        xs="12"
+        sm="6"
+        md="4"
+        lg="3"
+        v-for="course in userCourses"
+        :key="course._id"
+      >
+        <v-card @click="goToCourse(course._id)">
           <v-card-title class="d-flex justify-center"
             ><h2>{{ course.nameOfCourse }}</h2></v-card-title
           >
-          <v-img :src="checkUrl(course)" contain></v-img>
+          <CoverImage :url="checkUrl(course)" :height="300" />
           <v-card-actions class="d-flex justify-end">
             <v-btn
               rounded
@@ -79,11 +81,19 @@
 <script>
 import { mapState } from 'vuex'
 
+import CoverImage from '@/components/CoverImage.vue'
+
 export default {
+  components: {
+    CoverImage
+  },
   data () {
     return {
       dialog: false,
       deleteId: null,
+      imageUrl: null,
+      errorLoad: false,
+      coverImageSrc: require('@/assets/noImage.jpg'),
       items: [
         {
           text: '',
@@ -147,6 +157,8 @@ export default {
         }
       })
     }
+  },
+  mounted () {
   },
   created () {
     this.fillingInTheFields()
