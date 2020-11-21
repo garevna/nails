@@ -10,7 +10,7 @@
               expand-icon="mdi-menu-down"
               :hide-actions="!mobileMenu"
             >
-              <h4>{{ selectedSection.name }}</h4>
+              <h4>{{ selectedSectionName }}</h4>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <LeftSideMenu
@@ -23,19 +23,6 @@
     </v-col>
   </v-row>
 </template>
-
-<style lang="scss">
-@import '@/css/variables.scss';
-.category-switcher {
-  .category-switcher-header {
-    background-color: $lightGray;
-  }
-  button {
-    min-height: 30px !important;
-    padding: 10px !important;
-  }
-}
-</style>
 
 <script>
 import { mapState } from 'vuex'
@@ -52,7 +39,7 @@ export default {
   },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState('shop', ['categories', 'commodities'])
+    ...mapState('shop', ['categories', 'commodities', 'selectedSectionName'])
   },
   watch: {
     mobileMenu () {
@@ -67,3 +54,16 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import '@/css/variables.scss';
+.category-switcher {
+  .category-switcher-header {
+    background-color: $lightGray;
+  }
+  button {
+    min-height: 30px !important;
+    padding: 10px !important;
+  }
+}
+</style>

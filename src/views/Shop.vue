@@ -47,60 +47,6 @@
   </v-container>
 </template>
 
-<style lang="scss">
-@import "@/css/variables.scss";
-.pagination-buttons {
-  button {
-    outline: none !important;
-  }
-}
-.empty-message {
-  height: 100%;
-  text-align: center;
-  color: $shopGrayFont;
-}
-.shop-card {
-  background-color: #f4f4f4;
-  margin: 20px;
-  width: calc(25% - 65px);
-  height: 350px;
-}
-.price-wrap {
-  padding: 5px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-.text-wrap {
-  padding: 10px;
-  flex: 1;
-}
-.color-black {
-  color: black;
-}
-.gray-background {
-  background-color: #f4f4f4;
-}
-@media screen and (max-width: 1450px) {
-  .shop-card {
-    margin: 10px;
-    width: calc(33% - 65px);
-  }
-}
-@media screen and (max-width: 1095px) {
-  .shop-card {
-    margin: 10px;
-    width: calc(50% - 65px);
-  }
-}
-@media screen and (max-width: 569px) {
-  .shop-card {
-    margin: 10px;
-    width: -webkit-fill-available;
-  }
-}
-</style>
-
 <script>
 import { mapState } from 'vuex'
 
@@ -210,3 +156,57 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import "@/css/variables.scss";
+.pagination-buttons {
+  button {
+    outline: none !important;
+  }
+}
+.empty-message {
+  height: 100%;
+  text-align: center;
+  color: $shopGrayFont;
+}
+.shop-card {
+  background-color: #f4f4f4;
+  margin: 20px;
+  width: calc(25% - 65px);
+  height: 350px;
+}
+.price-wrap {
+  padding: 5px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.text-wrap {
+  padding: 10px;
+  flex: 1;
+}
+.color-black {
+  color: black;
+}
+.gray-background {
+  background-color: #f4f4f4;
+}
+@media screen and (max-width: 1450px) {
+  .shop-card {
+    margin: 10px;
+    width: calc(33% - 65px);
+  }
+}
+@media screen and (max-width: 1095px) {
+  .shop-card {
+    margin: 10px;
+    width: calc(50% - 65px);
+  }
+}
+@media screen and (max-width: 569px) {
+  .shop-card {
+    margin: 10px;
+    width: -webkit-fill-available;
+  }
+}
+</style>
