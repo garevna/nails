@@ -10,11 +10,13 @@
               expand-icon="mdi-menu-down"
               :hide-actions="!mobileMenu"
             >
-              <h4>{{ selectedSection.name }}</h4>
+              <h4>{{ nameToShow }}</h4>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <LeftSideMenu
                 :setSelectedSection="setNewCategory"
+                :nameToShow="nameToShow"
+                :selectedSection="selectedSection"
               ></LeftSideMenu>
             </v-expansion-panel-content>
           </v-expansion-panel>
@@ -44,7 +46,7 @@ import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue'
 export default {
   name: 'CategoriesSwithcer',
   components: { LeftSideMenu },
-  props: ['selectedSection', 'setSelectedSection', 'mobileMenu'],
+  props: ['selectedSection', 'setSelectedSection', 'mobileMenu', 'nameToShow'],
   data () {
     return {
       isOpened: false

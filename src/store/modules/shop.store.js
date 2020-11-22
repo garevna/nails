@@ -5,7 +5,9 @@ const state = {
   categories: null,
   commodities: [],
   totalCommodities: 0,
-  commodity: null
+  commodity: null,
+  activeCategory: null,
+  fullListOfCategories: []
 }
 
 const getters = {
@@ -21,7 +23,14 @@ const getters = {
 
 const mutations = {
   SHOP_CATEGORIES: (state, payload) => {
-    state.categories = payload.flat()
+    state.fullListOfCategories = payload.reduce((prev, curr) => {
+      prev.push(curr)
+      if (Array.isArray(curr.subcategories) && curr.subcategories.length) {
+        prev = prev.concat(curr.subcategories)
+      }
+      return prev
+    }, [])
+    state.categories = payload
   },
   SHOP_COMMODITIES: (state, payload) => {
     state.commodities = payload.commodities
@@ -35,132 +44,19 @@ const mutations = {
   },
   CLEAR_COMMODITIES: (state) => {
     state.commodities = []
+  },
+  SET_ACTIVE_CATEGORY: (state, payload) => {
+    const fullName = payload.parentName
+      ? `${payload.parentName} > ${payload.name}`
+      : `${payload.name} > View all`
+    state.activeCategory = { ...payload, fullName }
   }
 }
 const actions = {
   async GET_SHOP_CATEGORIES ({ state, getters, commit }) {
-    const response = (await (await fetch(`${getters.categoriesEndpoint}?subbs=true&withId=true`)).json()).categories
-    // const response = [
-    //   {
-    //     name: 'Nail tools',
-    //     slug: 'nippers',
-    //     _id: 'iddd',
-    //     subcategories: [
-    //       {
-    //         name: 'Cuticle nippers',
-    //         slug: 'cuticle-nippers',
-    //         _id: '5f4b81610e15c400178e3b3d'
-    //       },
-    //       {
-    //         name: 'Nail nippers',
-    //         slug: 'nail-nippers',
-    //         _id: '5f4b81770e15c400178e3b3e'
-    //       },
-    //       {
-    //         name: 'Cuticle scissors',
-    //         slug: 'cuticle-scissors',
-    //         _id: '5f4b81610e15c400178e3bs3d'
-    //       },
-    //       {
-    //         name: 'Nail scissors',
-    //         slug: 'nail-scissors',
-    //         _id: '5f4b81610e15c400178e3b3d'
-    //       },
-    //       {
-    //         name: 'Pushers',
-    //         slug: 'pushers',
-    //         _id: '5f4b81610e15c400178e3b3d'
-    //       },
-    //       {
-    //         name: 'Pedicure tools',
-    //         slug: 'pedicure-tools',
-    //         _id: '5f4b81610e15c400178e3b3d'
-    //       },
-    //       {
-    //         name: 'Nail clipper',
-    //         slug: 'nail-clipper',
-    //         _id: '5f4b81610e15c400178e3b3d'
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     name: 'Drill bits',
-    //     slug: 'drill-bits',
-    //     _id: 'iddd2',
-    //     subcategories: [
-    //       {
-    //         name: 'carbide bits',
-    //         slug: 'carbide-bits',
-    //         _id: '5f4b81610e15c400178e3b3d'
-    //       },
-    //       {
-    //         name: 'diamond bits',
-    //         slug: 'diamond-bits',
-    //         _id: '5f4b81610e15c400178e3b3d'
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     name: 'Brushes',
-    //     slug: 'brushes',
-    //     _id: 'iddd2',
-    //     subcategories: [
-    //       {
-    //         name: 'Brushes',
-    //         slug: 'carbide-bits',
-    //         _id: '5f4b81610e15c400178e3b3d'
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     name: 'eyebrows/eyelashes',
-    //     // TODO: Notice that '/' symbol can take some problems.
-    //     slug: 'eyebrows-eyelashes',
-    //     _id: 'iddd2',
-    //     subcategories: [
-    //       {
-    //         name: 'eyebrows',
-    //         slug: 'eyebrows',
-    //         _id: '5f4b81610e15c400178e3b3d'
-    //       },
-    //       {
-    //         name: 'eyelashes',
-    //         slug: 'eyelashes',
-    //         _id: '5f4b81610e15c400178e3b3d'
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     name: 'Cosmetics',
-    //     slug: 'cosmetics',
-    //     _id: 'iddd2',
-    //     subcategories: [
-    //       {
-    //         name: 'Cosmetics',
-    //         slug: 'cosmetics',
-    //         _id: '5f4b81610e15c400178e3b3d'
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     name: 'Disposable materials',
-    //     slug: 'disposable-materials',
-    //     _id: 'iddd2',
-    //     subcategories: [
-    //       {
-    //         name: 'Materials',
-    //         slug: 'materials',
-    //         _id: '5f4b81610e15c400178e3b3d'
-    //       }
-    //     ]
-    //   },
-    //   {
-    //     name: 'Promotions',
-    //     slug: 'promotions',
-    //     _id: 'iddd2',
-    //     subcategories: []
-    //   }
-    // ]
+    const response = (
+      await (await fetch(`${getters.categoriesEndpoint}`)).json()
+    ).categories
     commit('SHOP_CATEGORIES', response)
     return state.categories
   },
@@ -183,6 +79,15 @@ const actions = {
       await fetch(`${getters.commodityEndpoint}/${commodityId}`)
     ).json()
     commit('SHOP_COMMODITY', response)
+    return state.commodity
+  },
+  SET_NEW_CATEGORY ({ state, getters, commit, dispatch }, { category }) {
+    commit('SET_ACTIVE_CATEGORY', category)
+    dispatch('GET_SHOP_COMMODITIES', {
+      categoryId: category._id,
+      skip: 0
+    })
+
     return state.commodity
   }
 }

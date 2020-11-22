@@ -3,13 +3,14 @@
     <v-card flat class="transparent mx-auto" max-width="1440" width="100%">
      <Search/>
       <CategoriesSwitcher
-        :selectedSection="selectedSection"
-        :setSelectedSection="setSelectedSection"
+        :selectedSection="activeCategory"
+        :nameToShow="selectedCategoryName"
         :mobileMenu="mobileMenu"
+        :setSelectedSection="setSelectedSection"
       ></CategoriesSwitcher>
       <v-row>
         <v-col cols="12" sm="6" md="3" xl="3" lg="3" v-if="!mobileMenu">
-          <LeftSideMenu :setSelectedSection="setSelectedSection"></LeftSideMenu>
+          <LeftSideMenu :setSelectedSection="setSelectedSection" ></LeftSideMenu>
         </v-col>
         <v-col cols="12" sm="12" md="9" xl="9" lg="9">
           <v-row justify="start" v-if="totalCommodities">
@@ -125,7 +126,7 @@ export default {
   },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState('shop', ['categories', 'commodities', 'totalCommodities']),
+    ...mapState('shop', ['categories', 'commodities', 'totalCommodities', 'activeCategory']),
     pagination () {
       const page = +this.$route.query.page
       return {
@@ -136,6 +137,10 @@ export default {
     },
     mobileMenu () {
       return this.viewportWidth < 960
+    },
+    selectedCategoryName () {
+      console.log(this.activeCategory)
+      return (this.activeCategory && this.activeCategory.fullName) || 'Commodities'
     }
   },
   watch: {
@@ -147,31 +152,37 @@ export default {
         from.name === 'shop' &&
         to.params.categoryName !== from.params.categoryName
       ) {
-        this.categoryName = to.params.categoryName
-        this.getData()
+        // this.categoryName = to.params.categoryName
+        // this.getData()
       }
+    },
+    activeCategory () {
+      console.log(this.activeCategory)
     }
   },
   methods: {
     async getData () {
       !this.categories &&
         (await this.$store.dispatch('shop/GET_SHOP_CATEGORIES'))
-      const allcat = (await this.categories.length) && this.categories.flat()
-      !this.categoryName &&
-        (await this.$router.replace({
-          name: 'shop',
-          params: { categoryName: allcat[0].slug }
-        }))
-      this.categoryName = (await this.categoryName)
-        ? this.categoryName
-        : allcat[0].slug
-      this.selectedSection =
-        (await allcat.length) &&
-        allcat.find((el) => el.slug === this.categoryName);
-      (await this.selectedSection) && this.getCommodities()
+      if (this.categories) {
+        console.log('here')
+        !this.activeCategory && this.$store.dispatch('shop/SET_NEW_CATEGORY', { category: this.categories[0] })
+      }
+      this.$router.replace({
+        name: 'shop',
+        params: { categoryName: this.activeCategory.slug }
+      })
+      // this.categoryName = (await this.categoryName)
+      //   ? this.categoryName
+      //   : allcat[0].slug
+      // this.selectedSection =
+      //   (await allcat.length) &&
+      //   allcat.find((el) => el.slug === this.categoryName);
+      // (await this.selectedSection) && this.getCommodities()
     },
     setSelectedSection (val) {
-      this.selectedSection = val
+      console.log(val)
+      this.$store.dispatch('shop/SET_NEW_CATEGORY', { category: val })
     },
     getCommodities () {
       this.$store.dispatch('shop/GET_SHOP_COMMODITIES', {
