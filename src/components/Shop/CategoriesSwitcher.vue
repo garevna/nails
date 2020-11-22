@@ -26,19 +26,6 @@
   </v-row>
 </template>
 
-<style lang="scss">
-@import '@/css/variables.scss';
-.category-switcher {
-  .category-switcher-header {
-    background-color: $lightGray;
-  }
-  button {
-    min-height: 30px !important;
-    padding: 10px !important;
-  }
-}
-</style>
-
 <script>
 import { mapState } from 'vuex'
 import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue'
@@ -54,7 +41,7 @@ export default {
   },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState('shop', ['categories', 'commodities'])
+    ...mapState('shop', ['categories', 'commodities', 'selectedSectionName'])
   },
   watch: {
     mobileMenu () {
@@ -69,3 +56,16 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import '@/css/variables.scss';
+.category-switcher {
+  .category-switcher-header {
+    background-color: $lightGray;
+  }
+  button {
+    min-height: 30px !important;
+    padding: 10px !important;
+  }
+}
+</style>

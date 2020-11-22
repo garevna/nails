@@ -4,6 +4,7 @@
 const state = {
   categories: null,
   commodities: [],
+  selectedSectionName: '',
   totalCommodities: 0,
   commodity: null,
   activeCategory: null,
@@ -52,6 +53,7 @@ const mutations = {
     state.activeCategory = { ...payload, fullName }
   }
 }
+
 const actions = {
   async GET_SHOP_CATEGORIES ({ state, getters, commit }) {
     const response = (
@@ -60,21 +62,41 @@ const actions = {
     commit('SHOP_CATEGORIES', response)
     return state.categories
   },
-  async SEARCH_COMMODITIES ({ state, getters, commit }, { search, skip }) {
+  async SEARCH_COMMODITIES ({
+    state,
+    getters,
+    commit
+  }, {
+    search,
+    skip
+  }) {
     const response = await (
       await fetch(`${getters.searchEndpoint}/?query=${search}&skip=${skip}`)
     ).json()
     commit('SHOP_COMMODITIES', response)
     return state.comodities
   },
-  async GET_SHOP_COMMODITIES ({ state, getters, commit }, { categoryId, skip }) {
+  async GET_SHOP_COMMODITIES ({
+    state,
+    getters,
+    commit
+  }, {
+    categoryId,
+    skip
+  }) {
     const response = await (
       await fetch(`${getters.commoditiesEndpoint}/${categoryId}?skip=${skip}`)
     ).json()
     commit('SHOP_COMMODITIES', response)
     return state.comodities
   },
-  async GET_COMMODITY ({ state, getters, commit }, { commodityId }) {
+  async GET_COMMODITY ({
+    state,
+    getters,
+    commit
+  }, {
+    commodityId
+  }) {
     const response = await (
       await fetch(`${getters.commodityEndpoint}/${commodityId}`)
     ).json()
@@ -87,7 +109,6 @@ const actions = {
       categoryId: category._id,
       skip: 0
     })
-
     return state.commodity
   }
 }
