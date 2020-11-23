@@ -95,6 +95,9 @@
               <h2 class="route" v-on:click="goToRoute('cooperation')">
                 Cooperation
               </h2>
+                 <h2 class="route" @click="goToRouteAdmin">
+                enter like admin
+              </h2>
             </v-card-text>
           </v-col>
         </v-row>
@@ -182,6 +185,9 @@ export default {
       if (this.$route.name !== route) {
         this.$router.push({ name: route })
       }
+    },
+    goToRouteAdmin () {
+      window.open(`${process.env.VUE_APP_API_URL}/admin`)
     }
   }
 }
