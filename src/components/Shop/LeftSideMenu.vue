@@ -61,11 +61,6 @@ export default {
   methods: {
     setSection (section, parentName) {
       this.setSelectedSection(section)
-      const fullName = parentName ? `${parentName} > ${section.name}` : `${section.name} > View all`
-      this.$store.dispatch('shop/SET_SELECTED_SECTION', {
-        name: fullName,
-        id: section._id
-      })
       if (this.$route.name === 'shop') {
         if (this.$route.params.categoryName !== section.slug) {
           this.$router.push({
