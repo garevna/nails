@@ -32,7 +32,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/add-course~add-course-payment~user-course~user-video~user-videos.a24506e4.css"
   },
   {
-    "revision": "c382688fd84f84bf8de9",
+    "revision": "3f0f2184fad54978c226",
     "url": "/nails/css/app.fea6c1c1.css"
   },
   {
@@ -92,15 +92,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/user-course.3602eff8.css"
   },
   {
-    "revision": "dbf7710f03c60c49de8b",
+    "revision": "4131527568720d6f16bd",
     "url": "/nails/css/user-courses.7d887a01.css"
   },
   {
-    "revision": "54ab0481485f70f52d16",
-    "url": "/nails/css/user-video.b55ec813.css"
+    "revision": "5154f95d5ac425fc5cb9",
+    "url": "/nails/css/user-video.45931b5d.css"
   },
   {
-    "revision": "828db06471e6c35cd1fb",
+    "revision": "042f1103e3c9abaf24d7",
     "url": "/nails/css/user-videos.53acfe63.css"
   },
   {
@@ -216,7 +216,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/pdf.3fa92281.svg"
   },
   {
-    "revision": "412635762cb4d401a331104abf90a239",
+    "revision": "6078c71b665028e0b31098131888ec36",
     "url": "/nails/index.html"
   },
   {
@@ -240,8 +240,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/add-course~user-course.9363b707.js"
   },
   {
-    "revision": "c382688fd84f84bf8de9",
-    "url": "/nails/js/app.480c0a85.js"
+    "revision": "3f0f2184fad54978c226",
+    "url": "/nails/js/app.3497a26b.js"
   },
   {
     "revision": "4214583cbd0407d05334",
@@ -328,16 +328,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/user-course.ed67ec2a.js"
   },
   {
-    "revision": "dbf7710f03c60c49de8b",
-    "url": "/nails/js/user-courses.c0c0f7c2.js"
+    "revision": "4131527568720d6f16bd",
+    "url": "/nails/js/user-courses.90dbbac8.js"
   },
   {
-    "revision": "54ab0481485f70f52d16",
-    "url": "/nails/js/user-video.5f1fcd17.js"
+    "revision": "5154f95d5ac425fc5cb9",
+    "url": "/nails/js/user-video.fd2efb69.js"
   },
   {
-    "revision": "828db06471e6c35cd1fb",
-    "url": "/nails/js/user-videos.c902abe8.js"
+    "revision": "042f1103e3c9abaf24d7",
+    "url": "/nails/js/user-videos.ebe65e8e.js"
   },
   {
     "revision": "78c075108313d75f5274f16ea283f1e1",
