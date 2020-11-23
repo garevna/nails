@@ -38,7 +38,7 @@
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
         <!-- <v-img :src="video.coverImg.link" contain></v-img> -->
         <!-- <v-img :src="checkUrl(video)" height="500px"></v-img> -->
-        <CoverImage :url="checkUrl(video)" :height="500" />
+        <CoverImage :url="checkUrl" :height="500" />
         <v-card flat class="d-flex justify-center mt-16">
           <!-- <a
             v-for="pdf in video.pdfs"
@@ -68,17 +68,15 @@
         </v-btn>
       </v-col>
       <v-col v-if="showForm" cols="12" xs="12">
-        <v-form ref="form" >
-            <v-text-field
-              label="name of video"
-              v-model="nameOfVideo"
-              outlined
-            />
-            <v-textarea label="description" v-model="description" outlined />
-            <v-file-input v-model="imgFile" label="add cover image " outlined />
+        <v-form ref="form">
+          <v-text-field label="name of video" v-model="nameOfVideo" outlined />
+          <v-textarea label="description" v-model="description" outlined />
+          <v-file-input v-model="imgFile" label="add cover image " outlined />
         </v-form>
-        <div class="d-flex flex-column align-center flex-sm-row justify-sm-center">
-           <v-btn
+        <div
+          class="d-flex flex-column align-center flex-sm-row justify-sm-center"
+        >
+          <v-btn
             rounded
             color="buttons"
             large
@@ -162,7 +160,17 @@ export default {
       'currentVideoId',
       'currentVideo'
     ]),
-    ...mapState('auth', ['user'])
+    ...mapState('auth', ['user']),
+    checkUrl () {
+      // let img
+      // if (this.video?.coverImg?.link) {
+      //   img = this.video.coverImg.link
+      // } else {
+      //   img = this.coverImageSrc
+      // }
+      // return img
+      return this.video?.coverImg?.link ?? this.coverImageSrc
+    }
   },
   watch: {
     user (newVal) {
@@ -191,16 +199,6 @@ export default {
     }
   },
   methods: {
-    checkUrl (card) {
-      let img
-      if (card.coverImg?.link) {
-        img = card.coverImg.link
-      }
-      if (!img) {
-        img = this.coverImageSrc
-      }
-      return img
-    },
     fillingInTheFields () {
       this.items[0].text = `${this.user.firstName} cabinet`
       this.items[1].text = `${this.user.firstName} courses`
@@ -216,15 +214,13 @@ export default {
     sendData () {
       const data = {
         name: this.nameOfVideo,
-        videoFile: this.videoFile,
         description: this.description,
-        imgFile: this.imgFile,
-        pdfFiles: this.pdfFiles
+        imgFile: this.imgFile
       }
       const fd = new FormData()
       Object.entries(data).forEach(([name, value]) => {
         if (Array.isArray(value)) {
-          Object.values(data[name]).forEach((value) => {
+          Object.values(data[name]).forEach(value => {
             if (value) fd.append('files', value)
           })
         } else {
