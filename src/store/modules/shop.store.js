@@ -103,7 +103,11 @@ const actions = {
     commit('SHOP_COMMODITY', response)
     return state.commodity
   },
-  SET_NEW_CATEGORY ({ state, getters, commit, dispatch }, { category }) {
+  SET_NEW_CATEGORY ({ state, commit, dispatch }, { category }) {
+    if (typeof category === 'string') {
+      category = state.fullListOfCategories.find(elem => elem.slug === category)
+    };
+    console.log(category)
     commit('SET_ACTIVE_CATEGORY', category)
     dispatch('GET_SHOP_COMMODITIES', {
       categoryId: category._id,
