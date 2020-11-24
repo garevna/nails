@@ -56,10 +56,18 @@ const actions = {
     getters,
     commit
   }, payload) {
+    commit('LOADING', true)
+    commit('ERROR', null)
     const {
-      onlineCourses
+      onlineCourses, error
     } = await (await fetch(`${getters.userCoursesEndpoint}?userId=${payload}`)).json()
-    commit('USER_COURSES', onlineCourses)
+    if (!error) {
+      commit('LOADING', false)
+      commit('USER_COURSES', onlineCourses)
+    } else {
+      commit('LOADING', false)
+      commit('ERROR', error)
+    }
   },
   async GET_USER_COURSE_ID ({
     getters,
@@ -240,6 +248,14 @@ const actions = {
     } else {
       commit('ERROR', error)
     }
+  },
+  RESET_USER_COURSES_STORE ({ commit }) {
+    commit('USER_COURSES', null)
+    commit('CURRENT_COURSE_ID', null)
+    commit('CURRENT_COURSE_VIDEOS', null)
+    commit('CURRENT_COURSE', null)
+    commit('CURRENT_VIDEO_ID', null)
+    commit('CURRENT_VIDEOS', null)
   }
 
 }

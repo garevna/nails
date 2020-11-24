@@ -16,6 +16,12 @@
         </v-breadcrumbs>
         <!-- <v-card-title> hello user courses</v-card-title> -->
       </v-col>
+      <v-col cols="12" xs="12" v-if="loading">
+        <Spinner />
+      </v-col>
+      <v-col cols="12" xs="12" v-if="emtyCourses">
+        <h3 align="center">You don't have courses yet</h3>
+      </v-col>
       <v-col
         cols="12"
         xs="12"
@@ -82,10 +88,12 @@
 import { mapState } from 'vuex'
 
 import CoverImage from '@/components/CoverImage.vue'
+import Spinner from '@/components/Spinner.vue'
 
 export default {
   components: {
-    CoverImage
+    CoverImage,
+    Spinner
   },
   data () {
     return {
@@ -109,8 +117,11 @@ export default {
     }
   },
   computed: {
-    ...mapState('userCourses', ['userCourses']),
-    ...mapState('auth', ['user'])
+    ...mapState('userCourses', ['userCourses', 'loading']),
+    ...mapState('auth', ['user']),
+    emtyCourses () {
+      return !this.loading && !this.userCourses?.length
+    }
   },
   watch: {
     user (newVal) {

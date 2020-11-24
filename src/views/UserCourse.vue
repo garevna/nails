@@ -15,7 +15,7 @@
     <CourseCardDetail
       v-if="ready && !showForm"
       :category="course.category"
-      :days="course.days"
+      :days="course.accessDays"
       :nameOfCourse="course.nameOfCourse"
       :subtitle="course.subtitle"
       :price="course.price"

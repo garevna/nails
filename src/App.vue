@@ -31,6 +31,9 @@ h3 {
   font-family: "Arial Bold" !important;
   line-height: 150%;
 }
+a {
+  text-decoration: none;
+}
 .vue-core-video-player-layers {
   z-index: 0 !important;
 }
@@ -165,12 +168,8 @@ export default {
     this.onResize()
     this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
     window.addEventListener('resize', this.onResize, { passive: true })
-    // this.$store.dispatch('auth/GET_TOKEN')
-    // this.$store.dispatch('auth/GET_USER')
   },
   beforeCreate () {
-    // this.$store.dispatch('auth/GET_TOKEN')
-    // this.$store.dispatch('auth/GET_USER')
     this.$store.dispatch('auth/IS_SIGNED')
   },
   destroyed () {
