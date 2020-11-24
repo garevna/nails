@@ -210,7 +210,6 @@ export default {
       phoneDisabled: true,
       deliveryAddress: '',
       deliveryAddressDisabled: true,
-      role: 'User',
       isPoliticAgree: true
     }
   },
@@ -273,7 +272,6 @@ export default {
         email: this.email,
         phone: this.phone,
         deliveryAddress: this.deliveryAddress,
-        role: this.role,
         isPoliticAgree: this.isPoliticAgree
       }
       this.$store.dispatch('auth/EDIT_USER', data)
