@@ -150,6 +150,7 @@
         <v-btn text @click="dialog = true">Log out</v-btn>
         <v-btn text @click="goTo('user-courses')"> My courses</v-btn>
         <v-btn text>Shoping card</v-btn>
+        <v-btn v-if="isAdmin" text @click="goToAdmin">go to admin panel</v-btn>
       </v-col>
     </v-row>
     <div class="d-flex flex-column flex-sm-row align-center justify-sm-space-around mt-16">
@@ -225,6 +226,9 @@ export default {
         this.phoneDisabled &&
         this.deliveryAddressDisabled
       )
+    },
+    isAdmin () {
+      return this.user?.role === 'Admin'
     }
   },
   watch: {
@@ -246,6 +250,9 @@ export default {
     }
   },
   methods: {
+    goToAdmin () {
+      window.open(`${process.env.VUE_APP_API_URL}/admin`)
+    },
     logoutUser () {
       this.$store.dispatch('auth/LOG_OUT')
       this.$router.push({ name: 'home' })
