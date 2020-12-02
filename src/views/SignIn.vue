@@ -124,6 +124,12 @@ export default {
       }
     }
 
+  },
+  mounted () {
+    this.$store.dispatch('auth/AUTH_ERROR')
+  },
+  beforeDestroy () {
+    this.$store.dispatch('auth/CLEAR_AUTH_ERROR')
   }
 
 }

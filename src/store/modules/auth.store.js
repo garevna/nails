@@ -81,22 +81,33 @@ const actions = {
       }
     ))
     const bearer = res.headers.get('Authorization')
-    if (bearer) {
+    const { error } = await res.json()
+    if (bearer && !error) {
       const token = bearer.split(' ')[1]
-      const { error } = await res.json()
-      if (!error) {
-        dispatch('CHECK_TOKEN', token)
-        commit('TOKEN', token)
-        localStorage.setItem('token', token)
-        commit('LOADING', false)
-      } else {
-        commit('ERROR', error)
-        commit('LOADING', false)
-      }
+      dispatch('CHECK_TOKEN', token)
+      commit('TOKEN', token)
+      localStorage.setItem('token', token)
+      commit('LOADING', false)
     } else {
-      commit('ERROR', 'Something wrong')
+      commit('ERROR', error)
       commit('LOADING', false)
     }
+    // if (bearer) {
+    //   const token = bearer.split(' ')[1]
+    //   const { error } = await res.json()
+    //   if (!error) {
+    //     dispatch('CHECK_TOKEN', token)
+    //     commit('TOKEN', token)
+    //     localStorage.setItem('token', token)
+    //     commit('LOADING', false)
+    //   } else {
+    //     commit('ERROR', error)
+    //     commit('LOADING', false)
+    //   }
+    // } else {
+    //   commit('ERROR', 'Something wrong')
+    //   commit('LOADING', false)
+    // }
   },
   async SIGN_UP ({ getters, commit, dispatch }, payload) {
     commit('LOADING', true)
@@ -145,6 +156,12 @@ const actions = {
       commit('LOADING', false)
       commit('ERROR', error)
     }
+  },
+  async AUTH_ERROR ({ commit }) {
+    commit('ERROR', 'Please, sign in or create an account')
+  },
+  async CLEAR_AUTH_ERROR ({ commit }) {
+    commit('ERROR', null)
   }
 }
 

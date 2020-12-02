@@ -30,6 +30,8 @@
       :coverImageSrc="coverImageSrc"
       btnTitle="BUY THIS COURSE"
       :btnCallBack="null"
+      :isPaid="course.isPaid"
+      :isPublished="course.isPublished"
     />
     <EditCourseForm
       v-if="showForm"
