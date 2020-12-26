@@ -33,9 +33,16 @@ export default {
     }
   },
   computed: {
-    ...mapState('userCourses', ['currentVideo']),
+    // ...mapState('userCourses', ['currentVideo']),
+    ...mapState('courses', [
+      // 'courses',
+      'course',
+      // 'videos',
+      'video'
+    ]),
     pdfs () {
-      return this.currentVideo.pdfs
+      return this.course.pdfs
+      // return this.currentVideo.pdfs
     }
   },
   methods: {

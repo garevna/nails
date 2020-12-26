@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row class="d-flex justify-center">
-      <v-col cols="12" xs="12" class="d-flex justify-start">
+      <!-- <v-col cols="12" xs="12" class="d-flex justify-start">
         <v-breadcrumbs :items="items">
           <template v-slot:item="{ item }">
             <v-breadcrumbs-item :disabled="item.disabled">
@@ -14,11 +14,11 @@
             </v-breadcrumbs-item>
           </template>
         </v-breadcrumbs>
-      </v-col>
+      </v-col> -->
       <v-col cols="12" xs="12" v-if="loading">
         <Spinner />
       </v-col>
-      <v-col cols="12" xs="12" v-if="emtyCourses">
+      <v-col cols="12" xs="12" v-if="emptyCourses">
         <h3 align="center">You don't have courses yet</h3>
       </v-col>
       <v-col
@@ -26,7 +26,7 @@
         xs="12"
         md="6"
         lg="4"
-        v-for="course in userCourses"
+        v-for="course in courses"
         :key="course._id"
       >
         <v-card @click="goToCourse(course._id)">
@@ -101,52 +101,54 @@ export default {
   },
   data () {
     return {
+      loading: false,
       dialog: false,
       deleteId: null,
       imageUrl: null,
       errorLoad: false,
-      coverImageSrc: require('@/assets/noImage.jpg'),
-      items: [
-        {
-          text: '',
-          disabled: false,
-          href: '/user-cabinet'
-        },
-        {
-          text: '',
-          disabled: true,
-          href: '/user-courses'
-        }
-      ]
+      coverImageSrc: require('@/assets/noImage.jpg')
+      // items: [
+      //   {
+      //     text: '',
+      //     disabled: false,
+      //     href: '/user-cabinet'
+      //   },
+      //   {
+      //     text: '',
+      //     disabled: true,
+      //     href: '/user-courses'
+      //   }
+      // ]
     }
   },
   computed: {
-    ...mapState('userCourses', ['userCourses', 'loading']),
+    // ...mapState('userCourses', ['userCourses', 'loading']),
+    ...mapState('courses', ['courses', 'course', 'videos', 'video']),
     ...mapState('auth', ['user']),
-    emtyCourses () {
-      return !this.loading && !this.userCourses?.length
+    emptyCourses () {
+      return !this.loading && !this.courses.length
     }
   },
-  watch: {
-    user (newVal) {
-      if (!newVal) return
-      this.fillingInTheFields()
-    }
-  },
+  // watch: {
+  //   user (newVal) {
+  //     if (!newVal) return
+  //     this.fillingInTheFields()
+  //   }
+  // },
   methods: {
     canselHandler () {
       this.dialog = false
       this.deleteId = null
     },
-    fillingInTheFields () {
-      if (!this.user) return
-      this.items[0].text = `${this.user.firstName} cabinet`
-      this.items[1].text = `${this.user.firstName} courses`
-      if (!this.userCourses) {
-        this.$store.dispatch('userCourses/GET_USER_COURSES', this.user._id)
-      }
-    },
-    checkUrl (card) {
+    // fillingInTheFields () {
+    //   if (!this.user) return
+    //   this.items[0].text = `${this.user.firstName} cabinet`
+    //   this.items[1].text = `${this.user.firstName} courses`
+    //   if (!this.userCourses) {
+    //     this.$store.dispatch('userCourses/GET_USER_COURSES', this.user._id)
+    //   }
+    // },
+    checkUrl (card) { // ?! <==
       let img
       if (card.photo && Array.isArray(card.photo) && card.photo.length) {
         img = card.photo[0].link
@@ -156,11 +158,8 @@ export default {
       }
       return img
     },
-    deleteCourse () {
-      this.$store.dispatch('userCourses/REMOVE_COURSE', {
-        courseId: this.deleteId,
-        userId: this.user._id
-      })
+    async deleteCourse () {
+      await this.$store.dispatch('courses/DELETE_COURSE', this.deleteId)
       this.dialog = false
       this.deleteId = null
     },
@@ -171,12 +170,17 @@ export default {
           courseid: id
         }
       })
+    },
+    async getCourses () {
+      this.loading = true
+      await this.$store.dispatch('courses/GET_COURSES')
+      this.loading = false
     }
   },
-  mounted () {
-  },
   created () {
-    this.fillingInTheFields()
+    this.getCourses()
+  },
+  mounted () {
   },
   beforeMount () {
   }

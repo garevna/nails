@@ -5,7 +5,7 @@
         <h2 class="header">All online courses</h2>
       </v-col>
       <CourseCard
-        v-for="(card, index) in onlineCourses"
+        v-for="(card, index) in courses"
         :key="index"
         :accessDays="card.accessDays"
         :url="checkUrl(card)"
@@ -56,9 +56,16 @@ export default {
     }
   },
   computed: {
-    ...mapState('onlineCourses', ['onlineCourses', 'totalOnlineCourses']),
+    ...mapState('courses', [
+      'courses',
+      // 'course'
+      // 'videos',
+      'total'
+    ]),
+    // ...mapState('onlineCourses', ['onlineCourses', 'totalOnlineCourses']),
     isHideMoreButtonOnline () {
-      return this.onlineCourses.length < this.totalOnlineCourses
+      // return this.onlineCourses.length < this.totalOnlineCourses
+      return this.courses.length < this.total
     }
   },
   methods: {
@@ -68,15 +75,15 @@ export default {
     payDetail () {
       this.$router.push({ name: 'personal-data' })
     },
-    async getCourses () {
-      await this.$store.dispatch('onlineCourses/GET_ONLINE_COURSES')
-    },
+    // async getCourses () {
+    //   await this.$store.dispatch('onlineCourses/GET_ONLINE_COURSES')
+    // },
     async getMoreOnlineCourses () {
-      await this.$store.dispatch('onlineCourses/GET_MORE_ONLINE_COURSES', {
-        skip: this.onlineCourses.length
+      await this.$store.dispatch('courses/GET_MORE_COURSES', {
+        skip: this.courses.length
       })
     },
-    checkUrl (card) {
+    checkUrl (card) { // ?! <===
       let img
       if (card.photo && Array.isArray(card.photo) && card.photo.length) {
         img = card.photo[0].link
@@ -88,7 +95,8 @@ export default {
     }
   },
   mounted () {
-    this.getCourses()
+    // this.getCourses()
+    this.$store.dispatch('courses/GET_ALL_COURSES')
   }
 }
 </script>

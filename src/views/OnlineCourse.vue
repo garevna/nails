@@ -1,18 +1,19 @@
 <template>
   <v-container>
     <CourseCardDetail
-      :category="onlineCourseById.category"
-      :days="onlineCourseById.days"
-      :nameOfCourse="onlineCourseById.nameOfCourse"
-      :subtitle="onlineCourseById.subtitle"
-      :price="onlineCourseById.price"
-      :author="onlineCourseById.author"
-      :instructor="onlineCourseById.instructor"
-      :infoBonus="onlineCourseById.infoBonus"
-      :courseSuitable="onlineCourseById.thisCourseIsSuitableFor"
-      :description="onlineCourseById.description"
-      :dateOfCourses="onlineCourseById.dateOfCourses"
-      :url="onlineCourseByIdImg"
+      v-if="course"
+      :category="course.category"
+      :days="course.days"
+      :nameOfCourse="course.nameOfCourse"
+      :subtitle="course.subtitle"
+      :price="course.price"
+      :author="course.author"
+      :instructor="course.instructor"
+      :infoBonus="course.infoBonus"
+      :courseSuitable="course.thisCourseIsSuitableFor"
+      :description="course.description"
+      :dateOfCourses="course.dateOfCourses"
+      :url="course.photo[0].link"
       :type="typeCourse"
       :coverImageSrc="coverImageSrc"
         btnTitle="BUY THIS COURSE"
@@ -35,7 +36,13 @@ export default {
     }
   },
   computed: {
-    ...mapState('onlineCourses', ['onlineCourseById', 'onlineCourseByIdImg'])
+    ...mapState('courses', [
+      // 'courses',
+      'course'
+      // 'videos',
+      // 'video'
+    ])
+    // ...mapState('onlineCourses', ['onlineCourseById', 'onlineCourseByIdImg'])
   },
   methods: {
     btnCallBack () {
@@ -43,10 +50,12 @@ export default {
     }
   },
   mounted () {
-    this.$store.dispatch('onlineCourses/GET_ONLINE_COURSE_BY_ID', { id: this.$route.params.id })
+    this.$store.dispatch('courses/GET_COURSE', this.$route.params.id)
+
+    // this.$store.dispatch('onlineCourses/GET_ONLINE_COURSE_BY_ID', { id: this.$route.params.id })
   },
   beforeDestroy () {
-    this.$store.dispatch('onlineCourses/CLEAR_ONLINE_COURSE_BY_ID')
+    // this.$store.dispatch('onlineCourses/CLEAR_ONLINE_COURSE_BY_ID')
   }
 }
 </script>

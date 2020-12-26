@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row class="d-flex justify-center">
-      <v-col cols="12" xs="12" class="d-flex justify-start">
+      <!-- <v-col cols="12" xs="12" class="d-flex justify-start">
         <v-breadcrumbs :items="items">
           <template v-slot:item="{ item }">
             <v-breadcrumbs-item :disabled="item.disabled">
@@ -14,9 +14,9 @@
             </v-breadcrumbs-item>
           </template>
         </v-breadcrumbs>
-      </v-col>
+      </v-col> -->
       <v-col cols="12" xs="12">
-        <h2 align="center">{{ currentCourse.nameOfCourse }}</h2>
+        <h2 align="center">{{ course && course.nameOfCourse }}</h2>
       </v-col>
       <v-col cols="12" xs="12" v-if="noVideos">
         <h2 align="center">You don't have video yet</h2>
@@ -52,23 +52,18 @@
               min-width="160"
               class="yellow-button"
               @click.stop="
-                dialog = true;
-                deleteId = video._id;
+                dialog = true
+                deleteId = video._id
               "
               >Delete</v-btn
             >
           </v-card-actions>
         </v-card>
       </v-col>
-      <v-col cols="12" xs="12"  v-if="!showForm">
-        <h3 align="center">{{ currentCourse.description }}</h3>
+      <v-col cols="12" xs="12" v-if="!showForm">
+        <h3 align="center">{{ course && course.description }}</h3>
       </v-col>
-      <v-col
-        v-if="showForm"
-        cols="12"
-        xs="12"
-        md="6"
-      >
+      <v-col v-if="showForm" cols="12" xs="12" md="6">
         <v-form ref="form">
           <v-text-field
             label="name of video"
@@ -218,36 +213,37 @@ export default {
   },
   data () {
     return {
-      courseId: this.$route.params.courseid,
-      videos: null,
-      ready: false,
+      loading: false,
+      // courseId: this.$route.params.courseid,
+      // videos: null,
+      ready: true,
       showForm: false,
-      course: null,
+      // course: null,
       dialog: false,
       deleteId: null,
-      coverImageSrc: require('@/assets/noImage.jpg'),
-      items: [
-        {
-          text: '',
-          disabled: false,
-          href: '/user-cabinet'
-        },
-        {
-          text: '',
-          disabled: false,
-          href: '/user-cabinet/courses'
-        },
-        {
-          text: '',
-          disabled: false,
-          href: `/user-cabinet/courses/${this.$route.params.courseid}`
-        },
-        {
-          text: 'videos',
-          disabled: true,
-          href: '#'
-        }
-      ],
+      coverImageSrc: require('@/assets/noImage.jpg'), // ?! <===
+      // items: [
+      //   {
+      //     text: '',
+      //     disabled: false,
+      //     href: '/user-cabinet'
+      //   },
+      //   {
+      //     text: '',
+      //     disabled: false,
+      //     href: '/user-cabinet/courses'
+      //   },
+      //   {
+      //     text: '',
+      //     disabled: false,
+      //     href: `/user-cabinet/courses/${this.$route.params.courseid}`
+      //   },
+      //   {
+      //     text: 'videos',
+      //     disabled: true,
+      //     href: '#'
+      //   }
+      // ],
 
       nameOfVideo: '',
       videoFile: null,
@@ -255,49 +251,63 @@ export default {
       imgFile: null,
       pdfFiles: new Array(3).fill(null),
       rules: {
-        videoRule: v => v?.size < 1000000000 || 'Video size should be less than 1 GB!',
-        imageRule: v => !v || v.size < 2000000 || 'Image size should be less than 2 MB!',
-        pdfRule: v => !v || v.size < 100000000 || 'Video size should be less than 100 MB!',
-        required: (v) => !!v || 'input is required'
+        videoRule: v =>
+          v?.size < 1000000000 || 'Video size should be less than 1 GB!',
+        imageRule: v =>
+          !v || v.size < 2000000 || 'Image size should be less than 2 MB!',
+        pdfRule: v =>
+          !v || v.size < 100000000 || 'Video size should be less than 100 MB!',
+        required: v => !!v || 'input is required'
       }
     }
   },
   computed: {
-    ...mapState('userCourses', [
-      'currentCourse',
-      'currentCourseId',
-      'currentCourseVideos',
-      'uploading'
+    ...mapState('courses', [
+      // 'courses',
+      'course'
+      // 'videos',
+      // 'video'
     ]),
-    ...mapState('auth', ['user']),
+    // ...mapState('userCourses', [
+    //   'currentCourse',
+    //   'currentCourseId',
+    //   'currentCourseVideos',
+    //   'uploading'
+    // ]),
+    // ...mapState('auth', ['user']),
+    videos () {
+      return this.course?.videos ?? []
+    },
     noVideos () {
-      return !this?.videos?.length && this.ready
+      // return !this?.videos?.length && this.ready
+      return !this.videos.length
     },
     showBtnAddVideo () {
-      return !this.showForm && this.ready && this?.videos?.length < 5
+      return !this.showForm && this.videos.length < 5
+      // return !this.showForm && this.ready && this?.videos?.length < 5
     }
   },
   watch: {
-    user (newVal) {
-      if (!newVal) return
-      this.fillingInTheFields()
-    },
-    course (val) {
-      if (!val) return
-      this.items[2].text = `${val.nameOfCourse}`
-    },
-    currentCourse (newVal) {
-      if (!newVal) return
-      this.course = newVal
-      this.fillingInTheFields()
-    },
-    currentCourseVideos (videos) {
-      if (!videos) return
-      this.course = this.currentCourse
-      this.videos = this.currentCourseVideos
-      this.showForm = false
-      this.ready = true
-    }
+    // user (newVal) {
+    //   if (!newVal) return
+    //   this.fillingInTheFields()
+    // },
+    // course (val) {
+    //   if (!val) return
+    //   this.items[2].text = `${val.nameOfCourse}`
+    // },
+    // currentCourse (newVal) {
+    //   if (!newVal) return
+    //   this.course = newVal
+    //   this.fillingInTheFields()
+    // },
+    // currentCourseVideos (videos) {
+    //   if (!videos) return
+    //   this.course = this.currentCourse
+    //   this.videos = this.currentCourseVideos
+    //   this.showForm = false
+    //   this.ready = true
+    // }
   },
   methods: {
     clearFormInputs () {
@@ -312,12 +322,12 @@ export default {
       this.dialog = false
       this.deleteId = null
     },
-    fillingInTheFields () {
-      this.items[0].text = `${this.user.firstName} cabinet`
-      this.items[1].text = `${this.user.firstName} courses`
-    },
+    // fillingInTheFields () {
+    //   this.items[0].text = `${this.user.firstName} cabinet`
+    //   this.items[1].text = `${this.user.firstName} courses`
+    // },
     deleteVideo () {
-      this.$store.dispatch('userCourses/REMOVE_VIDEO_COURSE', {
+      this.$store.dispatch('courses/DELETE_VIDEO', {
         id: this.deleteId,
         courseId: this.courseId
       })
@@ -338,7 +348,7 @@ export default {
       const fd = new FormData()
       Object.entries(data).forEach(([name, value]) => {
         if (Array.isArray(value)) {
-          Object.values(data[name]).forEach((value) => {
+          Object.values(data[name]).forEach(value => {
             if (value) fd.append('files', value)
           })
         } else {
@@ -363,19 +373,32 @@ export default {
           videoid: id
         }
       })
+    },
+    async getVideos () {
+      this.loading = true
+      await this.$store.dispatch(
+        'courses/GET_COURSE',
+        this.$route.params.courseid
+      )
+      await this.$store.dispatch(
+        'courses/GET_FIND_VIDEO',
+        this.$route.params.courseid
+      ) // ?! <===
+      this.loading = false
     }
   },
   // mounted () {},
   created () {
-    if (this.currentCourseId !== this.courseId) {
-      this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId)
-    } else {
-      this.fillingInTheFields()
-      this.items[2].text = `${this.currentCourse.nameOfCourse}`
-      this.course = this.currentCourse
-      this.videos = this.currentCourseVideos
-      this.ready = true
-    }
+    this.getVideos()
+    // if (this.currentCourseId !== this.courseId) {
+    // this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.$route.params.courseid)
+    // } else {
+    //   this.fillingInTheFields()
+    //   this.items[2].text = `${this.currentCourse.nameOfCourse}`
+    //   this.course = this.currentCourse
+    //   this.videos = this.currentCourseVideos
+    //   this.ready = true
+    // }
   }
 }
 </script>
