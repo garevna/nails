@@ -1,20 +1,6 @@
 <template>
   <v-container fluid>
     <v-row class="d-flex justify-center">
-      <!-- <v-col cols="12" xs="12" class="d-flex justify-start">
-        <v-breadcrumbs :items="items">
-          <template v-slot:item="{ item }">
-            <v-breadcrumbs-item :disabled="item.disabled">
-              <router-link
-                :to="item.href"
-                :class="{ 'disabled-link': item.disabled }"
-              >
-                {{ item.text.toUpperCase() }}</router-link
-              >
-            </v-breadcrumbs-item>
-          </template>
-        </v-breadcrumbs>
-      </v-col> -->
       <v-col cols="12" xs="12">
         <h2 align="center">{{ course && course.nameOfCourse }}</h2>
       </v-col>
@@ -29,7 +15,7 @@
         xs="12"
         sm="6"
         lg="4"
-        v-for="(video, index) in videos"
+        v-for="video in videos"
         :key="video._id"
       >
         <v-card
@@ -42,8 +28,7 @@
               {{ video.name }}
             </h2></v-card-title
           >
-          <!-- <v-img :src="coverImage(index)" height="350px"></v-img> -->
-          <CoverImage :url="coverImage(index)" :height="350" />
+          <CoverImage :url="linkCheck(video)" :height="350" />
           <v-card-actions class="d-flex justify-end">
             <v-btn
               rounded
@@ -79,12 +64,12 @@
             :rules="[rules.required, rules.videoRule]"
             outlined
           />
-          <v-progress-linear
+          <!-- <v-progress-linear
             v-if="uploading"
             indeterminate
             color="yellow darken-2"
             class="my-4"
-          ></v-progress-linear>
+          ></v-progress-linear> -->
           <div>
             <v-textarea
               label="description"
@@ -205,6 +190,7 @@ import { mapState } from 'vuex'
 
 import CoverImage from '@/components/CoverImage.vue'
 import Spinner from '@/components/Spinner.vue'
+import checkVideoLink from '@/helpers/checkVideoLink'
 
 export default {
   components: {
@@ -221,30 +207,6 @@ export default {
       // course: null,
       dialog: false,
       deleteId: null,
-      coverImageSrc: require('@/assets/noImage.jpg'), // ?! <===
-      // items: [
-      //   {
-      //     text: '',
-      //     disabled: false,
-      //     href: '/user-cabinet'
-      //   },
-      //   {
-      //     text: '',
-      //     disabled: false,
-      //     href: '/user-cabinet/courses'
-      //   },
-      //   {
-      //     text: '',
-      //     disabled: false,
-      //     href: `/user-cabinet/courses/${this.$route.params.courseid}`
-      //   },
-      //   {
-      //     text: 'videos',
-      //     disabled: true,
-      //     href: '#'
-      //   }
-      // ],
-
       nameOfVideo: '',
       videoFile: null,
       description: '',
@@ -268,48 +230,22 @@ export default {
       // 'videos',
       // 'video'
     ]),
-    // ...mapState('userCourses', [
-    //   'currentCourse',
-    //   'currentCourseId',
-    //   'currentCourseVideos',
-    //   'uploading'
-    // ]),
-    // ...mapState('auth', ['user']),
     videos () {
       return this.course?.videos ?? []
     },
     noVideos () {
-      // return !this?.videos?.length && this.ready
       return !this.videos.length
     },
     showBtnAddVideo () {
       return !this.showForm && this.videos.length < 5
-      // return !this.showForm && this.ready && this?.videos?.length < 5
     }
   },
   watch: {
-    // user (newVal) {
-    //   if (!newVal) return
-    //   this.fillingInTheFields()
-    // },
-    // course (val) {
-    //   if (!val) return
-    //   this.items[2].text = `${val.nameOfCourse}`
-    // },
-    // currentCourse (newVal) {
-    //   if (!newVal) return
-    //   this.course = newVal
-    //   this.fillingInTheFields()
-    // },
-    // currentCourseVideos (videos) {
-    //   if (!videos) return
-    //   this.course = this.currentCourse
-    //   this.videos = this.currentCourseVideos
-    //   this.showForm = false
-    //   this.ready = true
-    // }
   },
   methods: {
+    linkCheck (video) {
+      return checkVideoLink(video)
+    },
     clearFormInputs () {
       this.nameOfVideo = ''
       this.videoFile = null
@@ -322,10 +258,6 @@ export default {
       this.dialog = false
       this.deleteId = null
     },
-    // fillingInTheFields () {
-    //   this.items[0].text = `${this.user.firstName} cabinet`
-    //   this.items[1].text = `${this.user.firstName} courses`
-    // },
     deleteVideo () {
       this.$store.dispatch('courses/DELETE_VIDEO', {
         id: this.deleteId,
@@ -333,9 +265,6 @@ export default {
       })
       this.dialog = false
       this.deleteId = null
-    },
-    coverImage (index) {
-      return this.videos[index].coverImg?.link || this.coverImageSrc
     },
     sendData () {
       const data = {
@@ -359,7 +288,11 @@ export default {
         }
       })
       if (this.$refs.form.validate()) {
-        this.$store.dispatch('userCourses/CREATE_VIDEOS_COURSE', {
+        // this.$store.dispatch('userCourses/CREATE_VIDEOS_COURSE', {
+        //   fd,
+        //   id: this.courseId
+        // })
+        this.$store.dispatch('courses/POST_VIDEOS', {
           fd,
           id: this.courseId
         })
@@ -380,25 +313,16 @@ export default {
         'courses/GET_COURSE',
         this.$route.params.courseid
       )
-      await this.$store.dispatch(
-        'courses/GET_FIND_VIDEO',
-        this.$route.params.courseid
-      ) // ?! <===
+      // await this.$store.dispatch(
+      //   'courses/GET_FIND_VIDEO',
+      //   this.$route.params.courseid
+      // ) // ?! <===
       this.loading = false
     }
   },
   // mounted () {},
   created () {
     this.getVideos()
-    // if (this.currentCourseId !== this.courseId) {
-    // this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.$route.params.courseid)
-    // } else {
-    //   this.fillingInTheFields()
-    //   this.items[2].text = `${this.currentCourse.nameOfCourse}`
-    //   this.course = this.currentCourse
-    //   this.videos = this.currentCourseVideos
-    //   this.ready = true
-    // }
   }
 }
 </script>

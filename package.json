@@ -10,15 +10,11 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "nails-courses-card": "^0.0.8",
-    "nails-courses-card-detail": "^0.1.4",
     "nails-shop-card": "^0.0.4",
     "register-service-worker": "^1.7.1",
     "vue": "^2.6.11",
     "vue-core-video-player": "^0.2.0",
-    "vue-notification": "^1.3.20",
     "vue-router": "^3.2.0",
-    "vue-videojs7": "^0.1.5",
     "vuetify": "^2.2.11",
     "vuex": "^3.4.0"
   },

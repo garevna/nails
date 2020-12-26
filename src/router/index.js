@@ -136,11 +136,6 @@ const routes = [
         return next()
       } else {
         next({ name: 'sign-in' })
-        // Vue.notify({
-        //   group: 'foo',
-        //   type: 'error',
-        //   text: 'Please, sign in or create an account '
-        // })
       }
     }
   },

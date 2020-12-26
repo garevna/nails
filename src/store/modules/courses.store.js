@@ -72,10 +72,26 @@ const actions = {
       // commit('ERROR', errors.get, { root: true })
     }
   },
+  async POST_COURSE ({
+    getters,
+    commit,
+    dispatch
+  }, fd) {
+    const {
+      newOnlineCourse,
+      error
+    } = await postData(endpoints.new, fd)
+    if (!error) {
+      dispatch('GET_COURSES')
+      dispatch('GET_COURSE', newOnlineCourse._id)
+    } else {
+      // commit('ERROR', errors.get, { root: true })
+    }
+  },
   async PUT_COURSE ({ commit, dispatch }, { data, id }) {
     const { error } = await putData(`${endpoints.get}/${id}`, data)
     if (!error) {
-      commit('COURSE', data) // ?! <===
+      // commit('COURSE', data) // ?! <===
       dispatch('GET_COURSE', id)
     } else {
       // commit('ERROR', errors.get, { root: true })
@@ -101,9 +117,8 @@ const actions = {
   async POST_VIDEOS ({ commit, dispatch }, { fd, id }) {
     const { error } = await postData(`${endpoints.video}/${id}`, fd)
     if (!error) {
-      // commit('COURSE', data) // ?! <===
-      // dispatch('GET_COURSE', id)
-      // dispatch('GET_COURSES')
+      dispatch('GET_COURSE', id)
+      dispatch('GET_COURSES')
     } else {
       // commit('ERROR', errors.get, { root: true })
     }
@@ -123,21 +138,21 @@ const actions = {
       // commit('VIDEO', id)
     }
   },
-  async POST_COURSE ({ getters, commit, dispatch }, payload) {
-    const { newOnlineCourse, error } = await postData(
-      endpoints.newCourse,
-      payload.fd
-    )
-    if (!error) {
-      // dispatch('GET_COURSES', payload.userId)
-      // dispatch('GET_USER_COURSE_ID', newOnlineCourse._id)
-      dispatch('GET_COURSE', newOnlineCourse._id)
-      // commit('LOADING', false)
-    } else {
-      // commit('LOADING', false)
-      // commit('ERROR', error)
-    }
-  },
+  // async POST_VIDEOS ({ getters, commit, dispatch }, payload) {
+  //   const { newOnlineCourse, error } = await postData(
+  //     endpoints.video,
+  //     payload.fd
+  //   )
+  //   if (!error) {
+  //     // dispatch('GET_COURSES', payload.userId)
+  //     // dispatch('GET_USER_COURSE_ID', newOnlineCourse._id)
+  //     dispatch('GET_COURSE', newOnlineCourse._id)
+  //     // commit('LOADING', false)
+  //   } else {
+  //     // commit('LOADING', false)
+  //     // commit('ERROR', error)
+  //   }
+  // },
   async DELETE_VIDEO ({ getters, commit, dispatch }, { id, courseId }) {
     const { error } = await deleteData(`${endpoints.video}/${id}`)
     if (!error) {
@@ -145,8 +160,8 @@ const actions = {
     }
   },
   async ADD_PDF (
-    { getters, dispatch },
-    { fd, videoId, userId, currentCourseId }
+    { dispatch },
+    { fd, videoId, currentCourseId }
   ) {
     const { error } = await postData(`${endpoints.pdf}/${videoId}`, fd)
     if (!error) {
@@ -155,15 +170,16 @@ const actions = {
       // dispatch('GET_VIDEO_COURSE_ID', videoId)
       dispatch('GET_COURSES')
       dispatch('GET_COURSE', currentCourseId)
-      dispatch('GET_VIDEO', videoId)
+      // dispatch('GET_VIDEO', videoId)
+      dispatch('GET_FIND_VIDEO', videoId)
     }
   },
   async REMOVE_PDF (
     { getters, dispatch, commit },
-    { id, userId, videoId, currentCourseId }
+    { id, videoId, currentCourseId }
   ) {
     // commit('ERROR', null)
-    const { error } = await deleteData(`${getters.removePdfEndpoint}/${id}`)
+    const { error } = await deleteData(`${endpoints.pdf}/${id}`)
     if (!error) {
       // commit('ERROR', null)
       // dispatch('GET_COURSES', userId)
@@ -171,7 +187,7 @@ const actions = {
       // dispatch('GET_VIDEO_COURSE_ID', videoId)
       dispatch('GET_COURSES')
       dispatch('GET_COURSE', currentCourseId)
-      dispatch('GET_VIDEO', videoId)
+      dispatch('GET_FIND_VIDEO', videoId)
     } else {
       // commit('ERROR', error)
     }

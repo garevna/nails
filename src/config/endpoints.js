@@ -5,6 +5,6 @@ export default {
     newCourse: 'course/new/online',
     video: 'course/online/video',
     findVideo: 'course/online/findvideo',
-    pdf: 'ccourse/online/pdf'
+    pdf: 'course/online/pdf'
   }
 }

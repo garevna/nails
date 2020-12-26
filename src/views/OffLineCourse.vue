@@ -1,22 +1,10 @@
 <template>
   <v-container>
-    <CourseCardDetail
-      :category="offlineCourseById.category"
-      :days="offlineCourseById.days"
-      :nameOfCourse="offlineCourseById.nameOfCourse"
-      :subtitle="offlineCourseById.subtitle"
-      :price="offlineCourseById.price"
-      :author="offlineCourseById.author"
-      :instructor="offlineCourseById.instructor"
-      :infoBonus="offlineCourseById.infoBonus"
-      :courseSuitable="offlineCourseById.thisCourseIsSuitableFor"
-      :description="offlineCourseById.description"
-      :dateOfCourses="offlineCourseById.dateOfCourses"
-      :url="offlineCourseByIdImg"
-      :type="typeCourse"
-      :coverImageSrc="coverImageSrc"
-        btnTitle="APPLY"
-      :btnCallBack="btnCallBack"
+    <CourseDetail
+      v-if="offlineCourseById"
+      :course="offlineCourseById"
+      type="offline"
+      btnTitle="BUY THIS COURSE"
     />
   </v-container>
 </template>
@@ -24,15 +12,16 @@
 </style>
 <script>
 import { mapState } from 'vuex'
-import 'nails-courses-card-detail'
-import 'nails-courses-card-detail/dist/nails-courses-card-detail.css'
+
+import CourseDetail from '@/components/courses/CourseDetail.vue'
+
 export default {
-  name: 'course-offline',
+  name: 'OfflineCourse',
+  components: {
+    CourseDetail
+  },
   data () {
-    return {
-      coverImageSrc: require('@/assets/noImage.jpg'),
-      typeCourse: 'offline'
-    }
+    return {}
   },
   computed: {
     ...mapState('offlineCourses', ['offlineCourseById', 'offlineCourseByIdImg'])
@@ -43,7 +32,9 @@ export default {
     }
   },
   mounted () {
-    this.$store.dispatch('offlineCourses/GET_OFFLINE_COURSE_BY_ID', { id: this.$route.params.id })
+    this.$store.dispatch('offlineCourses/GET_OFFLINE_COURSE_BY_ID', {
+      id: this.$route.params.id
+    })
   },
   beforeDestroy () {
     this.$store.dispatch('offlineCourses/CLEAR_OFFLINE_COURSE_BY_ID')

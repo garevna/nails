@@ -268,10 +268,14 @@ export default {
       return this.validateFiles(validArray)
     },
     ...mapState('auth', ['user']),
-    ...mapState('userCourses', ['currentCourseVideos', 'loading', 'uploading'])
+    // ...mapState('userCourses', ['currentCourseVideos', 'loading', 'uploading'])
+    ...mapState('courses', ['courses']),
+    videos () {
+      return this?.courses?.videos ?? []
+    }
   },
   watch: {
-    currentCourseVideos (videos) {
+    videos (videos) {
       if (!videos) return
       this.$router.push({
         name: 'user-course',
@@ -330,9 +334,9 @@ export default {
       }
       return emty
     },
-    sendData () {
+    async sendData () {
       const dataArr = this.filteredData(this.uploadFiles)
-      dataArr.forEach((obj, index) => {
+      dataArr.forEach(async (obj, index) => {
         const fd = new FormData()
         Object.entries(obj).forEach(([name, value]) => {
           if (Array.isArray(obj[name])) {
@@ -345,7 +349,8 @@ export default {
           }
         })
         if (this.$refs[`form${index}`][0].validate()) {
-          this.$store.dispatch('userCourses/CREATE_VIDEOS_COURSE', { id: this.courseId, fd, userId: this.user._id })
+          await this.$store.dispatch('courses/POST_VIDEOS', { id: this.courseId, fd })
+          // delete watcher videos & add
         }
       })
     },

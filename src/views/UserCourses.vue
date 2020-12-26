@@ -1,20 +1,6 @@
 <template>
   <v-container fluid>
     <v-row class="d-flex justify-center">
-      <!-- <v-col cols="12" xs="12" class="d-flex justify-start">
-        <v-breadcrumbs :items="items">
-          <template v-slot:item="{ item }">
-            <v-breadcrumbs-item :disabled="item.disabled">
-              <router-link
-                :to="item.href"
-                :class="{ 'disabled-link': item.disabled }"
-              >
-                {{ item.text.toUpperCase() }}</router-link
-              >
-            </v-breadcrumbs-item>
-          </template>
-        </v-breadcrumbs>
-      </v-col> -->
       <v-col cols="12" xs="12" v-if="loading">
         <Spinner />
       </v-col>
@@ -30,8 +16,10 @@
         :key="course._id"
       >
         <v-card @click="goToCourse(course._id)">
-          <v-card-title class="d-flex justify-center py-4"
-            style="position:relative;"><h2>{{ course.nameOfCourse }}</h2>
+          <v-card-title
+            class="d-flex justify-center py-4"
+            style="position: relative"
+            ><h2>{{ course.nameOfCourse }}</h2>
             <div v-if="!course.isPaid" class="figure1">
               <h5 class="figure-text1">not paid</h5>
             </div>
@@ -39,7 +27,7 @@
               <h5 class="figure-text2">not published</h5>
             </div></v-card-title
           >
-          <CoverImage :url="checkUrl(course)" :height="300" />
+          <CoverImage :url="linkCheck(course)" :height="300" />
           <v-card-actions class="d-flex justify-end">
             <v-btn
               rounded
@@ -93,8 +81,9 @@ import { mapState } from 'vuex'
 
 import CoverImage from '@/components/CoverImage.vue'
 import Spinner from '@/components/Spinner.vue'
-
+import checkCourseLink from '@/helpers/checkCourseLink'
 export default {
+  name: 'UserCourses',
   components: {
     CoverImage,
     Spinner
@@ -105,20 +94,7 @@ export default {
       dialog: false,
       deleteId: null,
       imageUrl: null,
-      errorLoad: false,
-      coverImageSrc: require('@/assets/noImage.jpg')
-      // items: [
-      //   {
-      //     text: '',
-      //     disabled: false,
-      //     href: '/user-cabinet'
-      //   },
-      //   {
-      //     text: '',
-      //     disabled: true,
-      //     href: '/user-courses'
-      //   }
-      // ]
+      errorLoad: false
     }
   },
   computed: {
@@ -129,34 +105,14 @@ export default {
       return !this.loading && !this.courses.length
     }
   },
-  // watch: {
-  //   user (newVal) {
-  //     if (!newVal) return
-  //     this.fillingInTheFields()
-  //   }
-  // },
   methods: {
+    // checkCourseLink: required('@/helpers/checkCourseLink').default,
+    linkCheck (course) {
+      return checkCourseLink(course)
+    },
     canselHandler () {
       this.dialog = false
       this.deleteId = null
-    },
-    // fillingInTheFields () {
-    //   if (!this.user) return
-    //   this.items[0].text = `${this.user.firstName} cabinet`
-    //   this.items[1].text = `${this.user.firstName} courses`
-    //   if (!this.userCourses) {
-    //     this.$store.dispatch('userCourses/GET_USER_COURSES', this.user._id)
-    //   }
-    // },
-    checkUrl (card) { // ?! <==
-      let img
-      if (card.photo && Array.isArray(card.photo) && card.photo.length) {
-        img = card.photo[0].link
-      }
-      if (!img) {
-        img = this.coverImageSrc
-      }
-      return img
     },
     async deleteCourse () {
       await this.$store.dispatch('courses/DELETE_COURSE', this.deleteId)
@@ -180,10 +136,8 @@ export default {
   created () {
     this.getCourses()
   },
-  mounted () {
-  },
-  beforeMount () {
-  }
+  mounted () {},
+  beforeMount () {}
 }
 </script>
 

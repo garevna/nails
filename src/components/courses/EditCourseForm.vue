@@ -2,19 +2,19 @@
   <v-container>
     <v-row>
       <v-col cols="12" xs="12" md="7">
-        <v-btn @click="back">back</v-btn>
+        <!-- <v-btn @click="back">back</v-btn> -->
         <v-form ref="form">
           <v-row>
             <v-col cols="12" xs="12" md="6">
               <v-text-field
-                v-model="category"
+                v-model="courseData.category"
                 :rules="[rules.required]"
                 label="Category"
                 outlined
                 dark
               ></v-text-field>
               <v-text-field
-                v-model="nameOfCourse"
+                v-model="courseData.nameOfCourse"
                 :rules="[rules.required]"
                 label="Name of Course"
                 outlined
@@ -24,23 +24,23 @@
               ></v-text-field>
 
               <v-text-field
-                v-model="subtitle"
+                v-model="courseData.subtitle"
                 :rules="[rules.required]"
                 label="Subtitle"
                 outlined
                 dark
-                :counter="32"
-                maxlength="32"
+                :counter="40"
+                maxlength="40"
               ></v-text-field>
               <div v-if="typeCourse === 'offline'">
                 <div
-                  v-for="(textField, i) in dateOfCourses"
+                  v-for="(textField, i) in courseData.dateOfCourses"
                   :key="i"
                   class="d-flex input-container"
                 >
                   <v-text-field
-                    :label="labelDateOfCourse"
-                    v-model="dateOfCourses[i]"
+                    label="date of the course"
+                    v-model="courseData.dateOfCourses[i]"
                     :rules="[rules.required]"
                     outlined
                     dark
@@ -60,7 +60,7 @@
                 </div>
                 <v-text-field
                   label="available spots"
-                  v-model="availableSpots"
+                  v-model="courseData.availableSpots"
                   :rules="[rules.required, rules.onlyDigits]"
                   outlined
                   dark
@@ -68,14 +68,14 @@
               </div>
 
               <v-text-field
-                v-model="days"
+                v-model="courseData.accessDays"
                 :rules="[rules.required, rules.onlyDigits]"
                 label="Access (days)"
                 outlined
                 dark
               ></v-text-field>
               <v-text-field
-                v-model="price"
+                v-model="courseData.price"
                 :rules="[rules.required, rules.onlyDigits]"
                 label="price"
                 outlined
@@ -84,34 +84,34 @@
             </v-col>
             <v-col cols="12" xs="12" md="6">
               <v-text-field
-                v-model="author"
+                v-model="courseData.author"
                 :rules="[rules.required]"
                 label="Author"
                 outlined
                 dark
               ></v-text-field>
               <v-text-field
-                v-model="instructor"
+                v-model="courseData.instructor"
                 :rules="[rules.required]"
                 label="Instructor"
                 outlined
                 dark
               ></v-text-field>
               <v-text-field
-                v-model="infoBonus"
+                v-model="courseData.infoForBonus"
                 :rules="[rules.required]"
                 label="Info for bonus"
                 outlined
                 dark
               ></v-text-field>
               <div
-                v-for="(textField, i) in courseSuitable"
+                v-for="(textField, i) in courseData.thisCourseIsSuitableFor"
                 :key="i"
                 class="d-flex input-container"
               >
                 <v-text-field
-                  :label="labelForSuitable"
-                  v-model="courseSuitable[i]"
+                  label="this course is suitable for"
+                  v-model="courseData.thisCourseIsSuitableFor[i]"
                   :rules="[rules.required]"
                   outlined
                   dark
@@ -131,7 +131,7 @@
               </div>
 
               <v-textarea
-                v-model="description"
+                v-model="courseData.description"
                 :rules="[rules.required]"
                 label="Description"
                 outlined
@@ -139,14 +139,12 @@
                 no-resize
               ></v-textarea>
               <v-file-input
-                v-model="file"
+                v-model="courseData.photo"
                 color="deep-purple accent-4"
                 label="Cover picture"
-                placeholder="Select your file"
                 prepend-icon="mdi-paperclip"
                 outlined
                 dark
-                @change="Preview_image"
                 :show-size="1000"
               ></v-file-input>
               <v-btn
@@ -160,7 +158,7 @@
                 @click="cancelHandler"
                 >cancel</v-btn
               >
-               <v-btn
+              <v-btn
                 color="buttons"
                 rounded
                 outlined
@@ -189,7 +187,7 @@
         order-sm="2"
 
       > -->
-        <CourseCard
+        <!-- <CourseCard
           :accessDays="days"
           :url="url"
           :name="nameOfCourse"
@@ -197,83 +195,48 @@
           :price="price"
           :type="typeCourse"
           :coverImageSrc="coverImageSrc"
-        />
+        /> -->
+         <CourseCard :course="courseData" type="online" />
       </v-col>
-      <CourseCardDetail
-        :category="category"
-        :days="days"
-        :nameOfCourse="nameOfCourse"
-        :subtitle="subtitle"
-        :price="price"
-        :author="author"
-        :instructor="instructor"
-        :infoBonus="infoBonus"
-        :courseSuitable="courseSuitable"
-        :description="description"
-        :dateOfCourses="dateOfCourses"
-        :url="url"
-        :type="typeCourse"
-        :coverImageSrc="coverImageSrc"
-        :btnTitle="typeCourse === 'online' ? 'APPLY' : 'BY THIS COURSE'"
+      <CourseDetail
+        v-if="course"
+        :course="courseData"
+        type="online"
+        btnTitle="BUY THIS COURSE"
       />
     </v-row>
   </v-container>
 </template>
 <style scoped></style>
 <script>
-import {
-  VContainer,
-  VRow,
-  VCol,
-  VTextField,
-  VForm,
-  VBtn,
-  VTextarea,
-  VFileInput,
-  VIcon
-} from 'vuetify/lib'
-
-import 'nails-courses-card'
-import 'nails-courses-card-detail'
-
-import 'nails-courses-card-detail/dist/nails-courses-card-detail.css'
-import 'nails-courses-card/dist/nails-courses-card.css'
+import CourseCard from '@/components/courses/CourseCard.vue'
+import CourseDetail from '@/components/courses/CourseDetail.vue'
 
 export default {
+  name: 'EditCourseForm',
   components: {
-    VContainer,
-    VRow,
-    VCol,
-    VTextField,
-    VForm,
-    VBtn,
-    VTextarea,
-    VFileInput,
-    VIcon
+    CourseDetail,
+    CourseCard
   },
-  name: 'course-form',
-  props: ['typeCourse', 'course', 'back', 'coverImageSrc', 'editCourseById'],
+
+  props: ['typeCourse', 'course', 'back'],
   data () {
     return {
-      category: '',
-      nameOfCourse: '',
-      subtitle: '',
-      days: '',
-      price: '',
-      author: '',
-      instructor: '',
-      infoBonus: '',
-      labelForSuitable: 'This course is suitable for',
-      description: '',
-      file: [],
-      dateOfCourses: [''],
-      availableSpots: '',
-      courseSuitable: [''],
-      labelDateOfCourse: 'date of the course',
-      // labelAvailableSpots: "available spots",
-      url: null,
-      type: '',
-      copyDateOfCourses: null,
+      courseData: {
+        category: '',
+        nameOfCourse: '',
+        subtitle: '',
+        accessDays: '',
+        price: '',
+        author: '',
+        instructor: '',
+        infoForBonus: '',
+        description: '',
+        photo: null,
+        dateOfCourses: [''],
+        availableSpots: '',
+        thisCourseIsSuitableFor: ['']
+      },
       rules: {
         required: v => !!v || 'input is required',
         minLengthName: v =>
@@ -282,12 +245,8 @@ export default {
       }
     }
   },
-  watch: {
-  },
+  watch: {},
   methods: {
-    Preview_image () {
-      this.url = URL.createObjectURL(this.file)
-    },
     checkForm () {
       if (this.$refs.form.validate()) {
         this.submitHandler()
@@ -295,75 +254,76 @@ export default {
     },
     addField (entryField) {
       return entryField
-        ? this.courseSuitable.push('')
-        : this.dateOfCourses.push('')
+        ? this.courseData.thisCourseIsSuitableFor.push('')
+        : this.courseData.dateOfCourses.push('')
     },
     removeField (index, entryField) {
       return entryField
-        ? this.courseSuitable.splice(index, 1)
-        : this.dateOfCourses.splice(index, 1)
+        ? this.courseData.thisCourseIsSuitableFor.splice(index, 1)
+        : this.courseData.dateOfCourses.splice(index, 1)
     },
-
-    // async editCourse (id) {
-    //   this.currentCourse = await this.getCourseID(id)
-    // },
-
     cancelHandler () {
       this.back()
     },
-    submitHandler () {
-      const data = {
-        category: this.category,
-        nameOfCourse: this.nameOfCourse,
-        subtitle: this.subtitle,
-        accessDays: Number(this.days),
-        price: Number(this.price),
-        author: this.author,
-        instructor: this.instructor,
-        infoForBonus: this.infoBonus,
-        description: this.description,
-        file: this.file
+    fillingForm () {
+      if (this.course) {
+        Object.keys(this.courseData).forEach(key => {
+          this.courseData[key] = this.course[key]
+        })
       }
-      const formData = new FormData()
-
-      Object.entries(data).forEach(([name, value]) =>
-        formData.append(name, value)
-      )
-
-      this.courseSuitable.forEach(item =>
-        formData.append('thisCourseIsSuitableFor[]', item)
-      )
-
-      this.editCourseById(formData)
-      // this.resetData();
+    },
+    async submitHandler () {
+      const {
+        dateOfCourses,
+        thisCourseIsSuitableFor,
+        ...rest
+      } = this.courseData
+      const fd = new FormData()
+      Object.entries(rest).forEach(([name, value]) => {
+        if (value) {
+          if (value instanceof File) fd.append('file', value)
+          else if (typeof value !== 'object') fd.append(name, value)
+        }
+      })
+      dateOfCourses && dateOfCourses.forEach(str => {
+        if (str) {
+          fd.append('dateOfCourses[]', str)
+        }
+      })
+      thisCourseIsSuitableFor.forEach(str => {
+        if (str) {
+          fd.append('thisCourseIsSuitableFor[]', str)
+        }
+      })
+      if (!this.course) {
+        await this.$store.dispatch('courses/CREATE_OFFLINE_COURSE', fd)
+        if (!this.error) {
+          this.$router.push({
+            name: 'offline-course',
+            params: {
+              // eslint-disable-next-line no-underscore-dangle
+              courseid: this.newOfflineCourse._id
+            }
+          })
+        }
+      } else {
+        await this.$store.dispatch('courses/PUT_COURSE', {
+          data: fd,
+          // eslint-disable-next-line no-underscore-dangle
+          id: this.course._id
+        })
+      }
     }
   },
   mounted () {
-    this.category = this.course.category
-    this.nameOfCourse = this.course.nameOfCourse
-    this.subtitle = this.course.subtitle
-    this.days = this.course.accessDays
-    this.price = this.course.price
-    this.author = this.course.author
-    this.instructor = this.course.instructor
-    this.infoBonus = this.course.infoForBonus
-    this.description = this.course.description
-    this.url = this.course.photo[0].link
-    // this.dateOfCourses = Array.from(this.copyDateOfCourses);
-    // this.availableSpots = this.currentCourse.availableSpots;
-    this.courseSuitable = this.course.thisCourseIsSuitableFor
+    this.fillingForm()
   },
 
   created () {
-    // if (this.idCourse) {
-    //   this.editCourse(this.idCourse)
-    // } else {
-    //   this.resetData()
-    // }
-    window.onbeforeunload = () => 'Are you sure you want to leave?'
+    // window.onbeforeunload = () => 'Are you sure you want to leave?'
   },
   beforeDestroy () {
-    window.onbeforeunload = () => null
+    // window.onbeforeunload = () => null
   }
 }
 </script>

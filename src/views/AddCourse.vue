@@ -191,7 +191,6 @@
               small
               dark
               min-width="90"
-              :disabled="loading"
               class="yellow-button mt-4"
               @click="checkForm"
               >submit</v-btn
@@ -250,10 +249,11 @@ export default {
   },
   computed: {
     ...mapState('auth', ['user']),
-    ...mapState('userCourses', ['currentCourseId', 'loading'])
+    // ...mapState('userCourses', ['currentCourseId', 'loading'])
+    ...mapState('courses', ['course'])
   },
   watch: {
-    currentCourseId (id) {
+    course (id) {
       if (!id) return
       this.$router.push({
         name: 'add-course-videos',
@@ -300,7 +300,7 @@ export default {
           fd.append(name, value)
         }
       })
-      this.$store.dispatch('userCourses/CREATE_ONLINE_COURSE', { fd, userId: this.user._id })
+      this.$store.dispatch('courses/POST_COURSE', fd)
     },
     checkForm () {
       if (this.$refs.form.validate()) {

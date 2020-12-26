@@ -15,16 +15,6 @@
       </v-main>
       <Footer />
     </v-container>
-    <!-- <notifications group="foo" position="top center" /> -->
-    <v-snackbar v-model="snackbar" :timeout="timeout" :color="color" top>
-      {{ text }}
-
-      <template v-slot:action="{ attrs }" text>
-        <v-btn text v-bind="attrs" @click="snackbar = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn></template
-      >
-    </v-snackbar>
   </v-app>
 </template>
 
@@ -93,20 +83,6 @@ a {
 }
 </style>
 <style lang="scss">
-// .vue-notification {
-//   background-color: #fa0 !important;
-//   padding: 5px;
-//   margin: 10px 0 0 0;
-//   font-size: 16px;
-//   border-left: none;
-//   text-align: center;
-//   border-radius: 5px;
-//   font-family: "Archivo Narrow" !important;
-//   font-weight: 700;
-//   &.error {
-//     background: #e54d42;
-//   }
-// }
 </style>
 
 <script>
@@ -130,10 +106,6 @@ export default {
   },
   data () {
     return {
-      snackbar: false,
-      text: '',
-      timeout: 8000,
-      color: 'green',
       maimMenuShowInRouteNames: [
         'home',
         'add-course',
@@ -148,37 +120,11 @@ export default {
   },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState('auth', ['authError']),
-    ...mapState('userCourses', ['userCoursesError']),
     layout () {
       return `${this.$route.meta?.layout || 'default'}-layout`
     }
   },
   watch: {
-    authError (val) {
-      if (val) {
-        // this.$notify({
-        //   group: 'foo',
-        //   type: 'error',
-        //   text: val
-        // })
-        this.snackbar = true
-        this.text = val
-        this.color = 'red'
-      }
-    },
-    userCoursesError (val) {
-      if (val) {
-        // this.$notify({
-        //   group: 'foo',
-        //   type: 'error',
-        //   text: val
-        // })
-        this.snackbar = true
-        this.text = val
-        this.color = 'red'
-      }
-    }
   },
   methods: {
     onResize () {

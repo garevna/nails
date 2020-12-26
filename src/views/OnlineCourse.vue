@@ -1,23 +1,10 @@
 <template>
   <v-container>
-    <CourseCardDetail
+    <CourseDetail
       v-if="course"
-      :category="course.category"
-      :days="course.days"
-      :nameOfCourse="course.nameOfCourse"
-      :subtitle="course.subtitle"
-      :price="course.price"
-      :author="course.author"
-      :instructor="course.instructor"
-      :infoBonus="course.infoBonus"
-      :courseSuitable="course.thisCourseIsSuitableFor"
-      :description="course.description"
-      :dateOfCourses="course.dateOfCourses"
-      :url="course.photo[0].link"
-      :type="typeCourse"
-      :coverImageSrc="coverImageSrc"
-        btnTitle="BUY THIS COURSE"
-      :btnCallBack="btnCallBack"
+      :course="course"
+      type="online"
+      btnTitle="BUY THIS COURSE"
     />
   </v-container>
 </template>
@@ -25,15 +12,16 @@
 </style>
 <script>
 import { mapState } from 'vuex'
-import 'nails-courses-card-detail'
-import 'nails-courses-card-detail/dist/nails-courses-card-detail.css'
+
+import CourseDetail from '@/components/courses/CourseDetail.vue'
+
 export default {
-  name: 'course-online',
+  name: 'OnlineCourse',
+  components: {
+    CourseDetail
+  },
   data () {
-    return {
-      coverImageSrc: require('@/assets/noImage.jpg'),
-      typeCourse: 'online'
-    }
+    return {}
   },
   computed: {
     ...mapState('courses', [

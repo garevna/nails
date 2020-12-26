@@ -26,14 +26,13 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  props: ['currentCourseId', 'videoId', 'user'],
+  props: ['currentCourseId', 'videoId'],
   data () {
     return {
       pdfFile: null
     }
   },
   computed: {
-    // ...mapState('userCourses', ['currentVideo']),
     ...mapState('courses', [
       // 'courses',
       'course',
@@ -41,14 +40,13 @@ export default {
       'video'
     ]),
     pdfs () {
-      return this.course.pdfs
-      // return this.currentVideo.pdfs
+      return this.video.pdfs
     }
   },
   methods: {
     removePdf (id) {
       if (id) {
-        this.$store.dispatch('userCourses/REMOVE_PDF', { id, videoId: this.videoId, userId: this.user._id, currentCourseId: this.currentCourseId })
+        this.$store.dispatch('courses/REMOVE_PDF', { id, videoId: this.videoId, currentCourseId: this.currentCourseId })
       }
     },
     addPdf () {
@@ -56,7 +54,7 @@ export default {
         const fd = new FormData()
         fd.append('file', this.pdfFile)
 
-        this.$store.dispatch('userCourses/ADD_PDF', { fd, videoId: this.videoId, userId: this.user._id, currentCourseId: this.currentCourseId })
+        this.$store.dispatch('courses/ADD_PDF', { fd, videoId: this.videoId, currentCourseId: this.currentCourseId })
       }
     }
   }

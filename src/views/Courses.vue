@@ -12,7 +12,7 @@ h2 {
 </style>
 
 <script>
-import Courses from '@/components/Courses/Courses.vue'
+import Courses from '@/components/courses/Courses.vue'
 
 export default {
   name: 'courses',

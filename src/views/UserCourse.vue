@@ -1,45 +1,16 @@
 <template>
   <div>
-    <!-- <v-breadcrumbs :items="items">
-      <template v-slot:item="{ item }">
-        <v-breadcrumbs-item :disabled="item.disabled">
-          <router-link
-            :to="item.href"
-            :class="{ 'disabled-link-dark': item.disabled }"
-          >
-            {{ item.text.toUpperCase() }}</router-link
-          >
-        </v-breadcrumbs-item>
-      </template>
-    </v-breadcrumbs> -->
-    <CourseCardDetail
+    <CourseDetail
       v-if="course && !showForm"
-      :category="course.category"
-      :days="course.accessDays"
-      :nameOfCourse="course.nameOfCourse"
-      :subtitle="course.subtitle"
-      :price="course.price"
-      :author="course.author"
-      :instructor="course.instructor"
-      :infoBonus="course.infoBonus"
-      :courseSuitable="course.thisCourseIsSuitableFor"
-      :description="course.description"
-      :dateOfCourses="course.dateOfCourses"
-      :url="checkUrl(course)"
-      :type="typeCourse"
-      :coverImageSrc="coverImageSrc"
+      :course="course"
+      type="online"
       btnTitle="BUY THIS COURSE"
-      :btnCallBack="null"
-      :isPaid="course.isPaid"
-      :isPublished="course.isPublished"
     />
     <EditCourseForm
       v-if="showForm"
-      :editCourseById="editCourseById"
-      :typeCourse="typeCourse"
+      typeCourse="online"
       :course="course"
       :back="backForm"
-      :coverImageSrc="coverImageSrc"
     />
     <div class="d-flex flex-column align-center flex-sm-row justify-sm-center mt-8">
       <v-btn
@@ -70,80 +41,30 @@
 
 <script>
 import { mapState } from 'vuex'
-import 'nails-courses-card-detail'
-import 'nails-courses-card-detail/dist/nails-courses-card-detail.css'
-import EditCourseForm from '@/components/Courses/EditCourseForm.vue'
+
+import CourseDetail from '@/components/courses/CourseDetail.vue'
+import EditCourseForm from '@/components/courses/EditCourseForm.vue'
+
 export default {
   components: {
-    EditCourseForm
+    EditCourseForm,
+    CourseDetail
   },
   data () {
     return {
-      // courseId: this.$route.params.courseid,
-      // course: null,
-      // ready: false,
-      typeCourse: 'online',
-      showForm: false,
-      coverImageSrc: require('@/assets/noImage.jpg') // ?! <===
-      // items: [
-      //   {
-      //     text: '',
-      //     disabled: false,
-      //     href: '/user-cabinet'
-      //   },
-      //   {
-      //     text: '',
-      //     disabled: false,
-      //     href: '/user-cabinet/courses'
-      //   },
-      //   {
-      //     text: '',
-      //     disabled: true,
-      //     href: '#'
-      //   }
-      // ]
+      showForm: false
     }
   },
   computed: {
-    // ...mapState('userCourses', [
-    //   'userCourses',
-    //   'currentCourse',
-    //   'currentCourseId'
-    // ]),
     ...mapState('courses', ['courses', 'course', 'videos', 'video'])
-    // ...mapState('auth', ['user'])
   },
   watch: {
-    // user (newVal) {
-    //   this.fillingInTheFields()
-    // }
-    // course (val) {
-    //   this.items[2].text = `${val.nameOfCourse}`
-    // },
-    // currentCourse (course) {
-    //   if (!course) return
-    //   // this.course = course
-    //   this.showForm = false
-    //   this.ready = true
-    // }
+    course (val) {
+      if (!val) return
+      this.showForm = false
+    }
   },
   methods: {
-    checkUrl (card) {
-      let img
-      if (card.photo && Array.isArray(card.photo) && card.photo.length) {
-        img = card.photo[0].link
-      }
-      if (!img) {
-        img = this.coverImageSrc
-      }
-      return img
-    },
-    // fillingInTheFields () {
-    //   if (!this.user) return
-    //   this.items[0].text = `${this.user.firstName} cabinet`
-    //   this.items[1].text = `${this.user.firstName} courses`
-    //   // this.items[2].text = `${this.course.nameOfCourse}`
-    // },
     editCourseById (data) {
       this.$store.dispatch('userCourses/PUT_USER_COURSE_ID', {
         data,
@@ -164,15 +85,6 @@ export default {
   },
   created () {
     this.getCourse()
-    // this.fillingInTheFields()
-    // this.getCourseById()
-    if (this.currentCourseId !== this.courseId) {
-      // this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId)
-    } else {
-      // this.items[2].text = `${this.currentCourse.nameOfCourse}`
-      // this.course = this.currentCourse
-      // this.ready = true
-    }
   }
 }
 </script>

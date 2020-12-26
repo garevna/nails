@@ -1,10 +1,10 @@
 <template>
   <div class="header-container homefone">
-    <v-progress-linear
+    <!-- <v-progress-linear
       v-if="uploading"
       indeterminate
       color="yellow darken-2"
-    ></v-progress-linear>
+    ></v-progress-linear> -->
     <v-app-bar
       app
       color="#FFC44A"
@@ -169,7 +169,6 @@ export default {
   }),
   computed: {
     ...mapState('shop', ['categories']),
-    ...mapState('userCourses', ['uploading']),
     burgerMenuClassFirst () {
       return this.panel === 0
         ? 'burger-menu-active--first'
@@ -180,10 +179,6 @@ export default {
         ? 'burger-menu-active--second'
         : 'burger-menu--second'
     }
-
-    // backgroundColor () {
-    //   return this.$vuetify.theme.themes.light.homefone
-    // }
   },
   methods: {
     goHome () {
