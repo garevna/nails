@@ -80,10 +80,11 @@ const actions = {
     const {
       newOnlineCourse,
       error
-    } = await postData(endpoints.new, fd)
+    } = await postData(endpoints.newCourse, fd)
     if (!error) {
       dispatch('GET_COURSES')
-      dispatch('GET_COURSE', newOnlineCourse._id)
+      // dispatch('GET_COURSE', newOnlineCourse._id)
+      commit('COURSE', newOnlineCourse)
     } else {
       // commit('ERROR', errors.get, { root: true })
     }
@@ -91,8 +92,8 @@ const actions = {
   async PUT_COURSE ({ commit, dispatch }, { data, id }) {
     const { error } = await putData(`${endpoints.get}/${id}`, data)
     if (!error) {
-      // commit('COURSE', data) // ?! <===
-      dispatch('GET_COURSE', id)
+      commit('VIDEO', data) // ?! <===
+      // dispatch('GET_COURSE', id)
     } else {
       // commit('ERROR', errors.get, { root: true })
     }
@@ -104,12 +105,19 @@ const actions = {
       // dispatch('GET_COURSES', userId)
     }
   },
+  async BUY_COURSE ({ getters, commit, dispatch }, payload) {
+    const response = await postData(endpoints.buyCourse, payload)
+    if (!response.error) {
+      console.log(response)
+      //
+    }
+  },
   // !==========================================================================
   async PUT_VIDEO ({ commit, dispatch }, { fd, id }) {
     const { error } = await putData(`${endpoints.video}/${id}`, fd)
     if (!error) {
       // commit('COURSE', data) // ?! <===
-      // dispatch('GET_VIDEO', id)
+      dispatch('GET_FIND_VIDEO', id)
     } else {
       // commit('ERROR', errors.get, { root: true })
     }

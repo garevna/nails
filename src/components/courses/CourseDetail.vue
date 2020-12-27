@@ -128,12 +128,21 @@ export default {
     }
   },
   watch: {},
-  computed: {},
+  computed: {
+  },
   methods: {
     linkCheck (course) {
       return checkCourseLink(course)
     },
     btnHandler () {
+      if (!this.$route.fullPath.includes('user-cabinet')) {
+        this.$router.push({
+          name: this.type === 'online' ? 'personal-data' : 'personal-data-off',
+          params: {
+            courseid: this.course._id
+          }
+        })
+      }
     }
   }
 }

@@ -24,7 +24,7 @@
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
         <CoverImage :url="linkCheck(video)" :height="500" />
         <v-card flat class="d-flex justify-center mt-16">
-          <VideoPdfs :currentCourseId="courseId" :videoId="videoId" />
+          <VideoPdfs/>
         </v-card>
       </v-col>
       <v-col cols="12" v-if="!showForm" xs="12">
@@ -41,9 +41,9 @@
       </v-col>
       <v-col v-if="showForm" cols="12" xs="12">
         <v-form ref="form">
-          <v-text-field label="name of video" v-model="nameOfVideo" outlined />
-          <v-textarea label="description" v-model="description" outlined />
-          <v-file-input v-model="imgFile" label="add cover image " outlined />
+          <v-text-field label="name of video" v-model="videoData.name" outlined />
+          <v-textarea label="description" v-model="videoData.description" outlined />
+          <v-file-input v-model="videoData.imgFile" label="add cover image " outlined />
         </v-form>
         <div
           class="d-flex flex-column align-center flex-sm-row justify-sm-center"
@@ -80,23 +80,26 @@ import VideoPdfs from '@/components/courses/VideoPdfs.vue'
 import checkVideoLink from '@/helpers/checkVideoLink'
 
 export default {
-  name: 'UserCourseDatailVideo',
+  name: 'UserCourseDetailVideo',
   components: {
     CoverImage,
     VideoPdfs
   },
   data () {
     return {
-      courseId: this.$route.params.courseid,
-      videoId: this.$route.params.videoid,
+      // courseId: this.$route.params.courseid,
+      // videoId: this.$route.params.videoid,
       // Video: null,
       // course: null,
       loading: false,
       volume: 0,
       showForm: false,
-      nameOfVideo: '',
-      description: '',
-      imgFile: null
+      videoData: {
+        name: '',
+        description: '',
+        imgFile: null
+      }
+
     }
   },
   computed: {
@@ -108,7 +111,12 @@ export default {
     ])
     // ...mapState('auth', ['user'])
   },
-  watch: {},
+  watch: {
+    showForm (val) {
+      if (!val) return
+      this.fillingFields()
+    }
+  },
   methods: {
     linkCheck (video) {
       return checkVideoLink(video)
@@ -121,16 +129,23 @@ export default {
       // this.pdfFiles = new Array(3).fill(null)
       this.showForm = false
     },
-    sendData () {
-      const data = {
-        name: this.nameOfVideo,
-        description: this.description,
-        imgFile: this.imgFile
+    fillingFields () {
+      if (this.video) {
+        Object.keys(this.videoData).forEach(key => {
+          this.videoData[key] = this.video[key]
+        })
       }
+    },
+    sendData () {
+      // const data = {
+      //   name: this.nameOfVideo,
+      //   description: this.description,
+      //   imgFile: this.imgFile
+      // }
       const fd = new FormData()
-      Object.entries(data).forEach(([name, value]) => {
+      Object.entries(this.videoData).forEach(([name, value]) => {
         if (Array.isArray(value)) {
-          Object.values(data[name]).forEach(value => {
+          Object.values(this.videoData[name]).forEach(value => {
             if (value) fd.append('files', value)
           })
         } else {
@@ -140,9 +155,9 @@ export default {
           }
         }
       })
-      this.$store.dispatch('userCourses/PUT_CURRENT_VIDEO', {
+      this.$store.dispatch('courses/PUT_VIDEO', {
         fd,
-        id: this.videoId
+        id: this.$route.params.videoid
       })
       // this.clearFormInputs()
       this.showForm = false

@@ -10,17 +10,13 @@
       <v-col cols="12" xs="12" v-if="!ready">
         <Spinner />
       </v-col>
-      <v-col
-        cols="12"
-        xs="12"
-        sm="6"
-        lg="4"
-        v-for="video in videos"
-        :key="video._id"
-      >
+      <v-col v-if="videos && !showForm" cols="12" xs="12" class="d-flex justify-center flex-wrap">
         <v-card
-          v-if="videos && !showForm"
-          class="my-8"
+        width="500"
+        height="400"
+          v-for="video in videos"
+          :key="video._id"
+          class="ma-4"
           @click="goToDetailVideo(video._id)"
         >
           <v-card-title class="d-flex justify-center"
@@ -28,7 +24,7 @@
               {{ video.name }}
             </h2></v-card-title
           >
-          <CoverImage :url="linkCheck(video)" :height="350" />
+          <CoverImage :url="linkCheck(video)" :height="250" />
           <v-card-actions class="d-flex justify-end">
             <v-btn
               rounded
@@ -37,8 +33,8 @@
               min-width="160"
               class="yellow-button"
               @click.stop="
-                dialog = true
-                deleteId = video._id
+                dialog = true;
+                deleteId = video._id;
               "
               >Delete</v-btn
             >
@@ -240,8 +236,7 @@ export default {
       return !this.showForm && this.videos.length < 5
     }
   },
-  watch: {
-  },
+  watch: {},
   methods: {
     linkCheck (video) {
       return checkVideoLink(video)
@@ -294,7 +289,7 @@ export default {
         // })
         this.$store.dispatch('courses/POST_VIDEOS', {
           fd,
-          id: this.courseId
+          id: this.$route.params.courseid
         })
         this.clearFormInputs()
       }

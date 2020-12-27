@@ -108,7 +108,7 @@ export default {
       if (this.detailInfo) this.detailInfo(route, this.course._id)
     },
     payDetailForm () {
-      if (this.payDetail) this.payDetail()
+      if (this.payDetail) this.payDetail(this.type, this.course._id)
     }
   }
 }

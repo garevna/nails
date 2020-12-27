@@ -12,7 +12,7 @@
             dark
           ></v-text-field>
         </v-col>
-        <v-col cols="12" offset-sm="2" sm="8" offset-md="3" md="6">
+        <!-- <v-col cols="12" offset-sm="2" sm="8" offset-md="3" md="6">
           <v-text-field
             v-model="phone"
             :rules="[rules.required, rules.phoneValidation]"
@@ -29,7 +29,7 @@
             outlined
             dark
           ></v-text-field>
-        </v-col>
+        </v-col> -->
         <v-col cols="12" offset-sm="2" sm="8" offset-md="3" md="6">
           <v-textarea v-model="message" label="Message" outlined dark no-resize></v-textarea>
         </v-col>
@@ -84,11 +84,12 @@ export default {
 
   methods: {
     sendData () {
-      this.$store.dispatch('', {
-        fullName: this.fullName,
+      this.$store.dispatch('courses/BUY_COURSE', {
+        // fullName: this.fullName,
         email: this.email,
-        phone: this.phone,
-        message: this.message
+        productId: this.$route.params.courseid
+        // phone: this.phone,
+        // message: this.message
       });
 
       ['fullName', 'email', 'phone', 'message', 'checkbox'].forEach((item) => { this[item] = '' })
@@ -96,7 +97,7 @@ export default {
     checkForm () {
       if (this.$refs.form.validate()) {
         this.sendData()
-        this.$router.push('/payment-details')
+        // this.$router.push('/payment-details')
       }
     }
   }

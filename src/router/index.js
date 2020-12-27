@@ -58,8 +58,13 @@ const routes = [
     component: () => import(/* webpackChunkName: "course-online" */ '../views/OnlineCourse.vue')
   },
   {
-    path: '/personal-data',
+    path: '/courses-online/:courseid/personal-data',
     name: 'personal-data',
+    component: () => import(/* webpackChunkName: "personal-data" */ '../views/PersonalData.vue')
+  },
+  {
+    path: '/courses-offline/:courseid/personal-data',
+    name: 'personal-data-off',
     component: () => import(/* webpackChunkName: "personal-data" */ '../views/PersonalData.vue')
   },
   {
@@ -175,7 +180,7 @@ const routes = [
     path: '/user-cabinet/courses/:courseid/videos/:videoid',
     name: 'user-video',
     meta: { layout: 'whitefone' },
-    component: () => import(/* webpackChunkName: "user-video" */'../views/UserCourseDatailVideo.vue'),
+    component: () => import(/* webpackChunkName: "user-video" */'../views/UserCourseDetailVideo.vue'),
     beforeEnter: (to, from, next) => {
       if (store.state.isLogged) {
         return next()

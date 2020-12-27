@@ -102,7 +102,6 @@ export default {
   },
   data () {
     return {
-      coverImageSrc: require('../../assets/noImage.jpg')
     }
   },
   computed: {
@@ -119,8 +118,14 @@ export default {
     detailInfo (route, id) {
       this.$router.push({ name: route, params: { id } })
     },
-    payDetail () {
-      this.$router.push({ name: 'personal-data' })
+    payDetail (type, id) {
+      // this.$router.push({ name: 'personal-data' })
+      this.$router.push({
+        name: type === 'online' ? 'personal-data' : 'personal-data-off',
+        params: {
+          courseid: id
+        }
+      })
     },
     toOfflineCourses () {
       this.$router.push({ name: 'courses-offline' })

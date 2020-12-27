@@ -15,7 +15,7 @@
           min-width="160"
           class="yellow-button"
           :class="{ 'button-unactive': isActive }"
-          :disabled="!courseId"
+          :disabled="!$route.params.courseid"
           @click="toggleBtn"
           >CONFIRM DETAILS</v-btn
         >
@@ -81,12 +81,12 @@
                     class="ml-xl-4"
                   />
                 </div>
-                  <v-progress-linear
+                  <!-- <v-progress-linear
                     v-if="uploading"
                     indeterminate
                     color="yellow darken-2"
                     class="my-4"
-                  ></v-progress-linear>
+                  ></v-progress-linear> -->
                 <div class="d-xl-flex">
                   <v-textarea
                      class="mr-xl-4"
@@ -146,11 +146,12 @@
           large
           dark
           min-width="160"
-          :disabled="!validate || loading"
+          :disabled="!validate"
           class="yellow-button"
           @click="sendData"
           >PROCEED AND CHECKOUT</v-btn
         >
+           <!-- :disabled="!validate || loading" -->
       </v-col>
     </v-row>
   </v-container>
@@ -214,7 +215,7 @@ export default {
   data () {
     return {
       isActive: false,
-      courseId: this.$route.params.courseid,
+      // courseId: this.$route.params.courseid,
       skill: '50',
       uploadFiles: [
         {
@@ -275,15 +276,16 @@ export default {
     }
   },
   watch: {
-    videos (videos) {
-      if (!videos) return
-      this.$router.push({
-        name: 'user-course',
-        params: {
-          courseid: this.courseId
-        }
-      })
-    }
+    // videos (videos) {
+    //   if (!videos) return
+    //   this.$router.push({
+    //     name: 'user-course',
+    //     params: {
+    //       // courseid: this.courseId
+    //       courseid: this.$route.params.courseid
+    //     }
+    //   })
+    // }
   },
   methods: {
     validateFile (file) {
@@ -349,8 +351,8 @@ export default {
           }
         })
         if (this.$refs[`form${index}`][0].validate()) {
-          await this.$store.dispatch('courses/POST_VIDEOS', { id: this.courseId, fd })
-          // delete watcher videos & add
+          await this.$store.dispatch('courses/POST_VIDEOS', { id: this.$route.params.courseid, fd })
+          this.goToUserCourse()
         }
       })
     },
@@ -361,7 +363,8 @@ export default {
       this.$router.push({
         name: 'user-course',
         params: {
-          courseid: this.courseId
+          // courseid: this.courseId
+          courseid: this.$route.params.courseid
         }
       })
     }

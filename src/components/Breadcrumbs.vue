@@ -37,7 +37,7 @@ export default {
       'video'
     ]),
     ...mapState('auth', ['user']),
-    ...mapState('offlineCourses', ['offlineCourseById', 'offlineCourseByIdImg']),
+    ...mapState('offlineCourses', ['offlineCourseById']),
     courseName () {
       return this?.course?.nameOfCourse ?? ''
     },

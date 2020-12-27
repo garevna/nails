@@ -26,7 +26,7 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  props: ['currentCourseId', 'videoId'],
+  props: [],
   data () {
     return {
       pdfFile: null
@@ -46,7 +46,7 @@ export default {
   methods: {
     removePdf (id) {
       if (id) {
-        this.$store.dispatch('courses/REMOVE_PDF', { id, videoId: this.videoId, currentCourseId: this.currentCourseId })
+        this.$store.dispatch('courses/REMOVE_PDF', { id, videoId: this.$route.params.videoid, currentCourseId: this.$route.params.courseid })
       }
     },
     addPdf () {
@@ -54,7 +54,7 @@ export default {
         const fd = new FormData()
         fd.append('file', this.pdfFile)
 
-        this.$store.dispatch('courses/ADD_PDF', { fd, videoId: this.videoId, currentCourseId: this.currentCourseId })
+        this.$store.dispatch('courses/ADD_PDF', { fd, videoId: this.$route.params.videoid, currentCourseId: this.$route.params.courseid })
       }
     }
   }

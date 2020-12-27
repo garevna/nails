@@ -16,7 +16,7 @@
         <v-row>
           <v-col cols="12" offset-sm="4" sm="4" class="pa-0">
             <v-text-field
-              v-model="businessName"
+              v-model="courseData.businessName"
               :rules="[rules.required]"
               label="Business name"
               outlined
@@ -25,7 +25,7 @@
           </v-col>
           <v-col cols="12" offset-sm="4" sm="4" class="pa-0">
             <v-text-field
-              v-model="email"
+              v-model="courseData.email"
               :rules="[rules.required, rules.mailValidation]"
               label="E-mail"
               outlined
@@ -34,7 +34,7 @@
           </v-col>
           <v-col cols="12" offset-sm="4" sm="4" class="pa-0">
             <v-text-field
-              v-model="phone"
+              v-model="courseData.phone"
               :rules="[rules.required, rules.phoneValidation]"
               label="Phone number"
               outlined
@@ -43,7 +43,7 @@
           </v-col>
           <v-col cols="12" offset-sm="4" sm="4" class="pa-0">
             <v-text-field
-              v-model="author"
+              v-model="courseData.author"
               :rules="[rules.required]"
               label="Author"
               outlined
@@ -52,7 +52,7 @@
           </v-col>
           <v-col cols="12" offset-sm="4" sm="4" class="pa-0">
             <v-text-field
-              v-model="instructor"
+              v-model="courseData.instructor"
               :rules="[rules.required]"
               label="Instructor"
               outlined
@@ -61,7 +61,7 @@
           </v-col>
           <v-col cols="12" offset-sm="4" sm="4" class="pa-0">
             <v-text-field
-              v-model="infoForBonus"
+              v-model="courseData.infoForBonus"
               :rules="[rules.required]"
               label="info for bonus"
               outlined
@@ -70,7 +70,7 @@
           </v-col>
           <v-col cols="12" offset-sm="4" sm="4" class="pa-0">
             <v-text-field
-              v-model="category"
+              v-model="courseData.category"
               :rules="[rules.required]"
               label="Category"
               outlined
@@ -79,7 +79,7 @@
           </v-col>
           <v-col cols="12" offset-sm="4" sm="4" class="pa-0">
             <v-text-field
-              v-model="nameOfCourse"
+              v-model="courseData.nameOfCourse"
               :rules="[rules.required]"
               label="Name of course"
               outlined
@@ -88,7 +88,7 @@
           </v-col>
           <v-col cols="12" offset-sm="4" sm="4" class="pa-0">
             <v-text-field
-              v-model="subtitle"
+              v-model="courseData.subtitle"
               :rules="[rules.required]"
               label="Subtitle"
               outlined
@@ -97,7 +97,7 @@
           </v-col>
           <v-col cols="12" offset-sm="4" sm="4" class="pa-0">
             <v-text-field
-              v-model="access"
+              v-model="courseData.accessDays"
               :rules="[rules.required,rules.onlyDigits]"
               label="Access (days)"
               outlined
@@ -106,7 +106,7 @@
           </v-col>
           <v-col cols="12" offset-sm="4" sm="4" class="pa-0">
             <v-text-field
-              v-model="price"
+              v-model="courseData.price"
               :rules="[rules.required,rules.onlyDigits]"
               label="Price"
               outlined
@@ -123,22 +123,21 @@
               no-resize
             ></v-textarea> -->
             <v-file-input
-              v-model="file"
+              v-model="courseData.photo"
               label="Cover picture"
               :rules="[rules.imageRule]"
               prepend-icon="mdi-camera"
               outlined
               dark
-              @change="Preview_image"
             ></v-file-input>
             <div
-              v-for="(textField, i) in courseSuitable"
+              v-for="(textField, i) in courseData.thisCourseIsSuitableFor"
               :key="i"
               class="d-flex input-container"
             >
               <v-text-field
-                :label="labelForSuitable"
-                v-model="courseSuitable[i]"
+                label="This course is suitable for"
+                v-model="courseData.thisCourseIsSuitableFor[i]"
                 :rules="[rules.required]"
                 outlined
                 dark
@@ -159,7 +158,7 @@
           </v-col>
           <v-col cols="12" offset-sm="4" sm="4" class="pa-0">
             <v-textarea
-              v-model="description"
+              v-model="courseData.description"
               :rules="[rules.required]"
               label="Description"
               outlined
@@ -209,27 +208,29 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  name: 'personal-data',
+  name: 'AddCourse',
   data () {
     return {
-      businessName: '',
-      email: '',
-      phone: '',
-      author: '',
-      instructor: '',
-      category: '',
-      nameOfCourse: '',
-      subtitle: '',
-      access: '',
-      price: '',
-      infoForBonus: '',
-      labelForSuitable: 'This course is suitable for',
-      courseSuitable: [''],
-      file: [],
-      description: '',
+      courseData: {
+        businessName: '',
+        nameOfCourse: '',
+        idUser: null,
+        subtitle: '',
+        accessDays: '',
+        price: '',
+        email: '',
+        phone: '',
+        author: '',
+        instructor: '',
+        category: '',
+        thisCourseIsSuitableFor: [''],
+        description: '',
+        infoForBonus: '',
+        isPublished: false,
+        photo: null
+      },
       checkbox1: '',
       checkbox2: '',
-      url: null,
       rules: {
         required: v => !!v || 'input is required',
         imageRule: v => !v || v.size < 2000000 || 'Image size should be less than 2 MB!',
@@ -249,58 +250,45 @@ export default {
   },
   computed: {
     ...mapState('auth', ['user']),
-    // ...mapState('userCourses', ['currentCourseId', 'loading'])
     ...mapState('courses', ['course'])
   },
   watch: {
-    course (id) {
-      if (!id) return
-      this.$router.push({
-        name: 'add-course-videos',
-        params: {
-          courseid: id
-        }
-      })
-    }
+    // course (course) {
+    //   if (!course) return
+    //   this.$router.push({
+    //     name: 'add-course-videos',
+    //     params: {
+    //       courseid: course._id
+    //     }
+    //   })
+    // }
   },
   methods: {
-    Preview_image () {
-      try {
-        this.url = URL.createObjectURL(this.file)
-      } catch (e) {
-        console.log('no image')
-      }
-    },
-    sendData () {
-      const data = {
-        businessName: this.businessName,
-        nameOfCourse: this.nameOfCourse,
-        idUser: this.user._id,
-        subtitle: this.subtitle,
-        accessDays: this.access,
-        price: this.price,
-        email: this.email,
-        phone: this.phone,
-        author: this.author,
-        instructor: this.instructor,
-        category: this.category,
-        thisCourseIsSuitableFor: this.courseSuitable,
-        description: this.description,
-        infoForBonus: this.infoForBonus,
-        isPublished: false,
-        file: this.file
-      }
+    async sendData () {
       const fd = new FormData()
-      Object.entries(data).forEach(([name, value]) => {
+      this.courseData.idUser = this.user._id
+      Object.entries(this.courseData).forEach(([name, value]) => {
+        if (value instanceof File) {
+          fd.append('file', value)
+          return
+        }
         if (Array.isArray(value)) {
-          Object.values(data[name]).forEach(value =>
+          Object.values(this.courseData[name]).forEach(value =>
             fd.append(`${name}[]`, value)
           )
-        } else {
-          fd.append(name, value)
+          return
         }
+        fd.append(name, value)
       })
-      this.$store.dispatch('courses/POST_COURSE', fd)
+      await this.$store.dispatch('courses/POST_COURSE', fd)
+      if (this.course) {
+        this.$router.push({
+          name: 'add-course-videos',
+          params: {
+            courseid: this.course._id
+          }
+        })
+      }
     },
     checkForm () {
       if (this.$refs.form.validate()) {
@@ -309,13 +297,13 @@ export default {
     },
     addField (entryField) {
       return entryField
-        ? this.courseSuitable.push('')
-        : this.dateOfCourses.push('')
+        ? this.courseData.thisCourseIsSuitableFor.push('')
+        : this.courseData.dateOfCourses.push('')
     },
     removeField (index, entryField) {
       return entryField
-        ? this.courseSuitable.splice(index, 1)
-        : this.dateOfCourses.splice(index, 1)
+        ? this.courseData.thisCourseIsSuitableFor.splice(index, 1)
+        : this.courseData.dateOfCourses.splice(index, 1)
     }
   }
 }

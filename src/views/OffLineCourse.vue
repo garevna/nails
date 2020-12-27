@@ -24,7 +24,7 @@ export default {
     return {}
   },
   computed: {
-    ...mapState('offlineCourses', ['offlineCourseById', 'offlineCourseByIdImg'])
+    ...mapState('offlineCourses', ['offlineCourseById'])
   },
   methods: {
     btnCallBack () {
@@ -37,7 +37,7 @@ export default {
     })
   },
   beforeDestroy () {
-    this.$store.dispatch('offlineCourses/CLEAR_OFFLINE_COURSE_BY_ID')
+    // this.$store.dispatch('offlineCourses/CLEAR_OFFLINE_COURSE_BY_ID')
   }
 }
 </script>
