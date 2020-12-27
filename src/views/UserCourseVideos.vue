@@ -10,36 +10,19 @@
       <v-col cols="12" xs="12" v-if="!ready">
         <Spinner />
       </v-col>
-      <v-col v-if="videos && !showForm" cols="12" xs="12" class="d-flex justify-center flex-wrap">
-        <v-card
-        width="500"
-        height="400"
+      <v-col
+        v-if="videos && !showForm"
+        cols="12"
+        xs="12"
+        class="d-flex justify-center flex-wrap"
+      >
+        <UserVideoCard
           v-for="video in videos"
           :key="video._id"
-          class="ma-4"
-          @click="goToDetailVideo(video._id)"
-        >
-          <v-card-title class="d-flex justify-center"
-            ><h2>
-              {{ video.name }}
-            </h2></v-card-title
-          >
-          <CoverImage :url="linkCheck(video)" :height="250" />
-          <v-card-actions class="d-flex justify-end">
-            <v-btn
-              rounded
-              color="buttons"
-              large
-              min-width="160"
-              class="yellow-button"
-              @click.stop="
-                dialog = true;
-                deleteId = video._id;
-              "
-              >Delete</v-btn
-            >
-          </v-card-actions>
-        </v-card>
+          :goToDetailVideo="goToDetailVideo"
+          :video="video"
+          :removeVideo="removeVideo"
+        />
       </v-col>
       <v-col cols="12" xs="12" v-if="!showForm">
         <h3 align="center">{{ course && course.description }}</h3>
@@ -177,6 +160,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+      <DeletePopup :canselHandler="canselHandler" :deleteHandler="deleteVideo" name="video" :dialog="dialog"/>
     </v-row>
   </v-container>
 </template>
@@ -184,14 +168,18 @@
 <script>
 import { mapState } from 'vuex'
 
-import CoverImage from '@/components/CoverImage.vue'
+// import CoverImage from '@/components/CoverImage.vue'
+import UserVideoCard from '@/components/courses/UserVideoCard.vue'
+import DeletePopup from '@/components/popups/DeletePopup.vue'
 import Spinner from '@/components/Spinner.vue'
-import checkVideoLink from '@/helpers/checkVideoLink'
+// import checkVideoLink from '@/helpers/checkVideoLink'
 
 export default {
   components: {
     Spinner,
-    CoverImage
+    UserVideoCard,
+    DeletePopup
+    // CoverImage
   },
   data () {
     return {
@@ -238,8 +226,12 @@ export default {
   },
   watch: {},
   methods: {
-    linkCheck (video) {
-      return checkVideoLink(video)
+    // linkCheck (video) {
+    //   return checkVideoLink(video)
+    // },
+    removeVideo (id) {
+      this.dialog = true
+      this.deleteId = id
     },
     clearFormInputs () {
       this.nameOfVideo = ''

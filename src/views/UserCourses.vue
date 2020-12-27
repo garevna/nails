@@ -10,12 +10,9 @@
       <v-col
         cols="12"
         xs="12"
-        md="6"
-        lg="4"
-        v-for="course in courses"
-        :key="course._id"
+        class="d-flex justify-center flex-wrap"
       >
-        <v-card @click="goToCourse(course._id)">
+        <!-- <v-card @click="goToCourse(course._id)">
           <v-card-title
             class="d-flex justify-center py-4"
             style="position: relative"
@@ -42,7 +39,14 @@
               >Delete</v-btn
             >
           </v-card-actions>
-        </v-card>
+        </v-card> -->
+        <UserCourseCard
+          v-for="course in courses"
+          :key="course._id"
+          :goToCourse="goToCourse"
+          :course="course"
+          :removeCourse="removeCourse"
+        />
       </v-col>
       <v-dialog v-model="dialog" persistent max-width="320">
         <v-card>
@@ -79,13 +83,15 @@
 <script>
 import { mapState } from 'vuex'
 
-import CoverImage from '@/components/CoverImage.vue'
+// import CoverImage from '@/components/CoverImage.vue'
 import Spinner from '@/components/Spinner.vue'
-import checkCourseLink from '@/helpers/checkCourseLink'
+import UserCourseCard from '@/components/courses/UserCourseCard.vue'
+// import checkCourseLink from '@/helpers/checkCourseLink'
 export default {
   name: 'UserCourses',
   components: {
-    CoverImage,
+    // CoverImage,
+    UserCourseCard,
     Spinner
   },
   data () {
@@ -107,12 +113,16 @@ export default {
   },
   methods: {
     // checkCourseLink: required('@/helpers/checkCourseLink').default,
-    linkCheck (course) {
-      return checkCourseLink(course)
-    },
+    // linkCheck (course) {
+    //   return checkCourseLink(course)
+    // },
     canselHandler () {
       this.dialog = false
       this.deleteId = null
+    },
+    removeCourse (id) {
+      this.dialog = true
+      this.deleteId = id
     },
     async deleteCourse () {
       await this.$store.dispatch('courses/DELETE_COURSE', this.deleteId)
@@ -141,37 +151,5 @@ export default {
 }
 </script>
 
-<style scoped>
-.figure1 {
-  position: absolute;
-  border: 20px solid #cc5c5c;
-  width: 160px;
-  border-right: 30px solid transparent;
-  bottom: -20px;
-  left: 0;
-  z-index: 1;
-}
-.figure-text1 {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-}
-.figure2 {
-  position: absolute;
-  border: 20px solid #5c5ccc;
-  width: 160px;
-  border-left: 30px solid transparent;
-  bottom: -20px;
-  right: 0;
-  z-index: 1;
-}
-.figure-text2 {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-}
+<style>
 </style>

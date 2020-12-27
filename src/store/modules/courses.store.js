@@ -106,10 +106,13 @@ const actions = {
     }
   },
   async BUY_COURSE ({ getters, commit, dispatch }, payload) {
-    const response = await postData(endpoints.buyCourse, payload)
-    if (!response.error) {
-      console.log(response)
-      //
+    const { data, error } = await postData(endpoints.buyCourse, payload)
+    if (!error && data.link) {
+      window.open(data.link)
+      // data: {link: "https://invoice.stripe.com/i/acct_1HhAsJH7jhGffcki/invst_IeJ4ZqdsRng0CAP4uFRkgD59DtVwGYW",…}
+      // invoicePdf: "https://pay.stripe.com/invoice/acct_1HhAsJH7jhGffcki/invst_IeJ4ZqdsRng0CAP4uFRkgD59DtVwGYW/pdf"
+      // link: "https://invoice.stripe.com/i/acct_1HhAsJH7jhGffcki/invst_IeJ4ZqdsRng0CAP4uFRkgD59DtVwGYW"
+      // error: null
     }
   },
   // !==========================================================================
@@ -146,25 +149,10 @@ const actions = {
       // commit('VIDEO', id)
     }
   },
-  // async POST_VIDEOS ({ getters, commit, dispatch }, payload) {
-  //   const { newOnlineCourse, error } = await postData(
-  //     endpoints.video,
-  //     payload.fd
-  //   )
-  //   if (!error) {
-  //     // dispatch('GET_COURSES', payload.userId)
-  //     // dispatch('GET_USER_COURSE_ID', newOnlineCourse._id)
-  //     dispatch('GET_COURSE', newOnlineCourse._id)
-  //     // commit('LOADING', false)
-  //   } else {
-  //     // commit('LOADING', false)
-  //     // commit('ERROR', error)
-  //   }
-  // },
   async DELETE_VIDEO ({ getters, commit, dispatch }, { id, courseId }) {
     const { error } = await deleteData(`${endpoints.video}/${id}`)
     if (!error) {
-      dispatch('GET_USER_COURSE_ID', courseId)
+      dispatch('GET_COURSE', courseId)
     }
   },
   async ADD_PDF (

@@ -83,16 +83,28 @@ export default {
   },
 
   methods: {
-    sendData () {
-      this.$store.dispatch('courses/BUY_COURSE', {
+    async sendData () {
+      if (this.$route.fullPath.includes('online')) {
+        await this.$store.dispatch('courses/BUY_COURSE', {
         // fullName: this.fullName,
-        email: this.email,
-        productId: this.$route.params.courseid
+          email: this.email,
+          productId: this.$route.params.courseid
         // phone: this.phone,
         // message: this.message
-      });
+        })
+        this.$router.push({ name: 'course-online', params: { id: this.$route.params.courseid } })
+      } else {
+        await this.$store.dispatch('offlineCourses/BUY_COURSE', {
+        // fullName: this.fullName,
+          email: this.email,
+          productId: this.$route.params.courseid
+        // phone: this.phone,
+        // message: this.message
+        })
+        this.$router.push({ name: 'course-offline', params: { id: this.$route.params.courseid } })
+      }
 
-      ['fullName', 'email', 'phone', 'message', 'checkbox'].forEach((item) => { this[item] = '' })
+      // ['fullName', 'email', 'phone', 'message', 'checkbox'].forEach((item) => { this[item] = '' })
     },
     checkForm () {
       if (this.$refs.form.validate()) {

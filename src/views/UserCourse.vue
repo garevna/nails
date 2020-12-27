@@ -78,10 +78,10 @@ export default {
   computed: {
     ...mapState('courses', ['courses', 'course']),
     addVideos () {
-      return !this?.course?.videos && !this.showForm
+      return !this?.course?.videos?.length && !this.showForm
     },
     addVideo () {
-      return this?.course?.videos && !this.showForm
+      return this?.course?.videos?.length && !this.showForm
     }
   },
   watch: {

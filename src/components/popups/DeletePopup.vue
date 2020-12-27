@@ -1,0 +1,39 @@
+<template>
+  <v-dialog v-model="dialog" :retain-focus="false"  persistent max-width="320">
+    <v-card>
+      <v-card-title> Do you really want to remove this {{name}} ?</v-card-title>
+      <v-card-actions class="justify-center">
+        <v-btn
+          color="buttons"
+          rounded
+          large
+          class="yellow-button"
+          text
+          @click="canselHandler"
+        >
+          Disagree
+        </v-btn>
+        <v-btn
+          color="buttons"
+          rounded
+          large
+          class="yellow-button"
+          text
+          @click="deleteHandler"
+        >
+          Agree
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</template>
+
+<script>
+export default {
+  name: 'DeletePopup',
+  props: ['canselHandler', 'deleteHandler', 'name', 'dialog']
+}
+</script>
+
+<style>
+</style>
