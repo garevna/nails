@@ -92,8 +92,9 @@ const actions = {
   async PUT_COURSE ({ commit, dispatch }, { data, id }) {
     const { error } = await putData(`${endpoints.get}/${id}`, data)
     if (!error) {
-      commit('VIDEO', data) // ?! <===
-      // dispatch('GET_COURSE', id)
+      // commit('VIDEO', data) // ?! <===
+      dispatch('GET_COURSE', id)
+      dispatch('GET_COURSES')
     } else {
       // commit('ERROR', errors.get, { root: true })
     }

@@ -8,7 +8,7 @@
     />
     <EditCourseForm
       v-if="showForm"
-      typeCourse="online"
+      type="online"
       :course="course"
       :back="backForm"
     />
