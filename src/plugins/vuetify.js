@@ -28,7 +28,8 @@ export default new Vuetify({
         whitefone: '#ffffff',
         shopfont: '#808080',
         // courses
-        coursesGray: '#4D4D4D'
+        coursesGray: '#4D4D4D',
+        notPaidAndPublised: '#369ab3'
       },
       dark: {
         // orange
@@ -44,7 +45,8 @@ export default new Vuetify({
         substrate: '#F4F4F4',
         lightFont: '#808080',
         // courses
-        coursesGray: '#4D4D4D'
+        coursesGray: '#4D4D4D',
+        notPaidAndPublised: '#369ab3'
       }
     }
   }

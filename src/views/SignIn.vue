@@ -34,6 +34,7 @@
           @click="submit"
           color="buttons"
           rounded
+          :disabled="loading"
           class="yellow-button"
           >sign in</v-btn
         >
@@ -84,7 +85,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('auth', ['isLogged'])
+    ...mapState('auth', ['isLogged', 'loading'])
   },
   watch: {
     isLogged (newVal) {
@@ -99,30 +100,36 @@ export default {
     submit () {
       const {
         email,
-        phone,
-        role,
-        isPoliticAgree,
-        registration,
-        login,
+        // phone,
+        // role,
+        // isPoliticAgree,
+        // login,
         password
       } = this
       if (this.$refs.form.validate()) {
-        if (registration) {
-          const data = {
-            email,
-            phone,
-            login,
-            role,
-            isPoliticAgree,
-            password
-          }
-          this.$store.dispatch('auth/REGISTRATION_USER', data)
-        } else {
-          this.$store.dispatch('auth/AUTHORIZATION_USER', { email, password })
-        }
+        // if (registration) {
+        //   const data = {
+        //     email,
+        //     phone,
+        //     login,
+        //     role,
+        //     isPoliticAgree,
+        //     password
+        //   }
+        //   this.$store.dispatch('auth/REGISTRATION_USER', data)
+        // } else {
+        this.$store.dispatch('auth/SIGN_IN', { email, password })
+        // this.loading = true
+        // }
       }
     }
 
+  },
+  mounted () {
+    this.$store.dispatch('auth/AUTH_ERROR')
+  },
+  beforeDestroy () {
+    this.$store.dispatch('auth/CLEAR_AUTH_ERROR')
   }
 
 }

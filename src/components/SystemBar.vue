@@ -1,20 +1,33 @@
 <template>
   <div class="header-container homefone">
-    <v-app-bar app color="#FFC44A" outlined dark  elevate-on-scroll class="app-bar-header">
+    <v-progress-linear
+      v-if="uploading"
+      indeterminate
+      color="yellow darken-2"
+    ></v-progress-linear>
+    <v-app-bar
+      app
+      color="#FFC44A"
+      outlined
+      dark
+      elevate-on-scroll
+      class="app-bar-header"
+    >
       <div class="d-flex align-center">
-        <Logo :goHome="goHome" class="logo"/>
+        <Logo :goHome="goHome" class="logo" />
         <!-- <h1><span @click="goHome" class="logo">NAILS</span>AUSTRALIA</h1> -->
       </div>
       <v-spacer></v-spacer>
-      <div class="primary app-bar d-none d-md-block menu-app-bar-btn">
+      <div class="primary app-bar d-none d-lg-block menu-app-bar-btn">
         <v-btn @click="goHome" text>HOME</v-btn>
         <v-btn @click="goToShop" text>SHOP</v-btn>
         <v-btn @click="goToCourses" text>COURSES</v-btn>
       </div>
-      <MenuSystemBar class=" d-none d-md-flex align-center" />
+      <MenuSystemBar class="d-none d-lg-flex align-center" />
 
       <!-- Viewport width less then lg -->
-      <v-expansion-panels
+      <BurgerMenu :panel.sync="panel" />
+      <!-- <v-expansion-panels
         tile
         flat
         v-model="panel"
@@ -33,12 +46,6 @@
             style="margin-top: 128px; padding: 64px 16px 16px!important"
           >
             <v-list flat class="main-menu-content text-center">
-              <!-- <v-list-item
-                    v-for="(page, index) in pages"
-                    :key="index"
-                    @click="$emit('update:selected', index); panel = []"
-                    style="background: #CACACA"
-            >-->
               <v-list-item class="main-menu-content" @click="goHome">
                 <v-list-item-title class="main-menu-content main-menu-items"
                   >Home</v-list-item-title
@@ -57,7 +64,7 @@
             </v-list>
           </v-expansion-panel-content>
         </v-expansion-panel>
-      </v-expansion-panels>
+      </v-expansion-panels> -->
     </v-app-bar>
   </div>
 </template>
@@ -143,22 +150,26 @@
 </style>
 
 <script>
+import { mapState } from 'vuex'
+
 import MenuSystemBar from '@/components/MenuSystemBar.vue'
 import Logo from '@/components/svg/Logo.vue'
-import { mapState } from 'vuex'
+import BurgerMenu from '@/components/BurgerMenu.vue'
 
 export default {
   name: 'SystemBar',
   components: {
     MenuSystemBar,
-    Logo
+    Logo,
+    BurgerMenu
   },
   data: () => ({
     toggle: 0,
-    panel: undefined
+    panel: false
   }),
   computed: {
     ...mapState('shop', ['categories']),
+    ...mapState('userCourses', ['uploading']),
     burgerMenuClassFirst () {
       return this.panel === 0
         ? 'burger-menu-active--first'
@@ -169,6 +180,7 @@ export default {
         ? 'burger-menu-active--second'
         : 'burger-menu--second'
     }
+
     // backgroundColor () {
     //   return this.$vuetify.theme.themes.light.homefone
     // }

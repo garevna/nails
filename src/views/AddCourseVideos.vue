@@ -4,8 +4,8 @@
       <v-col
         cols="12"
         xs="12"
-        sm="6"
-        class="d-flex justify-center justify-sm-end"
+        md="6"
+        class="d-flex justify-center justify-md-end"
       >
         <v-btn
           rounded
@@ -15,7 +15,7 @@
           min-width="160"
           class="yellow-button"
           :class="{ 'button-unactive': isActive }"
-          :disabled="!currentCourseId"
+          :disabled="!courseId"
           @click="toggleBtn"
           >CONFIRM DETAILS</v-btn
         >
@@ -23,8 +23,8 @@
       <v-col
         cols="12"
         xs="12"
-        sm="6"
-        class="d-flex justify-center justify-sm-start"
+        md="6"
+        class="d-flex justify-center justify-md-start"
       >
         <v-btn
           color="buttons"
@@ -37,7 +37,7 @@
           >EDIT DETAILS</v-btn
         >
       </v-col>
-      <v-col cols="12" xs="12" sm="6">
+      <v-col cols="12" xs="12" md="6">
         <v-card flat dark class="secondaryGray">
           <v-card-title>Requirements to the video</v-card-title>
           <v-card-text
@@ -48,66 +48,93 @@
           >
         </v-card>
       </v-col>
-      <v-col cols="12" xs="12" sm="6">
+      <v-col cols="12" xs="12" md="6">
         <p>Upload video for moderation</p>
         <v-expansion-panels flat :disabled="!isActive">
-          <v-expansion-panel v-for="(item, i) in uploadFiles" :key="i">
+          <v-expansion-panel v-for="(item, i) in uploadFiles" :key="i" class="d-flex flex-column align-center align-sm-stretch justify-sm-center ">
             <v-expansion-panel-header
-              class="btn-open-video"
+              class="btn-open-video mb-4"
               :class="{ 'button-unactive': !isActive }"
+              width="100%"
             >
               + add video {{ i + 1 }}
             </v-expansion-panel-header>
-            <v-expansion-panel-content class="mt-8">
-              <div class="d-flex">
-                <v-text-field
-                  label="name of video"
-                  v-model="item.name"
-                  outlined
-                  dark
-                  width="50"
-                />
-              </div>
-              <div class="d-flex">
-                <v-file-input v-model="item.videoFile" outlined dark />
-                <v-progress-linear
-                  v-model="skill"
-                  color="blue-grey"
-                  height="25"
-                >
-                  <template v-slot="{ value }">
-                    <strong>{{ Math.ceil(value) }}%</strong>
-                  </template>
-                </v-progress-linear>
-              </div>
-              <div>
-                <v-textarea
-                  label="description"
-                  v-model="item.description"
-                  outlined
-                  dark
-                />
-              </div>
-              <div>
-                <v-file-input v-model="item.imgFile" outlined dark />
-              </div>
-              <div class="d-flex">
-                <v-file-input v-model="item.pdfFiles[0]" outlined dark />
-                <v-file-input v-model="item.pdfFiles[1]" outlined dark />
-                <v-file-input v-model="item.pdfFiles[2]" outlined dark />
-              </div>
-
-              <!-- <v-btn
-                color="buttons"
-                rounded
-                large
-                dark
-                width="180"
-                class="yellow-button"
-                :disabled="buttonUnactive"
-                @click="upload"
-                >UPLOAD VIDEO</v-btn
-              > -->
+            <v-expansion-panel-content class="mt-8 ">
+              <v-form :ref="`form${i}`">
+                <div class="d-xl-flex">
+                     <v-text-field
+                    label="name of video"
+                    v-model="item.name"
+                    outlined
+                    dark
+                    class="mr-xl-4"
+                  />
+                  <v-file-input
+                    label="video file"
+                    show-size
+                    prepend-icon="mdi-video"
+                    accept="video/mp4"
+                    v-model="item.videoFile"
+                    :rules="[rules.videoRule]"
+                    outlined
+                    dark
+                    class="ml-xl-4"
+                  />
+                </div>
+                  <v-progress-linear
+                    v-if="uploading"
+                    indeterminate
+                    color="yellow darken-2"
+                    class="my-4"
+                  ></v-progress-linear>
+                <div class="d-xl-flex">
+                  <v-textarea
+                     class="mr-xl-4"
+                    label="description"
+                    v-model="item.description"
+                    outlined
+                    dark
+                  />
+                  <v-file-input
+                    class="ml-xl-4"
+                    v-model="item.imgFile"
+                    label="image file"
+                    show-size
+                    prepend-icon="mdi-camera"
+                    accept="image/png, image/jpeg, image/bmp"
+                    :rules="[rules.imageRule]"
+                    outlined
+                    dark
+                  />
+                </div>
+                <div class="d-flex flex-column flex-sm-row flex-md-column flex-lg-row">
+                  <v-file-input
+                    v-model="item.pdfFiles[0]"
+                    prepend-icon="mdi-file-pdf-box"
+                    :rules="[rules.pdfRule]"
+                    label="pdf file"
+                    outlined
+                    dark
+                  />
+                  <v-file-input
+                    v-model="item.pdfFiles[1]"
+                    class="px-sm-4 px-md-0 px-lg-4"
+                    prepend-icon="mdi-file-pdf-box"
+                    :rules="[rules.pdfRule]"
+                    label="pdf file"
+                    outlined
+                    dark
+                  />
+                  <v-file-input
+                    v-model="item.pdfFiles[2]"
+                    prepend-icon="mdi-file-pdf-box"
+                    :rules="[rules.pdfRule]"
+                    label="pdf file"
+                    outlined
+                    dark
+                  />
+                </div>
+              </v-form>
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
@@ -119,18 +146,17 @@
           large
           dark
           min-width="160"
-          :disabled="!validate"
+          :disabled="!validate || loading"
           class="yellow-button"
           @click="sendData"
           >PROCEED AND CHECKOUT</v-btn
         >
       </v-col>
-      <!-- <PaymentDetailsForm/> -->
     </v-row>
   </v-container>
 </template>
 <style lang="scss">
-@import '@/css/variables.scss';
+@import "@/css/variables.scss";
 
 .v-expansion-panel-content__wrap {
   /* GLOBAL  */
@@ -158,7 +184,7 @@
   height: 50px;
   border-radius: 40px;
   color: #fff;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
   /* box-shadow: 0 6px rgb(15 15 15), 0 3px 15px rgba(0,0,0,.4), inset 0 1px rgba(255,255,255,.3), inset 0 0 3px rgba(255,255,255,.5); */
   transition: 0.2s;
   box-shadow: inset -1px 2px 2px rgba(255, 255, 255, 0.5),
@@ -178,11 +204,10 @@
 }
 </style>
 <script>
-// import PaymentDetailsForm from '@/components/forms/PaymentDetailsForm.vue'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'add-course-payment',
+  name: 'add-course-videos',
   components: {
     // PaymentDetailsForm
   },
@@ -227,7 +252,12 @@ export default {
           imgFile: null,
           pdfFiles: new Array(3).fill(null)
         }
-      ]
+      ],
+      rules: {
+        videoRule: v => !v || v.size < 1000000000 || 'Video size should be less than 1 GB!',
+        imageRule: v => !v || v.size < 2000000 || 'Image size should be less than 2 MB!',
+        pdfRule: v => !v || v.size < 100000000 || 'Video size should be less than 100 MB!'
+      }
     }
   },
   computed: {
@@ -238,7 +268,18 @@ export default {
       return this.validateFiles(validArray)
     },
     ...mapState('auth', ['user']),
-    ...mapState('userCourses', ['currentCourseId'])
+    ...mapState('userCourses', ['currentCourseVideos', 'loading', 'uploading'])
+  },
+  watch: {
+    currentCourseVideos (videos) {
+      if (!videos) return
+      this.$router.push({
+        name: 'user-course',
+        params: {
+          courseid: this.courseId
+        }
+      })
+    }
   },
   methods: {
     validateFile (file) {
@@ -289,18 +330,9 @@ export default {
       }
       return emty
     },
-    // sendData2 (fd) {
-    //   fetch(
-    //     'https://ptsv2.com/t/yeu3y-1602246042/post',
-    //     {
-    //       method: 'POST',
-    //       body: fd
-    //     }
-    //   )
-    // },
     sendData () {
       const dataArr = this.filteredData(this.uploadFiles)
-      dataArr.forEach((obj) => {
+      dataArr.forEach((obj, index) => {
         const fd = new FormData()
         Object.entries(obj).forEach(([name, value]) => {
           if (Array.isArray(obj[name])) {
@@ -312,26 +344,11 @@ export default {
             else fd.append(name, value)
           }
         })
-        // this.sendData2(fd)
-        this.$store.dispatch('userCourses/CREATE_VIDEOS_COURSE', { id: this.courseId, fd })
+        if (this.$refs[`form${index}`][0].validate()) {
+          this.$store.dispatch('userCourses/CREATE_VIDEOS_COURSE', { id: this.courseId, fd, userId: this.user._id })
+        }
       })
     },
-    // oldSendData () {
-    //   const dataArr = this.filteredData(this.uploadFiles)
-    //   dataArr.forEach((obj) => {
-    //     const fd = new FormData()
-    //     Object.entries(obj).forEach(([name, value]) => {
-    //       if (Array.isArray(obj[name])) {
-    //         Object.values(obj[name]).forEach((value) =>
-    //           fd.append(`${name}[]`, value)
-    //         )
-    //       } else {
-    //         fd.append(name, value)
-    //       }
-    //     })
-    //     this.sendData2(fd)
-    //   })
-    // },
     toggleBtn () {
       this.isActive = !this.isActive
     },
@@ -339,10 +356,9 @@ export default {
       this.$router.push({
         name: 'user-course',
         params: {
-          courseid: this.currentCourseId
+          courseid: this.courseId
         }
       })
-      // if (this.$route.name !== name) this.$router.push({ name: name })
     }
   }
 }

@@ -15,7 +15,7 @@
     <CourseCardDetail
       v-if="ready && !showForm"
       :category="course.category"
-      :days="course.days"
+      :days="course.accessDays"
       :nameOfCourse="course.nameOfCourse"
       :subtitle="course.subtitle"
       :price="course.price"
@@ -25,11 +25,13 @@
       :courseSuitable="course.thisCourseIsSuitableFor"
       :description="course.description"
       :dateOfCourses="course.dateOfCourses"
-      :url="course.photo[0].link"
+      :url="checkUrl(course)"
       :type="typeCourse"
       :coverImageSrc="coverImageSrc"
       btnTitle="BUY THIS COURSE"
       :btnCallBack="null"
+      :isPaid="course.isPaid"
+      :isPublished="course.isPublished"
     />
     <EditCourseForm
       v-if="showForm"
@@ -39,8 +41,30 @@
       :back="backForm"
       :coverImageSrc="coverImageSrc"
     />
-    <v-btn @click="showForm=true" v-if="!showForm">Edit</v-btn>
-    <v-btn @click="goToVideos" v-if="!showForm">Videos</v-btn>
+    <div class="d-flex flex-column align-center flex-sm-row justify-sm-center mt-8">
+      <v-btn
+        @click="showForm = true"
+        v-if="!showForm"
+        color="buttons"
+        rounded
+        large
+        dark
+        min-width="160"
+        class="yellow-button my-8 my-sm-0 mr-sm-8"
+        >Edit</v-btn
+      >
+      <v-btn
+        @click="goToVideos"
+        v-if="!showForm"
+        color="buttons"
+        rounded
+        large
+        dark
+        min-width="160"
+        class="yellow-button"
+        >Videos</v-btn
+      >
+    </div>
   </div>
 </template>
 
@@ -81,63 +105,67 @@ export default {
     }
   },
   computed: {
-    ...mapState('userCourses', ['userCourses']),
+    ...mapState('userCourses', [
+      'userCourses',
+      'currentCourse',
+      'currentCourseId'
+    ]),
     ...mapState('auth', ['user'])
   },
   watch: {
     user (newVal) {
-      // this.$store.dispatch('userCourses/GET_USER_COURSES', newVal._id)
-      this.items[0].text = `${newVal.firstName} cabinet`
-      this.items[1].text = `${newVal.firstName} courses`
+      this.fillingInTheFields()
     },
     course (val) {
       this.items[2].text = `${val.nameOfCourse}`
+    },
+    currentCourse (course) {
+      if (!course) return
+      this.course = course
+      this.showForm = false
+      this.ready = true
     }
   },
   methods: {
+    checkUrl (card) {
+      let img
+      if (card.photo && Array.isArray(card.photo) && card.photo.length) {
+        img = card.photo[0].link
+      }
+      if (!img) {
+        img = this.coverImageSrc
+      }
+      return img
+    },
     fillingInTheFields () {
+      if (!this.user) return
       this.items[0].text = `${this.user.firstName} cabinet`
       this.items[1].text = `${this.user.firstName} courses`
       // this.items[2].text = `${this.course.nameOfCourse}`
     },
-    async getCourseById () {
-      const response = await (
-        await fetch(
-          `https://nails-australia-staging.herokuapp.com/course/online/${this.courseId}`
-        )
-      ).json()
-      if (!response.error) {
-        console.log(response)
-        this.course = response.onlineCourse
-        this.ready = true
-      }
-    },
-    async editCourseById (data) {
-      const response = await (
-        await fetch(
-          `https://nails-australia-staging.herokuapp.com/course/online/${this.courseId}`, {
-            method: 'PUT',
-            body: data
-          }
-        )
-      ).json()
-      if (!response.error) {
-        console.log(response)
-        this.course = response.updatedOnlineCourse
-        this.showForm = false
-        this.ready = true
-      }
+    editCourseById (data) {
+      this.$store.dispatch('userCourses/PUT_USER_COURSE_ID', {
+        data,
+        id: this.courseId
+      })
     },
     backForm () {
       this.showForm = false
     },
     goToVideos () {
-      if (this.$route.name !== 'user-videos') this.$router.push({ name: 'user-videos' })
+      if (this.$route.name !== 'user-videos') { this.$router.push({ name: 'user-videos' }) }
     }
   },
   created () {
     this.fillingInTheFields()
-    this.getCourseById()
+    // this.getCourseById()
+    if (this.currentCourseId !== this.courseId) {
+      this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId)
+    } else {
+      this.items[2].text = `${this.currentCourse.nameOfCourse}`
+      this.course = this.currentCourse
+      this.ready = true
+    }
   }
 }
 </script>

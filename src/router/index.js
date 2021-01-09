@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import store from '../store/modules/auth.store'
-import Home from '../views/Home.vue'
 import store from '../store/modules/auth.store'
+import Home from '../views/Home.vue'
+// import * as store2 from 'vuex'
 
 Vue.use(VueRouter)
 
@@ -136,11 +136,11 @@ const routes = [
         return next()
       } else {
         next({ name: 'sign-in' })
-        Vue.notify({
-          group: 'foo',
-          type: 'error',
-          text: 'Please, sign in or create an account '
-        })
+        // Vue.notify({
+        //   group: 'foo',
+        //   type: 'error',
+        //   text: 'Please, sign in or create an account '
+        // })
       }
     }
   },
@@ -158,7 +158,7 @@ const routes = [
   {
     path: '/user-cabinet/courses/:courseid/add-videos',
     name: 'add-course-videos',
-    component: () => import(/* webpackChunkName: "add-course-payment" */ '../views/AddCourseVideos.vue'),
+    component: () => import(/* webpackChunkName: "add-course-videos" */ '../views/AddCourseVideos.vue'),
     beforeEnter: (to, from, next) => {
       if (store.state.isLogged) {
         return next()

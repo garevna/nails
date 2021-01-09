@@ -8233,10 +8233,10 @@ mz@^2.4.0:
     object-assign "^4.0.1"
     thenify-all "^1.0.0"
 
-nails-courses-card-detail@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/nails-courses-card-detail/-/nails-courses-card-detail-0.1.3.tgz#af12698ec835d831dde7652ae19047c3ff3c6a4f"
-  integrity sha512-dCaRnnV8vEhBdoKQXfMfnpMl+9K1RJpA2OHLT0uccxHwyb29mX3mnTB6hd+Dkd1bQcaLfQXBAmeTigHdxvCP5Q==
+nails-courses-card-detail@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/nails-courses-card-detail/-/nails-courses-card-detail-0.1.4.tgz#2b13dac847f1dbafb9427fc3c9e3816ea6cb1701"
+  integrity sha512-2/AwBskq5Ze72WAmz0K1INYd94XNfRQhp4eJ1D5NUNL98Guyj4SFkxaJ0nEkMqhGz7aFl+eII0tJfhgrpMBobg==
   dependencies:
     core-js "^3.6.5"
     nails-styles "^0.0.3"

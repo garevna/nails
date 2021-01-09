@@ -119,13 +119,13 @@
           </v-card>
         </v-card>
         <!--  -->
-        <v-card flat>
+        <v-card flat class="d-flex justify-center">
           <v-btn
             v-if="touched"
             @click="cancel"
             color="buttons"
             rounded
-            class="yellow-button"
+            class="yellow-button mr-8"
             >cancel</v-btn
           >
           <v-btn
@@ -133,6 +133,7 @@
             @click="confirm"
             color="buttons"
             rounded
+            :disabled="loading"
             class="yellow-button"
             >confirm</v-btn
           >
@@ -149,6 +150,7 @@
         <v-btn text @click="dialog = true">Log out</v-btn>
         <v-btn text @click="goTo('user-courses')"> My courses</v-btn>
         <v-btn text>Shoping card</v-btn>
+        <v-btn v-if="isAdmin" text @click="goToAdmin">go to admin panel</v-btn>
       </v-col>
     </v-row>
     <div class="d-flex flex-column flex-sm-row align-center justify-sm-space-around mt-16">
@@ -208,12 +210,13 @@ export default {
       phoneDisabled: true,
       deliveryAddress: '',
       deliveryAddressDisabled: true,
-      role: 'User',
       isPoliticAgree: true
     }
   },
   computed: {
     ...mapState('auth', ['user']),
+    ...mapState('auth', ['error']),
+    ...mapState('auth', ['loading']),
     touched () {
       return !(
         this.firstNameDisabled &&
@@ -222,17 +225,36 @@ export default {
         this.phoneDisabled &&
         this.deliveryAddressDisabled
       )
+    },
+    isAdmin () {
+      return this.user?.role === 'Admin'
     }
   },
   watch: {
     user () {
       this.fillingInTheFields()
       this.resetDisabled()
+    },
+    error (val) {
+      if (val) {
+        this.$notify({
+          group: 'foo',
+          type: 'error',
+          text: val
+        })
+      }
+    },
+    loading (val) {
+      return val
     }
   },
   methods: {
+    goToAdmin () {
+      window.open(`${process.env.VUE_APP_API_URL}/admin`)
+    },
     logoutUser () {
-      this.$store.dispatch('auth/LOGOUT')
+      this.$store.dispatch('auth/LOG_OUT')
+      this.$store.dispatch('userCourses/RESET_USER_COURSES_STORE')
       this.$router.push({ name: 'home' })
       this.dialog = false
     },
@@ -250,7 +272,6 @@ export default {
         email: this.email,
         phone: this.phone,
         deliveryAddress: this.deliveryAddress,
-        role: this.role,
         isPoliticAgree: this.isPoliticAgree
       }
       this.$store.dispatch('auth/EDIT_USER', data)

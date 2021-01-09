@@ -157,10 +157,10 @@
                 dark
                 min-width="90"
                 class="yellow-button mt-4 mr-8"
-                @click="checkForm"
-                >submit</v-btn
+                @click="cancelHandler"
+                >cancel</v-btn
               >
-              <v-btn
+               <v-btn
                 color="buttons"
                 rounded
                 outlined
@@ -168,8 +168,8 @@
                 dark
                 min-width="90"
                 class="yellow-button mt-4"
-                @click="cancelHandler"
-                >cancel</v-btn
+                @click="checkForm"
+                >submit</v-btn
               >
             </v-col>
           </v-row>
@@ -283,62 +283,11 @@ export default {
     }
   },
   watch: {
-    // idCourse (val) {
-    //   if (val) {
-    //     this.editCourse(val)
-    //   } else {
-    //     this.resetData()
-    //   }
-    // },
-    // currentCourse (value) {
-    //   if (this.typeCourse === 'offline') {
-    //     this.dateOfCourses = value.dateOfCourses
-    //     this.copyDateOfCourses = Array.from(value.dateOfCourses)
-    //     this.availableSpots = value.availableSpots
-    //   }
-    //   this.category = value.category
-    //   this.nameOfCourse = value.nameOfCourse
-    //   this.subtitle = value.subtitle
-    //   this.days = value.accessDays
-    //   this.price = value.price
-    //   this.author = value.author
-    //   this.instructor = value.instructor
-    //   this.infoBonus = value.infoForBonus
-    //   this.description = value.description
-    //   this.url = value.photo[0]?.link
-    //   // this.dateOfCourses = value.dateOfCourses;
-    //   // this.copyDateOfCourses = Array.from(value.dateOfCourses);
-    //   // this.availableSpots = value.availableSpots;
-    //   // this.file = value.photo[0].link;
-    //   this.courseSuitable = value.thisCourseIsSuitableFor
-    //   this.copyCourseSuitable = Array.from(value.thisCourseIsSuitableFor)
-    // }
   },
   methods: {
     Preview_image () {
       this.url = URL.createObjectURL(this.file)
     },
-    // resetData () {
-    //   [
-    //     'category',
-    //     'nameOfCourse',
-    //     'subtitle',
-    //     'days',
-    //     'price',
-    //     'author',
-    //     'instructor',
-    //     'infoBonus',
-    //     'description',
-    //     'type'
-    //   ].forEach((item) => {
-    //     this[item] = ''
-    //   })
-    //   this.file = []
-    //   this.url = null
-    //   this.courseSuitable = ['']
-    //   this.dateOfCourses = ['']
-    //   this.availableSpots = ''
-    // },
     checkForm () {
       if (this.$refs.form.validate()) {
         this.submitHandler()
@@ -360,23 +309,6 @@ export default {
     // },
 
     cancelHandler () {
-      // if (this.typeCourse === 'offline') {
-      //   this.dateOfCourses = Array.from(this.copyDateOfCourses)
-      //   this.availableSpots = this.currentCourse.availableSpots
-      // }
-      // this.category = this.currentCourse.category
-      // this.nameOfCourse = this.currentCourse.nameOfCourse
-      // this.subtitle = this.currentCourse.subtitle
-      // this.days = this.currentCourse.accessDays
-      // this.price = this.currentCourse.price
-      // this.author = this.currentCourse.author
-      // this.instructor = this.currentCourse.instructor
-      // this.infoBonus = this.currentCourse.infoForBonus
-      // this.description = this.currentCourse.description
-      // this.url = this.currentCourse.photo[0].link
-      // // this.dateOfCourses = Array.from(this.copyDateOfCourses);
-      // // this.availableSpots = this.currentCourse.availableSpots;
-      // this.courseSuitable = Array.from(this.copyCourseSuitable)
       this.back()
     },
     submitHandler () {
@@ -391,15 +323,8 @@ export default {
         infoForBonus: this.infoBonus,
         description: this.description,
         file: this.file
-        // availableSpots: this.availableSpots,
       }
       const formData = new FormData()
-      if (this.typeCourse === 'offline') {
-        this.dateOfCourses.forEach(item =>
-          formData.append('dateOfCourses[]', item)
-        )
-        formData.append('availableSpots', this.availableSpots)
-      }
 
       Object.entries(data).forEach(([name, value]) =>
         formData.append(name, value)

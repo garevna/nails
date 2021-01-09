@@ -125,15 +125,6 @@ export default {
     return {
       isOpened: false,
       key: 1,
-      // logout: {
-      //   id: 122,
-      //   name: 'Logout'
-      // },
-      // register: {
-      //   id: 111,
-      //   name: 'Login or Register',
-      //   routeName: 'login'
-      // },
       items: [
         {
           id: 1,
@@ -214,16 +205,8 @@ export default {
   },
   computed: {
     ...mapState('auth', ['isLogged'])
-    // newItems () {
-    //   const additionalItem = !this.isLogged ? this.register : this.logout
-    //   return [additionalItem, ...this.items]
-    // }
   },
   methods: {
-    // logoutUser () {
-    //   this.$store.dispatch('auth/LOGOUT')
-    //   this.dialog = false
-    // },
     goToLogin (name) {
       if (this.$route.name !== name) this.$router.push({ name })
     },

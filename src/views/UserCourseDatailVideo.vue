@@ -22,26 +22,79 @@
           color="primary"
         ></v-progress-circular>
       </v-col>
-      <v-col cols="12" xs="12" offset-md="2" md="8" class="player-container" v-if="!loading && video">
-        <vue-core-video-player
-          :src="video.link"
-        />
+      <v-col
+        cols="12"
+        xs="12"
+        offset-md="2"
+        md="8"
+        class="player-container"
+        v-if="!loading && video"
+      >
+        <vue-core-video-player :src="video.link" />
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
         <v-card-title>{{ video.description }}</v-card-title>
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
-        <v-img :src="video.coverImg.link" contain></v-img>
+        <!-- <v-img :src="video.coverImg.link" contain></v-img> -->
+        <!-- <v-img :src="checkUrl(video)" height="500px"></v-img> -->
+        <CoverImage :url="checkUrl" :height="500" />
         <v-card flat class="d-flex justify-center mt-16">
-          <a
+          <!-- <a
             v-for="pdf in video.pdfs"
             :key="pdf._id"
             :href="pdf.link"
             target="_blank"
             class="pdf-link"
             ><v-img src="@/assets/images/pdf.svg" width="50px"
-          /></a>
+          /></a> -->
+          <VideoPdfs
+            :currentCourseId="currentCourseId"
+            :videoId="videoId"
+            :user="user"
+          />
         </v-card>
+      </v-col>
+      <v-col cols="12" v-if="!showForm" xs="12">
+        <v-btn
+          rounded
+          color="buttons"
+          large
+          min-width="160"
+          class="yellow-button"
+          @click="showForm = true"
+        >
+          Edit
+        </v-btn>
+      </v-col>
+      <v-col v-if="showForm" cols="12" xs="12">
+        <v-form ref="form">
+          <v-text-field label="name of video" v-model="nameOfVideo" outlined />
+          <v-textarea label="description" v-model="description" outlined />
+          <v-file-input v-model="imgFile" label="add cover image " outlined />
+        </v-form>
+        <div
+          class="d-flex flex-column align-center flex-sm-row justify-sm-center"
+        >
+          <v-btn
+            rounded
+            color="buttons"
+            large
+            min-width="160"
+            class="yellow-button  my-8 my-sm-0 mr-sm-4"
+            @click="closeForm"
+            >Cansel</v-btn
+          >
+          <v-btn
+            rounded
+            color="buttons"
+            large
+            min-width="160"
+            class="yellow-button "
+            @click="sendData"
+            >Submit</v-btn
+          >
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -50,7 +103,13 @@
 <script>
 import { mapState } from 'vuex'
 
+import CoverImage from '@/components/CoverImage.vue'
+import VideoPdfs from '@/components/Courses/VideoPdfs.vue'
 export default {
+  components: {
+    CoverImage,
+    VideoPdfs
+  },
   data () {
     return {
       courseId: this.$route.params.courseid,
@@ -59,6 +118,8 @@ export default {
       course: null,
       loading: true,
       volume: 0,
+      showForm: false,
+      coverImageSrc: require('@/assets/noImage.jpg'),
       items: [
         {
           text: '',
@@ -86,21 +147,51 @@ export default {
           disabled: true,
           href: '#'
         }
-      ]
+      ],
+      nameOfVideo: '',
+      description: '',
+      imgFile: null
     }
   },
   computed: {
-    // ...mapState('userCourses', ['userCourses']),
-    ...mapState('auth', ['user'])
+    ...mapState('userCourses', [
+      'currentCourse',
+      'currentCourseId',
+      'currentVideoId',
+      'currentVideo'
+    ]),
+    ...mapState('auth', ['user']),
+    checkUrl () {
+      // let img
+      // if (this.video?.coverImg?.link) {
+      //   img = this.video.coverImg.link
+      // } else {
+      //   img = this.coverImageSrc
+      // }
+      // return img
+      return this.video?.coverImg?.link ?? this.coverImageSrc
+    }
   },
   watch: {
     user (newVal) {
-      this.items[0].text = `${newVal.firstName} cabinet`
-      this.items[1].text = `${newVal.firstName} courses`
+      this.fillingInTheFields()
+    },
+    currentVideo (val) {
+      if (!val) return
+      this.video = val
+      this.nameOfVideo = val.name
+      this.description = val.description
+      // this.imgFile = val.coverImg.link
     },
     video (val) {
       if (!val) return
       this.items[4].text = `${val.name}`
+      this.loading = false
+      this.ready = true
+    },
+    currentCourse (val) {
+      if (!val) return
+      this.course = val
     },
     course (val) {
       if (!val) return
@@ -112,36 +203,62 @@ export default {
       this.items[0].text = `${this.user.firstName} cabinet`
       this.items[1].text = `${this.user.firstName} courses`
     },
-    async getCourseVideos () {
-      const { onlineCourse, error } = await (
-        await fetch(
-          `https://nails-australia-staging.herokuapp.com/course/online/${this.courseId}`
-        )
-      ).json()
-      if (!error) {
-        this.course = onlineCourse
-        console.log(onlineCourse)
-        // this.videos = onlineCourse.videos
-        this.ready = true
-      }
+    closeForm () {
+      // this.nameOfVideo = ''
+      // this.videoFile = null
+      // this.description = ''
+      // this.imgFile = null
+      // this.pdfFiles = new Array(3).fill(null)
+      this.showForm = false
     },
-    async getVideoById () {
-      const { video, error } = await (
-        await fetch(
-          `https://nails-australia-staging.herokuapp.com/course/online/findvideo/${this.videoId}`
-        )
-      ).json()
-      if (!error) {
-        this.video = video
-        this.loading = false
+    sendData () {
+      const data = {
+        name: this.nameOfVideo,
+        description: this.description,
+        imgFile: this.imgFile
       }
-      console.log(video)
+      const fd = new FormData()
+      Object.entries(data).forEach(([name, value]) => {
+        if (Array.isArray(value)) {
+          Object.values(data[name]).forEach(value => {
+            if (value) fd.append('files', value)
+          })
+        } else {
+          if (value instanceof File) fd.append('file', value)
+          else {
+            if (value) fd.append(name, value)
+          }
+        }
+      })
+      this.$store.dispatch('userCourses/PUT_CURRENT_VIDEO', {
+        fd,
+        id: this.videoId
+      })
+      // this.clearFormInputs()
+      this.showForm = false
     }
   },
   created () {
-    this.fillingInTheFields()
-    this.getVideoById()
-    this.getCourseVideos()
+    if (this.user) {
+      this.fillingInTheFields()
+    }
+    if (this.currentCourseId !== this.courseId) {
+      this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId)
+    }
+    if (this.currentVideoId !== this.videoId) {
+      this.$store.dispatch('userCourses/GET_VIDEO_COURSE_ID', this.videoId)
+    }
+    if (this.currentCourse && this.currentVideo) {
+      this.course = this.currentCourse
+      this.video = this.currentVideo
+      this.items[2].text = this.course.nameOfCourse
+      this.items[4].text = this.video.name
+      this.loading = false
+      this.ready = true
+    } else {
+      this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId)
+      this.$store.dispatch('userCourses/GET_VIDEO_COURSE_ID', this.videoId)
+    }
   }
 }
 </script>

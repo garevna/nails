@@ -62,7 +62,7 @@
       </div>
 
       <div class="d-flex">
-        <v-btn @click="submit" color="buttons" rounded class="yellow-button"
+        <v-btn @click="submit" color="buttons" :disabled="loading" rounded class="yellow-button"
           >Create account</v-btn
         >
       </div>
@@ -115,7 +115,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('auth', ['isLogged'])
+    ...mapState('auth', ['isLogged', 'loading'])
   },
   watch: {
     isLogged (newVal) {
@@ -137,10 +137,7 @@ export default {
           isPoliticAgree,
           password
         }
-        this.$store.dispatch('auth/REGISTRATION_USER', data)
-        // } else {
-        //   this.$store.dispatch('auth/AUTHORIZATION_USER', { email, password })
-        // }
+        this.$store.dispatch('auth/SIGN_UP', data)
       }
     }
   }
