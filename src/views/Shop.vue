@@ -111,8 +111,7 @@ export default {
       !this.categories &&
         (await this.$store.dispatch('shop/GET_SHOP_CATEGORIES'))
       if (this.categories) {
-        console.log('here')
-        !this.activeCategory && this.$store.dispatch('shop/SET_NEW_CATEGORY', { category: this.categories[0] })
+        this.$store.dispatch('shop/SET_NEW_CATEGORY', { category: this.categoryName || this.categories[0] })
       }
       this.$router.replace({
         name: 'shop',

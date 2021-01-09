@@ -94,8 +94,11 @@ const actions = {
     return state.commodity;
   },
   SET_NEW_CATEGORY({ state, commit, dispatch }, { category }) {
+    if (typeof category === 'string') {
+      category = state.fullListOfCategories.find(elem => elem.slug === category);
+    }
+    console.log(category);
     commit('SET_ACTIVE_CATEGORY', category);
-    state.skip = 0;
     dispatch('GET_SHOP_COMMODITIES', {
       categoryId: category._id,
     });
