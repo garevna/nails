@@ -5,10 +5,7 @@
         <v-breadcrumbs :items="items">
           <template v-slot:item="{ item }">
             <v-breadcrumbs-item :disabled="item.disabled">
-              <router-link
-                :to="item.href"
-                :class="{ 'disabled-link': item.disabled }"
-              >
+              <router-link :to="item.href" :class="{ 'disabled-link': item.disabled }">
                 {{ item.text.toUpperCase() }}</router-link
               >
             </v-breadcrumbs-item>
@@ -16,20 +13,9 @@
         </v-breadcrumbs>
       </v-col>
       <v-col cols="12" xs="12">
-        <v-progress-circular
-          v-if="loading"
-          indeterminate
-          color="primary"
-        ></v-progress-circular>
+        <v-progress-circular v-if="loading" indeterminate color="primary"></v-progress-circular>
       </v-col>
-      <v-col
-        cols="12"
-        xs="12"
-        offset-md="2"
-        md="8"
-        class="player-container"
-        v-if="!loading && video"
-      >
+      <v-col cols="12" xs="12" offset-md="2" md="8" class="player-container" v-if="!loading && video">
         <vue-core-video-player :src="video.link" />
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
@@ -48,22 +34,11 @@
             class="pdf-link"
             ><v-img src="@/assets/images/pdf.svg" width="50px"
           /></a> -->
-          <VideoPdfs
-            :currentCourseId="currentCourseId"
-            :videoId="videoId"
-            :user="user"
-          />
+          <VideoPdfs :currentCourseId="currentCourseId" :videoId="videoId" :user="user" />
         </v-card>
       </v-col>
       <v-col cols="12" v-if="!showForm" xs="12">
-        <v-btn
-          rounded
-          color="buttons"
-          large
-          min-width="160"
-          class="yellow-button"
-          @click="showForm = true"
-        >
+        <v-btn rounded color="buttons" large min-width="160" class="yellow-button" @click="showForm = true">
           Edit
         </v-btn>
       </v-col>
@@ -73,9 +48,7 @@
           <v-textarea label="description" v-model="description" outlined />
           <v-file-input v-model="imgFile" label="add cover image " outlined />
         </v-form>
-        <div
-          class="d-flex flex-column align-center flex-sm-row justify-sm-center"
-        >
+        <div class="d-flex flex-column align-center flex-sm-row justify-sm-center">
           <v-btn
             rounded
             color="buttons"
@@ -85,15 +58,7 @@
             @click="closeForm"
             >Cansel</v-btn
           >
-          <v-btn
-            rounded
-            color="buttons"
-            large
-            min-width="160"
-            class="yellow-button "
-            @click="sendData"
-            >Submit</v-btn
-          >
+          <v-btn rounded color="buttons" large min-width="160" class="yellow-button " @click="sendData">Submit</v-btn>
         </div>
       </v-col>
     </v-row>
@@ -101,16 +66,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
-import CoverImage from '@/components/CoverImage.vue'
-import VideoPdfs from '@/components/Courses/VideoPdfs.vue'
+import CoverImage from '@/components/CoverImage.vue';
+import VideoPdfs from '@/components/Courses/VideoPdfs.vue';
 export default {
   components: {
     CoverImage,
-    VideoPdfs
+    VideoPdfs,
   },
-  data () {
+  data() {
     return {
       courseId: this.$route.params.courseid,
       videoId: this.$route.params.videoid,
@@ -124,44 +89,39 @@ export default {
         {
           text: '',
           disabled: false,
-          href: '/user-cabinet'
+          href: '/user-cabinet',
         },
         {
           text: '',
           disabled: false,
-          href: '/user-cabinet/courses'
+          href: '/user-cabinet/courses',
         },
         {
           text: '',
           disabled: false,
-          href: `/user-cabinet/courses/${this.$route.params.courseid}`
+          href: `/user-cabinet/courses/${this.$route.params.courseid}`,
           // href: ''
         },
         {
           text: 'videos',
           disabled: false,
-          href: `/user-cabinet/courses/${this.$route.params.courseid}/videos`
+          href: `/user-cabinet/courses/${this.$route.params.courseid}/videos`,
         },
         {
           text: '',
           disabled: true,
-          href: '#'
-        }
+          href: '#',
+        },
       ],
       nameOfVideo: '',
       description: '',
-      imgFile: null
-    }
+      imgFile: null,
+    };
   },
   computed: {
-    ...mapState('userCourses', [
-      'currentCourse',
-      'currentCourseId',
-      'currentVideoId',
-      'currentVideo'
-    ]),
+    ...mapState('userCourses', ['currentCourse', 'currentCourseId', 'currentVideoId', 'currentVideo']),
     ...mapState('auth', ['user']),
-    checkUrl () {
+    checkUrl() {
       // let img
       // if (this.video?.coverImg?.link) {
       //   img = this.video.coverImg.link
@@ -169,98 +129,98 @@ export default {
       //   img = this.coverImageSrc
       // }
       // return img
-      return this.video?.coverImg?.link ?? this.coverImageSrc
-    }
+      return this.video?.coverImg?.link ?? this.coverImageSrc;
+    },
   },
   watch: {
-    user (newVal) {
-      this.fillingInTheFields()
+    user() {
+      this.fillingInTheFields();
     },
-    currentVideo (val) {
-      if (!val) return
-      this.video = val
-      this.nameOfVideo = val.name
-      this.description = val.description
+    currentVideo(val) {
+      if (!val) return;
+      this.video = val;
+      this.nameOfVideo = val.name;
+      this.description = val.description;
       // this.imgFile = val.coverImg.link
     },
-    video (val) {
-      if (!val) return
-      this.items[4].text = `${val.name}`
-      this.loading = false
-      this.ready = true
+    video(val) {
+      if (!val) return;
+      this.items[4].text = `${val.name}`;
+      this.loading = false;
+      this.ready = true;
     },
-    currentCourse (val) {
-      if (!val) return
-      this.course = val
+    currentCourse(val) {
+      if (!val) return;
+      this.course = val;
     },
-    course (val) {
-      if (!val) return
-      this.items[2].text = `${val.nameOfCourse}`
-    }
+    course(val) {
+      if (!val) return;
+      this.items[2].text = `${val.nameOfCourse}`;
+    },
   },
   methods: {
-    fillingInTheFields () {
-      this.items[0].text = `${this.user.firstName} cabinet`
-      this.items[1].text = `${this.user.firstName} courses`
+    fillingInTheFields() {
+      this.items[0].text = `${this.user.firstName} cabinet`;
+      this.items[1].text = `${this.user.firstName} courses`;
     },
-    closeForm () {
+    closeForm() {
       // this.nameOfVideo = ''
       // this.videoFile = null
       // this.description = ''
       // this.imgFile = null
       // this.pdfFiles = new Array(3).fill(null)
-      this.showForm = false
+      this.showForm = false;
     },
-    sendData () {
+    sendData() {
       const data = {
         name: this.nameOfVideo,
         description: this.description,
-        imgFile: this.imgFile
-      }
-      const fd = new FormData()
+        imgFile: this.imgFile,
+      };
+      const fd = new FormData();
       Object.entries(data).forEach(([name, value]) => {
         if (Array.isArray(value)) {
           Object.values(data[name]).forEach(value => {
-            if (value) fd.append('files', value)
-          })
+            if (value) fd.append('files', value);
+          });
         } else {
-          if (value instanceof File) fd.append('file', value)
+          if (value instanceof File) fd.append('file', value);
           else {
-            if (value) fd.append(name, value)
+            if (value) fd.append(name, value);
           }
         }
-      })
+      });
       this.$store.dispatch('userCourses/PUT_CURRENT_VIDEO', {
         fd,
-        id: this.videoId
-      })
+        id: this.videoId,
+      });
       // this.clearFormInputs()
-      this.showForm = false
-    }
+      this.showForm = false;
+    },
   },
-  created () {
+  created() {
     if (this.user) {
-      this.fillingInTheFields()
+      this.fillingInTheFields();
     }
     if (this.currentCourseId !== this.courseId) {
-      this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId)
+      this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId);
     }
     if (this.currentVideoId !== this.videoId) {
-      this.$store.dispatch('userCourses/GET_VIDEO_COURSE_ID', this.videoId)
+      this.$store.dispatch('userCourses/GET_VIDEO_COURSE_ID', this.videoId);
     }
     if (this.currentCourse && this.currentVideo) {
-      this.course = this.currentCourse
-      this.video = this.currentVideo
-      this.items[2].text = this.course.nameOfCourse
-      this.items[4].text = this.video.name
-      this.loading = false
-      this.ready = true
+      this.course = this.currentCourse;
+      this.video = this.currentVideo;
+      this.items[2].text = this.course.nameOfCourse;
+      this.items[4].text = this.video.name;
+      this.loading = false;
+      this.ready = true;
     } else {
-      this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId)
-      this.$store.dispatch('userCourses/GET_VIDEO_COURSE_ID', this.videoId)
+      this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId);
+      this.$store.dispatch('userCourses/GET_VIDEO_COURSE_ID', this.videoId);
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

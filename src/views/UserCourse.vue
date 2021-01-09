@@ -3,10 +3,7 @@
     <v-breadcrumbs :items="items">
       <template v-slot:item="{ item }">
         <v-breadcrumbs-item :disabled="item.disabled">
-          <router-link
-            :to="item.href"
-            :class="{ 'disabled-link-dark': item.disabled }"
-          >
+          <router-link :to="item.href" :class="{ 'disabled-link-dark': item.disabled }">
             {{ item.text.toUpperCase() }}</router-link
           >
         </v-breadcrumbs-item>
@@ -69,15 +66,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import 'nails-courses-card-detail'
-import 'nails-courses-card-detail/dist/nails-courses-card-detail.css'
-import EditCourseForm from '@/components/Courses/EditCourseForm.vue'
+import { mapState } from 'vuex';
+import 'nails-courses-card-detail';
+import 'nails-courses-card-detail/dist/nails-courses-card-detail.css';
+import EditCourseForm from '@/components/Courses/EditCourseForm.vue';
 export default {
   components: {
-    EditCourseForm
+    EditCourseForm,
   },
-  data () {
+  data() {
     return {
       courseId: this.$route.params.courseid,
       course: null,
@@ -89,85 +86,83 @@ export default {
         {
           text: '',
           disabled: false,
-          href: '/user-cabinet'
+          href: '/user-cabinet',
         },
         {
           text: '',
           disabled: false,
-          href: '/user-cabinet/courses'
+          href: '/user-cabinet/courses',
         },
         {
           text: '',
           disabled: true,
-          href: '#'
-        }
-      ]
-    }
+          href: '#',
+        },
+      ],
+    };
   },
   computed: {
-    ...mapState('userCourses', [
-      'userCourses',
-      'currentCourse',
-      'currentCourseId'
-    ]),
-    ...mapState('auth', ['user'])
+    ...mapState('userCourses', ['userCourses', 'currentCourse', 'currentCourseId']),
+    ...mapState('auth', ['user']),
   },
   watch: {
-    user (newVal) {
-      this.fillingInTheFields()
+    user() {
+      this.fillingInTheFields();
     },
-    course (val) {
-      this.items[2].text = `${val.nameOfCourse}`
+    course(val) {
+      this.items[2].text = `${val.nameOfCourse}`;
     },
-    currentCourse (course) {
-      if (!course) return
-      this.course = course
-      this.showForm = false
-      this.ready = true
-    }
+    currentCourse(course) {
+      if (!course) return;
+      this.course = course;
+      this.showForm = false;
+      this.ready = true;
+    },
   },
   methods: {
-    checkUrl (card) {
-      let img
+    checkUrl(card) {
+      let img;
       if (card.photo && Array.isArray(card.photo) && card.photo.length) {
-        img = card.photo[0].link
+        img = card.photo[0].link;
       }
       if (!img) {
-        img = this.coverImageSrc
+        img = this.coverImageSrc;
       }
-      return img
+      return img;
     },
-    fillingInTheFields () {
-      if (!this.user) return
-      this.items[0].text = `${this.user.firstName} cabinet`
-      this.items[1].text = `${this.user.firstName} courses`
+    fillingInTheFields() {
+      if (!this.user) return;
+      this.items[0].text = `${this.user.firstName} cabinet`;
+      this.items[1].text = `${this.user.firstName} courses`;
       // this.items[2].text = `${this.course.nameOfCourse}`
     },
-    editCourseById (data) {
+    editCourseById(data) {
       this.$store.dispatch('userCourses/PUT_USER_COURSE_ID', {
         data,
-        id: this.courseId
-      })
+        id: this.courseId,
+      });
     },
-    backForm () {
-      this.showForm = false
+    backForm() {
+      this.showForm = false;
     },
-    goToVideos () {
-      if (this.$route.name !== 'user-videos') { this.$router.push({ name: 'user-videos' }) }
-    }
+    goToVideos() {
+      if (this.$route.name !== 'user-videos') {
+        this.$router.push({ name: 'user-videos' });
+      }
+    },
   },
-  created () {
-    this.fillingInTheFields()
+  created() {
+    this.fillingInTheFields();
     // this.getCourseById()
     if (this.currentCourseId !== this.courseId) {
-      this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId)
+      this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId);
     } else {
-      this.items[2].text = `${this.currentCourse.nameOfCourse}`
-      this.course = this.currentCourse
-      this.ready = true
+      this.items[2].text = `${this.currentCourse.nameOfCourse}`;
+      this.course = this.currentCourse;
+      this.ready = true;
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
