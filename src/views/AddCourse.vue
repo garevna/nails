@@ -13,14 +13,18 @@
         </v-card>
       </v-col>
       <v-col cols="12">
-        <AddCourseForm type="online" />
+        <AddCourseForm @submit="submit" />
       </v-col>
     </v-row>
   </v-container>
 </template>
+
 <style scoped>
 </style>
+
 <script>
+import { mapState, mapActions } from 'vuex'
+
 import AddCourseForm from '@/components/forms/AddCourseForm.vue'
 export default {
   name: 'AddCourse',
@@ -28,14 +32,27 @@ export default {
     AddCourseForm
   },
   data () {
-    return {
-    }
+    return {}
   },
   computed: {
+    ...mapState('courses', ['course'])
   },
-  watch: {
-  },
+  watch: {},
   methods: {
+    ...mapActions('courses', {
+      createCourse: 'POST_COURSE'
+    }),
+    async submit (fd) {
+      await this.createCourse(fd)
+      if (this.course) {
+        this.$router.push({
+          name: 'add-course-videos',
+          params: {
+            courseid: this.course._id
+          }
+        })
+      }
+    }
   }
 }
 </script>

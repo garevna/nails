@@ -1,104 +1,144 @@
 <template>
-  <div id="edit-form">
-    <CourseDetail
-      v-if="course && !showForm"
-      :course="course"
-      type="online"
-      btnTitle="BUY THIS COURSE"
-    />
-    <EditCourseForm
-      v-if="showForm"
-      type="online"
-      :course="course"
-      :back="backForm"
-    />
-    <div
-      class="d-flex flex-column align-center flex-sm-row justify-sm-center mt-8"
-    >
-      <v-btn
-        @click="goUploadVideos"
-        v-if="addVideos"
-        color="buttons"
-        rounded
-        large
-        dark
-        min-width="160"
-        class="yellow-button my-8 my-sm-0 mr-sm-8"
-        >Upload videos</v-btn
+  <v-container id="edit-form">
+    <v-row>
+      <v-col cols="12" xs="12" v-if="course && !editing">
+        <CourseDetail
+          :course="course"
+          type="online"
+          btnTitle="BUY THIS COURSE"
+        />
+      </v-col>
+      <v-col cols="12" xs="12" md="7" v-if="editing">
+        <AddCourseForm :course.sync="courseData" @submit="submit" @back="back" />
+      </v-col>
+      <v-col
+        v-if="editing"
+        cols="12"
+        xs="12"
+        md="5"
+        class="d-flex flex-column justify-space-between align-center"
       >
-      <v-btn
-        @click="
-          showForm = true;
-          $vuetify.goTo('#edit-form', {
-            duration: 500,
-            offset: 80,
-            easing: 'easeInOutCubic',
-          });
-        "
-        v-if="!showForm"
-        color="buttons"
-        rounded
-        large
-        dark
-        min-width="160"
-        class="yellow-button my-8 my-sm-0 mr-sm-8"
-        >Edit</v-btn
-      >
-      <v-btn
-        @click="goToVideos"
-        v-if="addVideo"
-        color="buttons"
-        rounded
-        large
-        dark
-        min-width="160"
-        class="yellow-button"
-        >Videos</v-btn
-      >
-    </div>
-  </div>
+        <CourseCard :course="courseData" :type="type" />
+      </v-col>
+      <v-col cols="12" xs="12">
+        <CourseDetail
+          v-if="editing"
+          :course="courseData"
+          :type="type"
+          btnTitle="BUY THIS COURSE"
+        />
+        <div
+          class="d-flex flex-column align-center flex-sm-row justify-sm-center mt-8"
+        >
+          <v-btn
+            @click="goUploadVideos"
+            v-if="addVideos"
+            color="buttons"
+            rounded
+            large
+            dark
+            min-width="160"
+            class="yellow-button my-8 my-sm-0 mr-sm-8"
+            >Upload videos</v-btn
+          >
+          <v-btn
+            @click="fillingForm"
+            v-if="!editing"
+            color="buttons"
+            rounded
+            large
+            dark
+            min-width="160"
+            class="yellow-button my-8 my-sm-0 mr-sm-8"
+            >Edit</v-btn
+          >
+          <v-btn
+            @click="goToVideos"
+            v-if="addVideo"
+            color="buttons"
+            rounded
+            large
+            dark
+            min-width="160"
+            class="yellow-button"
+            >Videos</v-btn
+          >
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import CourseDetail from '@/components/courses/CourseDetail.vue'
-import EditCourseForm from '@/components/courses/EditCourseForm.vue'
-
+import CourseCard from '@/components/courses/CourseCard.vue'
+import AddCourseForm from '@/components/forms/AddCourseForm.vue'
 export default {
   components: {
-    EditCourseForm,
-    CourseDetail
+    CourseDetail,
+    CourseCard,
+    AddCourseForm
   },
   data () {
     return {
-      showForm: false
+      courseData: null,
+      editing: false,
+      type: 'online'
     }
   },
   computed: {
     ...mapState('courses', ['courses', 'course']),
     addVideos () {
-      return !this?.course?.videos?.length && !this.showForm
+      return !this?.course?.videos?.length && !this.editing
     },
     addVideo () {
-      return this?.course?.videos?.length && !this.showForm
+      return this?.course?.videos?.length && !this.editing
     }
   },
   watch: {
     course (val) {
       if (!val) return
-      this.showForm = false
+      this.editing = false
     }
   },
   methods: {
-    editCourseById (data) {
-      this.$store.dispatch('userCourses/PUT_USER_COURSE_ID', {
-        data,
-        id: this.courseId
+    ...mapActions('courses', {
+      putCourse: 'PUT_COURSE',
+      getCourse: 'GET_COURSE'
+    }),
+    submit (data) {
+      const { thisCourseIsSuitableFor, ...rest } = data
+
+      const fd = new FormData()
+
+      Object.entries(rest).forEach(([name, value]) => {
+        if (value instanceof File) fd.append('file', value)
+        else fd.append(name, value)
+      })
+
+      thisCourseIsSuitableFor.forEach(str => {
+        fd.append('thisCourseIsSuitableFor[]', str)
+      })
+      this.putCourse({
+        data: fd,
+        id: this.course._id
       })
     },
-    backForm () {
-      this.showForm = false
+    fillingForm () {
+      if (this.course) {
+        this.courseData = this.course
+        this.editing = true
+        this.$vuetify.goTo('#edit-form', {
+          duration: 500,
+          offset: 80,
+          easing: 'easeInOutCubic'
+        })
+      }
+    },
+    back () {
+      this.editing = false
     },
     goToVideos () {
       if (this.$route.name !== 'user-videos') {
@@ -114,18 +154,12 @@ export default {
           }
         })
       }
-    },
-    async getCourse () {
-      this.loading = true
-      await this.$store.dispatch(
-        'courses/GET_COURSE',
-        this.$route.params.courseid
-      )
-      this.loading = false
     }
   },
   created () {
-    this.getCourse()
+    this.getCourse(this.$route.params.courseid)
+  },
+  mounted () {
   }
 }
 </script>
