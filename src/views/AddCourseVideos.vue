@@ -51,7 +51,11 @@
       <v-col cols="12" xs="12" md="6">
         <p>Upload video for moderation</p>
         <v-expansion-panels flat :disabled="!isActive">
-          <v-expansion-panel v-for="(item, i) in uploadFiles" :key="i" class="d-flex flex-column align-center align-sm-stretch justify-sm-center ">
+          <v-expansion-panel
+            v-for="(item, i) in uploadFiles"
+            :key="i"
+            class="d-flex flex-column align-center align-sm-stretch justify-sm-center "
+          >
             <v-expansion-panel-header
               class="btn-open-video mb-4"
               :class="{ 'button-unactive': !isActive }"
@@ -62,7 +66,7 @@
             <v-expansion-panel-content class="mt-8 ">
               <v-form :ref="`form${i}`">
                 <div class="d-xl-flex">
-                     <v-text-field
+                  <v-text-field
                     label="name of video"
                     v-model="item.name"
                     outlined
@@ -81,7 +85,7 @@
                     class="ml-xl-4"
                   />
                 </div>
-                  <!-- <v-progress-linear
+                <!-- <v-progress-linear
                     v-if="uploading"
                     indeterminate
                     color="yellow darken-2"
@@ -89,7 +93,7 @@
                   ></v-progress-linear> -->
                 <div class="d-xl-flex">
                   <v-textarea
-                     class="mr-xl-4"
+                    class="mr-xl-4"
                     label="description"
                     v-model="item.description"
                     outlined
@@ -107,7 +111,9 @@
                     dark
                   />
                 </div>
-                <div class="d-flex flex-column flex-sm-row flex-md-column flex-lg-row">
+                <div
+                  class="d-flex flex-column flex-sm-row flex-md-column flex-lg-row"
+                >
                   <v-file-input
                     v-model="item.pdfFiles[0]"
                     prepend-icon="mdi-file-pdf-box"
@@ -151,13 +157,13 @@
           @click="sendData"
           >PROCEED AND CHECKOUT</v-btn
         >
-           <!-- :disabled="!validate || loading" -->
+        <!-- :disabled="!validate || loading" -->
       </v-col>
     </v-row>
   </v-container>
 </template>
 <style lang="scss">
-@import "@/css/variables.scss";
+@import '@/css/variables.scss';
 
 .v-expansion-panel-content__wrap {
   /* GLOBAL  */
@@ -255,27 +261,35 @@ export default {
         }
       ],
       rules: {
-        videoRule: v => !v || v.size < 1000000000 || 'Video size should be less than 1 GB!',
-        imageRule: v => !v || v.size < 2000000 || 'Image size should be less than 2 MB!',
-        pdfRule: v => !v || v.size < 100000000 || 'Video size should be less than 100 MB!'
+        videoRule: v =>
+          !v || v.size < 1000000000 || 'Video size should be less than 1 GB!',
+        imageRule: v =>
+          !v || v.size < 2000000 || 'Image size should be less than 2 MB!',
+        pdfRule: v =>
+          !v || v.size < 100000000 || 'Video size should be less than 100 MB!'
       }
     }
   },
   computed: {
     validate () {
-      const validArray = this.uploadFiles.map((item) =>
-        this.validateFile(item)
-      )
-      return this.validateFiles(validArray)
+      const validArray = this.uploadFiles.map(item => this.validateFile(item))
+      return true || this.validateFiles(validArray)
     },
     ...mapState('auth', ['user']),
     // ...mapState('userCourses', ['currentCourseVideos', 'loading', 'uploading'])
-    ...mapState('courses', ['courses']),
+    ...mapState('courses', ['courses', 'queue']),
     videos () {
       return this?.courses?.videos ?? []
     }
   },
   watch: {
+    queue (newVal, oldVal) {
+      console.log('================')
+      // console.log(newVal, oldVal)
+      console.log('length: ', newVal.length, oldVal.length)
+      console.log('eqval: ', newVal !== oldVal)
+      if (newVal.length && newVal.length !== oldVal.length) this.$store.dispatch('courses/ADD_FILE', newVal[0])
+    }
     // videos (videos) {
     //   if (!videos) return
     //   this.$router.push({
@@ -307,7 +321,9 @@ export default {
       return obj.name && obj.videoFile && obj.description
     },
     filteredData (arr) {
-      return arr.filter((item) => !this.isEmtyObj(item)).map(obj => this.clearEmtyFields(obj))
+      return arr
+        .filter(item => !this.isEmtyObj(item))
+        .map(obj => this.clearEmtyFields(obj))
     },
     isEmtyObj (obj) {
       const keys = Object.keys(obj)
@@ -324,7 +340,7 @@ export default {
           const arr = this.clearEmtyFields(obj[key])
           if (arr.length) resObj[key] = arr
         } else {
-          if (value) (resObj[key] = value)
+          if (value) resObj[key] = value
         }
       })
       return resObj
@@ -332,29 +348,41 @@ export default {
     isEmty (item) {
       let emty = !item
       if (Array.isArray(item)) {
-        emty = !item.some((item) => !!item)
+        emty = !item.some(item => !!item)
       }
       return emty
     },
     async sendData () {
-      const dataArr = this.filteredData(this.uploadFiles)
-      dataArr.forEach(async (obj, index) => {
-        const fd = new FormData()
-        Object.entries(obj).forEach(([name, value]) => {
-          if (Array.isArray(obj[name])) {
-            Object.values(obj[name]).forEach((value) =>
-              fd.append('files', value)
-            )
-          } else {
-            if (obj[name] instanceof File) fd.append('files', value)
-            else fd.append(name, value)
-          }
+      // const dataArr = this.filteredData(this.uploadFiles)
+      // dataArr.forEach(async (obj, index) => {
+      //   const fd = new FormData()
+      //   Object.entries(obj).forEach(([name, value]) => {
+      //     if (Array.isArray(obj[name])) {
+      //       Object.values(obj[name]).forEach((value) =>
+      //         fd.append('files', value)
+      //       )
+      //     } else {
+      //       if (obj[name] instanceof File) fd.append('files', value)
+      //       else fd.append(name, value)
+      //     }
+      //   })
+      //   if (this.$refs[`form${index}`][0].validate()) {
+      //     await this.$store.dispatch('courses/POST_VIDEOS', { id: this.$route.params.courseid, fd })
+      //     this.goToUserCourse()
+      //   }
+      // })
+      const arr = []
+
+      for (let i = 0; i < 3; i++) {
+        await this.$store.dispatch('courses/ADD_LESSON', i + 1)
+        arr.push({
+          id: i,
+          file: `file ${i + 1}`,
+          progress: 0
         })
-        if (this.$refs[`form${index}`][0].validate()) {
-          await this.$store.dispatch('courses/POST_VIDEOS', { id: this.$route.params.courseid, fd })
-          this.goToUserCourse()
-        }
-      })
+      }
+
+      await this.$store.dispatch('courses/ADD_QUEUE', arr)
     },
     toggleBtn () {
       this.isActive = !this.isActive

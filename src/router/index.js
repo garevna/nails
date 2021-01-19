@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '../store/modules/auth.store'
+// import store from '../store/modules/auth.store'
 import Home from '../views/Home.vue'
 // import * as store2 from 'vuex'
 
@@ -113,79 +113,79 @@ const routes = [
     path: '/user-cabinet',
     name: 'user-cabinet',
     meta: { layout: 'whitefone' },
-    component: () => import(/* webpackChunkName: "user-cabinet" */ '../views/UserCabinet.vue'),
-    beforeEnter: (to, from, next) => {
-      if (store.state.isLogged) {
-        return next()
-      } else next({ name: 'sign-in' })
-    }
+    component: () => import(/* webpackChunkName: "user-cabinet" */ '../views/UserCabinet.vue')
+    // beforeEnter: (to, from, next) => {
+    //   if (store.state.isLogged) {
+    //     return next()
+    //   } else next({ name: 'sign-in' })
+    // }
 
   },
   {
     path: '/user-cabinet/courses',
     name: 'user-courses',
     meta: { layout: 'whitefone' },
-    component: () => import(/* webpackChunkName: "user-courses" */'../views/UserCourses.vue'),
-    beforeEnter: (to, from, next) => {
-      if (store.state.isLogged) {
-        return next()
-      } else next({ name: 'sign-in' })
-    }
+    component: () => import(/* webpackChunkName: "user-courses" */'../views/UserCourses.vue')
+    // beforeEnter: (to, from, next) => {
+    //   if (store.state.isLogged) {
+    //     return next()
+    //   } else next({ name: 'sign-in' })
+    // }
   },
   {
     path: '/user-cabinet/add-course',
     name: 'add-course',
-    component: () => import(/* webpackChunkName: "add-course" */ '../views/AddCourse.vue'),
-    beforeEnter: (to, from, next) => {
-      if (store.state.isLogged) {
-        return next()
-      } else {
-        next({ name: 'sign-in' })
-      }
-    }
+    component: () => import(/* webpackChunkName: "add-course" */ '../views/AddCourse.vue')
+    // beforeEnter: (to, from, next) => {
+    //   if (store.state.isLogged) {
+    //     return next()
+    //   } else {
+    //     next({ name: 'sign-in' })
+    //   }
+    // }
   },
   {
     path: '/user-cabinet/courses/:courseid',
     name: 'user-course',
     // meta: { layout: 'whitefone' },
-    component: () => import(/* webpackChunkName: "user-course" */'../views/UserCourse.vue'),
-    beforeEnter: (to, from, next) => {
-      if (store.state.isLogged) {
-        return next()
-      } else next({ name: 'sign-in' })
-    }
+    component: () => import(/* webpackChunkName: "user-course" */'../views/UserCourse.vue')
+    // beforeEnter: (to, from, next) => {
+    //   if (store.state.isLogged) {
+    //     return next()
+    //   } else next({ name: 'sign-in' })
+    // }
   },
   {
     path: '/user-cabinet/courses/:courseid/add-videos',
     name: 'add-course-videos',
-    component: () => import(/* webpackChunkName: "add-course-videos" */ '../views/AddCourseVideos.vue'),
-    beforeEnter: (to, from, next) => {
-      if (store.state.isLogged) {
-        return next()
-      } else next({ name: 'sign-in' })
-    }
+    component: () => import(/* webpackChunkName: "add-course-videos" */ '../views/AddCourseVideos.vue')
+    // beforeEnter: (to, from, next) => {
+    //   if (store.state.isLogged) {
+    //     return next()
+    //   } else next({ name: 'sign-in' })
+    // }
   },
   {
     path: '/user-cabinet/courses/:courseid/videos',
     name: 'user-videos',
     meta: { layout: 'whitefone' },
-    component: () => import(/* webpackChunkName: "user-videos" */'../views/UserCourseVideos.vue'),
-    beforeEnter: (to, from, next) => {
-      if (store.state.isLogged) {
-        return next()
-      } else next({ name: 'sign-in' })
-    }
+    component: () => import(/* webpackChunkName: "user-videos" */'../views/UserCourseVideos.vue')
+    // beforeEnter: (to, from, next) => {
+    //   if (store.state.isLogged) {
+    //     return next()
+    //   } else next({ name: 'sign-in' })
+    // }
   },
   {
     path: '/user-cabinet/courses/:courseid/videos/:videoid',
     name: 'user-video',
     meta: { layout: 'whitefone' },
-    component: () => import(/* webpackChunkName: "user-video" */'../views/UserCourseDetailVideo.vue'),
-    beforeEnter: (to, from, next) => {
-      if (store.state.isLogged) {
-        return next()
-      } else next({ name: 'sign-in' })
-    }
+    component: () => import(/* webpackChunkName: "user-video" */'../views/UserCourseDetailVideo.vue')
+    // beforeEnter: (to, from, next) => {
+    //   if (store.state.isLogged) {
+    //     return next()
+    //   } else next({ name: 'sign-in' })
+    // }
   }
 ]
 

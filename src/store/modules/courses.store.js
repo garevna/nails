@@ -11,7 +11,8 @@ const state = {
   course: null,
   videos: [],
   video: null,
-  total: 0
+  total: 0,
+  queue: []
 }
 
 const mutations = {
@@ -32,10 +33,33 @@ const mutations = {
   },
   TOTAL: (state, payload) => {
     state.total = payload
+  },
+  QUEUE: (state, payload) => {
+    state.queue = payload
+  },
+  COMPLETE: (state, payload) => {
+    // if (state.queue.length) state.queue = state.queue.slice(1)
+    if (state.queue.length) state.queue = state.queue.filter(obj => obj.id !== payload)
   }
 }
 
 const actions = {
+  async ADD_LESSON ({ commit }, fd) {
+    console.log('add lesson: ', fd)
+  },
+  async ADD_QUEUE ({ commit }, arr) {
+    commit('QUEUE', arr)
+  },
+  async ADD_FILE ({ commit }, obj) {
+    console.log('add file: ', obj.file)
+    const error = false
+    if (!error) {
+      commit('COMPLETE', obj.id)
+    }
+  },
+
+  // ===================================================
+
   async GET_ALL_COURSES ({ commit }) {
     const { onlineCourses, error, total } = await getData(endpoints.get)
     if (!error) {
