@@ -5,7 +5,8 @@
     :disabled="disabled"
     :rules="[rules.required, rules.size]"
     :prepend-icon="icon"
-    :show-size="size"
+    :show-size="1000"
+    :accept="accept"
     outlined
     dark
   />
@@ -34,6 +35,10 @@ export default {
       type: Number,
       default: 1000
     },
+    accept: {
+      type: String,
+      default: ''
+    },
     required: {
       type: Boolean,
       default: false
@@ -50,11 +55,23 @@ export default {
           return res || 'Input is required'
         },
         size: v =>
-          !v || v?.size < this.size * 1000 || `File size should be less than ${(this.size)} MB!`
+          !v || v?.size < this.size * 1000 || `File size should be less than ${this.fileSize}`
       }
     }
   },
   computed: {
+    fileSize () {
+      const arr = ['KB', 'MB', 'GB', 'TB']
+      let size = this.size
+      let index = 0
+
+      while (size >= 1000 && index < arr.length - 1) {
+        size /= 1000
+        index += 1
+      }
+
+      return `${size}${arr[index]}`
+    },
     localValue: {
       get () {
         return this.value

@@ -4,7 +4,7 @@
       <v-col cols="12" xs="12" v-if="course && !editing">
         <CourseDetail
           :course="course"
-          type="online"
+          :type="type"
           btnTitle="BUY THIS COURSE"
         />
       </v-col>
