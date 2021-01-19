@@ -20,9 +20,7 @@
 </style>
 <script>
 import FileInput from '@/components/inputs/FileInput.vue'
-
 // const schema = require('@/config/uploadVideosSchema').default
-
 export default {
   props: {
     pdfs: {

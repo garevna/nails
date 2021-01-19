@@ -71,7 +71,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-
 import CourseDetail from '@/components/courses/CourseDetail.vue'
 import CourseCard from '@/components/courses/CourseCard.vue'
 import AddCourseForm from '@/components/forms/AddCourseForm.vue'
@@ -110,14 +109,11 @@ export default {
     }),
     submit (data) {
       const { thisCourseIsSuitableFor, ...rest } = data
-
       const fd = new FormData()
-
       Object.entries(rest).forEach(([name, value]) => {
         if (value instanceof File) fd.append('file', value)
         else fd.append(name, value)
       })
-
       thisCourseIsSuitableFor.forEach(str => {
         fd.append('thisCourseIsSuitableFor[]', str)
       })
@@ -163,7 +159,6 @@ export default {
   }
 }
 </script>
-
 <style scoped>
 .disabled-link-dark {
   color: grey;

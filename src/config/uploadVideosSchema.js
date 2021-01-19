@@ -11,7 +11,8 @@ export default {
       icon: 'mdi-video',
       accept: 'video/mp4',
       size: 1000000,
-      required: true
+      required: true,
+      progress: true
     },
     imgFile: {
       label: 'Image file',

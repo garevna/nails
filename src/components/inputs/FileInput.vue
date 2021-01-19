@@ -64,12 +64,10 @@ export default {
       const arr = ['KB', 'MB', 'GB', 'TB']
       let size = this.size
       let index = 0
-
       while (size >= 1000 && index < arr.length - 1) {
         size /= 1000
         index += 1
       }
-
       return `${size}${arr[index]}`
     },
     localValue: {
@@ -85,6 +83,5 @@ export default {
   }
 }
 </script>
-
 <style>
 </style>

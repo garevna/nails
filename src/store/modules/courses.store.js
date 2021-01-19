@@ -12,9 +12,8 @@ const state = {
   videos: [],
   video: null,
   total: 0,
-  appendVideos: [],
-  appendVideosRun: false,
-  queue: []
+  queue: [],
+  uploadDialog: true
 }
 const mutations = {
   COURSES: (state, payload) => {
@@ -35,46 +34,68 @@ const mutations = {
   TOTAL: (state, payload) => {
     state.total = payload
   },
-  APPEND_VIDEOS: (state, payload) => {
-    state.appendVideos = payload
-  },
-  APPEND_VIDEOS_RUN: (state, payload) => {
-    state.appendVideosRun = payload
-  },
-  CHANGE_PROGRESS: (state, { id, progress }) => {
-    state.appendVideos = state.appendVideos.map(obj => obj.id === id ? Object.assign(obj, { progress }) : obj)
-  },
-  COMPLETE_UPLOAD: (state, id) => {
-    state.appendVideos = state.appendVideos.filter(obj => obj.id !== id)
-    if (!state.appendVideos.length) state.appendVideosRun = false
-  },
   QUEUE: (state, payload) => {
-    state.queue = payload
+    state.queue = [...state.queue, ...payload]
+    // state.queue = payload.concat(state.queue)
   },
   COMPLETE: (state, payload) => {
+    // if (state.queue.length) state.queue = state.queue.slice(1)
     if (state.queue.length) state.queue = state.queue.filter(obj => obj.id !== payload)
   },
-  PROGRESS: (state, { id, progress }) => {
-    state.appendVideos.forEach(obj => {
-      if (obj.id === id) obj.progress = progress
+  DIALOG: (state, payload) => {
+    state.uploadDialog = payload
+  },
+  UPLOAD_FAIL: (state, payload) => {
+    state.queue = state.queue.filter(obj => {
+      if (obj.id === payload.id) obj.error = payload.error
     })
   }
 }
 
 const actions = {
-  async ADD_LESSON ({ commit }, fd) {
-    console.log('add lesson: ', fd)
+  async ADD_LESSON ({ commit, dispatch }, {
+    id,
+    fd
+  }) {
+    console.log('add lesson: ', id)
+    const response = await postData(`${endpoints.video}/${id}`, fd)
+    if (!response.error) {
+      // dispatch('GET_COURSE', id)
+      // dispatch('GET_COURSES')
+      return response.video
+    } else {
+      // commit('ERROR', errors.get, { root: true })
+    }
+    // return { _id: id }
   },
   async ADD_QUEUE ({ commit }, arr) {
-    commit('QUEUE', arr)
+    commit('DIALOG', true)
+    setTimeout(() => commit('QUEUE', arr), 3000)
   },
-  async ADD_FILE ({ commit }, obj) {
-    console.log('add file: ', obj.file)
-    const error = false
-    if (!error) {
-      commit('COMPLETE', obj.id)
-    }
+  async ADD_FILE ({ commit }, payload) {
+    // const fd = new FormData()
+    // fd.append('files', payload.file)
+    const request = new XMLHttpRequest()
+    request.open('POST', `${process.env.VUE_APP_API_URL}/${endpoints.appendVideo}/${payload.id}`)
+    request.upload.addEventListener('progress', function (e) {
+      commit('CHANGE_PROGRESS', { id: payload.id, progress: (e.loaded / e.total) * 100 })
+    })
+    request.addEventListener('load', function (e) {
+      // if (request.status === 200) commit('COMPLETE', payload.id)
+      // request.response holds response from the server
+      console.log(request.response)
+      if (!request.response.error) {
+        commit('COMPLETE', payload.id)
+      } else {
+        commit('UPLOAD_FAIL', { id: payload.id, error: true })
+      }
+    })
+    request.send(payload.file)
+    console.log('add file: ', payload.file)
   },
+
+  // ===================================================
+
   async GET_ALL_COURSES ({ commit }) {
     const { onlineCourses, error, total } = await getData(endpoints.get)
     if (!error) {
@@ -166,14 +187,14 @@ const actions = {
     }
   },
   async POST_VIDEOS ({ commit, dispatch }, { fd, id }) {
-    const response = await postData(`${endpoints.video}/${id}`, fd)
-    if (!response.error) {
+    const res = await postData(`${endpoints.video}/${id}`, fd)
+    if (!res.error) {
       dispatch('GET_COURSE', id)
       // dispatch('GET_COURSES')
-      return response.video
     } else {
       // commit('ERROR', errors.get, { root: true })
     }
+    return res.video
   },
   async APPEND_VIDEOS ({ commit, dispatch }, payload) {
     commit('QUEUE', payload)
