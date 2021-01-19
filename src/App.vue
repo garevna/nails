@@ -14,6 +14,7 @@
         </component>
       </v-main>
       <Footer />
+      <UploadFiles v-if="uploadDialog" />
     </v-container>
   </v-app>
 </template>
@@ -93,6 +94,7 @@ import Footer from './components/Footer.vue'
 import MainMenu from '@/components/MainMenu.vue'
 import WhitefoneLayout from './layouts/WhitefoneLayout.vue'
 import DefaultLayout from './layouts/DefaultLayout.vue'
+import UploadFiles from '@/components/UploadFiles.vue'
 
 export default {
   name: 'App',
@@ -102,7 +104,8 @@ export default {
     Footer,
     MainMenu,
     WhitefoneLayout,
-    DefaultLayout
+    DefaultLayout,
+    UploadFiles
   },
   data () {
     return {
@@ -122,7 +125,8 @@ export default {
     ...mapState(['viewportWidth']),
     layout () {
       return `${this.$route.meta?.layout || 'default'}-layout`
-    }
+    },
+    ...mapState('courses', ['uploadDialog'])
   },
   watch: {
   },
