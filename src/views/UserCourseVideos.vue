@@ -70,7 +70,6 @@ export default {
   data () {
     return {
       loading: false,
-      // courseId: this.$route.params.courseid,
       // videos: null,
       ready: true,
       showForm: false,
@@ -109,7 +108,7 @@ export default {
     deleteVideo () {
       this.$store.dispatch('courses/DELETE_VIDEO', {
         id: this.deleteId,
-        courseId: this.courseId
+        courseId: this.$route.params.courseid
       })
       this.dialog = false
       this.deleteId = null

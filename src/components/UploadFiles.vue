@@ -1,10 +1,15 @@
 <template>
-<div class="upload-dialog">
-  <h1>Upload files</h1>
-  <div v-for="(item, index) in queue" :key="index">
+  <div class="upload-dialog">
+    <h1>Upload files</h1>
+    <!-- <div v-for="(item, index) in queue" :key="index">
     <p>{{ item.progress }}</p>
+  </div> -->
+    <v-progress-linear v-for="(item, index) in queue" :key="index" v-model="item.progress" color="blue-grey" height="25">
+      <template v-slot:default="{ value }">
+        <strong>{{ Math.ceil(value) }}%</strong>
+      </template>
+    </v-progress-linear>
   </div>
-</div>
 </template>
 
 <style lang="scss">
@@ -27,8 +32,7 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'UploadFiles',
-  components: {
-  },
+  components: {},
   data () {
     return {
       queue2: [
@@ -58,7 +62,7 @@ export default {
   computed: {
     ...mapState('courses', ['queue']),
     filtered () {
-      return this.queue.filtered(obj => !obj.error)
+      return this.queue.filter(obj => !obj.error)
     }
   },
   watch: {
@@ -70,16 +74,15 @@ export default {
         // console.log(newVal, oldVal)
         console.log('length: ', newVal?.length, oldVal?.length)
         console.log('eqval: ', newVal !== oldVal)
-        if (newVal?.length && newVal?.length !== oldVal?.length) { this.$store.dispatch('courses/ADD_FILE', newVal[0]) }
+        if (newVal?.length && newVal?.length !== oldVal?.length) {
+          this.$store.dispatch('courses/ADD_LESSON', newVal[0])
+        }
         console.log()
       }
     }
   },
-  methods: {
-  },
-  created () {
-  },
-  beforeDestroy () {
-  }
+  methods: {},
+  created () {},
+  beforeDestroy () {}
 }
 </script>

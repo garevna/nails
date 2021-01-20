@@ -50,6 +50,9 @@
       </v-col>
       <v-col cols="12" xs="12" md="6">
         <p>Upload video for moderation</p>
+        <div v-for="(val, i) in validates" :key="i">
+            <p v-if="!validates[i]"> you have problem in form{{i + 1}}</p>
+        </div>
         <v-expansion-panels flat :disabled="!isActive">
           <v-expansion-panel
             v-for="(field, i) in data"
@@ -63,6 +66,7 @@
               @click="expansionIndex = i"
             >
               + add video {{ i + 1 }}
+              <!-- <p v-if="!validates[i]">error</p> -->
             </v-expansion-panel-header>
             <v-expansion-panel-content class="mt-8">
               <v-form :ref="`form${i}`">
@@ -80,16 +84,16 @@
           dark
           min-width="160"
           class="yellow-button"
+          :disabled="disabledSubmit"
           @click="sendData"
           >PROCEED AND CHECKOUT</v-btn
         >
-        <!-- :disabled="!validate || loading" -->
       </v-col>
     </v-row>
   </v-container>
 </template>
 <style lang="scss">
-@import '@/css/variables.scss';
+@import "@/css/variables.scss";
 
 .v-expansion-panel-content__wrap {
   /* GLOBAL  */
@@ -149,19 +153,20 @@ export default {
   },
   data () {
     return {
+      noValid: false,
       isActive: false,
+      disabledSubmit: false,
       expansionIndex: 0,
-      data: new Array(schema.count).fill(null)
+      data: new Array(schema.count).fill(null),
+      validates: new Array(schema.count).fill(true)
     }
   },
   computed: {
-    // validate () {
-    //   const validArray = this.uploadFiles.map(item => this.validateFile(item))
-    //   return true || this.validateFiles(validArray)
-    // },
     ...mapState('auth', ['user']),
-    // ...mapState('userCourses', ['currentCourseVideos', 'loading', 'uploading'])
     ...mapState('courses', ['courses', 'queue']),
+    validateFull () {
+      return !this.validates.some(item => !item)
+    },
     videos () {
       return this?.courses?.videos ?? []
     },
@@ -178,60 +183,25 @@ export default {
     }
   },
   watch: {
-    // queue: {
-    //   // '$store.courses.queue': {
-    //   immediate: true,
-    //   handler: function (newVal, oldVal) {
-    //     console.log('================')
-    //     // console.log(newVal, oldVal)
-    //     console.log('length: ', newVal?.length, oldVal?.length)
-    //     console.log('eqval: ', newVal !== oldVal)
-    //     if (newVal?.length && newVal?.length !== oldVal?.length) { this.$store.dispatch('courses/ADD_FILE', newVal[0]) }
-    //     console.log()
-    //   }
-    // }
-    // videos (videos) {
-    //   if (!videos) return
-    //   this.$router.push({
-    //     name: 'user-course',
-    //     params: {
-    //       // courseid: this.courseId
-    //       courseid: this.$route.params.courseid
-    //     }
-    //   })
-    // }
+    queue (val) {
+      if (val.length) return
+      this.disabledSubmit = false
+    }
   },
   methods: {
     ...mapActions('courses', {
       appVideos: 'APPEND_VIDEOS',
       appVideo: 'APPEND_VIDEO',
-      postVideos: 'POST_VIDEOS'
-
+      postVideos: 'POST_VIDEOS',
+      getCourse: 'GET_COURSE',
+      addQueue: 'ADD_QUEUE'
     }),
-    filteredData (arr) {
-      return arr
-        .filter(item => !this.isEmtyObj(item))
-        .map(obj => this.clearEmtyFields(obj))
-    },
     isEmtyObj (obj) {
       const keys = Object.keys(obj)
       return !keys.reduce(
         (accum, key) => (this.isEmty(obj[key]) ? accum : accum + 1),
         0
       )
-    },
-    clearEmtyFields (obj) {
-      const arr = Object.entries(obj)
-      const resObj = Array.isArray(obj) ? [] : {}
-      arr.forEach(([key, value]) => {
-        if (Array.isArray(obj[key])) {
-          const arr = this.clearEmtyFields(obj[key])
-          if (arr.length) resObj[key] = arr
-        } else {
-          if (value) resObj[key] = value
-        }
-      })
-      return resObj
     },
     isEmty (item) {
       let emty = !item
@@ -241,68 +211,54 @@ export default {
       return emty
     },
     validationForms () {
-      //  if (this.$refs[`form${index}`][0].validate()) {}
-      return this.data // this.data.filter(obj => obj !== null)
+      return this.data.map((obj, index) => {
+        if (!obj || this.isEmtyObj(obj)) {
+          this.$refs[`form${index}`] &&
+            this.$refs[`form${index}`][0].resetValidation()
+          this.validates[index] = true
+          return null
+        }
+        const valid = this.$refs[`form${index}`]
+          ? this.$refs[`form${index}`][0].validate()
+          : true
+        this.noValid = this.noValid || !valid
+        if (this.noValid) {
+          this.validates[index] = false
+          return null
+        }
+        this.validates[index] = true
+        return obj
+      })
     },
     async sendData () {
       const objs = this.validationForms()
-      if (!objs.length) return
-      console.log('text')
+      if (this.noValid) return
+      if (!objs.some(obj => obj)) return
+      this.disabledSubmit = true
       const uploades = []
 
       objs.forEach(async (obj, index) => {
         if (!obj) return
-        // eslint-disable-next-line no-unused-vars
-        const { videoFile, ...data } = obj
         const fd = new FormData()
-        const file = new FormData()
-        file.append('file', videoFile)
-
-        Object.entries(data).forEach(([name, value]) => {
-          if (Array.isArray(data[name])) {
-            Object.values(data[name]).forEach(
+        Object.entries(obj).forEach(([name, value]) => {
+          if (Array.isArray(obj[name])) {
+            Object.values(obj[name]).forEach(
               value => value && fd.append('files', value)
             )
           } else {
-            if (data[name] instanceof File) fd.append('files', value)
+            if (obj[name] instanceof File) fd.append('files', value)
             else fd.append(name, value)
           }
         })
-
-        // const res = await this.$store.dispatch('courses/POST_VIDEOS', {
-        //   id: this.$route.params.courseid,
-        //   fd
-        // })
-        const res = await this.$store.dispatch('courses/ADD_LESSON', {
+        uploades.push({
           id: this.$route.params.courseid,
-          fd
-        })
-
-        res?._id && uploades.push({
-        // uploades.push({
-          // id: res._id + index + 1,
-          id: res._id,
-          file,
+          lesson: fd,
           progress: 0,
           error: false,
           index
         })
-        // if (res?._id) {
-        //   uploades = [
-        //     ...uploades,
-        //     {
-        //       id: res._id,
-        //       file,
-        //       progress: 0,
-        //       index
-        //     }
-        //   ]
-        // }
       })
-
-      // this.$store.commit('courses/QUEUE', uploades)
-      console.log(uploades)
-      this.$store.dispatch('courses/ADD_QUEUE', uploades)
+      this.addQueue(uploades)
     },
     toggleBtn () {
       this.isActive = !this.isActive
@@ -311,24 +267,14 @@ export default {
       this.$router.push({
         name: 'user-course',
         params: {
-          // courseid: this.courseId
           courseid: this.$route.params.courseid
         }
       })
     }
   },
   created () {
-    // console.log(this.$store)
-    // this.unwatch = this.$store.watch(
-    //   (state, getters) => state.courses.queue,
-    //   (newValue, oldValue) => {
-    //     console.log(`Updating from ${oldValue.length} to ${newValue.length}`)
-    //     console.log(`Noequals from ${oldValue !== newValue}`)
-    //   }
-    // )
+    this.getCourse(this.$route.params.courseid)
   },
-  beforeDestroy () {
-    // this.unwatch()
-  }
+  beforeDestroy () {}
 }
 </script>

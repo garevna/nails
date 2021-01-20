@@ -6,8 +6,7 @@ export default {
     buyCourse: 'course/buy-online',
     video: 'course/online/video',
     findVideo: 'course/online/findvideo',
-    pdf: 'course/online/pdf',
-    appendVideo: 'course/online/video/file'
+    pdf: 'course/online/pdf'
   },
   offlineCourses: {
     get: 'course/offline',
