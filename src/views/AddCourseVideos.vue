@@ -50,9 +50,6 @@
       </v-col>
       <v-col cols="12" xs="12" md="6">
         <p>Upload video for moderation</p>
-        <div v-for="(val, i) in validates" :key="i">
-            <p v-if="!validates[i]"> you have problem in form{{i + 1}}</p>
-        </div>
         <v-expansion-panels flat :disabled="!isActive">
           <v-expansion-panel
             v-for="(field, i) in data"
@@ -70,7 +67,7 @@
             </v-expansion-panel-header>
             <v-expansion-panel-content class="mt-8">
               <v-form :ref="`form${i}`">
-                <AddVideoItem :data.sync="data[i]" :progress="progress[i]" />
+                <AddVideoItem :data.sync="data[i]"/>
               </v-form>
             </v-expansion-panel-content>
           </v-expansion-panel>
@@ -141,8 +138,8 @@
 }
 </style>
 <script>
-// eslint-disable-next-line no-unused-vars
 import { mapState, mapActions } from 'vuex'
+
 import AddVideoItem from '@/components/courses/AddVideoItem.vue'
 const schema = require('@/config/uploadVideosSchema').default
 
@@ -169,30 +166,28 @@ export default {
     },
     videos () {
       return this?.courses?.videos ?? []
-    },
-    progress () {
-      const arr = new Array(this.data.length).fill({
-        progress: 0,
-        error: false
-      })
-      this.queue.forEach(obj => {
-        arr[obj.index].progres = obj.progress
-        arr[obj.index].error = obj.error
-      })
-      return arr
     }
+    // progress () {
+    //   const arr = new Array(this.data.length).fill({
+    //     progress: 0,
+    //     error: false
+    //   })
+    //   this.queue.forEach(obj => {
+    //     arr[obj.index].progres = obj.progress
+    //     arr[obj.index].error = obj.error
+    //   })
+    //   return arr
+    // }
   },
   watch: {
     queue (val) {
       if (val.length) return
+      this.goToVideos()
       this.disabledSubmit = false
     }
   },
   methods: {
     ...mapActions('courses', {
-      appVideos: 'APPEND_VIDEOS',
-      appVideo: 'APPEND_VIDEO',
-      postVideos: 'POST_VIDEOS',
       getCourse: 'GET_COURSE',
       addQueue: 'ADD_QUEUE'
     }),
@@ -211,6 +206,7 @@ export default {
       return emty
     },
     validationForms () {
+      this.noValid = false
       return this.data.map((obj, index) => {
         if (!obj || this.isEmtyObj(obj)) {
           this.$refs[`form${index}`] &&
@@ -232,10 +228,11 @@ export default {
     },
     async sendData () {
       const objs = this.validationForms()
+      this.$forceUpdate()
       if (this.noValid) return
       if (!objs.some(obj => obj)) return
       this.disabledSubmit = true
-      const uploades = []
+      const uploadLessons = []
 
       objs.forEach(async (obj, index) => {
         if (!obj) return
@@ -250,7 +247,7 @@ export default {
             else fd.append(name, value)
           }
         })
-        uploades.push({
+        uploadLessons.push({
           id: this.$route.params.courseid,
           lesson: fd,
           progress: 0,
@@ -258,7 +255,7 @@ export default {
           index
         })
       })
-      this.addQueue(uploades)
+      this.addQueue(uploadLessons)
     },
     toggleBtn () {
       this.isActive = !this.isActive
@@ -270,6 +267,9 @@ export default {
           courseid: this.$route.params.courseid
         }
       })
+    },
+    goToVideos () {
+      this.$router.push({ name: 'user-videos' })
     }
   },
   created () {

@@ -1,15 +1,42 @@
 <template>
-  <div class="upload-dialog">
-    <h1>Upload files</h1>
-    <!-- <div v-for="(item, index) in queue" :key="index">
-    <p>{{ item.progress }}</p>
-  </div> -->
-    <v-progress-linear v-for="(item, index) in queue" :key="index" v-model="item.progress" color="blue-grey" height="25">
+  <v-card
+    flat
+    class="homefone upload-dialog"
+    v-if="filteredError.length || filteredQueue.length"
+  >
+    <h3 class="text-center">Upload files</h3>
+    <v-progress-linear
+      v-for="(item, index) in filteredError"
+      :key="index + 14"
+      v-model="item.progress"
+      color="error"
+      class="ma-2"
+      height="25"
+    >
       <template v-slot:default="{ value }">
         <strong>{{ Math.ceil(value) }}%</strong>
       </template>
     </v-progress-linear>
-  </div>
+
+    <v-progress-linear
+      v-for="(item, index) in filteredQueue"
+      :key="index"
+      v-model="item.progress"
+      color="buttons"
+      class="ma-2"
+      height="25"
+    >
+      <template v-slot:default="{ value }">
+        <strong>{{ Math.ceil(value) }}%</strong>
+      </template>
+    </v-progress-linear>
+    <v-btn v-if="filteredError.length && !filteredQueue.length" @click="repeat"
+      >Repeat uploading</v-btn
+    >
+    <v-btn v-if="filteredError.length && !filteredQueue.length" @click="close"
+      >Close</v-btn
+    >
+  </v-card>
 </template>
 
 <style lang="scss">
@@ -21,67 +48,53 @@
   position: fixed;
   bottom: 0;
   right: 0;
-  background-color: brown;
   z-index: 20;
 }
 </style>
 
 <script>
-// eslint-disable-next-line no-unused-vars
 import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'UploadFiles',
   components: {},
   data () {
-    return {
-      queue2: [
-        {
-          progress: 50,
-          error: false
-        },
-        {
-          progress: 0,
-          error: false
-        },
-        {
-          progress: 0,
-          error: false
-        },
-        {
-          progress: 0,
-          error: false
-        },
-        {
-          progress: 0,
-          error: false
-        }
-      ]
-    }
+    return {}
   },
   computed: {
     ...mapState('courses', ['queue']),
-    filtered () {
+    filteredQueue () {
       return this.queue.filter(obj => !obj.error)
+    },
+    filteredError () {
+      return this.queue.filter(obj => obj.error)
     }
   },
   watch: {
-    queue: {
-      // '$store.courses.queue': {
-      immediate: true,
-      handler: function (newVal, oldVal) {
-        console.log('================')
-        // console.log(newVal, oldVal)
-        console.log('length: ', newVal?.length, oldVal?.length)
-        console.log('eqval: ', newVal !== oldVal)
-        if (newVal?.length && newVal?.length !== oldVal?.length) {
-          this.$store.dispatch('courses/ADD_LESSON', newVal[0])
-        }
-        console.log()
+    filteredQueue (newVal, oldVal) {
+      if (newVal?.length && newVal?.length !== oldVal?.length) {
+        this.addLesson(newVal[0])
       }
     }
   },
-  methods: {},
+  methods: {
+    ...mapActions('courses', {
+      addLesson: 'ADD_LESSON',
+      addQueue: 'ADD_QUEUE'
+    }),
+    repeat () {
+      this.addQueue(
+        this.filteredError.map(obj =>
+          Object.assign({}, obj, {
+            error: false
+          })
+        )
+      )
+    },
+    close () {
+      this.addQueue([])
+    }
+  },
   created () {},
   beforeDestroy () {}
 }

@@ -94,8 +94,6 @@ import Footer from './components/Footer.vue'
 import MainMenu from '@/components/MainMenu.vue'
 import WhitefoneLayout from './layouts/WhitefoneLayout.vue'
 import DefaultLayout from './layouts/DefaultLayout.vue'
-import UploadFiles from '@/components/UploadFiles.vue'
-
 export default {
   name: 'App',
 
@@ -105,7 +103,7 @@ export default {
     MainMenu,
     WhitefoneLayout,
     DefaultLayout,
-    UploadFiles
+    UploadFiles: () => import('@/components/UploadFiles.vue')
   },
   data () {
     return {

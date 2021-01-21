@@ -13,7 +13,7 @@ const state = {
   video: null,
   total: 0,
   queue: [],
-  uploadDialog: true
+  uploadDialog: false
 }
 const mutations = {
   COURSES: (state, payload) => {
@@ -35,8 +35,7 @@ const mutations = {
     state.total = payload
   },
   QUEUE: (state, payload) => {
-    // state.queue = [...state.queue, ...payload]
-    state.queue = payload.concat(state.queue)
+    state.queue = payload
   },
   COMPLETE: (state, payload) => {
     if (state.queue.length) state.queue = state.queue.filter(obj => obj.index !== payload)
@@ -45,10 +44,9 @@ const mutations = {
     state.uploadDialog = payload
   },
   UPLOAD_FAIL: (state, payload) => {
-    if (state.queue.length) state.queue = state.queue.filter(obj => obj.index !== payload)
-    // state.queue.forEach(obj => {
-    //   if (obj.index === payload.index) obj.error = payload.error
-    // })
+    state.queue.forEach(obj => {
+      if (obj.index === payload.index) obj.error = payload.error
+    })
   },
   CHANGE_PROGRESS: (state, { index, progress }) => {
     state.queue.forEach(obj => {
@@ -58,44 +56,6 @@ const mutations = {
 }
 
 const actions = {
-  // async ADD_LESSON ({ commit, dispatch }, {
-  //   id,
-  //   fd
-  // }) {
-  //   console.log('add lesson: ', id)
-  //   const response = await postData(`${endpoints.video}/${id}`, fd)
-  //   if (!response.error) {
-  //     // dispatch('GET_COURSE', id)
-  //     // dispatch('GET_COURSES')
-  //     return response.video
-  //   } else {
-  //     // commit('ERROR', errors.get, { root: true })
-  //   }
-  //   // return { _id: id }
-  // },
-  async ADD_QUEUE ({ commit }, arr) {
-    commit('DIALOG', true)
-    setTimeout(() => commit('QUEUE', arr), 2000)
-  },
-  async ADD_LESSON ({ commit }, payload) {
-    const request = new XMLHttpRequest()
-    request.open('POST', `${process.env.VUE_APP_API_URL}/${endpoints.video}/${payload.id}`)
-    request.upload.addEventListener('progress', function (e) {
-      commit('CHANGE_PROGRESS', { index: payload.index, progress: (e.loaded / e.total) * 100 })
-    })
-    request.addEventListener('load', function (e) {
-      // if (request.status === 200) commit('COMPLETE', payload.id)
-      // request.response holds response from the server
-      console.log(request.response)
-      if (!request.response.error) {
-        commit('COMPLETE', payload.index)
-      } else {
-        commit('UPLOAD_FAIL', { index: payload.index, error: true })
-      }
-    })
-    request.send(payload.lesson)
-    console.log('add lesson: ', payload.lesson)
-  },
 
   // ===================================================
 
@@ -146,7 +106,6 @@ const actions = {
     } = await postData(endpoints.newCourse, fd)
     if (!error) {
       dispatch('GET_COURSES')
-      // dispatch('GET_COURSE', newOnlineCourse._id)
       commit('COURSE', newOnlineCourse)
     } else {
       // commit('ERROR', errors.get, { root: true })
@@ -155,7 +114,6 @@ const actions = {
   async PUT_COURSE ({ commit, dispatch }, { data, id }) {
     const { error } = await putData(`${endpoints.get}/${id}`, data)
     if (!error) {
-      // commit('VIDEO', data) // ?! <===
       dispatch('GET_COURSE', id)
       dispatch('GET_COURSES')
     } else {
@@ -182,58 +140,41 @@ const actions = {
   async PUT_VIDEO ({ commit, dispatch }, { fd, id }) {
     const { error } = await putData(`${endpoints.video}/${id}`, fd)
     if (!error) {
-      // commit('COURSE', data) // ?! <===
       dispatch('GET_FIND_VIDEO', id)
     } else {
       // commit('ERROR', errors.get, { root: true })
     }
   },
-  async POST_VIDEOS ({ commit, dispatch }, { fd, id }) {
-    const res = await postData(`${endpoints.video}/${id}`, fd)
-    if (!res.error) {
-      dispatch('GET_COURSE', id)
-      // dispatch('GET_COURSES')
-    } else {
-      // commit('ERROR', errors.get, { root: true })
-    }
-    return res.video
+  async ADD_QUEUE ({ commit }, arr) {
+    commit('DIALOG', true)
+    setTimeout(() => commit('QUEUE', arr), 2000)
   },
-  async APPEND_VIDEOS ({ commit, dispatch }, payload) {
-    commit('QUEUE', payload)
-    // commit('APPEND_VIDEOS', payload)
-    // commit('APPEND_VIDEOS_RUN', true)
-  },
-  async APPEND_VIDEO ({ commit, dispatch, store }, payload) {
-    // const fd = new FormData()
-    // fd.append('files', payload.file)
+  async ADD_LESSON ({ commit }, payload) {
     const request = new XMLHttpRequest()
-    request.open('POST', `${endpoints.appendVideo}/${payload.id}`)
+    request.open('POST', `${process.env.VUE_APP_API_URL}/${endpoints.video}/${payload.id}`)
     request.upload.addEventListener('progress', function (e) {
-      // upload progress as percentage
-      commit('CHANGE_PROGRESS', { id: payload.id, progress: (e.loaded / e.total) * 100 })
+      commit('CHANGE_PROGRESS', { index: payload.index, progress: (e.loaded / e.total) * 100 })
     })
     request.addEventListener('load', function (e) {
-      // HTTP status message (200, 404 etc)
-      if (request.status === 200) commit('COMPLETE_UPLOAD', payload.id)
-      // request.response holds response from the server
-      console.log(request.response)
+      if (request.status === 200) {
+        commit('COMPLETE', payload.index)
+      } else {
+        commit('UPLOAD_FAIL', { index: payload.index, error: true })
+      }
     })
-    request.send(payload.file)
-    // const { error } = await postData(`${endpoints.video}/${payload.id}`, fd)
+    request.send(payload.lesson)
+    console.log('add lesson: ', payload.lesson)
   },
-
   async GET_FIND_VIDEO ({ getters, commit, dispatch }, id) {
     const { video, error } = await getData(`${endpoints.findVideo}/${id}`)
     if (!error) {
       commit('VIDEO', video)
-      // commit('VIDEO', id)
     }
   },
   async GET_VIDEO ({ getters, commit, dispatch }, id) {
     const { video, error } = await getData(`${endpoints.video}/${id}`)
     if (!error) {
       commit('VIDEO', video)
-      // commit('VIDEO', id)
     }
   },
   async DELETE_VIDEO ({ getters, commit, dispatch }, { id, courseId }) {
@@ -248,12 +189,8 @@ const actions = {
   ) {
     const { error } = await postData(`${endpoints.pdf}/${videoId}`, fd)
     if (!error) {
-      // dispatch('GET_COURSES', userId)
-      // dispatch('GET_USER_COURSE_ID', currentCourseId)
-      // dispatch('GET_VIDEO_COURSE_ID', videoId)
       dispatch('GET_COURSES')
       dispatch('GET_COURSE', currentCourseId)
-      // dispatch('GET_VIDEO', videoId)
       dispatch('GET_FIND_VIDEO', videoId)
     }
   },
@@ -261,13 +198,8 @@ const actions = {
     { getters, dispatch, commit },
     { id, videoId, currentCourseId }
   ) {
-    // commit('ERROR', null)
     const { error } = await deleteData(`${endpoints.pdf}/${id}`)
     if (!error) {
-      // commit('ERROR', null)
-      // dispatch('GET_COURSES', userId)
-      // dispatch('GET_USER_COURSE_ID', currentCourseId)
-      // dispatch('GET_VIDEO_COURSE_ID', videoId)
       dispatch('GET_COURSES')
       dispatch('GET_COURSE', currentCourseId)
       dispatch('GET_FIND_VIDEO', videoId)

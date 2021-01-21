@@ -7,12 +7,6 @@
         :label="schema[name].label"
         :required="schema[name].required"
       />
-      <div
-        v-if="schema[name].progress && progress"
-      >
-        <p v-if="progress.error"> error </p>
-        <p v-else>progress: {{ progress.progress }}</p>
-      </div>
       <FileInput
         v-if="schema[name].type === 'file'"
         :value.sync="localData[name]"
@@ -45,10 +39,6 @@ const schema = require('@/config/uploadVideosSchema').default
 export default {
   props: {
     data: {
-      type: Object,
-      default: null
-    },
-    progress: {
       type: Object,
       default: null
     }

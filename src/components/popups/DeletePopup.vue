@@ -1,6 +1,6 @@
 <template>
   <!-- <v-dialog v-model="dialog" :retain-focus="false" persistent max-width="320"> -->
-     <v-dialog v-model="dialog" persistent max-width="320">
+     <v-dialog v-model="localDialog" persistent max-width="320">
     <v-card>
       <v-card-title> Do you really want to remove this {{name}} ?</v-card-title>
       <v-card-actions class="justify-center">
@@ -32,7 +32,17 @@
 <script>
 export default {
   name: 'DeletePopup',
-  props: ['canselHandler', 'deleteHandler', 'name', 'dialog']
+  props: ['canselHandler', 'deleteHandler', 'name', 'dialog'],
+  computed: {
+    localDialog: {
+      get () {
+        return this.dialog
+      },
+      set (val) {
+        this.$emit('update:dialog', val)
+      }
+    }
+  }
 }
 </script>
 
