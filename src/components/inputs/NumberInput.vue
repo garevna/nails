@@ -6,7 +6,6 @@
     :disabled="disabled"
     :rules="[rules.required, rules.onlyDigits, rules.noRepeat]"
     outlined
-    dark
   />
 </template>
 

@@ -5,7 +5,6 @@
     :disabled="disabled"
     :rules="[rules.required, rules.noRepeat]"
     outlined
-    dark
   />
 </template>
 

@@ -6,7 +6,6 @@
     :rules="[rules.required]"
     outlined
     rows="8"
-    dark
     no-resize
   />
 </template>

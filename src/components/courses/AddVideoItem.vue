@@ -54,7 +54,6 @@ export default {
     return {
       schema: schema.item,
       localData: Object.entries(schema.item).reduce((acc, [key, value]) => {
-        console.log(key, value)
         let field = ''
         if (value.type === 'pdfFile') {
           field = new Array(value.count).fill(null)

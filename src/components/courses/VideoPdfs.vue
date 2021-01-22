@@ -1,61 +1,93 @@
 <template>
-  <div>
-    <div class="d-flex">
-      <div class="pdf-container pt-12" v-for="pdf in pdfs" :key="pdf._id">
-        <a :href="pdf.link" target="_blank" class="pdf-link"
-          ><v-img src="@/assets/images/pdf.svg" width="50px"
-        /></a>
+<div>
+  <v-card flat v-if="errors"  class="ma-4"><v-card-text>{{ errors[0] }}</v-card-text></v-card>
+  <v-card flat class="d-flex"
+    >
+    <div class="pdf-container pt-12" v-for="pdf in pdfs" :key="pdf._id">
+      <a :href="pdf.link" target="_blank" class="pdf-link"
+        ><v-img src="@/assets/images/pdf.svg" width="50px"
+      /></a>
 
-        <v-icon large class="remove-pdf" @click="removePdf(pdf._id)"
-          >mdi-close-circle-outline</v-icon
-        >
-      </div>
-      <div v-if="!pdfs || pdfs.length < 3" class="plus-container">
-        <v-file-input
-          class="add-pdf pa-0 ma-0"
-          hide-input
-          v-model="pdfFile"
-          @change="addPdf"
-          prepend-icon="mdi-plus-circle-outline"
-        />
-      </div>
+      <v-icon large class="remove-pdf" @click="removePdf(pdf._id)"
+        >mdi-close-circle-outline</v-icon
+      >
     </div>
-  </div>
+
+    <v-form
+      ref="form"
+      v-if="!pdfs || pdfs.length < schema.count"
+      class="plus-container"
+    >
+      <FileInput
+        class="add-pdf pa-0 ma-0"
+        :value.sync="data"
+        :icon="schema.icon"
+        :size="schema.size"
+        :hideInput="schema.hideInput"
+      />
+    </v-form>
+  </v-card>
+</div>
+
 </template>
 
 <script>
 import { mapState } from 'vuex'
+
+import FileInput from '@/components/inputs/FileInput.vue'
+const schema = require('@/config/addPdfSchema').default
+
 export default {
-  props: [],
+  name: 'VideoPdfs',
+  components: {
+    FileInput
+  },
   data () {
     return {
-      pdfFile: null
+      schema,
+      data: null,
+      errors: []
     }
   },
   computed: {
     ...mapState('courses', [
-      // 'courses',
       'course',
-      // 'videos',
       'video'
     ]),
     pdfs () {
       return this.video.pdfs
     }
   },
+  watch: {
+    data (val) {
+      if (!val) return
+      this.addPdf()
+    }
+  },
   methods: {
     removePdf (id) {
       if (id) {
-        this.$store.dispatch('courses/REMOVE_PDF', { id, videoId: this.$route.params.videoid, currentCourseId: this.$route.params.courseid })
+        this.$store.dispatch('courses/REMOVE_PDF', {
+          id,
+          videoId: this.$route.params.videoid,
+          currentCourseId: this.$route.params.courseid
+        })
       }
     },
     addPdf () {
-      if (this.pdfFile) {
+      if (this.data && this.$refs.form.validate()) {
         const fd = new FormData()
-        fd.append('file', this.pdfFile)
+        fd.append('file', this.data)
 
-        this.$store.dispatch('courses/ADD_PDF', { fd, videoId: this.$route.params.videoid, currentCourseId: this.$route.params.courseid })
+        this.$store.dispatch('courses/ADD_PDF', {
+          fd,
+          videoId: this.$route.params.videoid,
+          currentCourseId: this.$route.params.courseid
+        })
+        this.$refs.form.reset()
       }
+      this.errors =
+          this.$refs.form.$children[0].$children[0]?.errorBucket ?? []
     }
   }
 }

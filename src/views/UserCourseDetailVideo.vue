@@ -24,7 +24,7 @@
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
         <CoverImage :url="linkCheck(video)" :height="500" />
         <v-card flat class="d-flex justify-center mt-16">
-          <VideoPdfs/>
+          <VideoPdfs />
         </v-card>
       </v-col>
       <v-col cols="12" v-if="!showForm" xs="12">
@@ -41,9 +41,45 @@
       </v-col>
       <v-col v-if="showForm" cols="12" xs="12">
         <v-form ref="form">
-          <v-text-field label="name of video" v-model="videoData.name" outlined />
+          <div v-for="(item, name) in data" :key="name">
+            <TextInput
+              v-if="schema[name].type === 'text'"
+              :value.sync="data[name]"
+              :label="schema[name].label"
+              :required="schema[name].required"
+            />
+            <div v-if="schema[name].type === 'file'" class="my-4">
+              <v-btn
+                v-if="valInput(name)"
+                @click="data[name] = null"
+                color="buttons"
+                rounded
+                small
+                outlined
+                primary
+              >
+                change file
+              </v-btn>
+              <FileInput
+                v-else
+                :value.sync="data[name]"
+                :label="schema[name].label"
+                :icon="schema[name].icon"
+                :size="schema[name].size"
+                :required="schema[name].required"
+              />
+            </div>
+
+            <TextAreaInput
+              v-if="schema[name].type === 'textarea'"
+              :value.sync="data[name]"
+              :label="schema[name].label"
+              :required="schema[name].required"
+            />
+          </div>
+          <!-- <v-text-field label="name of video" v-model="videoData.name" outlined />
           <v-textarea label="description" v-model="videoData.description" outlined />
-          <v-file-input v-model="videoData.imgFile" label="add cover image " outlined />
+          <v-file-input v-model="videoData.imgFile" label="add cover image " outlined /> -->
         </v-form>
         <div
           class="d-flex flex-column align-center flex-sm-row justify-sm-center"
@@ -73,33 +109,40 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import CoverImage from '@/components/CoverImage.vue'
 import VideoPdfs from '@/components/courses/VideoPdfs.vue'
 import checkVideoLink from '@/helpers/checkVideoLink'
+import TextInput from '@/components/inputs/TextInput.vue'
+import TextAreaInput from '@/components/inputs/TextAreaInput.vue'
+import FileInput from '@/components/inputs/FileInput.vue'
+
+const schema = require('@/config/editLessonSchema').default
 
 export default {
   name: 'UserCourseDetailVideo',
   components: {
     CoverImage,
-    VideoPdfs
+    VideoPdfs,
+    TextInput,
+    TextAreaInput,
+    FileInput
   },
   data () {
     return {
-      // courseId: this.$route.params.courseid,
-      // videoId: this.$route.params.videoid,
-      // Video: null,
-      // course: null,
       loading: false,
       volume: 0,
       showForm: false,
-      videoData: {
-        name: '',
-        description: '',
-        imgFile: null
-      }
-
+      schema,
+      data: Object.entries(schema).reduce((acc, [key, value]) => {
+        let field = ''
+        // if (value.type === 'pdfFile') {
+        //   field = new Array(value.count).fill(null)
+        // }
+        if (value.type === 'file') field = null
+        return Object.assign(acc, { [key]: field })
+      }, {})
     }
   },
   computed: {
@@ -118,59 +161,46 @@ export default {
     }
   },
   methods: {
+    ...mapActions('courses', {
+      getCourse: 'GET_COURSE',
+      putVideo: 'PUT_VIDEO',
+      getFindVideo: 'GET_FIND_VIDEO'
+    }),
     linkCheck (video) {
       return checkVideoLink(video)
     },
+    valInput (name) {
+      return !((this.data[name] === null) || (this.data[name] instanceof File))
+    },
     closeForm () {
-      // this.nameOfVideo = ''
-      // this.videoFile = null
-      // this.description = ''
-      // this.imgFile = null
-      // this.pdfFiles = new Array(3).fill(null)
       this.showForm = false
     },
     fillingFields () {
       if (this.video) {
-        Object.keys(this.videoData).forEach(key => {
-          this.videoData[key] = this.video[key]
+        Object.keys(this.data).forEach(key => {
+          this.data[key] = this.video[key]
         })
       }
     },
+    noObjNull (val) {
+      return val === null || (typeof val === 'object' && !(val instanceof File))
+    },
     sendData () {
-      // const data = {
-      //   name: this.nameOfVideo,
-      //   description: this.description,
-      //   imgFile: this.imgFile
-      // }
       const fd = new FormData()
-      Object.entries(this.videoData).forEach(([name, value]) => {
-        if (Array.isArray(value)) {
-          Object.values(this.videoData[name]).forEach(value => {
-            if (value) fd.append('files', value)
-          })
-        } else {
-          if (value instanceof File) fd.append('file', value)
-          else {
-            if (value) fd.append(name, value)
-          }
-        }
+      Object.entries(this.data).forEach(([name, value]) => {
+        if (this.noObjNull(value)) return
+        if (value instanceof File) fd.append('file', value)
+        else fd.append(name, value)
       })
-      this.$store.dispatch('courses/PUT_VIDEO', {
+      this.putVideo({
         fd,
         id: this.$route.params.videoid
       })
-      // this.clearFormInputs()
       this.showForm = false
     },
     async get () {
-      await this.$store.dispatch(
-        'courses/GET_COURSE',
-        this.$route.params.courseid
-      )
-      await this.$store.dispatch(
-        'courses/GET_FIND_VIDEO',
-        this.$route.params.videoid
-      ) // ?! <===<===
+      await this.getCourse(this.$route.params.courseid)
+      await this.getFindVideo(this.$route.params.videoid)
     }
   },
   created () {

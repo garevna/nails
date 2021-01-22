@@ -163,7 +163,6 @@ const actions = {
       }
     })
     request.send(payload.lesson)
-    console.log('add lesson: ', payload.lesson)
   },
   async GET_FIND_VIDEO ({ getters, commit, dispatch }, id) {
     const { video, error } = await getData(`${endpoints.findVideo}/${id}`)

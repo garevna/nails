@@ -1,69 +1,31 @@
 <template>
   <div>
     <v-form ref="form">
-      <v-text-field
-        label="name of video"
-        :rules="[rules.required]"
-        v-model="dataVideo.name"
-        outlined
-      />
-      <v-file-input
-        v-model="dataVideo.videoFile"
-        show-size
-        label="add video file"
-        prepend-icon="mdi-video"
-        :rules="[rules.required, rules.videoRule]"
-        outlined
-      />
-      <!-- <v-progress-linear
-            v-if="uploading"
-            indeterminate
-            color="yellow darken-2"
-            class="my-4"
-          ></v-progress-linear> -->
-      <div>
-        <v-textarea
-          label="description"
-          :rules="[rules.required]"
-          no-resize
-          rows="6"
-          v-model="dataVideo.description"
-          outlined
+      <div v-for="(item, name) in data" :key="name">
+        <TextInput
+          v-if="schema[name].type === 'text'"
+          :value.sync="data[name]"
+          :label="schema[name].label"
+          :required="schema[name].required"
         />
-      </div>
-      <div>
-        <v-file-input
-          v-model="dataVideo.imgFile"
-          show-size
-          accept="image/png, image/jpeg, image/bmp"
-          :rules="[rules.imageRule]"
-          prepend-icon="mdi-camera"
-          label="add cover image"
-          outlined
+        <FileInput
+          v-if="schema[name].type === 'file'"
+          :value.sync="data[name]"
+          :label="schema[name].label"
+          :icon="schema[name].icon"
+          :size="schema[name].size"
+          :required="schema[name].required"
         />
-      </div>
-      <div class="d-flex flex-column flex-md-row">
-        <v-file-input
-          v-model="dataVideo.pdfFiles[0]"
-          prepend-icon="mdi-file-pdf-box"
-          :rules="[rules.pdfRule]"
-          label="add pdf file"
-          outlined
+        <PdfInputs
+          v-if="schema[name].type === 'pdfFile'"
+          :pdfs.sync="data[name]"
+          :options="schema[name]"
         />
-        <v-file-input
-          v-model="dataVideo.pdfFiles[1]"
-          prepend-icon="mdi-file-pdf-box"
-          :rules="[rules.pdfRule]"
-          class="mx-md-4"
-          label="add pdf file"
-          outlined
-        />
-        <v-file-input
-          v-model="dataVideo.pdfFiles[2]"
-          prepend-icon="mdi-file-pdf-box"
-          :rules="[rules.pdfRule]"
-          label="add pdf file"
-          outlined
+        <TextAreaInput
+          v-if="schema[name].type === 'textarea'"
+          :value.sync="data[name]"
+          :label="schema[name].label"
+          :required="schema[name].required"
         />
       </div>
     </v-form>
@@ -76,6 +38,7 @@
         large
         min-width="160"
         class="yellow-button mr-sm-4 mb-8 mb-sm-0"
+        :disabled="disabled"
         @click="clearFormInputs"
         >Cansel</v-btn
       >
@@ -85,7 +48,8 @@
         large
         min-width="160"
         class="yellow-button"
-        @click="sendData"
+        :disabled="disabled"
+        @click="validateForm"
         >Submit</v-btn
       >
     </div>
@@ -93,63 +57,83 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex'
+
+import TextInput from '@/components/inputs/TextInput.vue'
+import TextAreaInput from '@/components/inputs/TextAreaInput.vue'
+import FileInput from '@/components/inputs/FileInput.vue'
+import PdfInputs from '@/components/courses/PdfInputs.vue'
+
+const schema = require('@/config/uploadLessonSchema').default
+
 export default {
   name: 'AddVideoForm',
   props: ['showForm'],
+  components: {
+    TextInput,
+    TextAreaInput,
+    FileInput,
+    PdfInputs
+  },
   data () {
     return {
-      dataVideo: {
-        name: '',
-        videoFile: null,
-        description: '',
-        imgFile: null,
-        pdfFiles: new Array(3).fill(null)
-      },
-      rules: {
-        videoRule: v =>
-          v?.size < 1000000000 || 'Video size should be less than 1 GB!',
-        imageRule: v =>
-          !v || v.size < 2000000 || 'Image size should be less than 2 MB!',
-        pdfRule: v =>
-          !v || v.size < 100000000 || 'Video size should be less than 100 MB!',
-        required: v => !!v || 'input is required'
-      }
+      schema,
+      data: Object.entries(schema).reduce((acc, [key, value]) => {
+        let field = ''
+        if (value.type === 'pdfFile') {
+          field = new Array(value.count).fill(null)
+        }
+        if (value.type === 'file') field = null
+        return Object.assign(acc, { [key]: field })
+      }, {}),
+      disabled: false
+    }
+  },
+  computed: {
+    ...mapState('courses', ['queue'])
+  },
+  watch: {
+    queue (val) {
+      if (val.length) return
+      this.getCourse(this.$route.params.courseid)
+      this.disabled = false
+      this.clearFormInputs()
     }
   },
   methods: {
+    ...mapActions('courses', {
+      getCourse: 'GET_COURSE',
+      addQueue: 'ADD_QUEUE'
+    }),
     clearFormInputs () {
-      this.dataVideo.name = ''
-      this.dataVideo.videoFile = null
-      this.dataVideo.description = ''
-      this.dataVideo.imgFile = null
-      this.dataVideo.pdfFiles = new Array(3).fill(null)
+      this.$refs.form.reset()
       this.$emit('update:showForm', false)
     },
     sendData () {
+      this.disabled = true
       const fd = new FormData()
-      Object.entries(this.dataVideo).forEach(([name, value]) => {
+      const uploadLessons = []
+      Object.entries(this.data).forEach(([name, value]) => {
         if (Array.isArray(value)) {
-          Object.values(this.dataVideo[name]).forEach(value => {
-            if (value) fd.append('files', value)
+          Object.values(this.data[name]).forEach(value => {
+            value && fd.append('files', value)
           })
         } else {
           if (value instanceof File) fd.append('files', value)
-          else {
-            if (value) fd.append(name, value)
-          }
+          else fd.append(name, value)
         }
       })
-      if (this.$refs.form.validate()) {
-        // this.$store.dispatch('userCourses/CREATE_VIDEOS_COURSE', {
-        //   fd,
-        //   id: this.courseId
-        // })
-        this.$store.dispatch('courses/POST_VIDEOS', {
-          fd,
-          id: this.$route.params.courseid
-        })
-        this.clearFormInputs()
-      }
+      uploadLessons.push({
+        id: this.$route.params.courseid,
+        lesson: fd,
+        progress: 0,
+        error: false,
+        index: 0
+      })
+      this.addQueue(uploadLessons)
+    },
+    validateForm () {
+      if (this.$refs.form.validate()) this.sendData()
     }
   }
 }

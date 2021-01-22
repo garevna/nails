@@ -7,14 +7,14 @@
     :prepend-icon="icon"
     :show-size="1000"
     :accept="accept"
+    :hide-input="hideInput"
     outlined
-    dark
   />
 </template>
 
 <script>
 export default {
-  name: 'TextInput',
+  name: 'FileInput',
   props: {
     value: {
       type: File
@@ -40,6 +40,10 @@ export default {
       default: ''
     },
     required: {
+      type: Boolean,
+      default: false
+    },
+    hideInput: {
       type: Boolean,
       default: false
     }
