@@ -3,63 +3,63 @@ export default {
     businessName: {
       label: 'Business name',
       type: 'text',
-      required: true
+      required: true,
     },
     category: {
       label: 'Category',
       type: 'text',
-      required: true
+      required: true,
     },
     nameOfCourse: {
       label: 'Name of Course',
       type: 'text',
-      required: true
+      required: true,
     },
     subtitle: {
       label: 'Subtitle',
       type: 'text',
-      required: true
+      required: true,
     },
     accessDays: {
       label: 'Access (days)',
       type: 'number',
-      required: true
+      required: true,
     },
     price: {
       label: 'Price',
       type: 'number',
-      required: true
+      required: true,
     },
     author: {
       label: 'Author',
       type: 'text',
-      required: true
+      required: true,
     },
     instructor: {
       label: 'Instructor',
       type: 'text',
-      required: true
+      required: true,
     },
     infoForBonus: {
       label: 'Info for bonus',
       type: 'text',
-      required: true
-    }
+      required: true,
+    },
   },
   sideRight: {
     thisCourseIsSuitableFor: {
       label: 'This course is suitable for',
-      type: 'suitable'
+      type: 'suitable',
     },
     description: {
       label: 'Description',
       type: 'textarea',
-      required: true
+      required: true,
     },
     photo: {
       label: 'Cover picture',
       type: 'file',
-      required: true
-    }
-  }
-}
+      required: true,
+    },
+  },
+};

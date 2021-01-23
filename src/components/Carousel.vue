@@ -1,34 +1,13 @@
 <template>
   <v-container fluid>
     <v-card flat class="transparent mx-auto my-12 text-center" max-width="1440">
-      <v-slide-group
-        v-if="screen >= 600"
-        v-model="model"
-        class="pa-4"
-        center-active
-        show-arrows
-        dark
-      >
-        <v-slide-item
-          v-for="(image, index) in images"
-          :key="index"
-          v-slot:default="{ active, toggle }"
-        >
-          <v-card
-            flat
-            class="ma-4"
-            height="250"
-            width="380"
-            @click="toggle"
-          >
+      <v-slide-group v-if="screen >= 600" v-model="model" class="pa-4" center-active show-arrows dark>
+        <v-slide-item v-for="(image, index) in images" :key="index" v-slot:default="{ active, toggle }">
+          <v-card flat class="ma-4" height="250" width="380" @click="toggle">
             <v-img :src="image" contain />
             <v-row class="fill-height" align="center" justify="center">
               <v-scale-transition>
-                <v-icon
-                    v-if="active"
-                    color="white"
-                    size="48"
-                ></v-icon>
+                <v-icon v-if="active" color="white" size="48"></v-icon>
               </v-scale-transition>
             </v-row>
           </v-card>
@@ -45,23 +24,17 @@
         light
         class="carousel transparent"
       >
-        <v-carousel-item
-          v-for="(image, index) in images"
-          :key="index"
-        >
+        <v-carousel-item v-for="(image, index) in images" :key="index">
           <v-sheet height="100%" flat tile class="transparent">
             <v-row align="center" justify="center">
               <v-card flat class="ma-4" hover :width="cardWidth" :height="cardHeight" style="position: relative">
-            <v-img :src="image" contain />
-            <v-row class="fill-height" align="center" justify="center">
-              <v-scale-transition>
-                <v-icon
-                  color="white"
-                  size="48"
-                ></v-icon>
-              </v-scale-transition>
-            </v-row>
-          </v-card>
+                <v-img :src="image" contain />
+                <v-row class="fill-height" align="center" justify="center">
+                  <v-scale-transition>
+                    <v-icon color="white" size="48"></v-icon>
+                  </v-scale-transition>
+                </v-row>
+              </v-card>
             </v-row>
           </v-sheet>
         </v-carousel-item>
@@ -83,8 +56,7 @@
 </style>
 
 <script>
-
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
 export default {
   name: 'Slider',
@@ -99,15 +71,15 @@ export default {
       'http://lorempixel.com/200/280/animals',
       'http://lorempixel.com/200/280/people',
       'http://lorempixel.com/200/280/nature',
-      'http://lorempixel.com/200/280/transport'
-    ]
+      'http://lorempixel.com/200/280/transport',
+    ],
   }),
   computed: {
     ...mapState(['viewportWidth']),
     ...mapState({ screen: 'viewportWidth' }),
-    cardWidth () {
-      return this.viewportWidth < 600 ? this.viewportWidth - 100 : 376
-    }
-  }
-}
+    cardWidth() {
+      return this.viewportWidth < 600 ? this.viewportWidth - 100 : 376;
+    },
+  },
+};
 </script>

@@ -16,48 +16,46 @@ export default {
   props: {
     value: {
       type: String,
-      required: true
+      required: true,
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     required: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  data () {
+  data() {
     return {
       rules: {
         required: v => {
-          const a = this.required && !!v
-          const b = !this.required
+          const a = this.required && !!v;
+          const b = !this.required;
           // res = a XOR b
-          const res = !(a && b) && (a || b)
-          return res || 'Input is required'
-        }
-      }
-    }
+          const res = !(a && b) && (a || b);
+          return res || 'Input is required';
+        },
+      },
+    };
   },
   computed: {
     localValue: {
-      get () {
-        return this.value
+      get() {
+        return this.value;
       },
-      set (val) {
-        this.$emit('update:value', val)
-      }
-    }
+      set(val) {
+        this.$emit('update:value', val);
+      },
+    },
   },
-  methods: {
-  }
-}
+  methods: {},
+};
 </script>
 
-<style>
-</style>
+<style></style>

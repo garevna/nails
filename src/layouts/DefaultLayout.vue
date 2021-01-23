@@ -1,22 +1,22 @@
 <template>
-  <v-main>
+  <v-card>
     <Breadcrumbs />
     <router-view />
-  </v-main>
+  </v-card>
 </template>
 
 <script>
-import Breadcrumbs from '@/components/Breadcrumbs.vue'
+import Breadcrumbs from '@/components/Breadcrumbs.vue';
 
 export default {
   components: {
-    Breadcrumbs
+    Breadcrumbs,
   },
-  beforeCreate () {
-    this.$vuetify.theme.dark = true
+  beforeCreate() {
+    this.$vuetify.theme.dark = true;
   },
-  beforeDestroy () {
-    this.$vuetify.theme.dark = false
-  }
-}
+  beforeDestroy() {
+    this.$vuetify.theme.dark = false;
+  },
+};
 </script>

@@ -1,12 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col
-        cols="12"
-        xs="12"
-        md="6"
-        class="d-flex justify-center justify-md-end"
-      >
+      <v-col cols="12" xs="12" md="6" class="d-flex justify-center justify-md-end">
         <v-btn
           rounded
           color="buttons"
@@ -20,20 +15,8 @@
           >CONFIRM DETAILS</v-btn
         >
       </v-col>
-      <v-col
-        cols="12"
-        xs="12"
-        md="6"
-        class="d-flex justify-center justify-md-start"
-      >
-        <v-btn
-          color="buttons"
-          rounded
-          large
-          dark
-          min-width="160"
-          class="yellow-button"
-          @click="goToUserCourse"
+      <v-col cols="12" xs="12" md="6" class="d-flex justify-center justify-md-start">
+        <v-btn color="buttons" rounded large dark min-width="160" class="yellow-button" @click="goToUserCourse"
           >EDIT DETAILS</v-btn
         >
       </v-col>
@@ -41,17 +24,20 @@
         <v-card flat dark class="secondaryGray">
           <v-card-title>Requirements to the video</v-card-title>
           <v-card-text
-            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint,
-            doloremque. Vel, aliquid illo, adipisci magnam ratione explicabo
-            voluptates, aperiam voluptate inventore ea aspernatur veniam fugit
-            animi et nihil obcaecati quibusdam!</v-card-text
+            >Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, doloremque. Vel, aliquid illo, adipisci
+            magnam ratione explicabo voluptates, aperiam voluptate inventore ea aspernatur veniam fugit animi et nihil
+            obcaecati quibusdam!</v-card-text
           >
         </v-card>
       </v-col>
       <v-col cols="12" xs="12" md="6">
         <p>Upload video for moderation</p>
         <v-expansion-panels flat :disabled="!isActive">
-          <v-expansion-panel v-for="(item, i) in uploadFiles" :key="i" class="d-flex flex-column align-center align-sm-stretch justify-sm-center ">
+          <v-expansion-panel
+            v-for="(item, i) in uploadFiles"
+            :key="i"
+            class="d-flex flex-column align-center align-sm-stretch justify-sm-center"
+          >
             <v-expansion-panel-header
               class="btn-open-video mb-4"
               :class="{ 'button-unactive': !isActive }"
@@ -59,16 +45,10 @@
             >
               + add video {{ i + 1 }}
             </v-expansion-panel-header>
-            <v-expansion-panel-content class="mt-8 ">
+            <v-expansion-panel-content class="mt-8">
               <v-form :ref="`form${i}`">
                 <div class="d-xl-flex">
-                     <v-text-field
-                    label="name of video"
-                    v-model="item.name"
-                    outlined
-                    dark
-                    class="mr-xl-4"
-                  />
+                  <v-text-field label="name of video" v-model="item.name" outlined dark class="mr-xl-4" />
                   <v-file-input
                     label="video file"
                     show-size
@@ -81,20 +61,14 @@
                     class="ml-xl-4"
                   />
                 </div>
-                  <!-- <v-progress-linear
+                <!-- <v-progress-linear
                     v-if="uploading"
                     indeterminate
                     color="yellow darken-2"
                     class="my-4"
                   ></v-progress-linear> -->
                 <div class="d-xl-flex">
-                  <v-textarea
-                     class="mr-xl-4"
-                    label="description"
-                    v-model="item.description"
-                    outlined
-                    dark
-                  />
+                  <v-textarea class="mr-xl-4" label="description" v-model="item.description" outlined dark />
                   <v-file-input
                     class="ml-xl-4"
                     v-model="item.imgFile"
@@ -151,13 +125,13 @@
           @click="sendData"
           >PROCEED AND CHECKOUT</v-btn
         >
-           <!-- :disabled="!validate || loading" -->
+        <!-- :disabled="!validate || loading" -->
       </v-col>
     </v-row>
   </v-container>
 </template>
 <style lang="scss">
-@import "@/css/variables.scss";
+@import '@/css/variables.scss';
 
 .v-expansion-panel-content__wrap {
   /* GLOBAL  */
@@ -188,14 +162,12 @@
   /* margin-bottom: 15px; */
   /* box-shadow: 0 6px rgb(15 15 15), 0 3px 15px rgba(0,0,0,.4), inset 0 1px rgba(255,255,255,.3), inset 0 0 3px rgba(255,255,255,.5); */
   transition: 0.2s;
-  box-shadow: inset -1px 2px 2px rgba(255, 255, 255, 0.5),
-    inset 1px -2px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: inset -1px 2px 2px rgba(255, 255, 255, 0.5), inset 1px -2px 2px rgba(0, 0, 0, 0.5);
 }
 .v-expansion-panel--active > .btn-open-video {
   background: rgb(38 38 36) linear-gradient(rgb(38 38 36) 20%, rgb(18 18 17));
   /* box-shadow: 0 2px rgb(12 12 12), 0 1px 6px rgba(0,0,0,.4), inset 0 1px rgba(255,255,255,.3), inset 0 0 3px rgba(255,255,255,.5); */
-  box-shadow: inset 1px -2px 2px rgba(255, 255, 255, 0.5),
-    inset -1px 2px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: inset 1px -2px 2px rgba(255, 255, 255, 0.5), inset -1px 2px 2px rgba(0, 0, 0, 0.5);
   transform: translate(0, 4px);
 }
 
@@ -205,14 +177,14 @@
 }
 </style>
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
 export default {
   name: 'add-course-videos',
   components: {
     // PaymentDetailsForm
   },
-  data () {
+  data() {
     return {
       isActive: false,
       // courseId: this.$route.params.courseid,
@@ -223,57 +195,55 @@ export default {
           videoFile: null,
           description: '',
           imgFile: null,
-          pdfFiles: new Array(3).fill(null)
+          pdfFiles: new Array(3).fill(null),
         },
         {
           name: '',
           videoFile: null,
           description: '',
           imgFile: null,
-          pdfFiles: new Array(3).fill(null)
+          pdfFiles: new Array(3).fill(null),
         },
         {
           name: '',
           videoFile: null,
           description: '',
           imgFile: null,
-          pdfFiles: new Array(3).fill(null)
+          pdfFiles: new Array(3).fill(null),
         },
         {
           name: '',
           videoFile: null,
           description: '',
           imgFile: null,
-          pdfFiles: new Array(3).fill(null)
+          pdfFiles: new Array(3).fill(null),
         },
         {
           name: '',
           videoFile: null,
           description: '',
           imgFile: null,
-          pdfFiles: new Array(3).fill(null)
-        }
+          pdfFiles: new Array(3).fill(null),
+        },
       ],
       rules: {
         videoRule: v => !v || v.size < 1000000000 || 'Video size should be less than 1 GB!',
         imageRule: v => !v || v.size < 2000000 || 'Image size should be less than 2 MB!',
-        pdfRule: v => !v || v.size < 100000000 || 'Video size should be less than 100 MB!'
-      }
-    }
+        pdfRule: v => !v || v.size < 100000000 || 'Video size should be less than 100 MB!',
+      },
+    };
   },
   computed: {
-    validate () {
-      const validArray = this.uploadFiles.map((item) =>
-        this.validateFile(item)
-      )
-      return this.validateFiles(validArray)
+    validate() {
+      const validArray = this.uploadFiles.map(item => this.validateFile(item));
+      return this.validateFiles(validArray);
     },
     ...mapState('auth', ['user']),
     // ...mapState('userCourses', ['currentCourseVideos', 'loading', 'uploading'])
     ...mapState('courses', ['courses']),
-    videos () {
-      return this?.courses?.videos ?? []
-    }
+    videos() {
+      return this?.courses?.videos ?? [];
+    },
   },
   watch: {
     // videos (videos) {
@@ -288,86 +258,78 @@ export default {
     // }
   },
   methods: {
-    validateFile (file) {
+    validateFile(file) {
       if (this.validateObj(file)) {
-        return 'required fields are filled'
+        return 'required fields are filled';
       }
       if (this.isEmtyObj(file)) {
-        return 'all fields emty'
+        return 'all fields emty';
       }
-      return 'required fields are not filled'
+      return 'required fields are not filled';
     },
-    validateFiles (arr) {
-      return (
-        arr.includes('required fields are filled') &&
-        !arr.includes('required fields are not filled')
-      )
+    validateFiles(arr) {
+      return arr.includes('required fields are filled') && !arr.includes('required fields are not filled');
     },
-    validateObj (obj) {
-      return obj.name && obj.videoFile && obj.description
+    validateObj(obj) {
+      return obj.name && obj.videoFile && obj.description;
     },
-    filteredData (arr) {
-      return arr.filter((item) => !this.isEmtyObj(item)).map(obj => this.clearEmtyFields(obj))
+    filteredData(arr) {
+      return arr.filter(item => !this.isEmtyObj(item)).map(obj => this.clearEmtyFields(obj));
     },
-    isEmtyObj (obj) {
-      const keys = Object.keys(obj)
-      return !keys.reduce(
-        (accum, key) => (this.isEmty(obj[key]) ? accum : accum + 1),
-        0
-      )
+    isEmtyObj(obj) {
+      const keys = Object.keys(obj);
+      return !keys.reduce((accum, key) => (this.isEmty(obj[key]) ? accum : accum + 1), 0);
     },
-    clearEmtyFields (obj) {
-      const arr = Object.entries(obj)
-      const resObj = Array.isArray(obj) ? [] : {}
+    clearEmtyFields(obj) {
+      const arr = Object.entries(obj);
+      const resObj = Array.isArray(obj) ? [] : {};
       arr.forEach(([key, value]) => {
         if (Array.isArray(obj[key])) {
-          const arr = this.clearEmtyFields(obj[key])
-          if (arr.length) resObj[key] = arr
+          const arr = this.clearEmtyFields(obj[key]);
+          if (arr.length) resObj[key] = arr;
         } else {
-          if (value) (resObj[key] = value)
+          if (value) resObj[key] = value;
         }
-      })
-      return resObj
+      });
+      return resObj;
     },
-    isEmty (item) {
-      let emty = !item
+    isEmty(item) {
+      let emty = !item;
       if (Array.isArray(item)) {
-        emty = !item.some((item) => !!item)
+        emty = !item.some(item => !!item);
       }
-      return emty
+      return emty;
     },
-    async sendData () {
-      const dataArr = this.filteredData(this.uploadFiles)
+    async sendData() {
+      const dataArr = this.filteredData(this.uploadFiles);
       dataArr.forEach(async (obj, index) => {
-        const fd = new FormData()
+        const fd = new FormData();
         Object.entries(obj).forEach(([name, value]) => {
           if (Array.isArray(obj[name])) {
-            Object.values(obj[name]).forEach((value) =>
-              fd.append('files', value)
-            )
+            Object.values(obj[name]).forEach(value => fd.append('files', value));
           } else {
-            if (obj[name] instanceof File) fd.append('files', value)
-            else fd.append(name, value)
+            if (obj[name] instanceof File) fd.append('files', value);
+            else fd.append(name, value);
           }
-        })
+        });
         if (this.$refs[`form${index}`][0].validate()) {
-          await this.$store.dispatch('courses/POST_VIDEOS', { id: this.$route.params.courseid, fd })
-          this.goToUserCourse()
+          await this.$store.dispatch('courses/POST_VIDEOS', { id: this.$route.params.courseid, fd });
+          this.goToUserCourse();
         }
-      })
+      });
     },
-    toggleBtn () {
-      this.isActive = !this.isActive
+    toggleBtn() {
+      this.isActive = !this.isActive;
     },
-    goToUserCourse () {
+    goToUserCourse() {
       this.$router.push({
         name: 'user-course',
         params: {
           // courseid: this.courseId
-          courseid: this.$route.params.courseid
-        }
-      })
-    }
-  }
-}
+          courseid: this.$route.params.courseid,
+        },
+      });
+    },
+  },
+};
 </script>

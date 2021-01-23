@@ -1,12 +1,7 @@
 <template>
   <div>
     <v-form ref="form">
-      <v-text-field
-        label="name of video"
-        :rules="[rules.required]"
-        v-model="dataVideo.name"
-        outlined
-      />
+      <v-text-field label="name of video" :rules="[rules.required]" v-model="dataVideo.name" outlined />
       <v-file-input
         v-model="dataVideo.videoFile"
         show-size
@@ -67,9 +62,7 @@
         />
       </div>
     </v-form>
-    <div
-      class="d-flex flex-column align-center flex-sm-row justify-sm-center my-8"
-    >
+    <div class="d-flex flex-column align-center flex-sm-row justify-sm-center my-8">
       <v-btn
         rounded
         color="buttons"
@@ -79,15 +72,7 @@
         @click="clearFormInputs"
         >Cansel</v-btn
       >
-      <v-btn
-        rounded
-        color="buttons"
-        large
-        min-width="160"
-        class="yellow-button"
-        @click="sendData"
-        >Submit</v-btn
-      >
+      <v-btn rounded color="buttons" large min-width="160" class="yellow-button" @click="sendData">Submit</v-btn>
     </div>
   </div>
 </template>
@@ -96,49 +81,46 @@
 export default {
   name: 'AddVideoForm',
   props: ['showForm'],
-  data () {
+  data() {
     return {
       dataVideo: {
         name: '',
         videoFile: null,
         description: '',
         imgFile: null,
-        pdfFiles: new Array(3).fill(null)
+        pdfFiles: new Array(3).fill(null),
       },
       rules: {
-        videoRule: v =>
-          v?.size < 1000000000 || 'Video size should be less than 1 GB!',
-        imageRule: v =>
-          !v || v.size < 2000000 || 'Image size should be less than 2 MB!',
-        pdfRule: v =>
-          !v || v.size < 100000000 || 'Video size should be less than 100 MB!',
-        required: v => !!v || 'input is required'
-      }
-    }
+        videoRule: v => v?.size < 1000000000 || 'Video size should be less than 1 GB!',
+        imageRule: v => !v || v.size < 2000000 || 'Image size should be less than 2 MB!',
+        pdfRule: v => !v || v.size < 100000000 || 'Video size should be less than 100 MB!',
+        required: v => !!v || 'input is required',
+      },
+    };
   },
   methods: {
-    clearFormInputs () {
-      this.dataVideo.name = ''
-      this.dataVideo.videoFile = null
-      this.dataVideo.description = ''
-      this.dataVideo.imgFile = null
-      this.dataVideo.pdfFiles = new Array(3).fill(null)
-      this.$emit('update:showForm', false)
+    clearFormInputs() {
+      this.dataVideo.name = '';
+      this.dataVideo.videoFile = null;
+      this.dataVideo.description = '';
+      this.dataVideo.imgFile = null;
+      this.dataVideo.pdfFiles = new Array(3).fill(null);
+      this.$emit('update:showForm', false);
     },
-    sendData () {
-      const fd = new FormData()
+    sendData() {
+      const fd = new FormData();
       Object.entries(this.dataVideo).forEach(([name, value]) => {
         if (Array.isArray(value)) {
           Object.values(this.dataVideo[name]).forEach(value => {
-            if (value) fd.append('files', value)
-          })
+            if (value) fd.append('files', value);
+          });
         } else {
-          if (value instanceof File) fd.append('files', value)
+          if (value instanceof File) fd.append('files', value);
           else {
-            if (value) fd.append(name, value)
+            if (value) fd.append(name, value);
           }
         }
-      })
+      });
       if (this.$refs.form.validate()) {
         // this.$store.dispatch('userCourses/CREATE_VIDEOS_COURSE', {
         //   fd,
@@ -146,14 +128,13 @@ export default {
         // })
         this.$store.dispatch('courses/POST_VIDEOS', {
           fd,
-          id: this.$route.params.courseid
-        })
-        this.clearFormInputs()
+          id: this.$route.params.courseid,
+        });
+        this.clearFormInputs();
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
-<style>
-</style>
+<style></style>

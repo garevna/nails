@@ -2,14 +2,14 @@
   <PaymentDetailsForm />
 </template>
 <script>
-import PaymentDetailsForm from '@/components/forms/PaymentDetailsForm.vue'
+import PaymentDetailsForm from '@/components/forms/PaymentDetailsForm.vue';
 export default {
   name: 'personal-data',
   components: {
-    PaymentDetailsForm
+    PaymentDetailsForm,
   },
-  data () {
-    return {}
-  }
-}
+  data() {
+    return {};
+  },
+};
 </script>

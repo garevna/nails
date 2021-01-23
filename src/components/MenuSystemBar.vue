@@ -15,13 +15,7 @@
         </v-btn>
       </template>
 
-      <v-treeview
-        dark
-        class="drop-down-menu"
-        dense
-        :items="items"
-        open-on-click
-      >
+      <v-treeview dark class="drop-down-menu" dense :items="items" open-on-click>
         <template slot="label" slot-scope="{ item }">
           <a @click="openDialog(item)" class="item-link">{{ item.name }}</a>
         </template>
@@ -80,7 +74,7 @@
   border: 1px solid #000;
   padding-left: 5px;
   outline: none;
-  font-family: "Archivo Narrow";
+  font-family: 'Archivo Narrow';
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -95,7 +89,7 @@
   background-color: #000;
 }
 .registration {
-  color:#000 !important;
+  color: #000 !important;
   font-size: 18px !important;
 }
 @media screen and (max-width: 1330px) {
@@ -115,13 +109,13 @@
 }
 </style>
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
-import ProductsCart from '@/components/Shop/ProductsCart.vue'
+import ProductsCart from '@/components/Shop/ProductsCart.vue';
 
 export default {
   components: { ProductsCart },
-  data () {
+  data() {
     return {
       isOpened: false,
       key: 1,
@@ -134,25 +128,25 @@ export default {
               id: 2,
               name: 'Nippers',
               params: { categoryName: 'cuticle-nippers' },
-              routeName: 'shop'
+              routeName: 'shop',
             },
             {
               id: 3,
               name: 'Scissors',
               params: { categoryName: 'cuticle-scissors' },
-              routeName: 'shop'
+              routeName: 'shop',
             },
             {
               id: 4,
               name: 'Drill bits',
               params: { categoryName: 'diamond-drill-bits' },
-              routeName: 'shop'
+              routeName: 'shop',
             },
             {
               id: 5,
               name: 'Brushers',
               params: { categoryName: 'brushes' },
-              routeName: 'shop'
+              routeName: 'shop',
             },
             {
               id: 6,
@@ -162,17 +156,17 @@ export default {
                   id: 7,
                   name: 'Cosmetics',
                   params: { categoryName: 'cosmetics' },
-                  routeName: 'shop'
+                  routeName: 'shop',
                 },
                 {
                   id: 8,
                   name: 'Promotions',
                   params: { categoryName: 'Promotions' },
-                  routeName: 'shop'
-                }
-              ]
-            }
-          ]
+                  routeName: 'shop',
+                },
+              ],
+            },
+          ],
         },
         {
           id: 9,
@@ -181,63 +175,57 @@ export default {
             {
               id: 10,
               name: 'Online courses',
-              routeName: 'courses-online'
+              routeName: 'courses-online',
             },
             {
               id: 11,
               name: 'Offline courses',
-              routeName: 'courses-offline'
-            }
-          ]
+              routeName: 'courses-offline',
+            },
+          ],
         },
         {
           id: 12,
           name: 'All courses',
-          routeName: 'courses'
+          routeName: 'courses',
         },
         {
           id: 13,
           name: 'Add courses',
-          routeName: 'add-course'
-        }
-      ]
-    }
+          routeName: 'add-course',
+        },
+      ],
+    };
   },
   computed: {
-    ...mapState('auth', ['isLogged'])
+    ...mapState('auth', ['isLogged']),
   },
   methods: {
-    goToLogin (name) {
-      if (this.$route.name !== name) this.$router.push({ name })
+    goToLogin(name) {
+      if (this.$route.name !== name) this.$router.push({ name });
     },
-    goToCabinet () {
-      if (this.$route.name !== 'user-cabinet') this.$router.push({ name: 'user-cabinet' })
+    goToCabinet() {
+      if (this.$route.name !== 'user-cabinet') this.$router.push({ name: 'user-cabinet' });
     },
-    openDialog (treeElem) {
+    openDialog(treeElem) {
       if (treeElem.name === 'Logout') {
-        this.dialog = true
+        this.dialog = true;
       }
       if (treeElem.routeName) {
-        this.isOpened = false
-        if (
-          treeElem.routeName !== 'shop' &&
-          this.$route.name !== treeElem.routeName
-        ) {
+        this.isOpened = false;
+        if (treeElem.routeName !== 'shop' && this.$route.name !== treeElem.routeName) {
           this.$router.push({
             name: treeElem.routeName,
-            params: treeElem.params
-          })
-        } else if (
-          treeElem.routeName === 'shop' &&
-          this.$route.params.categoryName !== treeElem.params.categoryName
-        ) {
+            params: treeElem.params,
+          });
+        } else if (treeElem.routeName === 'shop' && this.$route.params.categoryName !== treeElem.params.categoryName) {
           this.$router.push({
             name: treeElem.routeName,
-            params: treeElem.params
-          })
+            params: treeElem.params,
+          });
         }
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>

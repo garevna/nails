@@ -3,11 +3,7 @@
     <div class="d-flex flex-column align-center">
       <h2>Sign in</h2>
       <div class="input-container pa-4">
-        <v-text-field
-          v-model="email"
-          :rules="[rules.required]"
-          label="Email or phone"
-        />
+        <v-text-field v-model="email" :rules="[rules.required]" label="Email or phone" />
         <div class="input-pass">
           <v-text-field
             v-model="password"
@@ -15,12 +11,7 @@
             :rules="[rules.required]"
             label="password"
           />
-          <v-checkbox
-            label="Show"
-            class="show-pass pa-0 ma-0"
-            v-model="showPass"
-            >show</v-checkbox
-          >
+          <v-checkbox label="Show" class="show-pass pa-0 ma-0" v-model="showPass">show</v-checkbox>
         </div>
 
         <v-checkbox
@@ -30,14 +21,7 @@
         ></v-checkbox>
       </div>
       <div class="d-flex">
-        <v-btn
-          @click="submit"
-          color="buttons"
-          rounded
-          :disabled="loading"
-          class="yellow-button"
-          >sign in</v-btn
-        >
+        <v-btn @click="submit" color="buttons" rounded :disabled="loading" class="yellow-button">sign in</v-btn>
       </div>
     </div>
   </v-form>
@@ -53,7 +37,7 @@
 <style lang="scss">
 .show-pass {
   position: absolute;
-  bottom:0;
+  bottom: 0;
   right: 0;
   & .v-label,
   .v-icon.v-icon {
@@ -62,11 +46,11 @@
 }
 </style>
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
 export default {
   name: 'login',
-  data () {
+  data() {
     return {
       login: '',
       password: '',
@@ -75,37 +59,35 @@ export default {
       isPoliticAgree: false,
       showPass: false,
       rules: {
-        required: (v) => !!v || 'input is required',
-        confirmPass: (v) => v === this.password || 'Passwords do not match',
-        mailValidation: (v) =>
-          /^(\w+\.?\w+\.?\w+?|\d+\.?\d+\.?\d+)([@])(\w+|\d+)\.{1}[a-zA-Z]{2,3}$/.test(
-            v
-          ) || 'invalid email'
-      }
-    }
+        required: v => !!v || 'input is required',
+        confirmPass: v => v === this.password || 'Passwords do not match',
+        mailValidation: v =>
+          /^(\w+\.?\w+\.?\w+?|\d+\.?\d+\.?\d+)([@])(\w+|\d+)\.{1}[a-zA-Z]{2,3}$/.test(v) || 'invalid email',
+      },
+    };
   },
   computed: {
-    ...mapState('auth', ['isLogged', 'loading'])
+    ...mapState('auth', ['isLogged', 'loading']),
   },
   watch: {
-    isLogged (newVal) {
+    isLogged(newVal) {
       if (newVal) {
-        const startPath = this.$router.history._startLocation
-        const currentPath = this.$router.history.current.fullPath
-        startPath === currentPath ? this.$router.push({ name: 'home' }) : this.$router.go(-1)
+        const startPath = this.$router.history._startLocation;
+        const currentPath = this.$router.history.current.fullPath;
+        startPath === currentPath ? this.$router.push({ name: 'home' }) : this.$router.go(-1);
       }
-    }
+    },
   },
   methods: {
-    submit () {
+    submit() {
       const {
         email,
         // phone,
         // role,
         // isPoliticAgree,
         // login,
-        password
-      } = this
+        password,
+      } = this;
       if (this.$refs.form.validate()) {
         // if (registration) {
         //   const data = {
@@ -118,19 +100,17 @@ export default {
         //   }
         //   this.$store.dispatch('auth/REGISTRATION_USER', data)
         // } else {
-        this.$store.dispatch('auth/SIGN_IN', { email, password })
+        this.$store.dispatch('auth/SIGN_IN', { email, password });
         // this.loading = true
         // }
       }
-    }
-
+    },
   },
-  mounted () {
-    this.$store.dispatch('auth/AUTH_ERROR')
+  mounted() {
+    this.$store.dispatch('auth/AUTH_ERROR');
   },
-  beforeDestroy () {
-    this.$store.dispatch('auth/CLEAR_AUTH_ERROR')
-  }
-
-}
+  beforeDestroy() {
+    this.$store.dispatch('auth/CLEAR_AUTH_ERROR');
+  },
+};
 </script>

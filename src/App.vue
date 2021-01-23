@@ -10,7 +10,7 @@
       </v-main>
       <Footer />
       <UploadFiles v-if="uploadDialog" />
-    </v-container>
+    </div>
   </v-app>
 </template>
 
@@ -87,6 +87,7 @@ import Footer from './components/Footer.vue';
 import MainMenu from '@/components/MainMenu.vue';
 import ShopLayout from './layouts/ShopLayout.vue';
 import DefaultLayout from './layouts/DefaultLayout.vue';
+import WhitefoneLayout from './layouts/WhitefoneLayout.vue';
 
 export default {
   name: 'App',
@@ -97,7 +98,8 @@ export default {
     MainMenu,
     ShopLayout,
     DefaultLayout,
-    UploadFiles: () => import('@/components/UploadFiles.vue')
+    WhitefoneLayout,
+    UploadFiles: () => import('@/components/UploadFiles.vue'),
   },
   data() {
     return {
@@ -125,16 +127,11 @@ export default {
       if (this.isShopOpened) {
         return 'shop-layout';
       }
-      return 'default-layout';
+      return `${this.$route.meta?.layout || 'default'}-layout`;
     },
-    ...mapState('courses', ['uploadDialog'])
-
+    ...mapState('courses', ['uploadDialog']),
   },
-  watch: {
-    layout () {
-      return `${this.$route.meta?.layout || 'default'}-layout`
-    },
-  },
+  watch: {},
   methods: {
     onResize() {
       this.$store.commit('CHANGE_VIEWPORT_WIDTH');

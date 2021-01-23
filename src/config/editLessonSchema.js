@@ -2,7 +2,7 @@ export default {
   name: {
     label: 'Name of video',
     type: 'text',
-    required: true
+    required: true,
   },
   imgFile: {
     label: 'Image file',
@@ -10,11 +10,11 @@ export default {
     icon: 'mdi-camera',
     accept: 'image/png, image/jpeg, image/bmp',
     size: 5000,
-    required: true
+    required: true,
   },
   description: {
     label: 'Description',
     type: 'textarea',
-    required: true
-  }
-}
+    required: true,
+  },
+};

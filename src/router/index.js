@@ -22,13 +22,13 @@ const routes = [
   {
     path: '/shop/:categoryName',
     name: 'shop',
-    meta: { layout: 'whitefone' },
+    meta: { layout: 'Whitefone' },
     component: () => import(/* webpackChunkName: "shop" */ '@/views/Shop.vue'),
   },
   {
     path: '/shop/:categoryName/:commodityId',
     name: 'shop-item',
-    meta: { layout: 'whitefone' },
+    meta: { layout: 'Whitefone' },
     component: () => import(/* webpackChunkName: "shop-item" */ '@/views/ShopItem.vue'),
   },
   {
@@ -99,31 +99,31 @@ const routes = [
   {
     path: '/sign-in',
     name: 'sign-in',
-    meta: { layout: 'whitefone' },
+    meta: { layout: 'Whitefone' },
     component: () => import(/* webpackChunkName: "sign-in" */ '@/views/SignIn.vue'),
   },
   {
     path: '/sign-up',
     name: 'sign-up',
-    meta: { layout: 'whitefone' },
+    meta: { layout: 'Whitefone' },
     component: () => import(/* webpackChunkName: "sign-up" */ '@/views/SignUp.vue'),
   },
   {
     path: '/user-cabinet',
     // name: 'user-cabinet',
-    // meta: { layout: 'whitefone' },
+    // meta: { layout: 'Whitefone' },
     component: () => import(/* webpackChunkName: "user-home" */ '@/views/UserHome.vue'),
     children: [
       {
         path: '',
         name: 'user-cabinet',
-        meta: { layout: 'whitefone' },
+        meta: { layout: 'Whitefone' },
         component: () => import(/* webpackChunkName: "user-cabinet" */ '@/views/UserCabinet.vue'),
       },
       {
         path: 'courses',
         name: 'user-courses',
-        meta: { layout: 'whitefone' },
+        meta: { layout: 'Whitefone' },
         component: () => import(/* webpackChunkName: "user-courses" */ '@/views/UserCourses.vue'),
       },
       {
@@ -144,13 +144,13 @@ const routes = [
       {
         path: 'courses/:courseid/videos',
         name: 'user-videos',
-        meta: { layout: 'whitefone' },
+        meta: { layout: 'Whitefone' },
         component: () => import(/* webpackChunkName: "user-videos" */ '@/views/UserCourseVideos.vue'),
       },
       {
         path: 'courses/:courseid/videos/:videoid',
         name: 'user-video',
-        meta: { layout: 'whitefone' },
+        meta: { layout: 'Whitefone' },
         component: () => import(/* webpackChunkName: "user-video" */ '@/views/UserCourseDetailVideo.vue'),
       },
     ],

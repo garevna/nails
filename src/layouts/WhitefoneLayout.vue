@@ -6,11 +6,11 @@
 </template>
 
 <script>
-import Breadcrumbs from '@/components/Breadcrumbs.vue'
+import Breadcrumbs from '@/components/Breadcrumbs.vue';
 
 export default {
   components: {
-    Breadcrumbs
-  }
-}
+    Breadcrumbs,
+  },
+};
 </script>

@@ -22,13 +22,11 @@
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style lang="scss" scoped>
- @import "@/css/variables.scss";
+@import '@/css/variables.scss';
 .wrapper {
   max-width: 960px;
   margin: 100px auto;
@@ -96,7 +94,7 @@ export default {
 .bouncer div {
   width: 20px;
   height: 20px;
-  background: #FFC44A;
+  background: #ffc44a;
   border-radius: 50%;
   animation: bouncer 0.5s cubic-bezier(0.19, 0.57, 0.3, 0.98) infinite alternate;
 }

@@ -15,72 +15,69 @@ export default {
   props: {
     value: {
       type: String,
-      required: true
+      required: true,
     },
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     noRepeat: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
-  data () {
+  data() {
     return {
       rules: {
         required: v => {
-          const a = this.required && !!v
-          const b = !this.required
+          const a = this.required && !!v;
+          const b = !this.required;
           // res = a XOR b
-          const res = !(a && b) && (a || b)
-          return res || 'Input is required'
+          const res = !(a && b) && (a || b);
+          return res || 'Input is required';
         },
         phone: value => {
-          const pattern = /^[0-9]{10,12}$/gm
-          const phoneError = !pattern.test(value.split(' ').join(''))
-          return !value || !phoneError || 'Invalid phone number'
+          const pattern = /^[0-9]{10,12}$/gm;
+          const phoneError = !pattern.test(value.split(' ').join(''));
+          return !value || !phoneError || 'Invalid phone number';
         },
         noRepeat: value => {
           return (
-            !this.noRepeat ||
-            value.split(' ').join('') !== this.noRepeat.split(' ').join('') ||
-            'Digits must not match'
-          )
-        }
-      }
-    }
+            !this.noRepeat || value.split(' ').join('') !== this.noRepeat.split(' ').join('') || 'Digits must not match'
+          );
+        },
+      },
+    };
   },
   computed: {
     localValue: {
-      get () {
-        return this.value
+      get() {
+        return this.value;
       },
-      set (val) {
-        this.$emit('update:value', val)
-      }
-    }
+      set(val) {
+        this.$emit('update:value', val);
+      },
+    },
   },
   watch: {
-    noRepeat (val) {
-      this.$refs.number.validate()
-    }
+    noRepeat() {
+      this.$refs.number.validate();
+    },
   },
   methods: {
-    showInput () {
-      this.$emit('update:disabled', false)
-    }
-  }
-}
+    showInput() {
+      this.$emit('update:disabled', false);
+    },
+  },
+};
 </script>
 
-<style>
-</style>
+<style></style>

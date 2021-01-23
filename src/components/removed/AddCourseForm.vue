@@ -36,11 +36,7 @@
           maxlength="40"
         ></v-text-field>
         <div v-if="type === 'offline'">
-          <div
-            v-for="(textField, i) in courseData.dateOfCourses"
-            :key="i"
-            class="d-flex input-container"
-          >
+          <div v-for="(textField, i) in courseData.dateOfCourses" :key="i" class="d-flex input-container">
             <v-text-field
               label="date of the course"
               v-model="courseData.dateOfCourses[i]"
@@ -82,13 +78,7 @@
         ></v-text-field>
       </v-col>
       <v-col cols="12" xs="12" md="6">
-        <v-text-field
-          v-model="courseData.author"
-          :rules="[rules.required]"
-          label="Author"
-          outlined
-          dark
-        ></v-text-field>
+        <v-text-field v-model="courseData.author" :rules="[rules.required]" label="Author" outlined dark></v-text-field>
         <v-text-field
           v-model="courseData.instructor"
           :rules="[rules.required]"
@@ -103,11 +93,7 @@
           outlined
           dark
         ></v-text-field>
-        <div
-          v-for="(textField, i) in courseData.thisCourseIsSuitableFor"
-          :key="i"
-          class="d-flex input-container"
-        >
+        <div v-for="(textField, i) in courseData.thisCourseIsSuitableFor" :key="i" class="d-flex input-container">
           <v-text-field
             label="this course is suitable for"
             v-model="courseData.thisCourseIsSuitableFor[i]"
@@ -115,11 +101,7 @@
             outlined
             dark
           ></v-text-field>
-          <v-btn
-            @click="removeField(i, 'suitable')"
-            v-if="i !== 0"
-            class="remove"
-          >
+          <v-btn @click="removeField(i, 'suitable')" v-if="i !== 0" class="remove">
             <v-icon>mdi-delete</v-icon>
           </v-btn>
         </div>
@@ -171,15 +153,7 @@
           @click="cancelHandler"
           >cancel</v-btn
         >
-        <v-btn
-          color="buttons"
-          rounded
-          outlined
-          large
-          dark
-          min-width="90"
-          class="yellow-button mt-4"
-          @click="checkForm"
+        <v-btn color="buttons" rounded outlined large dark min-width="90" class="yellow-button mt-4" @click="checkForm"
           >submit</v-btn
         >
       </v-col>
@@ -188,12 +162,12 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
 export default {
   name: 'AddCourseForm',
   props: ['data', 'type', 'back'],
-  data () {
+  data() {
     return {
       courseData: {
         businessName: '',
@@ -211,132 +185,121 @@ export default {
         availableSpots: '',
         thisCourseIsSuitableFor: [''],
         email: '',
-        phone: ''
+        phone: '',
       },
       checkbox1: '',
       checkbox2: '',
       rules: {
         required: v => !!v || 'input is required',
-        imageRule: v =>
-          !v || v.size < 2000000 || 'Image size should be less than 2 MB!',
-        minLengthName: v =>
-          v.length <= 15 || 'the maximum number of characters entered',
+        imageRule: v => !v || v.size < 2000000 || 'Image size should be less than 2 MB!',
+        minLengthName: v => v.length <= 15 || 'the maximum number of characters entered',
         mailValidation: v =>
-          /^(\w+\.?\w+\.?\w+?|\d+\.?\d+\.?\d+)([@])(\w+|\d+)\.{1}[a-zA-Z]{2,3}$/.test(
-            v
-          ) || 'invalid email',
+          /^(\w+\.?\w+\.?\w+?|\d+\.?\d+\.?\d+)([@])(\w+|\d+)\.{1}[a-zA-Z]{2,3}$/.test(v) || 'invalid email',
         phoneValidation: v =>
           /^\({0,1}((0|\+61)(2|4|3|7|8)){0,1}\){0,1}( |-){0,1}[0-9]{2}( |-){0,1}[0-9]{2}( |-){0,1}[0-9]{1}( |-){0,1}[0-9]{3}$/.test(
             v
           ) || 'invalid number',
-        onlyDigits: v => !/\D/g.test(v) || 'input should consist only of digits'
-      }
-    }
+        onlyDigits: v => !/\D/g.test(v) || 'input should consist only of digits',
+      },
+    };
   },
   computed: {
     ...mapState('auth', ['user']),
-    ...mapState('courses', ['course'])
+    ...mapState('courses', ['course']),
   },
   watch: {
     courseData: {
       deep: true,
-      handler () {
-        this.$emit('update:data', this.courseData)
-      }
-    }
+      handler() {
+        this.$emit('update:data', this.courseData);
+      },
+    },
   },
   methods: {
-    checkForm () {
+    checkForm() {
       if (this.$refs.form.validate()) {
-        this.submitHandler()
+        this.submitHandler();
       }
     },
-    addField (entryField) {
-      return entryField
-        ? this.courseData.thisCourseIsSuitableFor.push('')
-        : this.courseData.dateOfCourses.push('')
+    addField(entryField) {
+      return entryField ? this.courseData.thisCourseIsSuitableFor.push('') : this.courseData.dateOfCourses.push('');
     },
-    removeField (index, entryField) {
+    removeField(index, entryField) {
       return entryField
         ? this.courseData.thisCourseIsSuitableFor.splice(index, 1)
-        : this.courseData.dateOfCourses.splice(index, 1)
+        : this.courseData.dateOfCourses.splice(index, 1);
     },
-    cancelHandler () {
-      this.back()
+    cancelHandler() {
+      this.back();
     },
-    fillingForm () {
+    fillingForm() {
       if (this.data) {
         Object.keys(this.data).forEach(key => {
-          this.courseData[key] = this.data[key]
-        })
+          this.courseData[key] = this.data[key];
+        });
       }
     },
-    async submitHandler () {
+    async submitHandler() {
       if (!this.data) {
-        this.courseData.idUser = this.user._id
-        this.courseData.isPublished = false
+        this.courseData.idUser = this.user._id;
+        this.courseData.isPublished = false;
       }
-      const {
-        dateOfCourses,
-        thisCourseIsSuitableFor,
-        ...rest
-      } = this.courseData
-      const fd = new FormData()
+      const { dateOfCourses, thisCourseIsSuitableFor, ...rest } = this.courseData;
+      const fd = new FormData();
       Object.entries(rest).forEach(([name, value]) => {
         if (value !== undefined && value !== null) {
-          if (value instanceof File) fd.append('file', value)
-          else if (typeof value !== 'object') fd.append(name, value)
+          if (value instanceof File) fd.append('file', value);
+          else if (typeof value !== 'object') fd.append(name, value);
         }
-      })
+      });
       dateOfCourses &&
         dateOfCourses.forEach(str => {
           if (str) {
-            fd.append('dateOfCourses[]', str)
+            fd.append('dateOfCourses[]', str);
           }
-        })
+        });
       thisCourseIsSuitableFor.forEach(str => {
         if (str) {
-          fd.append('thisCourseIsSuitableFor[]', str)
+          fd.append('thisCourseIsSuitableFor[]', str);
         }
-      })
+      });
       if (!this.data) {
         if (this.type === 'online') {
-          await this.$store.dispatch('courses/POST_COURSE', fd)
+          await this.$store.dispatch('courses/POST_COURSE', fd);
           if (this.course) {
             this.$router.push({
               name: 'add-course-videos',
               params: {
-                courseid: this.course._id
-              }
-            })
+                courseid: this.course._id,
+              },
+            });
           }
         } else {
-          await this.$store.dispatch('courses/CREATE_OFFLINE_COURSE', fd)
+          await this.$store.dispatch('courses/CREATE_OFFLINE_COURSE', fd);
           if (!this.error) {
             this.$router.push({
               name: 'offline-course',
               params: {
                 // eslint-disable-next-line no-underscore-dangle
-                courseid: this.newOfflineCourse._id
-              }
-            })
+                courseid: this.newOfflineCourse._id,
+              },
+            });
           }
         }
       } else {
         await this.$store.dispatch('courses/PUT_COURSE', {
           data: fd,
           // eslint-disable-next-line no-underscore-dangle
-          id: this.$route.params.courseid
-        })
+          id: this.$route.params.courseid,
+        });
       }
-    }
+    },
   },
-  mounted () {
+  mounted() {
     // if (this.data) this.courseData = this.data
-    if (this.data) this.fillingForm()
-  }
-}
+    if (this.data) this.fillingForm();
+  },
+};
 </script>
 
-<style>
-</style>
+<style></style>

@@ -14,10 +14,9 @@ export default new Vuetify({
   theme: {
     themes: {
       light: {
+        primary: '#FFC44A',
         orange: '#FFC44A',
-        primary: '',
         secondary: '#dde',
-        accent: '',
         dgrey: '#333333',
         lgrey: '#F4F4F4 ',
         // orange

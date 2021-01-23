@@ -3,7 +3,7 @@ export default {
     name: {
       label: 'Name of video',
       type: 'text',
-      required: true
+      required: true,
     },
     videoFile: {
       label: 'Video file',
@@ -12,7 +12,7 @@ export default {
       accept: 'video/mp4',
       size: 1000000,
       required: true,
-      progress: true
+      progress: true,
     },
     imgFile: {
       label: 'Image file',
@@ -20,7 +20,7 @@ export default {
       icon: 'mdi-camera',
       accept: 'image/png, image/jpeg, image/bmp',
       size: 5000,
-      required: true
+      required: true,
     },
     pdfFiles: {
       count: 3,
@@ -28,13 +28,13 @@ export default {
       type: 'pdfFile',
       icon: 'mdi-file-pdf-box',
       size: 10000,
-      required: false
+      required: false,
     },
     description: {
       label: 'Description',
       type: 'textarea',
-      required: true
-    }
+      required: true,
+    },
   },
-  count: 5
-}
+  count: 5,
+};
