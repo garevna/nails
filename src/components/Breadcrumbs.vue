@@ -56,11 +56,11 @@ export default {
       ]
       const cabinet = [
         {
-          text: `${this.user.firstName} cabinet`,
+          text: `${this.user?.firstName} cabinet`,
           href: '/user-cabinet'
         },
         {
-          text: `${this.user.firstName} courses`,
+          text: `${this.user?.firstName} courses`,
           href: '/user-cabinet/courses'
         },
         {

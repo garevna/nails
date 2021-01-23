@@ -1,6 +1,6 @@
 <template>
 <div>
-  <v-card flat v-if="errors"  class="ma-4"><v-card-text>{{ errors[0] }}</v-card-text></v-card>
+  <v-card flat v-if="errors"  class="ma-4"><p class="error--text">{{ errors[0] }}</p></v-card>
   <v-card flat class="d-flex"
     >
     <div class="pdf-container pt-12" v-for="pdf in pdfs" :key="pdf._id">
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import FileInput from '@/components/inputs/FileInput.vue'
 const schema = require('@/config/addPdfSchema').default
@@ -65,9 +65,13 @@ export default {
     }
   },
   methods: {
+    ...mapActions('courses', {
+      removePDF: 'REMOVE_PDF',
+      addPDF: 'ADD_PDF'
+    }),
     removePdf (id) {
       if (id) {
-        this.$store.dispatch('courses/REMOVE_PDF', {
+        this.removePDF({
           id,
           videoId: this.$route.params.videoid,
           currentCourseId: this.$route.params.courseid
@@ -79,7 +83,7 @@ export default {
         const fd = new FormData()
         fd.append('file', this.data)
 
-        this.$store.dispatch('courses/ADD_PDF', {
+        this.addPDF({
           fd,
           videoId: this.$route.params.videoid,
           currentCourseId: this.$route.params.courseid

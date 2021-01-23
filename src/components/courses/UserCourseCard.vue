@@ -2,10 +2,10 @@
   <v-card @click="goToCourse(course._id)" width="500" height="400" class="ma-4">
     <v-card-title class="d-flex justify-center py-4" style="position: relative"
       ><h2>{{ course.nameOfCourse }}</h2>
-      <div v-if="!course.isPaid" class="figure1">
+      <div v-if="!course.isPaid" class="figure1 notPaidAndPublished">
         <h5 class="figure-text1">not paid</h5>
       </div>
-      <div v-if="!course.isPublished" class="figure2">
+      <div v-if="!course.isPublished" class="figure2 notPaidAndPublished">
         <h5 class="figure-text2">not published</h5>
       </div></v-card-title
     >

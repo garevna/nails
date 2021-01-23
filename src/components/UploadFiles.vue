@@ -30,12 +30,25 @@
         <strong>{{ Math.ceil(value) }}%</strong>
       </template>
     </v-progress-linear>
-    <v-btn v-if="filteredError.length && !filteredQueue.length" @click="repeat"
-      >Repeat uploading</v-btn
-    >
-    <v-btn v-if="filteredError.length && !filteredQueue.length" @click="close"
-      >Close</v-btn
-    >
+    <v-card-actions class="ma-2">
+      <v-btn
+        v-if="filteredError.length && !filteredQueue.length"
+        color="buttons"
+        rounded
+        class="yellow-button"
+        @click="repeat"
+        >Repeat</v-btn
+      >
+      <v-spacer/>
+      <v-btn
+        v-if="filteredError.length && !filteredQueue.length"
+        color="buttons"
+        rounded
+        class="yellow-button"
+        @click="close"
+        >Close</v-btn
+      >
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -44,7 +57,7 @@
 
 <style>
 .upload-dialog {
-  width: 400px;
+  width: 300px;
   position: fixed;
   bottom: 0;
   right: 0;

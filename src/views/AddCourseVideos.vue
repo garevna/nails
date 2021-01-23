@@ -63,7 +63,7 @@
               @click="expansionIndex = i"
             >
               + add video {{ i + 1 }}
-              <!-- <p v-if="!validates[i]">error</p> -->
+              <h3 class="error-form error--text" v-if="!validates[i]">error</h3>
             </v-expansion-panel-header>
             <v-expansion-panel-content class="mt-8">
               <v-form :ref="`form${i}`">
@@ -101,6 +101,12 @@
 }
 </style>
 <style scoped>
+.error-form {
+  position: absolute;
+  top:50%;
+  right:-50px;
+  transform: translateY(-50%);
+}
 .v-expansion-panels:not(.v-expansion-panels--accordion):not(.v-expansion-panels--tile)
   > .v-expansion-panel--next-active
   .v-expansion-panel-header {
