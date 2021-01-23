@@ -1,174 +1,173 @@
 <template>
-  <v-container fluid fill-height class="whitefone shop-layout">
-    <v-card flat class="transparent mx-auto" max-width="1440" width="100%">
-     <Search/>
-      <CategoriesSwitcher
-        :selectedSection="activeCategory"
-        :nameToShow="selectedCategoryName"
-        :mobileMenu="mobileMenu"
-        :setSelectedSection="setSelectedSection"
-      ></CategoriesSwitcher>
-      <v-row>
-        <v-col cols="12" sm="6" md="3" xl="3" lg="3" v-if="!mobileMenu">
-          <LeftSideMenu :setSelectedSection="setSelectedSection" ></LeftSideMenu>
-        </v-col>
-        <v-col cols="12" sm="12" md="9" xl="9" lg="9">
-          <v-row justify="start" v-if="totalCommodities">
-            <ShopCard
-              v-for="card in commodities"
-              :key="card.id"
-              :image="card.previewImage[0] ? card.previewImage[0].link : ''"
-              :name="card.name"
-              :price="card.price"
-              :brand="card.brand"
-              :id="card._id"
-              :handler="goToItem"
-            />
-          </v-row>
-          <v-row v-else class="empty-message" align="center" justify="center">
-            <h2>
-              Unfortunately, there are no products <br />
-              suitable for your request...
-            </h2>
-          </v-row>
+  <v-card flat min-height="350" class="pa-0 ma-0" height="100%">
+    <v-card v-if="!isShopLoading" class="pa-0 pt-0 mt-0" flat width="100%" height="100%">
+      <v-row v-if="commodities.length" class="ma-0 pa-0">
+        <v-col v-for="card in commodities" :key="card.id" cols="12" sm="6" md="4" lg="3" class="px-5 pb-2" link>
+          <v-card
+            width="100%"
+            min-height="300"
+            rounded="0"
+            shaped
+            height="100%"
+            color="lgrey"
+            class="pa-2"
+            @click="goToItem(card._id)"
+          >
+            <v-card flat width="100%">
+              <v-img
+                :src="(card.previewImage[0] && card.previewImage[0].link) || coverImageSrc"
+                width="100%"
+                height="270"
+                contain
+              />
+            </v-card>
+            <v-card-text class="pa-2 pb-0">
+              <span>
+                <p class="text-h6 ma-0 pa-0 font-weight-bold dgrey--text text-start">
+                  {{ card.name }}
+                </p>
+                <p class="text-subtitle-1 ma-0 font-weight-medium dgrey--text text-start">
+                  {{ card.brand }}
+                </p>
+              </span>
+
+              <p class="text-end text-subtitle-1 ma-0 pa-0 font-weight-bold dgrey--text">{{ card.price }} AUD</p>
+            </v-card-text>
+          </v-card>
         </v-col>
       </v-row>
-      <v-row justify="center">
+      <v-card
+        v-else
+        flat
+        height="100%"
+        class="justify-center align-items-center flex-column ma-0 pa-0 d-flex"
+        width="100%"
+        justify="center"
+      >
+        <v-card-text class="d-flex flex-column justify-center align-center">
+          <p class="dgrey--text text-center text-h4 font-weight-medium">Unfortunately, there are no products <br /></p>
+          <p class="dgrey--text text-center text-h4 font-weight-medium">suitable for your request...</p>
+        </v-card-text>
+      </v-card>
+    </v-card>
+    <v-card v-else width="100%" flat>
+      <v-row>
+        <v-col cols="12" sm="6" md="4" lg="3" class="px-5 pb-2" v-for="i in 8" :key="i">
+          <v-card class="pa-0 pt-0 mt-0" color="lgrey">
+            <v-skeleton-loader type="image, list-item-three-line" animation></v-skeleton-loader>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-card>
+    <v-row v-if="totalPages > 1">
+      <v-col cols="12">
         <v-pagination
-          v-if="totalCommodities"
           v-model="pagination.page"
           :length="pagination.total"
           @input="setPage"
+          color="orange"
           prev-icon="mdi-menu-left"
           next-icon="mdi-menu-right"
           class="pagination-buttons"
         ></v-pagination>
-      </v-row>
-    </v-card>
-  </v-container>
+      </v-col>
+    </v-row>
+  </v-card>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
-// import Card from '@/components/Shop/Card.vue'
-import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue'
-import CategoriesSwitcher from '@/components/Shop/CategoriesSwitcher.vue'
-import Search from '@/components/Shop/Search.vue'
-import 'nails-shop-card'
+import { mapState } from 'vuex';
+// import Search from '@/components/Shop/Search.vue';
 
 export default {
   name: 'Shop',
-  components: {
-    LeftSideMenu,
-    CategoriesSwitcher,
-    Search
-  },
-  data () {
+  data() {
     return {
-      selectedSection: {},
-      categoryName: this.$route.params.categoryName
-    }
+      categoryName: this.$route.params.categoryName,
+      coverImageSrc: require('@/assets/noImage.jpg'),
+    };
   },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState('shop', ['categories', 'commodities', 'totalCommodities', 'activeCategory']),
-    pagination () {
-      const page = +this.$route.query.page
+    ...mapState('shop', [
+      'categories',
+      'isShopLoading',
+      'commodities',
+      'totalCommodities',
+      'activeCategory',
+      'totalPages',
+    ]),
+    pagination() {
+      const page = +this.$route.query.page;
       return {
         page: !isNaN(page) ? page : 1,
         total: Math.ceil(this.totalCommodities / 8),
-        skip: !isNaN(page) ? page * 8 - 8 : 0
-      }
+        skip: !isNaN(page) ? page * 8 - 8 : 0,
+      };
     },
-    mobileMenu () {
-      return this.viewportWidth < 960
+    mobileMenu() {
+      return this.viewportWidth < 960;
     },
-    selectedCategoryName () {
-      console.log(this.activeCategory)
-      return (this.activeCategory && this.activeCategory.fullName) || 'Commodities'
-    }
+    selectedCategoryName() {
+      return this.$store.getters.selectedCategoryName;
+    },
   },
   watch: {
-    totalCommodities () {
-      console.log(this.totalCommodities)
+    totalCommodities() {
+      console.log(this.totalCommodities);
     },
-    $route (to, from) {
-      if (
-        from.name === 'shop' &&
-        to.params.categoryName !== from.params.categoryName
-      ) {
-        // this.categoryName = to.params.categoryName
-        // this.getData()
+    $route(to, from) {
+      if (from.name === 'shop' && to.name === 'shop' && to.params.categoryName !== from.params.categoryName) {
+        this.$store.dispatch('shop/SET_NEW_CATEGORY', { category: to.params.categoryName });
       }
     },
-    activeCategory () {
-      console.log(this.activeCategory)
-    }
+    activeCategory() {
+      console.log(this.activeCategory);
+    },
   },
   methods: {
-    async getData () {
-      !this.categories &&
-        (await this.$store.dispatch('shop/GET_SHOP_CATEGORIES'))
-      if (this.categories) {
-        this.$store.dispatch('shop/SET_NEW_CATEGORY', { category: this.categoryName || this.categories[0] })
-      }
-      this.$router.replace({
-        name: 'shop',
-        params: { categoryName: this.activeCategory.slug }
-      })
-      // this.categoryName = (await this.categoryName)
-      //   ? this.categoryName
-      //   : allcat[0].slug
-      // this.selectedSection =
-      //   (await allcat.length) &&
-      //   allcat.find((el) => el.slug === this.categoryName);
-      // (await this.selectedSection) && this.getCommodities()
-    },
-    setSelectedSection (val) {
-      console.log(val)
-      this.$store.dispatch('shop/SET_NEW_CATEGORY', { category: val })
-    },
-    getCommodities () {
-      this.$store.dispatch('shop/GET_SHOP_COMMODITIES', {
-        categoryId: this.selectedSection._id,
-        skip: this.pagination.skip
-      })
-    },
-    setPage (page) {
+    setPage(page) {
       if (page !== this.$route.query.page) {
-        this.$router.replace({
+        this.$router.push({
           name: 'shop',
           params: { categoryId: this.categoryId },
-          query: { page }
-        })
-        this.pagination.page = page
-        this.pagination.skip = page * 8 - 8
-        this.getCommodities()
+          query: { page },
+        });
+        this.$store.dispatch('shop/GET_MORE_COMMODITIES', { skip: this.pagination.skip });
+        this.pagination.page = page;
+        this.pagination.skip = page * 8 - 8;
       }
     },
-    goToItem (id) {
+    goToItem(id) {
       this.$router.push({
         name: 'shop-item',
         params: {
-          commodityId: id
-        }
-      })
+          commodityId: id,
+        },
+      });
+    },
+  },
+  beforeDestroy() {
+    this.$store.commit('shop/CLEAR_COMMODITIES');
+  },
+  async created() {
+    if (!this.categories) await this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
+    await this.$store.dispatch('shop/INIT_SHOP', {
+      categoryName: this.categoryName,
+      skip: this.pagination.skip,
+    });
+    if (!this.categoryName) {
+      await this.$router.replace({
+        name: 'shop',
+        params: { categoryName: this.activeCategory.slug },
+      });
     }
   },
-  created () {
-    this.getData()
-    // this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
-  },
-  beforeDestroy () {
-    // this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
-    this.$store.commit('shop/CLEAR_COMMODITIES')
-  }
-}
+};
 </script>
 
 <style lang="scss">
-@import "@/css/variables.scss";
+@import '@/css/variables.scss';
 .pagination-buttons {
   button {
     outline: none !important;
@@ -179,44 +178,7 @@ export default {
   text-align: center;
   color: $shopGrayFont;
 }
-.shop-card {
-  background-color: #f4f4f4;
-  margin: 20px;
-  width: calc(25% - 65px);
-  height: 350px;
-}
-.price-wrap {
-  padding: 5px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-.text-wrap {
-  padding: 10px;
-  flex: 1;
-}
-.color-black {
-  color: black;
-}
 .gray-background {
   background-color: #f4f4f4;
-}
-@media screen and (max-width: 1450px) {
-  .shop-card {
-    margin: 10px;
-    width: calc(33% - 65px);
-  }
-}
-@media screen and (max-width: 1095px) {
-  .shop-card {
-    margin: 10px;
-    width: calc(50% - 65px);
-  }
-}
-@media screen and (max-width: 569px) {
-  .shop-card {
-    margin: 10px;
-    width: -webkit-fill-available;
-  }
 }
 </style>

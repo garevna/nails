@@ -1,20 +1,16 @@
 <template>
   <v-app dark>
-    <v-container fluid class="mx-auto homefone">
+    <div class="homefone">
       <SystemBar />
-      <MainMenu
-        v-if="
-          maimMenuShowInRouteNames.includes(this.$route.name) &&
-          viewportWidth > 900
-        "
-      />
+      <MainMenu v-if="maimMenuShowInRouteNames.includes(this.$route.name) && viewportWidth > 900" />
       <v-main class="main-content">
         <component :is="layout">
           <!-- <router-view /> -->
         </component>
       </v-main>
       <Footer />
-    </v-container>
+    </div>
+
     <!-- <notifications group="foo" position="top center" /> -->
     <v-snackbar v-model="snackbar" :timeout="timeout" :color="color" top>
       {{ text }}
@@ -32,12 +28,12 @@
 html,
 body,
 .v-application {
-  font-family: "Arial" !important;
+  font-family: 'Arial' !important;
 }
 h1,
 h2,
 h3 {
-  font-family: "Arial Bold" !important;
+  font-family: 'Arial Bold' !important;
   line-height: 150%;
 }
 a {
@@ -52,7 +48,7 @@ a {
 .main-content {
   margin-bottom: 150px !important;
   margin-top: 20px !important;
-  min-height: calc(100vh - 500px);
+  min-height: calc(100vh - 500px) !important;
 }
 .v-btn__content {
   justify-content: center !important;
@@ -92,31 +88,15 @@ a {
   }
 }
 </style>
-<style lang="scss">
-// .vue-notification {
-//   background-color: #fa0 !important;
-//   padding: 5px;
-//   margin: 10px 0 0 0;
-//   font-size: 16px;
-//   border-left: none;
-//   text-align: center;
-//   border-radius: 5px;
-//   font-family: "Archivo Narrow" !important;
-//   font-weight: 700;
-//   &.error {
-//     background: #e54d42;
-//   }
-// }
-</style>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
-import SystemBar from './components/SystemBar.vue'
-import Footer from './components/Footer.vue'
-import MainMenu from '@/components/MainMenu.vue'
-import WhitefoneLayout from './layouts/WhitefoneLayout.vue'
-import DefaultLayout from './layouts/DefaultLayout.vue'
+import SystemBar from './components/SystemBar.vue';
+import Footer from './components/Footer.vue';
+import MainMenu from '@/components/MainMenu.vue';
+import ShopLayout from './layouts/ShopLayout.vue';
+import DefaultLayout from './layouts/DefaultLayout.vue';
 
 export default {
   name: 'App',
@@ -125,10 +105,10 @@ export default {
     SystemBar,
     Footer,
     MainMenu,
-    WhitefoneLayout,
-    DefaultLayout
+    DefaultLayout,
+    ShopLayout,
   },
-  data () {
+  data() {
     return {
       snackbar: false,
       text: '',
@@ -142,61 +122,88 @@ export default {
         'course-offline',
         'course-online',
         'personal-data',
-        'payment-details'
-      ]
-    }
+        'payment-details',
+      ],
+    };
   },
   computed: {
     ...mapState(['viewportWidth']),
     ...mapState('auth', ['authError']),
     ...mapState('userCourses', ['userCoursesError']),
-    layout () {
-      return `${this.$route.meta?.layout || 'default'}-layout`
-    }
+    ...mapState('shop', ['activeCategory']),
+    isShopOpened() {
+      return this.$route.name === 'shop' || this.$route.name === 'shop-item';
+    },
+    layout() {
+      if (this.isShopOpened) {
+        return 'shop-layout';
+      }
+      return 'default-layout';
+    },
   },
   watch: {
-    authError (val) {
+    authError(val) {
       if (val) {
         // this.$notify({
         //   group: 'foo',
         //   type: 'error',
         //   text: val
         // })
-        this.snackbar = true
-        this.text = val
-        this.color = 'red'
+        this.snackbar = true;
+        this.text = val;
+        this.color = 'red';
       }
     },
-    userCoursesError (val) {
+    userCoursesError(val) {
       if (val) {
         // this.$notify({
         //   group: 'foo',
         //   type: 'error',
         //   text: val
         // })
-        this.snackbar = true
-        this.text = val
-        this.color = 'red'
+        this.snackbar = true;
+        this.text = val;
+        this.color = 'red';
       }
-    }
+    },
   },
   methods: {
-    onResize () {
-      this.$store.commit('CHANGE_VIEWPORT_WIDTH')
-    }
+    onResize() {
+      this.$store.commit('CHANGE_VIEWPORT_WIDTH');
+    },
+    async shopInit() {
+      let categoryName;
+      const isShopOpened = this.$route.name === 'shop';
+      if (isShopOpened) {
+        categoryName = this.$route.params.categoryName;
+      }
+      await this.$store.dispatch('shop/INIT_SHOP', {
+        categoryName,
+      });
+      if (this.$route.name === 'shop' && !categoryName) {
+        console.log(this.activeCategory);
+        // await this.$router.push({
+        //   name: 'shop',
+        //   params: { categoryName: this.activeCategory.slug },
+        // });
+      }
+    },
   },
-  mounted () {
-    this.onResize()
-    this.$store.dispatch('shop/GET_SHOP_CATEGORIES')
-    window.addEventListener('resize', this.onResize, { passive: true })
+  mounted() {
+    this.onResize();
+    this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
+    window.addEventListener('resize', this.onResize, { passive: true });
   },
-  beforeCreate () {
-    this.$store.dispatch('auth/IS_SIGNED')
+  async beforeCreate() {
+    await this.$store.dispatch('auth/IS_SIGNED');
+    await this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
+    // await this.shopInit();
   },
-  destroyed () {
+
+  destroyed() {
     if (typeof window !== 'undefined') {
-      window.removeEventListener('resize', this.onResize, { passive: true })
+      window.removeEventListener('resize', this.onResize, { passive: true });
     }
-  }
-}
+  },
+};
 </script>

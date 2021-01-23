@@ -1,24 +1,13 @@
 <template>
   <div class="header-container homefone">
-    <v-progress-linear
-      v-if="uploading"
-      indeterminate
-      color="yellow darken-2"
-    ></v-progress-linear>
-    <v-app-bar
-      app
-      color="#FFC44A"
-      outlined
-      dark
-      elevate-on-scroll
-      class="app-bar-header"
-    >
+    <v-progress-linear v-if="uploading" indeterminate color="yellow darken-2"></v-progress-linear>
+    <v-app-bar app color="#FFC44A" outlined dark elevate-on-scroll class="app-bar-header">
       <div class="d-flex align-center">
         <Logo :goHome="goHome" class="logo" />
         <!-- <h1><span @click="goHome" class="logo">NAILS</span>AUSTRALIA</h1> -->
       </div>
       <v-spacer></v-spacer>
-      <div class="primary app-bar d-none d-lg-block menu-app-bar-btn">
+      <div class="orange app-bar d-none d-lg-block menu-app-bar-btn">
         <v-btn @click="goHome" text>HOME</v-btn>
         <v-btn @click="goToShop" text>SHOP</v-btn>
         <v-btn @click="goToCourses" text>COURSES</v-btn>
@@ -150,55 +139,53 @@
 </style>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
-import MenuSystemBar from '@/components/MenuSystemBar.vue'
-import Logo from '@/components/svg/Logo.vue'
-import BurgerMenu from '@/components/BurgerMenu.vue'
+import MenuSystemBar from '@/components/MenuSystemBar.vue';
+import Logo from '@/components/svg/Logo.vue';
+import BurgerMenu from '@/components/BurgerMenu.vue';
 
 export default {
   name: 'SystemBar',
   components: {
     MenuSystemBar,
     Logo,
-    BurgerMenu
+    BurgerMenu,
   },
   data: () => ({
     toggle: 0,
-    panel: false
+    panel: false,
   }),
   computed: {
-    ...mapState('shop', ['categories']),
+    ...mapState('shop', ['categories', 'activeCategory']),
     ...mapState('userCourses', ['uploading']),
-    burgerMenuClassFirst () {
-      return this.panel === 0
-        ? 'burger-menu-active--first'
-        : 'burger-menu--first'
+    burgerMenuClassFirst() {
+      return this.panel === 0 ? 'burger-menu-active--first' : 'burger-menu--first';
     },
-    burgerMenuClassSecond () {
-      return this.panel === 0
-        ? 'burger-menu-active--second'
-        : 'burger-menu--second'
-    }
+    burgerMenuClassSecond() {
+      return this.panel === 0 ? 'burger-menu-active--second' : 'burger-menu--second';
+    },
 
     // backgroundColor () {
     //   return this.$vuetify.theme.themes.light.homefone
     // }
   },
   methods: {
-    goHome () {
-      this.panel = []
-      if (this.$route.name !== 'home') this.$router.push({ name: 'home' })
+    goHome() {
+      this.panel = [];
+      if (this.$route.name !== 'home') this.$router.push({ name: 'home' });
     },
-    goToShop () {
-      this.panel = []
-      if (this.$route.name !== 'shop') this.$router.push({ name: 'shop' })
+    goToShop() {
+      this.panel = [];
+      if (this.$route.name !== 'shop') this.$router.push({ name: 'shop', params: { categoryName: 'nail-tools' } });
     },
-    goToCourses () {
-      this.panel = []
-      if (this.$route.name !== 'courses') { this.$router.push({ name: 'courses' }) }
-    }
+    goToCourses() {
+      this.panel = [];
+      if (this.$route.name !== 'courses') {
+        this.$router.push({ name: 'courses' });
+      }
+    },
   },
-  mounted () {}
-}
+  mounted() {},
+};
 </script>

@@ -1,71 +1,159 @@
 <template>
   <v-row justify="center">
-    <v-col cols="12" sm="0" md="4"></v-col>
-    <v-col cols="12" sm="12" md="7">
-      <v-card class="transparent">
-        <v-expansion-panels flat :readonly="!mobileMenu" :value="isOpened" class="category-switcher">
-          <v-expansion-panel>
-            <v-expansion-panel-header
-              class="category-switcher-header"
+    <v-col cols="12" md="8" lg="9" offset-lg="3" offset-md="4" offset="0" class="px-sm-10">
+      <v-card
+        width="100%"
+        v-if="!isCategoriesLoading"
+        class="transparent swithcer-header"
+        tile
+        rounded="0"
+        shaped
+        elevation="1"
+      >
+        <v-menu
+          v-model="isOpened"
+          :close-on-content-click="false"
+          transition="slide-y-transition"
+          bottom
+          offset-y
+          :disabled="!mobileMenu"
+          :key="menuKey"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              v-if="mobileMenu"
+              block
+              color="lgrey"
+              class="category-switcher-header d-flex justify-start"
               expand-icon="mdi-menu-down"
-              :hide-actions="!mobileMenu"
+              v-bind="attrs"
+              v-on="on"
             >
-              <h4>{{ nameToShow }}</h4>
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <LeftSideMenu
-                :setSelectedSection="setNewCategory"
-                :nameToShow="nameToShow"
-                :selectedSection="selectedSection"
-              ></LeftSideMenu>
-            </v-expansion-panel-content>
-          </v-expansion-panel>
-        </v-expansion-panels>
+              <span class="coursesGray--text font-weight-black text-h6 text-start w-100">{{
+                selectedCategoryName
+              }}</span>
+            </v-btn>
+            <v-card v-else width="100%" color="lgrey" class="category-switcher-header px-2 d-flex justify-start">
+              <span class="coursesGray--text font-weight-black text-h6 text-start w-100">{{
+                selectedCategoryName
+              }}</span>
+            </v-card>
+          </template>
+          <v-row justify="center">
+            <v-expansion-panels flat accordion class="px-0 py-5 left-side-header mb-0" :key="panelsKey">
+              <v-expansion-panel v-for="section in categories" :key="section._id">
+                <v-expansion-panel-header
+                  class="mb-0"
+                  @click="!section.subcategories.length ? setSection(section) : null"
+                >
+                  <span class="d-flex justify-start align-center text-h5 font-weight-bold dgrey--text">
+                    {{ section.name }} <v-icon left v-if="section.subcategories.length">mdi-menu-down</v-icon></span
+                  >
+                </v-expansion-panel-header>
+                <v-expansion-panel-content class="justify-md-start justify-center" v-if="section.subcategories.length">
+                  <v-row class="ma-0">
+                    <v-col v-for="(subsection, ind) in section.subcategories" :key="ind" cols="12" class="pa-1 ma-0">
+                      <span
+                        @click="setSection(subsection)"
+                        style="cursor: pointer"
+                        class="lgray--text text-h6 ml-5 mb-2 font-weight-medium"
+                        :style="{
+                          textDecoration:
+                            activeCategory && activeCategory._id === subsection._id ? 'underline' : 'none',
+                        }"
+                      >
+                        {{ subsection.name }}
+                      </span>
+                    </v-col>
+                    <v-col class="d-flex ma-0 mt-2 px-1 py-0">
+                      <span
+                        @click="setSection(section)"
+                        style="cursor: pointer"
+                        :style="{
+                          textDecoration: activeCategory && activeCategory._id === section._id ? 'underline' : 'none',
+                        }"
+                        class="lgray--text text-h6 font-weight-medium ml-5"
+                      >
+                        View all
+                      </span>
+                    </v-col>
+                  </v-row>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+          </v-row>
+        </v-menu>
+      </v-card>
+      <v-card v-else width="100%" height="50px">
+        <v-skeleton-loader height="100%" animation type="image"></v-skeleton-loader>
       </v-card>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue'
+import { mapState } from 'vuex';
 
 export default {
   name: 'CategoriesSwithcer',
-  components: { LeftSideMenu },
-  props: ['selectedSection', 'setSelectedSection', 'mobileMenu', 'nameToShow'],
-  data () {
+  data() {
     return {
-      isOpened: false
-    }
+      isOpened: false,
+      panelsKey: `${Math.random() * 1000}-key`,
+      menuKey: `${Math.random() * 1000}-menu`,
+    };
   },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState('shop', ['categories', 'commodities', 'selectedSectionName'])
+    ...mapState('shop', [
+      'categoriesHeaderName',
+      'activeCategory',
+      'isCategoriesLoading',
+      'categories',
+      'commodities',
+      'selectedSectionName',
+    ]),
+    selectedCategoryName() {
+      return this.$store.getters['shop/selectedCategoryName'];
+    },
+    mobileMenu() {
+      return this.viewportWidth < 960;
+    },
   },
   watch: {
-    mobileMenu () {
-      this.isOpened = this.mobileMenu
-    }
+    mobileMenu() {
+      this.menuKey = `${Math.random() * 1000}-menu`;
+    },
   },
   methods: {
-    setNewCategory (val) {
-      this.setSelectedSection(val)
-      this.isOpened = !this.isOpened
-    }
-  }
-}
+    setSection(section) {
+      this.panelsKey = `${Math.random() * 1000}-key`;
+      this.menuKey = `${Math.random() * 1000}-menu`;
+      this.isOpened = !this.isOpened;
+      if (this.$route.name !== 'shop' || this.$route.params.categoryName !== section.slug) {
+        this.$router.push({
+          name: 'shop',
+          params: { categoryName: section.slug },
+        });
+      }
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-@import '@/css/variables.scss';
-.category-switcher {
-  .category-switcher-header {
-    background-color: $lightGray;
+.w-100 {
+  width: 100% !important;
+}
+.swithcer-header {
+  .v-expansion-panel-header {
+    padding-bottom: 0 !important;
+    padding-top: 0 !important;
   }
-  button {
-    min-height: 30px !important;
-    padding: 10px !important;
+  .v-expansion-panel-content__wrap {
+    padding-top: 0 !important;
+    margin-top: 0;
   }
 }
+@import '@/css/variables.scss';
 </style>
