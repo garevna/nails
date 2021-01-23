@@ -1,12 +1,12 @@
 <template>
   <div>
-    <v-img :src="imgUrl" :height="height" @error="onError"></v-img>
+    <v-img :src="imgUrl" :width="width" :height="height" @error="error = true"></v-img>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['url', 'height'],
+  props: ['url', 'height', 'width'],
   data () {
     return {
       // imageUrl: this.url,
@@ -16,7 +16,7 @@ export default {
   },
   computed: {
     imgUrl () {
-      return this.error ? this.coverImageSrc : this.url
+      return this.error || !this.url ? this.coverImageSrc : this.url
     }
   },
   watch: {
@@ -26,9 +26,23 @@ export default {
     }
   },
   methods: {
-    onError () {
-      this.error = true
-    }
+    // checkUrl (card) {
+    //   let img
+    //   if (card.photo instanceof File) {
+    //     img = URL.createObjectURL(card.photo)
+    //     return img
+    //   }
+    //   if (card.photo && Array.isArray(card.photo) && card.photo.length) {
+    //     img = card.photo[0].link
+    //   }
+    //   if (!img) {
+    //     img = this.coverImageSrc
+    //   }
+    //   return img
+    // },
+    // onError () {
+    //   this.error = true
+    // }
   }
 }
 </script>

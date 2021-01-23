@@ -9,18 +9,8 @@
         </component>
       </v-main>
       <Footer />
-    </div>
-
-    <!-- <notifications group="foo" position="top center" /> -->
-    <v-snackbar v-model="snackbar" :timeout="timeout" :color="color" top>
-      {{ text }}
-
-      <template v-slot:action="{ attrs }" text>
-        <v-btn text v-bind="attrs" @click="snackbar = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn></template
-      >
-    </v-snackbar>
+      <UploadFiles v-if="uploadDialog" />
+    </v-container>
   </v-app>
 </template>
 
@@ -105,15 +95,12 @@ export default {
     SystemBar,
     Footer,
     MainMenu,
-    DefaultLayout,
     ShopLayout,
+    DefaultLayout,
+    UploadFiles: () => import('@/components/UploadFiles.vue')
   },
   data() {
     return {
-      snackbar: false,
-      text: '',
-      timeout: 8000,
-      color: 'green',
       maimMenuShowInRouteNames: [
         'home',
         'add-course',
@@ -140,31 +127,12 @@ export default {
       }
       return 'default-layout';
     },
+    ...mapState('courses', ['uploadDialog'])
+
   },
   watch: {
-    authError(val) {
-      if (val) {
-        // this.$notify({
-        //   group: 'foo',
-        //   type: 'error',
-        //   text: val
-        // })
-        this.snackbar = true;
-        this.text = val;
-        this.color = 'red';
-      }
-    },
-    userCoursesError(val) {
-      if (val) {
-        // this.$notify({
-        //   group: 'foo',
-        //   type: 'error',
-        //   text: val
-        // })
-        this.snackbar = true;
-        this.text = val;
-        this.color = 'red';
-      }
+    layout () {
+      return `${this.$route.meta?.layout || 'default'}-layout`
     },
   },
   methods: {

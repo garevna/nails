@@ -1,170 +1,146 @@
 <template>
-  <div>
-    <v-breadcrumbs :items="items">
-      <template v-slot:item="{ item }">
-        <v-breadcrumbs-item :disabled="item.disabled">
-          <router-link :to="item.href" :class="{ 'disabled-link-dark': item.disabled }">
-            {{ item.text.toUpperCase() }}</router-link
+  <v-container id="edit-form">
+    <v-row>
+      <v-col cols="12" xs="12" v-if="course && !editing">
+        <CourseDetail :course="course" :type="type" btnTitle="BUY THIS COURSE" />
+      </v-col>
+      <v-col cols="12" xs="12" md="7" v-if="editing">
+        <AddCourseForm :course.sync="courseData" @submit="submit" @back="back" />
+      </v-col>
+      <v-col v-if="editing" cols="12" xs="12" md="5" class="d-flex flex-column justify-space-between align-center">
+        <CourseCard :course="courseData" :type="type" />
+      </v-col>
+      <v-col cols="12" xs="12">
+        <CourseDetail v-if="editing" :course="courseData" :type="type" btnTitle="BUY THIS COURSE" />
+        <div class="d-flex flex-column align-center flex-sm-row justify-sm-center mt-8">
+          <v-btn
+            @click="goUploadVideos"
+            v-if="addVideos"
+            color="buttons"
+            rounded
+            large
+            dark
+            min-width="160"
+            class="yellow-button my-8 my-sm-0 mr-sm-8"
+            >Upload videos</v-btn
           >
-        </v-breadcrumbs-item>
-      </template>
-    </v-breadcrumbs>
-    <CourseCardDetail
-      v-if="ready && !showForm"
-      :category="course.category"
-      :days="course.accessDays"
-      :nameOfCourse="course.nameOfCourse"
-      :subtitle="course.subtitle"
-      :price="course.price"
-      :author="course.author"
-      :instructor="course.instructor"
-      :infoBonus="course.infoBonus"
-      :courseSuitable="course.thisCourseIsSuitableFor"
-      :description="course.description"
-      :dateOfCourses="course.dateOfCourses"
-      :url="checkUrl(course)"
-      :type="typeCourse"
-      :coverImageSrc="coverImageSrc"
-      btnTitle="BUY THIS COURSE"
-      :btnCallBack="null"
-      :isPaid="course.isPaid"
-      :isPublished="course.isPublished"
-    />
-    <EditCourseForm
-      v-if="showForm"
-      :editCourseById="editCourseById"
-      :typeCourse="typeCourse"
-      :course="course"
-      :back="backForm"
-      :coverImageSrc="coverImageSrc"
-    />
-    <div class="d-flex flex-column align-center flex-sm-row justify-sm-center mt-8">
-      <v-btn
-        @click="showForm = true"
-        v-if="!showForm"
-        color="buttons"
-        rounded
-        large
-        dark
-        min-width="160"
-        class="yellow-button my-8 my-sm-0 mr-sm-8"
-        >Edit</v-btn
-      >
-      <v-btn
-        @click="goToVideos"
-        v-if="!showForm"
-        color="buttons"
-        rounded
-        large
-        dark
-        min-width="160"
-        class="yellow-button"
-        >Videos</v-btn
-      >
-    </div>
-  </div>
+          <v-btn
+            @click="fillingForm"
+            v-if="!editing"
+            color="buttons"
+            rounded
+            large
+            dark
+            min-width="160"
+            class="yellow-button my-8 my-sm-0 mr-sm-8"
+            >Edit</v-btn
+          >
+          <v-btn
+            @click="goToVideos"
+            v-if="addVideo"
+            color="buttons"
+            rounded
+            large
+            dark
+            min-width="160"
+            class="yellow-button"
+            >Videos</v-btn
+          >
+        </div>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import 'nails-courses-card-detail';
-import 'nails-courses-card-detail/dist/nails-courses-card-detail.css';
-import EditCourseForm from '@/components/Courses/EditCourseForm.vue';
+import { mapState, mapActions } from 'vuex';
+import CourseDetail from '@/components/courses/CourseDetail.vue';
+import CourseCard from '@/components/courses/CourseCard.vue';
+import AddCourseForm from '@/components/forms/AddCourseForm.vue';
 export default {
   components: {
-    EditCourseForm,
+    CourseDetail,
+    CourseCard,
+    AddCourseForm,
   },
   data() {
     return {
-      courseId: this.$route.params.courseid,
-      course: null,
-      ready: false,
-      typeCourse: 'online',
-      showForm: false,
-      coverImageSrc: require('@/assets/noImage.jpg'),
-      items: [
-        {
-          text: '',
-          disabled: false,
-          href: '/user-cabinet',
-        },
-        {
-          text: '',
-          disabled: false,
-          href: '/user-cabinet/courses',
-        },
-        {
-          text: '',
-          disabled: true,
-          href: '#',
-        },
-      ],
+      courseData: null,
+      editing: false,
+      type: 'online',
     };
   },
   computed: {
-    ...mapState('userCourses', ['userCourses', 'currentCourse', 'currentCourseId']),
-    ...mapState('auth', ['user']),
+    ...mapState('courses', ['courses', 'course']),
+    addVideos() {
+      return !this?.course?.videos?.length && !this.editing;
+    },
+    addVideo() {
+      return this?.course?.videos?.length && !this.editing;
+    },
   },
   watch: {
-    user() {
-      this.fillingInTheFields();
-    },
     course(val) {
-      this.items[2].text = `${val.nameOfCourse}`;
-    },
-    currentCourse(course) {
-      if (!course) return;
-      this.course = course;
-      this.showForm = false;
-      this.ready = true;
+      if (!val) return;
+      this.editing = false;
     },
   },
   methods: {
-    checkUrl(card) {
-      let img;
-      if (card.photo && Array.isArray(card.photo) && card.photo.length) {
-        img = card.photo[0].link;
-      }
-      if (!img) {
-        img = this.coverImageSrc;
-      }
-      return img;
-    },
-    fillingInTheFields() {
-      if (!this.user) return;
-      this.items[0].text = `${this.user.firstName} cabinet`;
-      this.items[1].text = `${this.user.firstName} courses`;
-      // this.items[2].text = `${this.course.nameOfCourse}`
-    },
-    editCourseById(data) {
-      this.$store.dispatch('userCourses/PUT_USER_COURSE_ID', {
-        data,
-        id: this.courseId,
+    ...mapActions('courses', {
+      putCourse: 'PUT_COURSE',
+      getCourse: 'GET_COURSE',
+    }),
+    submit(data) {
+      const { thisCourseIsSuitableFor, ...rest } = data;
+      const fd = new FormData();
+      Object.entries(rest).forEach(([name, value]) => {
+        if (value instanceof File) fd.append('file', value);
+        else fd.append(name, value);
+      });
+      thisCourseIsSuitableFor.forEach(str => {
+        fd.append('thisCourseIsSuitableFor[]', str);
+      });
+      this.putCourse({
+        data: fd,
+        id: this.course._id,
       });
     },
-    backForm() {
-      this.showForm = false;
+    fillingForm() {
+      if (this.course) {
+        this.courseData = this.course;
+        this.editing = true;
+        this.$vuetify.goTo('#edit-form', {
+          duration: 500,
+          offset: 80,
+          easing: 'easeInOutCubic',
+        });
+      }
+    },
+    back() {
+      this.editing = false;
     },
     goToVideos() {
       if (this.$route.name !== 'user-videos') {
         this.$router.push({ name: 'user-videos' });
       }
     },
+    goUploadVideos() {
+      if (this.$route.name !== 'add-course-videos') {
+        this.$router.push({
+          name: 'add-course-videos',
+          params: {
+            courseid: this.course._id,
+          },
+        });
+      }
+    },
   },
   created() {
-    this.fillingInTheFields();
-    // this.getCourseById()
-    if (this.currentCourseId !== this.courseId) {
-      this.$store.dispatch('userCourses/GET_USER_COURSE_ID', this.courseId);
-    } else {
-      this.items[2].text = `${this.currentCourse.nameOfCourse}`;
-      this.course = this.currentCourse;
-      this.ready = true;
-    }
+    this.getCourse(this.$route.params.courseid);
   },
+  mounted() {},
 };
 </script>
-
 <style scoped>
 .disabled-link-dark {
   color: grey;

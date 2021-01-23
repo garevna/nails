@@ -7,7 +7,14 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     host: process.env.VUE_APP_API_URL,
-    buttonForRegistrationOfflineShop: 'CONFIRM DETAILS AND PROCEED WITH PAYMENT',
+    buttonForRegistrationOfflineShop:
+      'CONFIRM DETAILS AND PROCEED WITH PAYMENT',
+    error: null,
+    errorMessage: '',
+    errorType: '',
+    message: null,
+    messageType: '',
+    messageText: '',
     viewportWidth: window.innerWidth
   },
   modules,
@@ -15,7 +22,31 @@ export default new Vuex.Store({
     //
   },
   mutations: {
-    CHANGE_VIEWPORT_WIDTH: (state) => { state.viewportWidth = window.innerWidth }
+    ERROR (state, payload) {
+      if (!payload) {
+        state.error = false
+        state.errorType = ''
+        state.errorMessage = ''
+      } else {
+        state.error = payload.error
+        state.errorType = payload.errorType
+        state.errorMessage = payload.errorMessage
+      }
+    },
+    MESSAGE (state, payload) {
+      if (!payload) {
+        state.message = false
+        state.messageType = ''
+        state.messageText = ''
+      } else {
+        state.message = payload.message
+        state.messageType = payload.messageType
+        state.messageText = payload.messageText
+      }
+    },
+    CHANGE_VIEWPORT_WIDTH: state => {
+      state.viewportWidth = window.innerWidth
+    }
   },
   actions: {
     //

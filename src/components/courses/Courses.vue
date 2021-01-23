@@ -10,22 +10,17 @@
           primary
           class="ref d-flex justify-center yellow-button pa-6"
           @click="toOnlineCourses"
-        >Online courses</v-btn>
+          >Online courses</v-btn
+        >
       </div>
-      <div class="d-flex flex-wrap  justify-center ">
+      <div class="d-flex flex-wrap justify-center">
         <CourseCard
-          v-for="(card, index) in onlineCourses"
+          v-for="(card, index) in courses"
           :key="index"
-          :accessDays="card.accessDays"
-          :url="checkUrl(card)"
-          :name="card.nameOfCourse"
-          :subtitle="card.subtitle"
-          :price="card.price"
-          :id="card._id"
+          :course="card"
           type="online"
           :detailInfo="detailInfo"
           :payDetail="payDetail"
-          :coverImageSrc="coverImageSrc"
         />
       </div>
       <div class="d-flex justify-center">
@@ -38,7 +33,8 @@
           class="ref d-flex justify-center yellow-button pa-6"
           v-if="isHideMoreButtonOnline && this.$route.name !== 'home'"
           @click="getMoreOnlineCourses"
-        >more online courses</v-btn>
+          >more online courses</v-btn
+        >
       </div>
     </v-card>
     <v-card flat class="homefone py-12">
@@ -51,22 +47,17 @@
           dark
           class="ref d-flex justify-center yellow-button pa-6"
           @click="toOfflineCourses"
-        >Offline courses</v-btn>
+          >Offline courses</v-btn
+        >
       </div>
       <div class="d-flex flex-wrap justify-center">
-         <CourseCard
+        <CourseCard
           v-for="(card, index) in offlineCourses"
           :key="index"
-          :accessDays="card.accessDays"
-          :url="checkUrl(card)"
-          :name="card.nameOfCourse"
-          :subtitle="card.subtitle"
-          :price="card.price"
-          :id="card._id"
+          :course="card"
           type="offline"
           :detailInfo="detailInfo"
           :payDetail="payDetail"
-          :coverImageSrc="coverImageSrc"
         />
       </div>
       <div class="d-flex justify-center">
@@ -79,7 +70,8 @@
           class="ref d-flex justify-center yellow-button pa-6"
           v-if="isHideMoreButtonOnline && this.$route.name !== 'home'"
           @click="getMoreOfflineCourses"
-        >more offline courses</v-btn>
+          >more offline courses</v-btn
+        >
       </div>
     </v-card>
   </div>
@@ -101,21 +93,22 @@ h2 {
 
 <script>
 import { mapState } from 'vuex'
-import 'nails-courses-card'
-import 'nails-courses-card/dist/nails-courses-card.css'
+
+import CourseCard from '@/components/courses/CourseCard.vue'
+
 export default {
   components: {
+    CourseCard
   },
   data () {
     return {
-      coverImageSrc: require('../../assets/noImage.jpg')
     }
   },
   computed: {
     ...mapState('offlineCourses', ['offlineCourses', 'totalOfflineCourses']),
-    ...mapState('onlineCourses', ['onlineCourses', 'totalOnlineCourses']),
+    ...mapState('courses', ['courses', 'total']),
     isHideMoreButtonOnline () {
-      return this.onlineCourses.length < this.totalOnlineCourses
+      return this.courses.length < this.total
     },
     isHideMoreButtonOffline () {
       return this.offlineCourses.length < this.totalOfflineCourses
@@ -125,8 +118,14 @@ export default {
     detailInfo (route, id) {
       this.$router.push({ name: route, params: { id } })
     },
-    payDetail () {
-      this.$router.push({ name: 'personal-data' })
+    payDetail (type, id) {
+      // this.$router.push({ name: 'personal-data' })
+      this.$router.push({
+        name: type === 'online' ? 'personal-data' : 'personal-data-off',
+        params: {
+          courseid: id
+        }
+      })
     },
     toOfflineCourses () {
       this.$router.push({ name: 'courses-offline' })
@@ -134,30 +133,18 @@ export default {
     toOnlineCourses () {
       this.$router.push({ name: 'courses-online' })
     },
-    addOnLineCourses () {},
     async getCourses () {
       await this.$store.dispatch('offlineCourses/GET_OFFLINE_COURSES')
-      await this.$store.dispatch('onlineCourses/GET_ONLINE_COURSES')
+      await this.$store.dispatch('courses/GET_ALL_COURSES')
     },
     async getMoreOnlineCourses () {
-      await this.$store.dispatch('onlineCourses/GET_MORE_ONLINE_COURSES', {
-        skip: this.onlineCourses.length
-      })
+      await this.$store.dispatch('courses/GET_MORE_COURSES', this.courses.length
+      )
     },
     async getMoreOfflineCourses () {
       await this.$store.dispatch('offlineCourses/GET_MORE_OFFLINE_COURSES', {
         skip: this.offlineCourses.length
       })
-    },
-    checkUrl (card) {
-      let img
-      if (card.photo && Array.isArray(card.photo) && card.photo.length) {
-        img = card.photo[0].link
-      }
-      if (!img) {
-        img = this.coverImageSrc
-      }
-      return img
     }
   },
   mounted () {

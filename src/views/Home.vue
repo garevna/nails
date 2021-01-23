@@ -126,7 +126,7 @@ import ImageShop from '@/components/svg/ImageShop.vue'
 import ImageCourses from '@/components/svg/ImageCourses.vue'
 import Carousel from '@/components/Carousel.vue'
 // import MainMenu from '@/components/MainMenu.vue'
-import Courses from '@/components/Courses/Courses.vue'
+import Courses from '@/components/courses/Courses.vue'
 
 export default {
   name: 'Home',

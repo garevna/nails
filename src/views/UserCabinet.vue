@@ -254,7 +254,6 @@ export default {
     },
     logoutUser () {
       this.$store.dispatch('auth/LOG_OUT')
-      this.$store.dispatch('userCourses/RESET_USER_COURSES_STORE')
       this.$router.push({ name: 'home' })
       this.dialog = false
     },

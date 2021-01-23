@@ -1,6 +1,10 @@
 <template>
   <div class="header-container homefone">
-    <v-progress-linear v-if="uploading" indeterminate color="yellow darken-2"></v-progress-linear>
+    <!-- <v-progress-linear
+      v-if="uploading"
+      indeterminate
+      color="yellow darken-2"
+    ></v-progress-linear> -->
     <v-app-bar app color="#FFC44A" outlined dark elevate-on-scroll class="app-bar-header">
       <div class="d-flex align-center">
         <Logo :goHome="goHome" class="logo" />
@@ -157,18 +161,13 @@ export default {
     panel: false,
   }),
   computed: {
-    ...mapState('shop', ['categories', 'activeCategory']),
-    ...mapState('userCourses', ['uploading']),
+    ...mapState('shop', ['categories']),
     burgerMenuClassFirst() {
       return this.panel === 0 ? 'burger-menu-active--first' : 'burger-menu--first';
     },
     burgerMenuClassSecond() {
       return this.panel === 0 ? 'burger-menu-active--second' : 'burger-menu--second';
     },
-
-    // backgroundColor () {
-    //   return this.$vuetify.theme.themes.light.homefone
-    // }
   },
   methods: {
     goHome() {

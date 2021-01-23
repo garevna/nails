@@ -15,7 +15,7 @@
           min-width="160"
           class="yellow-button"
           :class="{ 'button-unactive': isActive }"
-          :disabled="!courseId"
+          :disabled="!$route.params.courseid"
           @click="toggleBtn"
           >CONFIRM DETAILS</v-btn
         >
@@ -51,89 +51,23 @@
       <v-col cols="12" xs="12" md="6">
         <p>Upload video for moderation</p>
         <v-expansion-panels flat :disabled="!isActive">
-          <v-expansion-panel v-for="(item, i) in uploadFiles" :key="i" class="d-flex flex-column align-center align-sm-stretch justify-sm-center ">
+          <v-expansion-panel
+            v-for="(field, i) in data"
+            :key="i"
+            class="d-flex flex-column align-center align-sm-stretch justify-sm-center"
+          >
             <v-expansion-panel-header
               class="btn-open-video mb-4"
               :class="{ 'button-unactive': !isActive }"
               width="100%"
+              @click="expansionIndex = i"
             >
               + add video {{ i + 1 }}
+              <h3 class="error-form error--text" v-if="!validates[i]">error</h3>
             </v-expansion-panel-header>
-            <v-expansion-panel-content class="mt-8 ">
+            <v-expansion-panel-content class="mt-8">
               <v-form :ref="`form${i}`">
-                <div class="d-xl-flex">
-                     <v-text-field
-                    label="name of video"
-                    v-model="item.name"
-                    outlined
-                    dark
-                    class="mr-xl-4"
-                  />
-                  <v-file-input
-                    label="video file"
-                    show-size
-                    prepend-icon="mdi-video"
-                    accept="video/mp4"
-                    v-model="item.videoFile"
-                    :rules="[rules.videoRule]"
-                    outlined
-                    dark
-                    class="ml-xl-4"
-                  />
-                </div>
-                  <v-progress-linear
-                    v-if="uploading"
-                    indeterminate
-                    color="yellow darken-2"
-                    class="my-4"
-                  ></v-progress-linear>
-                <div class="d-xl-flex">
-                  <v-textarea
-                     class="mr-xl-4"
-                    label="description"
-                    v-model="item.description"
-                    outlined
-                    dark
-                  />
-                  <v-file-input
-                    class="ml-xl-4"
-                    v-model="item.imgFile"
-                    label="image file"
-                    show-size
-                    prepend-icon="mdi-camera"
-                    accept="image/png, image/jpeg, image/bmp"
-                    :rules="[rules.imageRule]"
-                    outlined
-                    dark
-                  />
-                </div>
-                <div class="d-flex flex-column flex-sm-row flex-md-column flex-lg-row">
-                  <v-file-input
-                    v-model="item.pdfFiles[0]"
-                    prepend-icon="mdi-file-pdf-box"
-                    :rules="[rules.pdfRule]"
-                    label="pdf file"
-                    outlined
-                    dark
-                  />
-                  <v-file-input
-                    v-model="item.pdfFiles[1]"
-                    class="px-sm-4 px-md-0 px-lg-4"
-                    prepend-icon="mdi-file-pdf-box"
-                    :rules="[rules.pdfRule]"
-                    label="pdf file"
-                    outlined
-                    dark
-                  />
-                  <v-file-input
-                    v-model="item.pdfFiles[2]"
-                    prepend-icon="mdi-file-pdf-box"
-                    :rules="[rules.pdfRule]"
-                    label="pdf file"
-                    outlined
-                    dark
-                  />
-                </div>
+                <AddVideoItem :data.sync="data[i]"/>
               </v-form>
             </v-expansion-panel-content>
           </v-expansion-panel>
@@ -146,8 +80,8 @@
           large
           dark
           min-width="160"
-          :disabled="!validate || loading"
           class="yellow-button"
+          :disabled="disabledSubmit"
           @click="sendData"
           >PROCEED AND CHECKOUT</v-btn
         >
@@ -167,6 +101,12 @@
 }
 </style>
 <style scoped>
+.error-form {
+  position: absolute;
+  top:50%;
+  right:-50px;
+  transform: translateY(-50%);
+}
 .v-expansion-panels:not(.v-expansion-panels--accordion):not(.v-expansion-panels--tile)
   > .v-expansion-panel--next-active
   .v-expansion-panel-header {
@@ -204,105 +144,59 @@
 }
 </style>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
+
+import AddVideoItem from '@/components/courses/AddVideoItem.vue'
+const schema = require('@/config/uploadVideosSchema').default
 
 export default {
-  name: 'add-course-videos',
+  name: 'AddCourseVideos',
   components: {
-    // PaymentDetailsForm
+    AddVideoItem
   },
   data () {
     return {
+      noValid: false,
       isActive: false,
-      courseId: this.$route.params.courseid,
-      skill: '50',
-      uploadFiles: [
-        {
-          name: '',
-          videoFile: null,
-          description: '',
-          imgFile: null,
-          pdfFiles: new Array(3).fill(null)
-        },
-        {
-          name: '',
-          videoFile: null,
-          description: '',
-          imgFile: null,
-          pdfFiles: new Array(3).fill(null)
-        },
-        {
-          name: '',
-          videoFile: null,
-          description: '',
-          imgFile: null,
-          pdfFiles: new Array(3).fill(null)
-        },
-        {
-          name: '',
-          videoFile: null,
-          description: '',
-          imgFile: null,
-          pdfFiles: new Array(3).fill(null)
-        },
-        {
-          name: '',
-          videoFile: null,
-          description: '',
-          imgFile: null,
-          pdfFiles: new Array(3).fill(null)
-        }
-      ],
-      rules: {
-        videoRule: v => !v || v.size < 1000000000 || 'Video size should be less than 1 GB!',
-        imageRule: v => !v || v.size < 2000000 || 'Image size should be less than 2 MB!',
-        pdfRule: v => !v || v.size < 100000000 || 'Video size should be less than 100 MB!'
-      }
+      disabledSubmit: false,
+      expansionIndex: 0,
+      data: new Array(schema.count).fill(null),
+      validates: new Array(schema.count).fill(true)
     }
   },
   computed: {
-    validate () {
-      const validArray = this.uploadFiles.map((item) =>
-        this.validateFile(item)
-      )
-      return this.validateFiles(validArray)
-    },
     ...mapState('auth', ['user']),
-    ...mapState('userCourses', ['currentCourseVideos', 'loading', 'uploading'])
+    ...mapState('courses', ['courses', 'queue']),
+    validateFull () {
+      return !this.validates.some(item => !item)
+    },
+    videos () {
+      return this?.courses?.videos ?? []
+    }
+    // progress () {
+    //   const arr = new Array(this.data.length).fill({
+    //     progress: 0,
+    //     error: false
+    //   })
+    //   this.queue.forEach(obj => {
+    //     arr[obj.index].progres = obj.progress
+    //     arr[obj.index].error = obj.error
+    //   })
+    //   return arr
+    // }
   },
   watch: {
-    currentCourseVideos (videos) {
-      if (!videos) return
-      this.$router.push({
-        name: 'user-course',
-        params: {
-          courseid: this.courseId
-        }
-      })
+    queue (val) {
+      if (val.length) return
+      this.goToVideos()
+      this.disabledSubmit = false
     }
   },
   methods: {
-    validateFile (file) {
-      if (this.validateObj(file)) {
-        return 'required fields are filled'
-      }
-      if (this.isEmtyObj(file)) {
-        return 'all fields emty'
-      }
-      return 'required fields are not filled'
-    },
-    validateFiles (arr) {
-      return (
-        arr.includes('required fields are filled') &&
-        !arr.includes('required fields are not filled')
-      )
-    },
-    validateObj (obj) {
-      return obj.name && obj.videoFile && obj.description
-    },
-    filteredData (arr) {
-      return arr.filter((item) => !this.isEmtyObj(item)).map(obj => this.clearEmtyFields(obj))
-    },
+    ...mapActions('courses', {
+      getCourse: 'GET_COURSE',
+      addQueue: 'ADD_QUEUE'
+    }),
     isEmtyObj (obj) {
       const keys = Object.keys(obj)
       return !keys.reduce(
@@ -310,44 +204,64 @@ export default {
         0
       )
     },
-    clearEmtyFields (obj) {
-      const arr = Object.entries(obj)
-      const resObj = Array.isArray(obj) ? [] : {}
-      arr.forEach(([key, value]) => {
-        if (Array.isArray(obj[key])) {
-          const arr = this.clearEmtyFields(obj[key])
-          if (arr.length) resObj[key] = arr
-        } else {
-          if (value) (resObj[key] = value)
-        }
-      })
-      return resObj
-    },
     isEmty (item) {
       let emty = !item
       if (Array.isArray(item)) {
-        emty = !item.some((item) => !!item)
+        emty = !item.some(item => !!item)
       }
       return emty
     },
-    sendData () {
-      const dataArr = this.filteredData(this.uploadFiles)
-      dataArr.forEach((obj, index) => {
+    validationForms () {
+      this.noValid = false
+      return this.data.map((obj, index) => {
+        if (!obj || this.isEmtyObj(obj)) {
+          this.$refs[`form${index}`] &&
+            this.$refs[`form${index}`][0].resetValidation()
+          this.validates[index] = true
+          return null
+        }
+        const valid = this.$refs[`form${index}`]
+          ? this.$refs[`form${index}`][0].validate()
+          : true
+        this.noValid = this.noValid || !valid
+        if (this.noValid) {
+          this.validates[index] = false
+          return null
+        }
+        this.validates[index] = true
+        return obj
+      })
+    },
+    async sendData () {
+      const objs = this.validationForms()
+      this.$forceUpdate()
+      if (this.noValid) return
+      if (!objs.some(obj => obj)) return
+      this.disabledSubmit = true
+      const uploadLessons = []
+
+      objs.forEach(async (obj, index) => {
+        if (!obj) return
         const fd = new FormData()
         Object.entries(obj).forEach(([name, value]) => {
           if (Array.isArray(obj[name])) {
-            Object.values(obj[name]).forEach((value) =>
-              fd.append('files', value)
+            Object.values(obj[name]).forEach(
+              value => value && fd.append('files', value)
             )
           } else {
             if (obj[name] instanceof File) fd.append('files', value)
             else fd.append(name, value)
           }
         })
-        if (this.$refs[`form${index}`][0].validate()) {
-          this.$store.dispatch('userCourses/CREATE_VIDEOS_COURSE', { id: this.courseId, fd, userId: this.user._id })
-        }
+        uploadLessons.push({
+          id: this.$route.params.courseid,
+          lesson: fd,
+          progress: 0,
+          error: false,
+          index
+        })
       })
+      this.addQueue(uploadLessons)
     },
     toggleBtn () {
       this.isActive = !this.isActive
@@ -356,10 +270,17 @@ export default {
       this.$router.push({
         name: 'user-course',
         params: {
-          courseid: this.courseId
+          courseid: this.$route.params.courseid
         }
       })
+    },
+    goToVideos () {
+      this.$router.push({ name: 'user-videos' })
     }
-  }
+  },
+  created () {
+    this.getCourse(this.$route.params.courseid)
+  },
+  beforeDestroy () {}
 }
 </script>

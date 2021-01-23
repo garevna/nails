@@ -5,16 +5,10 @@
         <h2 class="header">All online courses</h2>
       </v-col>
       <CourseCard
-        v-for="(card, index) in onlineCourses"
+        v-for="(card, index) in courses"
         :key="index"
-        :accessDays="card.accessDays"
-        :url="checkUrl(card)"
-        :name="card.nameOfCourse"
-        :subtitle="card.subtitle"
-        :price="card.price"
-        :id="card._id"
-         type="online"
-        :coverImageSrc="coverImageSrc"
+        :course="card"
+        type="online"
         :detailInfo="detailInfo"
         :payDetail="payDetail"
       />
@@ -44,11 +38,13 @@
 
 <script>
 import { mapState } from 'vuex'
-import 'nails-courses-card'
-import 'nails-courses-card/dist/nails-courses-card.css'
+
+import CourseCard from '@/components/courses/CourseCard.vue'
+
 export default {
   name: 'courses-online',
   components: {
+    CourseCard
   },
   data () {
     return {
@@ -56,9 +52,14 @@ export default {
     }
   },
   computed: {
-    ...mapState('onlineCourses', ['onlineCourses', 'totalOnlineCourses']),
+    ...mapState('courses', [
+      'courses',
+      // 'course'
+      // 'videos',
+      'total'
+    ]),
     isHideMoreButtonOnline () {
-      return this.onlineCourses.length < this.totalOnlineCourses
+      return this.courses.length < this.total
     }
   },
   methods: {
@@ -68,27 +69,14 @@ export default {
     payDetail () {
       this.$router.push({ name: 'personal-data' })
     },
-    async getCourses () {
-      await this.$store.dispatch('onlineCourses/GET_ONLINE_COURSES')
-    },
     async getMoreOnlineCourses () {
-      await this.$store.dispatch('onlineCourses/GET_MORE_ONLINE_COURSES', {
-        skip: this.onlineCourses.length
+      await this.$store.dispatch('courses/GET_MORE_COURSES', {
+        skip: this.courses.length
       })
-    },
-    checkUrl (card) {
-      let img
-      if (card.photo && Array.isArray(card.photo) && card.photo.length) {
-        img = card.photo[0].link
-      }
-      if (!img) {
-        img = this.coverImageSrc
-      }
-      return img
     }
   },
   mounted () {
-    this.getCourses()
+    this.$store.dispatch('courses/GET_ALL_COURSES')
   }
 }
 </script>
