@@ -1,17 +1,17 @@
 <template>
   <v-text-field
-    ref="number"
-    v-model="localValue"
+    ref="email"
     :label="label"
+    v-model="localValue"
     :disabled="disabled"
-    :rules="[rules.required, rules.phone, rules.noRepeat]"
+    :rules="[rules.required, rules.email, rules.noRepeat]"
     outlined
   />
 </template>
 
 <script>
 export default {
-  name: 'NumberInput',
+  name: 'EmailInput',
   props: {
     value: {
       type: String,
@@ -44,16 +44,22 @@ export default {
           const res = !(a && b) && (a || b)
           return res || 'Input is required'
         },
-        phone: value => {
-          const pattern = /^[0-9]{10,12}$/gm
-          const phoneError = !pattern.test(value.split(' ').join(''))
-          return !value || !phoneError || 'Invalid phone number'
+
+        email: value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          const emailError = !pattern.test(value)
+          return (
+            !value ||
+            !emailError ||
+            'Please enter your email address in format: yourname@example.com'
+          )
         },
+
         noRepeat: value => {
           return (
             !this.noRepeat ||
-            value.split(' ').join('') !== this.noRepeat.split(' ').join('') ||
-            'Digits must not match'
+            value !== this.noRepeat ||
+            'Email address and additional email address must not match'
           )
         }
       }
@@ -71,7 +77,7 @@ export default {
   },
   watch: {
     noRepeat (val) {
-      this.$refs.number.validate()
+      this.$refs.email.validate()
     }
   },
   methods: {

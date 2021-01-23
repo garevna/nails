@@ -23,90 +23,90 @@ const routes = [
     path: '/shop/:categoryName',
     name: 'shop',
     meta: { layout: 'whitefone' },
-    component: () => import(/* webpackChunkName: "shop" */ '../views/Shop.vue')
+    component: () => import(/* webpackChunkName: "shop" */ '@/views/Shop.vue')
   },
   {
     path: '/shop/:categoryName/:commodityId',
     name: 'shop-item',
     meta: { layout: 'whitefone' },
-    component: () => import(/* webpackChunkName: "shop-item" */ '../views/ShopItem.vue')
+    component: () => import(/* webpackChunkName: "shop-item" */ '@/views/ShopItem.vue')
   },
   {
     path: '/courses',
     name: 'courses',
-    component: () => import(/* webpackChunkName: "courses" */ '../views/Courses.vue')
+    component: () => import(/* webpackChunkName: "courses" */ '@/views/Courses.vue')
   },
   {
     path: '/courses-offline',
     name: 'courses-offline',
-    component: () => import(/* webpackChunkName: "courses-offline" */ '../views/OffLineCourses.vue')
+    component: () => import(/* webpackChunkName: "courses-offline" */ '@/views/OffLineCourses.vue')
   },
   {
     path: '/courses-offline/:id',
     name: 'course-offline',
-    component: () => import(/* webpackChunkName: "course-offline" */ '../views/OffLineCourse.vue')
+    component: () => import(/* webpackChunkName: "course-offline" */ '@/views/OffLineCourse.vue')
   },
   {
     path: '/courses-online',
     name: 'courses-online',
-    component: () => import(/* webpackChunkName: "courses-online" */ '../views/OnlineCourses.vue')
+    component: () => import(/* webpackChunkName: "courses-online" */ '@/views/OnlineCourses.vue')
   },
   {
     path: '/courses-online/:id',
     name: 'course-online',
-    component: () => import(/* webpackChunkName: "course-online" */ '../views/OnlineCourse.vue')
+    component: () => import(/* webpackChunkName: "course-online" */ '@/views/OnlineCourse.vue')
   },
   {
     path: '/courses-online/:courseid/personal-data',
     name: 'personal-data',
-    component: () => import(/* webpackChunkName: "personal-data" */ '../views/PersonalData.vue')
+    component: () => import(/* webpackChunkName: "personal-data" */ '@/views/PersonalData.vue')
   },
   {
     path: '/courses-offline/:courseid/personal-data',
     name: 'personal-data-off',
-    component: () => import(/* webpackChunkName: "personal-data" */ '../views/PersonalData.vue')
+    component: () => import(/* webpackChunkName: "personal-data" */ '@/views/PersonalOfflineData.vue')
   },
   {
     path: '/payment-details',
     name: 'payment-details',
-    component: () => import(/* webpackChunkName: "payment-details" */ '../views/PaymentDetails.vue')
+    component: () => import(/* webpackChunkName: "payment-details" */ '@/views/PaymentDetails.vue')
   },
   {
     path: '/payment',
     name: 'payment',
-    component: () => import(/* webpackChunkName: "payment" */ '../views/Payment.vue')
+    component: () => import(/* webpackChunkName: "payment" */ '@/views/Payment.vue')
   },
   {
     path: '/delivery',
     name: 'delivery',
-    component: () => import(/* webpackChunkName: "delivery" */ '../views/Delivery.vue')
+    component: () => import(/* webpackChunkName: "delivery" */ '@/views/Delivery.vue')
   },
   {
     path: '/return',
     name: 'return',
-    component: () => import(/* webpackChunkName: "return" */ '../views/Return.vue')
+    component: () => import(/* webpackChunkName: "return" */ '@/views/Return.vue')
   },
   {
     path: '/cooperation',
     name: 'cooperation',
-    component: () => import(/* webpackChunkName: "cooperation" */ '../views/Cooperation.vue')
+    component: () => import(/* webpackChunkName: "cooperation" */ '@/views/Cooperation.vue')
   },
   {
     path: '/shop-payment',
     name: 'shop-payment',
-    component: () => import(/* webpackChunkName: "shop-payment" */ '../views/ShopPayment.vue')
+    component: () => import(/* webpackChunkName: "shop-payment" */ '@/views/ShopPayment.vue')
   },
   {
     path: '/sign-in',
     name: 'sign-in',
     meta: { layout: 'whitefone' },
-    component: () => import(/* webpackChunkName: "sign-in" */ '../views/SignIn.vue')
+    component: () => import(/* webpackChunkName: "sign-in" */ '@/views/SignIn.vue')
   },
   {
     path: '/sign-up',
     name: 'sign-up',
     meta: { layout: 'whitefone' },
-    component: () => import(/* webpackChunkName: "sign-up" */ '../views/SignUp.vue')
+    component: () => import(/* webpackChunkName: "sign-up" */ '@/views/SignUp.vue')
   },
   {
     path: '/user-cabinet',
