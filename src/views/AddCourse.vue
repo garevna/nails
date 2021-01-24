@@ -2,9 +2,9 @@
   <v-container>
     <v-row>
       <v-col cols="12" offset-sm="2" sm="8" class="pa-0 mb-4">
-        <v-card flat class="transparent" style="color: #fff">
+        <v-card flat class="transparent">
           <v-card-title>Portal terms of use</v-card-title>
-          <v-card-text style="color: #fff"
+          <v-card-text
             >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel
             reprehenderit repellendus nesciunt voluptatibus porro saepe dicta
             numquam aliquid aperiam explicabo a nisi sapiente, velit, veritatis

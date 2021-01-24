@@ -8,7 +8,7 @@
     :show-size="1000"
     :accept="accept"
     :hide-input="hideInput"
-    outlined
+    :outlined="outlined"
   />
 </template>
 
@@ -46,6 +46,10 @@ export default {
     hideInput: {
       type: Boolean,
       default: false,
+    },
+    outlined: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {

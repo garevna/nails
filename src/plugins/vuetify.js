@@ -18,7 +18,7 @@ export default new Vuetify({
         orange: '#FFC44A',
         secondary: '#dde',
         dgrey: '#333333',
-        lgrey: '#F4F4F4 ',
+        lgrey: '#F4F4F4',
         // orange
         // light gray
         darkGrey: '#333333',
@@ -30,10 +30,13 @@ export default new Vuetify({
         mgrey: '#262624',
         whitefone: '#ffffff',
         shopfont: '#808080',
+        secondaryGray: '#262624',
         // courses
         coursesGray: '#4D4D4D',
         notPaidAndPublished: '#369ab3',
         error: '#f5420d',
+        onlineCardFone: '#414242',
+        disabledPathBreadcrumbs:'#262624'
       },
       dark: {
         orange: '#FFC44A',
@@ -50,8 +53,10 @@ export default new Vuetify({
         lightFont: '#808080',
         // courses
         coursesGray: '#4D4D4D',
-        notPaidAndPublised: '#369ab3',
+        notPaidAndPublished: '#369ab3',
         error: '#f5420d',
+        onlineCardFone: '#414242',
+        disabledPathBreadcrumbs:'#ffffff'
       },
     },
   },

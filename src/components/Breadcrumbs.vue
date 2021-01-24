@@ -1,11 +1,15 @@
 <template>
-  <v-container fluid>
+  <v-container fluid v-if="show">
     <v-row>
       <v-col cols="12" xs="12">
         <v-breadcrumbs :items="items">
           <template v-slot:item="{ item }">
             <v-breadcrumbs-item :disabled="item.disabled">
-              <router-link :to="item.href" class="uppercase" :class="{ 'disabled-link': item.disabled }">
+              <router-link
+                :to="item.href"
+                class="uppercase"
+                :class="{ 'disabledPathBreadcrumbs--text': item.disabled }"
+              >
                 {{ item.text }}
               </router-link>
             </v-breadcrumbs-item>
@@ -28,9 +32,15 @@ export default {
   computed: {
     ...mapState('courses', ['courses', 'course', 'videos', 'video']),
     ...mapState('auth', ['user']),
-    ...mapState('offlineCourses', ['offlineCourseById']),
+    ...mapState('offlineCourses', ['offlineCourse']),
     courseName() {
       return this?.course?.nameOfCourse ?? '';
+    },
+    show () {
+      if (this.type === 'courses-online' ||
+      this.type === 'courses-offline' ||
+      this.type === 'user-cabinet') return true;
+      return false
     },
     videoId() {
       return this.$route.params.videoid;
@@ -91,7 +101,7 @@ export default {
           href: '/courses-offline',
         },
         {
-          text: this?.offlineCourseById?.nameOfCourse ?? '',
+          text: this?.offlineCourse?.nameOfCourse ?? '',
           href: `/courses-offline/${this.$route.params.id}`,
         },
       ];
@@ -111,7 +121,9 @@ export default {
       return this.paths[1];
     },
     paths() {
-      return this.$route.fullPath.split('/');
+      const paths = this.$route.fullPath.split('/');
+      if (!paths[paths.length-1]) paths.pop()
+      return paths
     },
   },
   watch: {},

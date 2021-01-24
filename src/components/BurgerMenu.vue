@@ -111,22 +111,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.logo {
-  width: 300px;
-  cursor: pointer;
-}
-.app-bar-header {
-  top: 20px !important;
-  -webkit-box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
-  -moz-box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
-  box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
-  background-color: #ffc44a !important;
-}
-.menu-app-bar-btn button {
-  color: #000;
-  font-size: 22px;
-  font-weight: 700;
-}
 .burger-menu {
   position: fixed;
   right: 24px;

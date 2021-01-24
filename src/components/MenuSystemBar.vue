@@ -2,7 +2,6 @@
   <div color="warning menu">
     <v-btn v-if="!isLogged" @click="goToLogin('sign-in')" class="registration" text> Sign in </v-btn>
     <v-btn v-if="!isLogged" @click="goToLogin('sign-up')" class="registration" text> Sign up </v-btn>
-    <!-- <input class="search menu-app-bar" text /> -->
     <ProductsCart />
     <v-btn icon v-if="isLogged" @click="goToCabinet">
       <v-icon color="secondaryGray">mdi-account</v-icon>
@@ -26,7 +25,6 @@
 <style>
 .v-treeview-node__label {
   cursor: pointer;
-  /* color:yellow; */
 }
 .v-treeview-node__root .v-treeview-node__content {
   cursor: pointer;
@@ -41,7 +39,6 @@
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  /* flex-basis: 50%; */
   justify-content: flex-end;
 }
 .menu-app-bar {
@@ -112,89 +109,14 @@
 import { mapState } from 'vuex';
 
 import ProductsCart from '@/components/Shop/ProductsCart.vue';
-
+const { items } = require('@/config/menuSystemBarSchema').default
 export default {
   components: { ProductsCart },
   data() {
     return {
       isOpened: false,
       key: 1,
-      items: [
-        {
-          id: 1,
-          name: 'Shop',
-          children: [
-            {
-              id: 2,
-              name: 'Nippers',
-              params: { categoryName: 'cuticle-nippers' },
-              routeName: 'shop',
-            },
-            {
-              id: 3,
-              name: 'Scissors',
-              params: { categoryName: 'cuticle-scissors' },
-              routeName: 'shop',
-            },
-            {
-              id: 4,
-              name: 'Drill bits',
-              params: { categoryName: 'diamond-drill-bits' },
-              routeName: 'shop',
-            },
-            {
-              id: 5,
-              name: 'Brushers',
-              params: { categoryName: 'brushes' },
-              routeName: 'shop',
-            },
-            {
-              id: 6,
-              name: 'more...',
-              children: [
-                {
-                  id: 7,
-                  name: 'Cosmetics',
-                  params: { categoryName: 'cosmetics' },
-                  routeName: 'shop',
-                },
-                {
-                  id: 8,
-                  name: 'Promotions',
-                  params: { categoryName: 'Promotions' },
-                  routeName: 'shop',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: 9,
-          name: 'NailsAustralia courses',
-          children: [
-            {
-              id: 10,
-              name: 'Online courses',
-              routeName: 'courses-online',
-            },
-            {
-              id: 11,
-              name: 'Offline courses',
-              routeName: 'courses-offline',
-            },
-          ],
-        },
-        {
-          id: 12,
-          name: 'All courses',
-          routeName: 'courses',
-        },
-        {
-          id: 13,
-          name: 'Add courses',
-          routeName: 'add-course',
-        },
-      ],
+      items
     };
   },
   computed: {

@@ -1,8 +1,8 @@
 <template>
   <v-container>
     <CourseDetail
-      v-if="offlineCourseById"
-      :course="offlineCourseById"
+      v-if="offlineCourse"
+      :course="offlineCourse"
       type="offline"
       btnTitle="BUY THIS COURSE"
     />
@@ -11,7 +11,7 @@
 <style scoped>
 </style>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import CourseDetail from '@/components/courses/CourseDetail.vue'
 
@@ -24,20 +24,20 @@ export default {
     return {}
   },
   computed: {
-    ...mapState('offlineCourses', ['offlineCourseById'])
+    ...mapState('offlineCourses', ['offlineCourse'])
   },
   methods: {
+    ...mapActions('offlineCourses',{
+      getCourse: 'GET_COURSE'
+    }),
     btnCallBack () {
       this.$router.push({ name: 'personal-data' })
     }
   },
   mounted () {
-    this.$store.dispatch('offlineCourses/GET_OFFLINE_COURSE_BY_ID', {
-      id: this.$route.params.id
-    })
+    this.getCourse(this.$route.params.id)
   },
   beforeDestroy () {
-    // this.$store.dispatch('offlineCourses/CLEAR_OFFLINE_COURSE_BY_ID')
   }
 }
 </script>

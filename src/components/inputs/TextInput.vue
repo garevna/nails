@@ -4,7 +4,7 @@
     v-model="localValue"
     :disabled="disabled"
     :rules="[rules.required, rules.noRepeat]"
-    outlined
+    :outlined="outlined"
   />
 </template>
 
@@ -31,6 +31,10 @@ export default {
     noRepeat: {
       type: String,
       default: '',
+    },
+    outlined: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {

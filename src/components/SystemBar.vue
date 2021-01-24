@@ -1,14 +1,8 @@
 <template>
   <div class="header-container homefone">
-    <!-- <v-progress-linear
-      v-if="uploading"
-      indeterminate
-      color="yellow darken-2"
-    ></v-progress-linear> -->
     <v-app-bar app color="#FFC44A" outlined dark elevate-on-scroll class="app-bar-header">
       <div class="d-flex align-center">
         <Logo :goHome="goHome" class="logo" />
-        <!-- <h1><span @click="goHome" class="logo">NAILS</span>AUSTRALIA</h1> -->
       </div>
       <v-spacer></v-spacer>
       <div class="orange app-bar d-none d-lg-block menu-app-bar-btn">
@@ -17,47 +11,7 @@
         <v-btn @click="goToCourses" text>COURSES</v-btn>
       </div>
       <MenuSystemBar class="d-none d-lg-flex align-center" />
-
-      <!-- Viewport width less then lg -->
       <BurgerMenu :panel.sync="panel" />
-      <!-- <v-expansion-panels
-        tile
-        flat
-        v-model="panel"
-        class="app-bar d-md-none"
-        style="position: fixed; left: 0; margin-top: -8px; z-index: 0;"
-      >
-        <v-expansion-panel style="background: transparent">
-          <v-expansion-panel-header expand-icon="none" hide-actions height="80">
-            <v-btn text class="burger-menu" height="48" width="48">
-              <span :class="burgerMenuClassFirst"></span>
-              <span :class="burgerMenuClassSecond"></span>
-            </v-btn>
-          </v-expansion-panel-header>
-          <v-expansion-panel-content
-            class="main-menu-content"
-            style="margin-top: 128px; padding: 64px 16px 16px!important"
-          >
-            <v-list flat class="main-menu-content text-center">
-              <v-list-item class="main-menu-content" @click="goHome">
-                <v-list-item-title class="main-menu-content main-menu-items"
-                  >Home</v-list-item-title
-                >
-              </v-list-item>
-              <v-list-item class="main-menu-content" @click="goToShop">
-                <v-list-item-title class="main-menu-content main-menu-items"
-                  >Shop</v-list-item-title
-                >
-              </v-list-item>
-              <v-list-item class="main-menu-content" @click="goToCourses">
-                <v-list-item-title class="main-menu-content main-menu-items"
-                  >Courses</v-list-item-title
-                >
-              </v-list-item>
-            </v-list>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels> -->
     </v-app-bar>
   </div>
 </template>
@@ -78,40 +32,6 @@
   color: #000;
   font-size: 22px;
   font-weight: 700;
-}
-.burger-menu {
-  position: fixed;
-  right: 24px;
-  top: 8px;
-  z-index: 10;
-}
-.burger-menu--first,
-.burger-menu--second,
-.burger-menu-active--first,
-.burger-menu-active--second {
-  position: absolute;
-  height: 3px;
-  background: #000;
-  left: 0;
-  transition: all 0.5s;
-}
-.burger-menu--first {
-  width: 32px;
-  top: -8px;
-}
-.burger-menu--second {
-  width: 32px;
-  top: 2px;
-}
-.burger-menu-active--first {
-  top: 0;
-  width: 32px;
-  transform: rotate(-45deg);
-}
-.burger-menu-active--second {
-  top: 0;
-  width: 32px;
-  transform: rotate(45deg);
 }
 .main-menu-content {
   background: #fafafa !important;

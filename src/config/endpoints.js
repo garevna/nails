@@ -14,6 +14,12 @@ export default {
     findVideo: 'course/online/findvideo',
     pdf: 'course/online/pdf',
   },
+  auth: {
+    signUp: 'auth/signup',
+    signIn: 'auth/signin',
+    user: 'user',
+    checkToken: 'user/findByJwt'
+  },
   categories: {
     categories: 'shop/categories',
     category: 'shop/category',

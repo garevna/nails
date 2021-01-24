@@ -2,7 +2,7 @@
   <v-container fluid fill-height class="homefone mt-16">
     <v-row justify="center" class="mx-auto">
       <v-col cols="12" xs="12" class="d-flex justify-center">
-        <h2 class="header">All online courses</h2>
+        <h2>All online courses</h2>
       </v-col>
       <CourseCard
         v-for="(card, index) in courses"
@@ -22,7 +22,7 @@
           min-width="90"
           class="yellow-button"
           v-if="isHideMoreButtonOnline"
-          @click="getMoreOnlineCourses"
+          @click="getMoreCourses(courses.length)"
           >more courses</v-btn
         >
       </v-col>
@@ -31,13 +31,10 @@
 </template>
 
 <style scoped lang="scss">
-.header {
-  color: white;
-}
 </style>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import CourseCard from '@/components/courses/CourseCard.vue'
 
@@ -63,20 +60,22 @@ export default {
     }
   },
   methods: {
+    ...mapActions('courses',{
+      getMoreCourses: 'GET_MORE_COURSES',
+      getAllCourses: 'GET_ALL_COURSES'
+    }),
     detailInfo (route, id) {
       this.$router.push({ name: route, params: { id } })
     },
     payDetail () {
       this.$router.push({ name: 'personal-data' })
     },
-    async getMoreOnlineCourses () {
-      await this.$store.dispatch('courses/GET_MORE_COURSES', {
-        skip: this.courses.length
-      })
-    }
+    // getMoreOnlineCourses () {
+    //   this.getMoreCourses(this.courses.length)
+    // }
   },
   mounted () {
-    this.$store.dispatch('courses/GET_ALL_COURSES')
+    this.getAllCourses()
   }
 }
 </script>

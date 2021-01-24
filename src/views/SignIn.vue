@@ -3,7 +3,24 @@
     <div class="d-flex flex-column align-center">
       <h2>Sign in</h2>
       <div class="input-container pa-4">
-        <v-text-field v-model="email" :rules="[rules.required]" label="Email or phone" />
+        <div v-for="(field, name) in schema" :key="name">
+          <EmailInput
+            v-if="field.type === 'email'"
+            :value.sync="data[name]"
+            :label="field.label"
+            :required="field.required"
+             :outlined="false"
+          />
+          <PasswordInput
+            v-if="field.type === 'password'"
+            :value.sync="data[name]"
+            :label="field.label"
+            :required="field.required"
+             :outlined="false"
+          />
+        </div>
+
+        <!-- <v-text-field v-model="email" :rules="[rules.required]" label="Email" />
         <div class="input-pass">
           <v-text-field
             v-model="password"
@@ -12,7 +29,7 @@
             label="password"
           />
           <v-checkbox label="Show" class="show-pass pa-0 ma-0" v-model="showPass">show</v-checkbox>
-        </div>
+        </div> -->
 
         <v-checkbox
           v-model="isPoliticAgree"
@@ -47,22 +64,24 @@
 </style>
 <script>
 import { mapState } from 'vuex';
+import EmailInput from '@/components/inputs/EmailInput.vue';
+import PasswordInput from '@/components/inputs/PasswordInput.vue';
+
+const schema = require('@/config/signInSchema').default;
 
 export default {
-  name: 'login',
+  name: 'SignIn',
+  components: {
+    EmailInput,
+    PasswordInput,
+  },
   data() {
     return {
-      login: '',
-      password: '',
-      phone: '',
-      email: '',
+      schema,
       isPoliticAgree: false,
-      showPass: false,
+      data: Object.keys(schema).reduce((acc, key) => Object.assign(acc, { [key]: '' }), {}),
       rules: {
         required: v => !!v || 'input is required',
-        confirmPass: v => v === this.password || 'Passwords do not match',
-        mailValidation: v =>
-          /^(\w+\.?\w+\.?\w+?|\d+\.?\d+\.?\d+)([@])(\w+|\d+)\.{1}[a-zA-Z]{2,3}$/.test(v) || 'invalid email',
       },
     };
   },
@@ -80,37 +99,12 @@ export default {
   },
   methods: {
     submit() {
-      const {
-        email,
-        // phone,
-        // role,
-        // isPoliticAgree,
-        // login,
-        password,
-      } = this;
       if (this.$refs.form.validate()) {
-        // if (registration) {
-        //   const data = {
-        //     email,
-        //     phone,
-        //     login,
-        //     role,
-        //     isPoliticAgree,
-        //     password
-        //   }
-        //   this.$store.dispatch('auth/REGISTRATION_USER', data)
-        // } else {
-        this.$store.dispatch('auth/SIGN_IN', { email, password });
-        // this.loading = true
-        // }
+        this.$store.dispatch('auth/SIGN_IN', this.data);
       }
     },
   },
-  mounted() {
-    this.$store.dispatch('auth/AUTH_ERROR');
-  },
-  beforeDestroy() {
-    this.$store.dispatch('auth/CLEAR_AUTH_ERROR');
-  },
+  mounted() {},
+  beforeDestroy() {},
 };
 </script>

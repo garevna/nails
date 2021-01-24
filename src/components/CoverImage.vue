@@ -9,7 +9,6 @@ export default {
   props: ['url', 'height', 'width'],
   data () {
     return {
-      // imageUrl: this.url,
       error: false,
       coverImageSrc: require('@/assets/noImage.jpg')
     }
@@ -26,23 +25,6 @@ export default {
     }
   },
   methods: {
-    // checkUrl (card) {
-    //   let img
-    //   if (card.photo instanceof File) {
-    //     img = URL.createObjectURL(card.photo)
-    //     return img
-    //   }
-    //   if (card.photo && Array.isArray(card.photo) && card.photo.length) {
-    //     img = card.photo[0].link
-    //   }
-    //   if (!img) {
-    //     img = this.coverImageSrc
-    //   }
-    //   return img
-    // },
-    // onError () {
-    //   this.error = true
-    // }
   }
 }
 </script>

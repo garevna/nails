@@ -1,18 +1,17 @@
-/* eslint-disable no-unused-vars */
 <template>
   <v-text-field
-    ref="email"
-    :label="label"
+    ref="number"
     v-model="localValue"
+    :label="label"
     :disabled="disabled"
-    :rules="[rules.required, rules.email, rules.noRepeat]"
+    :rules="[rules.required, rules.phone, rules.noRepeat]"
     :outlined="outlined"
   />
 </template>
 
 <script>
 export default {
-  name: 'EmailInput',
+  name: 'PhoneInput',
   props: {
     value: {
       type: String,
@@ -49,16 +48,14 @@ export default {
           const res = !(a && b) && (a || b);
           return res || 'Input is required';
         },
-
-        email: value => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          const emailError = !pattern.test(value);
-          return !value || !emailError || 'Please enter your email address in format: yourname@example.com';
+        phone: value => {
+          const pattern = /^[0-9]{10,12}$/gm;
+          const phoneError = !pattern.test(value.split(' ').join(''));
+          return !value || !phoneError || 'Invalid phone number';
         },
-
         noRepeat: value => {
           return (
-            !this.noRepeat || value !== this.noRepeat || 'Email address and additional email address must not match'
+            !this.noRepeat || value.split(' ').join('') !== this.noRepeat.split(' ').join('') || 'Digits must not match'
           );
         },
       },
@@ -76,7 +73,7 @@ export default {
   },
   watch: {
     noRepeat() {
-      this.$refs.email.validate();
+      this.$refs.number.validate();
     },
   },
   methods: {

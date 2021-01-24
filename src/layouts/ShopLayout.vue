@@ -43,7 +43,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .panel-content {
   .v-expansion-panel-content__wrap {
     padding-top: 5px !important;

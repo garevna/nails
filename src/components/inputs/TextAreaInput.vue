@@ -4,7 +4,7 @@
     v-model="localValue"
     :disabled="disabled"
     :rules="[rules.required]"
-    outlined
+    :outlined="outlined"
     rows="8"
     no-resize
   />
@@ -29,6 +29,10 @@ export default {
     required: {
       type: Boolean,
       default: false,
+    },
+    outlined: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {

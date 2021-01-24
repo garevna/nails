@@ -2,7 +2,7 @@
   <v-container fluid class="homefone mt-16">
     <v-row justify="center" class="mx-auto">
       <v-col cols="12" xs="12" class="d-flex justify-center">
-        <h2 class="header">All offline courses</h2>
+        <h2>All offline courses</h2>
       </v-col>
       <CourseCard
         v-for="(card, index) in offlineCourses"
@@ -31,13 +31,10 @@
 </template>
 
 <style scoped lang="scss">
-.header {
-  color: white;
-}
 </style>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 import CourseCard from '@/components/courses/CourseCard.vue'
 
@@ -48,7 +45,6 @@ export default {
   },
   data () {
     return {
-      coverImageSrc: require('@/assets/noImage.jpg')
     }
   },
   computed: {
@@ -58,19 +54,18 @@ export default {
     }
   },
   methods: {
+    ...mapActions('offlineCourses',{
+      getCourses: 'GET_OFFLINE_COURSES',
+      getMoreCourses: 'GET_MORE_OFFLINE_COURSES'
+    }),
     detailInfo (route, id) {
       this.$router.push({ name: route, params: { id } })
     },
     payDetail () {
       this.$router.push({ name: 'personal-data' })
     },
-    async getCourses () {
-      await this.$store.dispatch('offlineCourses/GET_OFFLINE_COURSES')
-    },
-    async getMoreOfflineCourses () {
-      await this.$store.dispatch('offlineCourses/GET_MORE_OFFLINE_COURSES', {
-        skip: this.offlineCourses.length
-      })
+    getMoreOfflineCourses () {
+      this.getMoteCourses(this.offlineCourses.length)
     }
   },
   mounted () {

@@ -1,7 +1,13 @@
 /* eslint-disable quote-props */
+const { postData, putData } = require('@/helpers').default;
+
+// const errors = require('@/config/errors').default.onlineCourses
+// const messages = require('@/config/messages').default.onlineCourses
+
+const endpoints = require('@/config/endpoints').default.auth;
+
 const state = {
   token: null,
-  role: 'Guest',
   isLogged: false,
   user: {},
   authError: null,
@@ -9,16 +15,9 @@ const state = {
 };
 
 const getters = {
-  authorizationEndpoint: (state, getters, rootState) => `${rootState.host}/auth/signin`,
-  registrationEndpoint: (state, getters, rootState) => `${rootState.host}/auth/signup`,
-  checkTokenEndpoint: (state, getters, rootState) => `${rootState.host}/user/findByJwt`,
-  editUserEndpoint: (state, getters, rootState) => `${rootState.host}/user/`,
 };
 
 const mutations = {
-  ROLE: (state, payload) => {
-    state.role = payload;
-  },
   TOKEN: (state, payload) => {
     state.token = payload;
   },
@@ -27,9 +26,6 @@ const mutations = {
   },
   USER: (state, payload) => {
     state.user = payload;
-  },
-  ERROR: (state, payload) => {
-    state.authError = payload;
   },
   LOADING: (state, payload) => {
     state.loading = payload;
@@ -41,9 +37,9 @@ const actions = {
     const token = localStorage.getItem('token');
     if (token) dispatch('CHECK_TOKEN', token);
   },
-  async CHECK_TOKEN({ getters, commit }, token) {
+  async CHECK_TOKEN({ commit }, token) {
     const { user, error, statusCode } = await (
-      await fetch(getters.checkTokenEndpoint, {
+      await fetch(`${process.env.VUE_APP_API_URL}/${endpoints.checkToken}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json;charset=utf-8',
@@ -58,6 +54,7 @@ const actions = {
       commit('TOKEN', token);
       commit('USER', user);
       commit('ISLOGGED', !!user);
+      localStorage.setItem('token', token);
     }
   },
   async LOG_OUT({ commit }) {
@@ -66,10 +63,9 @@ const actions = {
     commit('ISLOGGED', false);
     localStorage.removeItem('token');
   },
-  async SIGN_IN({ getters, commit, dispatch }, payload) {
+  async SIGN_IN({ commit, dispatch }, payload) {
     commit('LOADING', true);
-    commit('ERROR', null);
-    const res = await fetch(getters.authorizationEndpoint, {
+    const res = await fetch(`${process.env.VUE_APP_API_URL}/${endpoints.signIn}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -81,80 +77,33 @@ const actions = {
     if (bearer && !error) {
       const token = bearer.split(' ')[1];
       dispatch('CHECK_TOKEN', token);
-      commit('TOKEN', token);
-      localStorage.setItem('token', token);
-      commit('LOADING', false);
     } else {
       commit('ERROR', error);
-      commit('LOADING', false);
     }
-    // if (bearer) {
-    //   const token = bearer.split(' ')[1]
-    //   const { error } = await res.json()
-    //   if (!error) {
-    //     dispatch('CHECK_TOKEN', token)
-    //     commit('TOKEN', token)
-    //     localStorage.setItem('token', token)
-    //     commit('LOADING', false)
-    //   } else {
-    //     commit('ERROR', error)
-    //     commit('LOADING', false)
-    //   }
-    // } else {
-    //   commit('ERROR', 'Something wrong')
-    //   commit('LOADING', false)
-    // }
+    commit('LOADING', false);
   },
-  async SIGN_UP({ getters, commit, dispatch }, payload) {
+  async SIGN_UP({ commit, dispatch }, payload) {
     commit('LOADING', true);
-    commit('ERROR', null);
-    const { error } = await (
-      await fetch(getters.registrationEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-        body: JSON.stringify(payload),
-      })
-    ).json();
+    const { error } = 
+      await postData(endpoints.signUp, payload)
     if (!error) {
       const { email, password } = payload;
       dispatch('SIGN_IN', { email, password });
-      commit('LOADING', false);
     } else {
       commit('ERROR', error);
-      commit('LOADING', false);
     }
+    commit('LOADING', false);
   },
-  async SET_ROLE({ commit }, payload) {
-    commit('ROLE', payload);
-  },
-  async EDIT_USER({ getters, commit }, payload) {
+  async EDIT_USER({ commit }, payload) {
     commit('LOADING', true);
-    commit('ERROR', null);
-    const { error } = await (
-      await fetch(`${getters.editUserEndpoint}${state.user._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      })
-    ).json();
+    const { error } = 
+      await putData(`${endpoints.user}/${state.user._id}`, payload)
     if (!error) {
       commit('USER', payload);
-      commit('LOADING', false);
-      commit('ERROR', null);
     } else {
-      commit('LOADING', false);
       commit('ERROR', error);
     }
-  },
-  async AUTH_ERROR({ commit }) {
-    commit('ERROR', 'Please, sign in or create an account');
-  },
-  async CLEAR_AUTH_ERROR({ commit }) {
-    commit('ERROR', null);
+    commit('LOADING', false);
   },
 };
 

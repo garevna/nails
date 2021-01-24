@@ -1,8 +1,8 @@
 <template>
-  <v-card>
+  <v-container class="homefone" fluid>
     <Breadcrumbs />
     <router-view />
-  </v-card>
+  </v-container>
 </template>
 
 <script>

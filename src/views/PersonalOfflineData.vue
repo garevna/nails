@@ -41,14 +41,14 @@ export default {
     }
   },
   computed: {
-    ...mapState('offlineCourses', ['offlineCourseById']),
+    ...mapState('offlineCourses', ['offlineCourse']),
     accessDays () {
-      return this.offlineCourseById?.dateOfCourses ?? []
+      return this.offlineCourse?.dateOfCourses ?? []
     }
   },
   methods: {
     ...mapActions('offlineCourses', {
-      getCourse: 'GET_OFFLINE_COURSE_BY_ID',
+      getCourse: 'GET_COURSE',
       buyCourse: 'BUY_COURSE'
     }),
     async sendData (data) {
@@ -66,7 +66,7 @@ export default {
     }
   },
   created () {
-    this.getCourse({ id: this.$route.params.courseid })
+    this.getCourse(this.$route.params.courseid)
   }
 }
 </script>

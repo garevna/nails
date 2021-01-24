@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="(textField, i) in localValue" :key="i" class="d-flex input-container">
-      <TextInput :label="label" :value.sync="localValue[i]" :required="true" />
+      <TextInput :label="label" :value.sync="localValue[i]" :required="true" :outlined="outlined"/>
       <v-btn @click="removeField(i)" v-if="i !== 0" class="remove">
         <v-icon>mdi-delete</v-icon>
       </v-btn>
@@ -27,6 +27,10 @@ export default {
     label: {
       type: String,
       default: '',
+    },
+    outlined: {
+      type: Boolean,
+      default: true,
     },
   },
   components: {

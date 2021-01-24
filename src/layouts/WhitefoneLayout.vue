@@ -1,8 +1,8 @@
 <template>
-  <v-main>
+  <v-container fluid>
     <Breadcrumbs />
     <router-view />
-  </v-main>
+  </v-container>
 </template>
 
 <script>

@@ -4,8 +4,8 @@
     v-model="localValue"
     :label="label"
     :disabled="disabled"
-    :rules="[rules.required, rules.phone, rules.noRepeat]"
-    outlined
+    :rules="[rules.required, rules.onlyDigits, rules.noRepeat]"
+    :outlined="outlined"
   />
 </template>
 
@@ -33,6 +33,10 @@ export default {
       type: String,
       default: '',
     },
+    outlined: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -44,11 +48,8 @@ export default {
           const res = !(a && b) && (a || b);
           return res || 'Input is required';
         },
-        phone: value => {
-          const pattern = /^[0-9]{10,12}$/gm;
-          const phoneError = !pattern.test(value.split(' ').join(''));
-          return !value || !phoneError || 'Invalid phone number';
-        },
+       onlyDigits: v =>
+          !/\D/g.test(v) || 'input should consist only of digits',
         noRepeat: value => {
           return (
             !this.noRepeat || value.split(' ').join('') !== this.noRepeat.split(' ').join('') || 'Digits must not match'

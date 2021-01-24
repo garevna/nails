@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="py-12" style="background-color: #414242">
+    <v-card flat class="py-12 onlineCardFone">
       <div class="d-flex justify-center">
         <v-btn
           color="buttons"
@@ -142,9 +142,7 @@ export default {
       )
     },
     async getMoreOfflineCourses () {
-      await this.$store.dispatch('offlineCourses/GET_MORE_OFFLINE_COURSES', {
-        skip: this.offlineCourses.length
-      })
+      await this.$store.dispatch('offlineCourses/GET_MORE_OFFLINE_COURSES', this.offlineCourses.length)
     }
   },
   mounted () {

@@ -66,16 +66,16 @@ const routes = [
     name: 'personal-data-off',
     component: () => import(/* webpackChunkName: "personal-data" */ '@/views/PersonalOfflineData.vue'),
   },
-  {
-    path: '/payment-details',
-    name: 'payment-details',
-    component: () => import(/* webpackChunkName: "payment-details" */ '@/views/PaymentDetails.vue'),
-  },
-  {
-    path: '/payment',
-    name: 'payment',
-    component: () => import(/* webpackChunkName: "payment" */ '@/views/Payment.vue'),
-  },
+  // {
+  //   path: '/payment-details',
+  //   name: 'payment-details',
+  //   component: () => import(/* webpackChunkName: "payment-details" */ '@/views/PaymentDetails.vue'),
+  // },
+  // {
+  //   path: '/payment',
+  //   name: 'payment',
+  //   component: () => import(/* webpackChunkName: "payment" */ '@/views/Payment.vue'),
+  // },
   {
     path: '/delivery',
     name: 'delivery',

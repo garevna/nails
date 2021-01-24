@@ -27,14 +27,26 @@
         <v-card flat class="transparent" dark v-if="type === 'online'">
           <v-card-text
             v-if="!course.isPaid"
-            class="pa-0 pl-4 pb-4 d-flex notPaidAndPublised--text"
+            class="pa-0 pl-4 pb-4 d-flex notPaidAndPublished--text"
             ><h3>this course has not been paid for yet</h3></v-card-text
           >
           <v-card-text
             v-if="!course.isPublished"
-            class="pa-0 pl-4 d-flex notPaidAndPublised--text"
+            class="pa-0 pl-4 d-flex notPaidAndPublished--text"
             ><h3>this course has not been published yet</h3></v-card-text
           >
+        </v-card>
+          <v-card
+          v-if="type === 'offline'"
+          flat
+          class="transparent d-flex flex-column align-center"
+          dark
+        >
+          <v-card-title>Date of courses:</v-card-title>
+          <div v-for="(item, index) in course.dateOfCourses" :key="index">
+            <p>Date: {{ item.date }}</p>
+            <p>Available of spots: {{ item.availableSpots }}</p>
+          </div>
         </v-card>
         <v-card flat class="transparent d-flex flex-column align-center" dark v-if="type === 'offline'">
           <v-card-title>Date of courses:</v-card-title>
@@ -68,12 +80,6 @@
         align="center"
         justify="center"
       >
-        <!-- <v-img
-          width="400px"
-          :src="imageUrl"
-          @error="onError"
-          height="250px"
-        ></v-img> -->
         <CoverImage :url="linkCheck(course)" :height="400" />
       </v-col>
       <v-col cols="12" xs="12" order="2">
