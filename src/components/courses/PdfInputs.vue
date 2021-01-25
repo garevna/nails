@@ -1,54 +1,50 @@
 <template>
-  <div
-    class="d-flex flex-column flex-sm-row flex-md-column flex-lg-row"
-  >
-    <FileInput
-      v-for="(pdf, index) in data"
-      :key="index"
-      :value.sync="data[index]"
-      :label="options.label"
-      :icon="options.icon"
-      :size="options.size"
-      :required="options.required"
-    />
-  </div>
+  <v-row>
+    <v-col cols="12" sm="12" lg="4" v-for="(pdf, index) in data" :key="index" class=" py-0 py-lg-2">
+      <FileInput
+        :value.sync="data[index]"
+        :label="options.label"
+        :icon="options.icon"
+        :size="options.size"
+        :required="options.required"
+      />
+    </v-col>
+  </v-row>
 </template>
+
 <style scoped>
-/* .pdf-input:not(:last-child) {
-  margin-right: 25px;
-} */
 </style>
+
 <script>
-import FileInput from '@/components/inputs/FileInput.vue'
-// const schema = require('@/config/uploadVideosSchema').default
+import FileInput from '@/components/inputs/FileInput.vue';
+
 export default {
   props: {
     pdfs: {
       type: Array,
-      required: true
+      required: true,
     },
     options: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   name: 'PdfInputs',
   components: {
-    FileInput
+    FileInput,
   },
-  data () {
-    return {
-    }
+  data() {
+    return {};
   },
   computed: {
     data: {
-      get () {
-        return this.pdfs
+      get() {
+        return this.pdfs;
       },
-      set (val) {
-        this.$emit('update:pdfs', val)
-      }
-    }
+      set(val) {
+        this.$emit('update:pdfs', val);
+      },
+    },
   },
   watch: {
     // localData: {
@@ -58,6 +54,6 @@ export default {
     //   }
     // }
   },
-  methods: {}
-}
+  methods: {},
+};
 </script>

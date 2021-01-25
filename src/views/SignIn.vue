@@ -35,20 +35,8 @@
 .input-container {
   min-width: 350px;
 }
-.input-pass {
-  position: relative;
-}
 </style>
 <style lang="scss">
-.show-pass {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  & .v-label,
-  .v-icon.v-icon {
-    font-size: 14px !important;
-  }
-}
 </style>
 <script>
 import { mapState } from 'vuex';

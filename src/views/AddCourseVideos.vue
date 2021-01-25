@@ -37,7 +37,7 @@
           >EDIT DETAILS</v-btn
         >
       </v-col>
-      <v-col cols="12" xs="12" md="6">
+      <v-col cols="12" xs="12" md="4">
         <v-card flat dark class="secondaryGray">
           <v-card-title>Requirements to the video</v-card-title>
           <v-card-text
@@ -48,7 +48,7 @@
           >
         </v-card>
       </v-col>
-      <v-col cols="12" xs="12" md="6">
+      <v-col cols="12" xs="12" md="8">
         <p>Upload video for moderation</p>
         <v-expansion-panels flat :disabled="!isActive">
           <v-expansion-panel
