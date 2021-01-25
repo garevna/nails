@@ -25,7 +25,7 @@ const mutations = {
     state.isLogged = payload;
   },
   USER: (state, payload) => {
-    state.user = payload;
+    state.user = Object.assign({}, state.user, payload);
   },
   LOADING: (state, payload) => {
     state.loading = payload;
@@ -96,10 +96,10 @@ const actions = {
   },
   async EDIT_USER({ commit }, payload) {
     commit('LOADING', true);
-    const { error } = 
+    const { data, error } = 
       await putData(`${endpoints.user}/${state.user._id}`, payload)
     if (!error) {
-      commit('USER', payload);
+      commit('USER', data);
     } else {
       commit('ERROR', error);
     }
