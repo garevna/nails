@@ -1,5 +1,5 @@
 <template>
-  <v-form ref="form" class="form mt-16">
+  <v-form ref="form" class="form mt-16" v-if="show">
     <div class="d-flex flex-column align-center">
       <h2>Sign in</h2>
       <div class="input-container pa-4">
@@ -19,18 +19,6 @@
              :outlined="false"
           />
         </div>
-
-        <!-- <v-text-field v-model="email" :rules="[rules.required]" label="Email" />
-        <div class="input-pass">
-          <v-text-field
-            v-model="password"
-            :type="showPass ? 'text' : 'password'"
-            :rules="[rules.required]"
-            label="password"
-          />
-          <v-checkbox label="Show" class="show-pass pa-0 ma-0" v-model="showPass">show</v-checkbox>
-        </div> -->
-
         <v-checkbox
           v-model="isPoliticAgree"
           :rules="[rules.required]"
@@ -77,6 +65,7 @@ export default {
   },
   data() {
     return {
+      show: false,
       schema,
       isPoliticAgree: false,
       data: Object.keys(schema).reduce((acc, key) => Object.assign(acc, { [key]: '' }), {}),
@@ -91,9 +80,10 @@ export default {
   watch: {
     isLogged(newVal) {
       if (newVal) {
+        // this.$router.push({ name: 'user-cabinet'}) 
         const startPath = this.$router.history._startLocation;
         const currentPath = this.$router.history.current.fullPath;
-        startPath === currentPath ? this.$router.push({ name: 'home' }) : this.$router.go(-1);
+        (startPath === currentPath) ? this.$router.push({ name: 'user-cabinet' }) : this.$router.back();
       }
     },
   },
@@ -104,7 +94,9 @@ export default {
       }
     },
   },
-  mounted() {},
+  mounted() {
+    setTimeout(()=> this.show = true, 500)
+  },
   beforeDestroy() {},
 };
 </script>
