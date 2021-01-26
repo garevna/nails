@@ -11,99 +11,59 @@
       >
         <v-card flat class="mb-8 transparent" dark>
           <v-card-title class="pa-0 pl-4">{{ course.category }}</v-card-title>
-          <v-card-text class="pa-0 pl-4 buttons--text d-flex"
-            >{{ type }} course</v-card-text
-          >
-          <v-card-title class="pa-0 pl-4">{{
-            course.nameOfCourse
-          }}</v-card-title>
-          <v-card-text class="pa-0 pl-4 text-start">{{
-            course.subtitle
-          }}</v-card-text>
+          <v-card-text class="pa-0 pl-4 buttons--text d-flex">{{ type }} course</v-card-text>
+          <v-card-title class="pa-0 pl-4">{{ course.nameOfCourse }}</v-card-title>
+          <v-card-text class="pa-0 pl-4 text-start">{{ course.subtitle }}</v-card-text>
           <v-card-title class="pa-0 pl-4 buttons--text"
             >{{ course.accessDays }} days | $ {{ course.price }}</v-card-title
           >
         </v-card>
         <v-card flat class="transparent" dark v-if="type === 'online'">
-          <v-card-text
-            v-if="!course.isPaid"
-            class="pa-0 pl-4 pb-4 d-flex notPaidAndPublished--text"
+          <v-card-text v-if="!course.isPaid" class="pa-0 pl-4 pb-4 d-flex notPaidAndPublished--text"
             ><h3>this course has not been paid for yet</h3></v-card-text
           >
-          <v-card-text
-            v-if="!course.isPublished"
-            class="pa-0 pl-4 d-flex notPaidAndPublished--text"
+          <v-card-text v-if="!course.isPublished" class="pa-0 pl-4 d-flex notPaidAndPublished--text"
             ><h3>this course has not been published yet</h3></v-card-text
           >
         </v-card>
-          <v-card
-          v-if="type === 'offline'"
-          flat
-          class="transparent d-flex flex-column align-center"
-          dark
-        >
+        <v-card v-if="type === 'offline'" flat class="transparent d-flex flex-column align-center" dark>
           <v-card-title>Date of courses:</v-card-title>
-          <div v-for="(item, index) in course.dateOfCourses" :key="index">
-            <p>Date: {{ item.date }}</p>
-            <p>Available of spots: {{ item.availableSpots }}</p>
-          </div>
-        </v-card>
-        <v-card flat class="transparent d-flex flex-column align-center" dark v-if="type === 'offline'">
-          <v-card-title>Date of courses:</v-card-title>
-          <ul>
-            <li
-              v-for="(item, index) in course.dateOfCourses"
-              :key="index"
-            >
-              {{ item }}
-            </li>
-          </ul>
+          <table>
+            <tr v-for="item in course.dateOfCourses" :key="item._id">
+              <td>{{ item.date }}</td>
+              <td>available spots {{ item.availableSpots }}</td>
+            </tr>
+          </table>
         </v-card>
         <v-card flat class="transparent d-flex flex-column align-center" dark>
           <v-card-title>This course is cuitable for:</v-card-title>
           <ul>
-            <li
-              v-for="(item, index) in course.thisCourseIsSuitableFor"
-              :key="index"
-            >
+            <li v-for="(item, index) in course.thisCourseIsSuitableFor" :key="index">
               {{ item }}
             </li>
           </ul>
         </v-card>
       </v-col>
-      <v-col
-        cols="12"
-        xs="12"
-        order="1"
-        sm="6"
-        order-sm="2"
-        align="center"
-        justify="center"
-      >
+      <v-col cols="12" xs="12" order="1" sm="6" order-sm="2" align="center" justify="center">
         <CoverImage :url="linkCheck(course)" :height="400" />
       </v-col>
       <v-col cols="12" xs="12" order="2">
-        <v-card-text
-          class="mt-16 whitefone--text d-flex justify-center justify-sm-start"
-          >Author and instructor of the course:
-          {{ course.instructor }}</v-card-text
+        <v-card-text class="mt-16 whitefone--text d-flex justify-center justify-sm-start"
+          >Author and instructor of the course: {{ course.instructor }}</v-card-text
         >
       </v-col>
       <v-col cols="12" xs="12" order="2">
         <v-card flat dark class="transparent">
-          <v-card-title class="d-flex justify-center justify-sm-start"
-            >On this course:</v-card-title
-          >
-          <v-card-text>{{ course.description }}</v-card-text>
-          <v-card-text>{{ course.infoBonus }}</v-card-text>
+          <v-card-title class="d-flex justify-center justify-sm-start">On this course:</v-card-title>
+          <v-card-text>
+            <p v-for="(item, index) in descriptions" :key="index">
+              {{ item }}
+            </p>
+            </v-card-text>
+          <v-card-text>{{ course.infoForBonus }}</v-card-text>
         </v-card>
       </v-col>
-      <v-col
-        cols="12"
-        xs="12"
-        class="d-flex justify-center justify-sm-end"
-        order="2"
-      >
+      <v-col cols="12" xs="12" class="d-flex justify-center justify-sm-end" order="2">
         <v-btn
           color="buttons"
           rounded
@@ -113,43 +73,60 @@
           min-width="90"
           class="yellow-button mr-4"
           @click="btnHandler"
-          >{{ btnTitle }}</v-btn
+          >{{ type === 'offline' ? 'Apply' : 'Buy this course' }}</v-btn
         >
       </v-col>
     </v-row>
   </v-container>
 </template>
-<style scoped></style>
+
+<style scoped>
+td {
+  padding: 8px;
+}
+</style>
+
 <script>
-import CoverImage from '@/components/CoverImage.vue'
-import checkCourseLink from '@/helpers/checkCourseLink'
+import CoverImage from '@/components/CoverImage.vue';
+import checkCourseLink from '@/helpers/checkCourseLink';
 export default {
   name: 'CourseDetail',
-  props: ['course', 'type', 'btnTitle'],
-  components: {
-    CoverImage
+  props: {
+    course: {
+      type: Object,
+      required: true,
+    },
+    type: {
+      type: String,
+      required: true,
+    },
   },
-  data () {
-    return {
-    }
+  components: {
+    CoverImage,
+  },
+  data() {
+    return {};
   },
   watch: {},
   computed: {
+    descriptions() {
+      return this.course?.description.split('\n').map(str => str.trim()).filter(str => str);
+    },
   },
   methods: {
-    linkCheck (course) {
-      return checkCourseLink(course)
+    linkCheck(course) {
+      return checkCourseLink(course);
     },
-    btnHandler () {
+    btnHandler() {
       if (!this.$route.fullPath.includes('user-cabinet')) {
         this.$router.push({
           name: this.type === 'online' ? 'personal-data' : 'personal-data-off',
           params: {
-            courseid: this.course._id
-          }
-        })
+            courseid: this.course._id,
+          },
+        });
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
