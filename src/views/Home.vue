@@ -1,7 +1,5 @@
 <template>
   <v-container fluid style="padding: 0; margin: 0">
-    <!-- <MainMenu /> -->
-    <!-- <v-card flat dark class="transparent mx-auto" max-width="1440"> -->
     <v-row align="center" justify="center">
       <v-col cols="12" sm="5">
         <v-card flat class="transparent mx-auto my-auto" max-width="480">
@@ -12,7 +10,7 @@
             <p>{{ about }}</p>
           </v-card-text>
           <v-card v-if="viewportWidth <= 600" flat class="transparent mx-auto my-auto">
-          <ImageShop/>
+            <ImageShop />
           </v-card>
           <v-card-text class="text-center secondary--text">
             <h2>S H O P</h2>
@@ -21,14 +19,7 @@
             <p>{{ shopText }}</p>
           </v-card-text>
           <v-card-text class="text-center">
-            <v-btn
-              color="buttons"
-              rounded
-              large
-              dark
-              min-width="160"
-              class="yellow-button"
-              @click="goToRoute('shop')"
+            <v-btn color="buttons" rounded large dark min-width="160" class="yellow-button" @click="goToRoute('shop')"
               >SHOP</v-btn
             >
           </v-card-text>
@@ -36,12 +27,12 @@
       </v-col>
       <v-col v-if="viewportWidth > 600" cols="12" sm="7">
         <v-card flat class="transparent mx-auto my-auto" max-width="700">
-         <ImageShop/>
+          <ImageShop />
         </v-card>
       </v-col>
       <v-col cols="12" sm="7">
-        <v-card flat class="transparent mx-auto my-auto"  max-width="700">
-        <ImageCourses/>
+        <v-card flat class="transparent mx-auto my-auto" max-width="700">
+          <ImageCourses />
         </v-card>
       </v-col>
       <v-col cols="12" sm="5">
@@ -64,6 +55,7 @@
               >ALL COURSES</v-btn
             >
             <v-btn
+              v-if="isLogged"
               color="buttons"
               rounded
               outlined
@@ -77,7 +69,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="12" >
+      <v-col cols="12">
         <v-card flat class="transparent mx-auto my-10" max-width="1360">
           <Carousel />
         </v-card>
@@ -120,50 +112,45 @@ p {
 </style>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
-import ImageShop from '@/components/svg/ImageShop.vue'
-import ImageCourses from '@/components/svg/ImageCourses.vue'
-import Carousel from '@/components/Carousel.vue'
-// import MainMenu from '@/components/MainMenu.vue'
-import Courses from '@/components/courses/Courses.vue'
+import ImageShop from '@/components/svg/ImageShop.vue';
+import ImageCourses from '@/components/svg/ImageCourses.vue';
+import Carousel from '@/components/Carousel.vue';
+import Courses from '@/components/courses/Courses.vue';
 
 export default {
   name: 'Home',
   components: {
     Carousel,
-    // MainMenu,
     ImageShop,
     ImageCourses,
-    Courses
+    Courses,
   },
   data: () => ({
-    selector: '#scroll-with-options'
-    // REVIEW: are these lines needed?
-    // aboutText: [...Array(100)].map(i => (String.fromCharCode(Math.max(Math.floor(Math.random() * 122), 32)))).join(''),
-    // coursesText: [...Array(100)].map(i => (String.fromCharCode(Math.max(Math.floor(Math.random() * 122), 32)))).join('')
+    selector: '#scroll-with-options',
   }),
   computed: {
-    // INFO: 'shop' no used
     ...mapState(['viewportWidth']),
+    ...mapState('auth', ['isLogged']),
     ...mapState('home', ['about', 'shop', 'shopText', 'courses']),
-    target () {
-      const value = this.selector
-      if (!isNaN(value)) return Number(value)
-      else return value
+    target() {
+      const value = this.selector;
+      if (!isNaN(value)) return Number(value);
+      else return value;
     },
-    options () {
+    options() {
       return {
         duration: 300,
         offset: 0,
-        easing: 'easeInOutCubic'
-      }
-    }
+        easing: 'easeInOutCubic',
+      };
+    },
   },
   methods: {
-    goToRoute (route) {
-      this.$router.push({ name: route })
-    }
-  }
-}
+    goToRoute(route) {
+      this.$router.push({ name: route });
+    },
+  },
+};
 </script>

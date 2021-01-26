@@ -37,7 +37,7 @@
           >EDIT DETAILS</v-btn
         >
       </v-col>
-      <v-col cols="12" xs="12" md="6">
+      <v-col cols="12" xs="12" md="4">
         <v-card flat dark class="secondaryGray">
           <v-card-title>Requirements to the video</v-card-title>
           <v-card-text
@@ -48,7 +48,7 @@
           >
         </v-card>
       </v-col>
-      <v-col cols="12" xs="12" md="6">
+      <v-col cols="12" xs="12" md="8">
         <p>Upload video for moderation</p>
         <v-expansion-panels flat :disabled="!isActive">
           <v-expansion-panel
@@ -237,9 +237,12 @@ export default {
       this.$forceUpdate()
       if (this.noValid) return
       if (!objs.some(obj => obj)) return
+      objs.forEach(obj => {
+        if (!obj) return
+        obj.description = obj.description.split(' ').filter((str) => str).join(' ')
+      })
       this.disabledSubmit = true
       const uploadLessons = []
-
       objs.forEach(async (obj, index) => {
         if (!obj) return
         const fd = new FormData()

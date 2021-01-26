@@ -183,6 +183,7 @@ export default {
     },
     async submit () {
       if (!this.course) {
+        this.data.description = this.data.description.split(' ').filter((str) => str).join(' ')
         this.data.idUser = this.user._id
         this.data.isPublished = false
         const { thisCourseIsSuitableFor, ...rest } = this.data

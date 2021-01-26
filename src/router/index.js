@@ -156,9 +156,10 @@ const routes = [
     ],
     beforeEnter: (to, from, next) => {
       if (store.state.isLogged) {
-        return next();
+        next();
+      } else {
+        next({ name: 'sign-in' });
       }
-      next({ name: 'sign-in' });
     },
   },
 ];

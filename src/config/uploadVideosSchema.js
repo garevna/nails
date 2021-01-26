@@ -9,10 +9,9 @@ export default {
       label: 'Video file',
       type: 'file',
       icon: 'mdi-video',
-      accept: 'video/mp4',
+      accept: 'video/mp4, video/webm',
       size: 1000000,
       required: true,
-      progress: true,
     },
     imgFile: {
       label: 'Image file',
