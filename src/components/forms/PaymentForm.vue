@@ -16,8 +16,8 @@
               :label="field.label"
               :required="field.required"
             />
-            <NumberInput
-              v-if="field.type === 'number'"
+            <PhoneInput
+              v-if="field.type === 'phone'"
               :value.sync="data[name]"
               :label="field.label"
               :required="field.required"
@@ -60,10 +60,8 @@
 <script>
 import TextInput from '@/components/inputs/TextInput.vue'
 import EmailInput from '@/components/inputs/EmailInput.vue'
-import NumberInput from '@/components/inputs/NumberInput.vue'
+import PhoneInput from '@/components/inputs/PhoneInput.vue'
 import TextAreaInput from '@/components/inputs/TextAreaInput.vue'
-
-// const schema = require('@/config/paymentSchema').default
 
 export default {
   props: {
@@ -76,7 +74,7 @@ export default {
   components: {
     EmailInput,
     TextInput,
-    NumberInput,
+    PhoneInput,
     TextAreaInput
   },
   data () {
@@ -99,12 +97,6 @@ export default {
 
       // ['fullName', 'email', 'phone', 'message', 'checkbox'].forEach((item) => { this[item] = '' })
     }
-    // checkForm () {
-    //   if (this.$refs.form.validate()) {
-    //     this.sendData()
-    //     // this.$router.push('/payment-details')
-    //   }
-    // }
   }
 }
 </script>

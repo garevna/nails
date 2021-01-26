@@ -6,7 +6,7 @@ export default {
   },
   phone: {
     label: 'Phone number',
-    type: 'number',
+    type: 'phone',
     required: true,
   },
   fullName: {

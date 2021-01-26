@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid v-if="show">
+  <v-container v-if="show">
     <v-row>
       <v-col cols="12" xs="12">
         <v-breadcrumbs :items="items">

@@ -45,7 +45,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" xs="12" order="1" sm="6" order-sm="2" align="center" justify="center">
-        <CoverImage :url="linkCheck(course)" :height="400" />
+        <CoverImage :url="linkCheck(course)" :height="250" :width="400"/>
       </v-col>
       <v-col cols="12" xs="12" order="2">
         <v-card-text class="mt-16 whitefone--text d-flex justify-center justify-sm-start"
@@ -59,7 +59,7 @@
             <p v-for="(item, index) in descriptions" :key="index">
               {{ item }}
             </p>
-            </v-card-text>
+          </v-card-text>
           <v-card-text>{{ course.infoForBonus }}</v-card-text>
         </v-card>
       </v-col>
@@ -110,7 +110,12 @@ export default {
   watch: {},
   computed: {
     descriptions() {
-      return this.course?.description.split('\n').map(str => str.trim()).filter(str => str);
+      return this.course?.description
+        ? this.course.description
+            .split('\n')
+            .map(str => str.trim())
+            .filter(str => str)
+        : [];
     },
   },
   methods: {

@@ -36,7 +36,8 @@ export default new Vuetify({
         notPaidAndPublished: '#369ab3',
         error: '#f5420d',
         onlineCardFone: '#414242',
-        disabledPathBreadcrumbs:'#262624'
+        disabledPathBreadcrumbs:'#262624',
+        text: '#000'
       },
       dark: {
         orange: '#FFC44A',
@@ -56,7 +57,8 @@ export default new Vuetify({
         notPaidAndPublished: '#369ab3',
         error: '#f5420d',
         onlineCardFone: '#414242',
-        disabledPathBreadcrumbs:'#ffffff'
+        disabledPathBreadcrumbs:'#ffffff',
+        text: '#fff'
       },
     },
   },

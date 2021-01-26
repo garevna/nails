@@ -237,9 +237,12 @@ export default {
       this.$forceUpdate()
       if (this.noValid) return
       if (!objs.some(obj => obj)) return
+      objs.forEach(obj => {
+        if (!obj) return
+        obj.description = obj.description.split(' ').filter((str) => str).join(' ')
+      })
       this.disabledSubmit = true
       const uploadLessons = []
-
       objs.forEach(async (obj, index) => {
         if (!obj) return
         const fd = new FormData()

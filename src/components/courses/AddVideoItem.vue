@@ -13,6 +13,7 @@
         :label="schema[name].label"
         :icon="schema[name].icon"
         :size="schema[name].size"
+        :accept="schema[name].accept"
         :required="schema[name].required"
       />
       <PdfInputs
