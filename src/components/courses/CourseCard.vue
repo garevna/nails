@@ -24,7 +24,7 @@
         primary
         min-width="90"
         class="yellow-button mr-4"
-        @click="payDetailForm"
+        @click="payDetail"
         >pay</v-btn
       >
       <v-btn
@@ -34,7 +34,7 @@
         min-width="90"
         dark
         class="yellow-button"
-        @click="detailInfoCard('course-online')"
+        @click="detailInfo('course-online')"
         >more</v-btn
       >
     </v-card-actions>
@@ -47,7 +47,7 @@
         dark
         min-width="90"
         class="yellow-button"
-        @click="detailInfoCard('course-offline')"
+        @click="detailInfo('course-offline')"
         >more</v-btn
       >
     </v-card-actions>
@@ -62,7 +62,7 @@ import CoverImage from '@/components/CoverImage.vue'
 import checkCourseLink from '@/helpers/checkCourseLink'
 export default {
   name: 'course-card',
-  props: ['course', 'type', 'payDetail', 'detailInfo'],
+  props: ['course', 'type'],
   components: {
     CoverImage
   },
@@ -74,12 +74,12 @@ export default {
     linkCheck (course) {
       return checkCourseLink(course)
     },
-    detailInfoCard (route) {
-      if (this.detailInfo) this.detailInfo(route, this.course._id)
+     detailInfo (route) {
+      this.$router.push({ name: route, params: { id:this.course._id } })
     },
-    payDetailForm () {
-      if (this.payDetail) this.payDetail(this.type, this.course._id)
-    }
+    payDetail () {
+      this.$router.push({ name:'personal-data',params: { courseid:this.course._id } })
+    },
   }
 }
 </script>

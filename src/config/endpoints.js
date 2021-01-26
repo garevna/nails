@@ -4,6 +4,7 @@ export default {
     post: 'course/new/offline',
     put: 'course/offline',
     delete: 'course/offline',
+    buyCourse: 'course/buy-offline',
   },
   onlineCourses: {
     get: 'course/online',
