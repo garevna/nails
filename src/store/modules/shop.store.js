@@ -27,6 +27,7 @@ const getters = {
   selectedCategoryName: state => {
     return state.activeCategory?.fullName || 'Commodities';
   },
+  alsoViewedCommodities: state => {},
   commoditiesEndpoint: (state, getters, rootState) => `${rootState.host}/shop/commodities`,
   commodityEndpoint: (state, getters, rootState) => `${rootState.host}/shop/commodity`,
   searchEndpoint: (state, getters, rootState) => `${rootState.host}/shop/search`,
@@ -48,8 +49,8 @@ const mutations = {
     state.totalCommodities = payload.total;
     state.totalPages = payload.total / 8;
   },
-  SHOP_COMMODITY: (state, payload) => {
-    state.commodity = payload.commodity[0];
+  SHOP_COMMODITY: (state, { commodity }) => {
+    state.commodity = commodity[0];
   },
   CLEAR_COMMODITY: state => {
     state.commodity = null;
@@ -58,7 +59,6 @@ const mutations = {
     state.commodities = [];
   },
   SET_ACTIVE_CATEGORY: (state, { category }) => {
-    console.log('testing', category);
     const fullName = category.parentName ? `${category.parentName} > ${category.name}` : `${category.name} > View all`;
     state.activeCategory = { ...category, fullName };
   },
@@ -113,9 +113,9 @@ const actions = {
       console.log(error);
     }
   },
-  async GET_COMMODITY({ state, getters, commit }, { commodityId }) {
-    const response = await (await fetch(`${getters.commodityEndpoint}/${commodityId}`)).json();
-    commit('SHOP_COMMODITY', response);
+  async GET_COMMODITY({ state, commit }, { commodityId }) {
+    const { commodity } = await getData(`${commoditiesEndpoints.commodity}/${commodityId}`);
+    commit('SHOP_COMMODITY', { commodity });
     return state.commodity;
   },
   SET_NEW_CATEGORY({ state, commit, dispatch }, { category, categoryId }) {
@@ -134,8 +134,6 @@ const actions = {
     state.skip = skip || 0;
     await dispatch('GET_SHOP_CATEGORIES');
     if (state.categories && state.categories[0] && state.fullListOfCategories) {
-      console.log('category');
-
       if (categoryName) {
         const category = state.fullListOfCategories.find(el => categoryName === el.slug);
         console.log('category init', category);

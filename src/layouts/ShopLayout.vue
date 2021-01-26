@@ -7,7 +7,7 @@
       <v-col cols="12">
         <CategoriesSwitcher />
       </v-col>
-      <v-col cols="4" lg="3" v-if="!mobileMenu">
+      <v-col cols="4" lg="2" v-if="!mobileMenu">
         <LeftSideMenu v-if="categories" />
         <v-card v-else flat>
           <v-row>
@@ -17,7 +17,7 @@
           </v-row>
         </v-card>
       </v-col>
-      <v-col cols="12" md="8" lg="9" class="pa-5">
+      <v-col cols="12" md="8" lg="10" class="pa-5">
         <router-view />
       </v-col>
     </v-row>

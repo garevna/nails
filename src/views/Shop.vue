@@ -59,8 +59,8 @@
         </v-col>
       </v-row>
     </v-card>
-    <v-row v-if="totalPages > 1">
-      <v-col cols="12">
+    <v-row v-if="totalPages > 1 && !isShopLoading">
+      <v-col cols="12" class="mt-10">
         <v-pagination
           v-model="pagination.page"
           :length="pagination.total"
