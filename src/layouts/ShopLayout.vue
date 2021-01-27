@@ -1,7 +1,7 @@
 <template>
-  <v-card flat class="pa-2" min-height="70vh">
+  <v-card flat class="pa-2" :class="{ 'pt-10': !isShopPageOpened }" min-height="70vh">
     <v-row class="ma-0 pa-0">
-      <v-col cols="12">
+      <v-col v-if="isShopPageOpened" cols="12">
         <Search />
       </v-col>
       <v-col cols="12">
@@ -38,8 +38,14 @@ export default {
     mobileMenu() {
       return this.viewportWidth < 960;
     },
+    isShopPageOpened() {
+      return this.$route.name === 'shop';
+    },
   },
   methods: {},
+  mounted() {
+    console.log(this.$route);
+  },
 };
 </script>
 

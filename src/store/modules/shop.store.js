@@ -18,10 +18,8 @@ const state = {
   totalCommodities: 0,
   skip: 0,
   searchParams: '',
-  selectedCategoryName: '',
   isCategoriesLoading: false,
   totalPages: 0,
-  alsoViewedCommodities: [],
 };
 
 const getters = {
@@ -30,13 +28,13 @@ const getters = {
   },
   alsoViewedCommodities: state => {
     if (state.commodity) {
-      return state.commodities.filter(el => el._id !== state.activeCategory._id);
+      return state.commodities.filter(el => el._id !== state.commodity._id);
     }
     return state.commodities;
   },
-  commoditiesEndpoint: (state, getters, rootState) => `${rootState.host}/shop/commodities`,
-  commodityEndpoint: (state, getters, rootState) => `${rootState.host}/shop/commodity`,
-  searchEndpoint: (state, getters, rootState) => `${rootState.host}/shop/search`,
+  commoditiesEndpoint: rootState => `${rootState.host}/shop/commodities`,
+  commodityEndpoint: rootState => `${rootState.host}/shop/commodity`,
+  searchEndpoint: rootState => `${rootState.host}/shop/search`,
 };
 
 const mutations = {

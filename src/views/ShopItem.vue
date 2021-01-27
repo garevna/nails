@@ -55,9 +55,11 @@
       </v-row>
     </v-col>
   </v-row>
-  <v-row v-else>
-    <!-- TODO: skeleton loader -->
-    <v-skeleton-loader></v-skeleton-loader>
+  <v-row v-else class="pa-0 ma-0">
+    <v-col cols="12">
+      <!-- TODO: skeleton loader -->
+      <v-skeleton-loader type="image, list-item-three-line" animation></v-skeleton-loader>
+    </v-col>
   </v-row>
 </template>
 
