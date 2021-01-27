@@ -176,7 +176,7 @@ export default {
     },
     fillingForm () {
       if (this.course) {
-        Object.keys(this.course).forEach(key => {
+        Object.keys(this.data).forEach(key => {
           this.data[key] = this.course[key]
         })
       }

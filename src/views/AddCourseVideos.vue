@@ -147,7 +147,7 @@
 import { mapState, mapActions } from 'vuex'
 
 import AddVideoItem from '@/components/courses/AddVideoItem.vue'
-const schema = require('@/config/uploadVideosSchema').default
+const schema = require('@/config/uploadLessonsSchema').default
 
 export default {
   name: 'AddCourseVideos',

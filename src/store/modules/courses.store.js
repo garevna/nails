@@ -101,11 +101,13 @@ const actions = {
       // commit('ERROR', errors.get, { root: true })
     }
   },
-  async PUT_COURSE({ dispatch }, { data, id }) {
-    const { error } = await putData(`${endpoints.get}/${id}`, data);
+  async PUT_COURSE({ state, commit }, { data, id }) {
+    const { updatedOnlineCourse, error } = await putData(`${endpoints.get}/${id}`, data);
     if (!error) {
-      dispatch('GET_COURSE', id);
-      dispatch('GET_COURSES');
+      // dispatch('GET_COURSE', id);
+      commit('COURSE', updatedOnlineCourse);
+      commit('COURSES', state.courses.map(course => course._id === id ? updatedOnlineCourse: course));
+      // dispatch('GET_COURSES');
     } else {
       // commit('ERROR', errors.get, { root: true })
     }
@@ -116,14 +118,10 @@ const actions = {
       dispatch('GET_COURSES');
     }
   },
-  async BUY_COURSE(_store, payload) {
+  async BUY_COURSE(ctx, payload) {
     const { data, error } = await postData(endpoints.buyCourse, payload);
     if (!error && data.link) {
       window.open(data.link);
-      // data: {link: "https://invoice.stripe.com/i/acct_1HhAsJH7jhGffcki/invst_IeJ4ZqdsRng0CAP4uFRkgD59DtVwGYW",…}
-      // invoicePdf: "https://pay.stripe.com/invoice/acct_1HhAsJH7jhGffcki/invst_IeJ4ZqdsRng0CAP4uFRkgD59DtVwGYW/pdf"
-      // link: "https://invoice.stripe.com/i/acct_1HhAsJH7jhGffcki/invst_IeJ4ZqdsRng0CAP4uFRkgD59DtVwGYW"
-      // error: null
     }
   },
   // !==========================================================================
