@@ -21,13 +21,13 @@
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
         <v-card flat class="transparent">
-          <v-card-title class="d-flex justify-center justify-sm-start">On this course:</v-card-title>
+          <!-- <v-card-title class="d-flex justify-center justify-sm-start">On this course:</v-card-title> -->
           <v-card-text>
             <p v-for="(item, index) in descriptions" :key="index" class="text--text">
               {{ item }}
             </p>
           </v-card-text>
-          <v-card-text>{{ course.infoForBonus }}</v-card-text>
+          <!-- <v-card-text>{{ course.infoForBonus }}</v-card-text> -->
         </v-card>
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
@@ -91,7 +91,20 @@
   </v-container>
 </template>
 
-<style scoped>
+<style>
+.vjs_video_3-dimensions {
+   height: unset;
+   width: unset;
+}
+.video-js {
+    width: 100%;
+    height: 500px;
+}
+.video-js .vjs-big-play-button {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
 
 </style>
 
