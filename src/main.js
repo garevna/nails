@@ -1,5 +1,6 @@
 import Vue from 'vue';
-import VueCoreVideoPlayer from 'vue-core-video-player';
+// import VueCoreVideoPlayer from 'vue-core-video-player';
+import VueVideoPlayer from 'vue-video-player'
 import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
@@ -10,9 +11,13 @@ import '@/css/fonts.scss';
 // import '@/css/variables.scss'
 Vue.config.productionTip = false;
 
-Vue.use(VueCoreVideoPlayer, {
-  lang: 'en_AU'
-});
+// Vue.use(VueCoreVideoPlayer, {
+//   lang: 'en_AU'
+// });
+ 
+import 'video.js/dist/video-js.css'
+ 
+Vue.use(VueVideoPlayer)
 
 new Vue({
   router,

@@ -5,12 +5,19 @@
         <v-progress-circular v-if="loading" indeterminate color="primary"></v-progress-circular>
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" class="player-container" v-if="!loading && video">
-        <vue-core-video-player :src="video.link" />
+        <!-- <vue-core-video-player :src="video.link" /> -->
 
         <!-- <video width="100%"  playsinline controls>
           <source :src="video.link" type="video/mp4" />
           <source :src="video.link" type="video/webm" />
         </video> -->
+
+        <video-player
+          class="vjs-custom-skin"
+          ref="videoPlayer"
+          :options="playerOptions"
+        >
+        </video-player>
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
         <v-card flat class="transparent">
@@ -84,8 +91,15 @@
   </v-container>
 </template>
 
+<style scoped>
+
+</style>
+
 <script>
 import { mapState, mapActions } from 'vuex';
+
+import 'video.js/dist/video-js.css';
+import { videoPlayer } from 'vue-video-player';
 
 import CoverImage from '@/components/CoverImage.vue';
 import VideoPdfs from '@/components/courses/VideoPdfs.vue';
@@ -104,6 +118,7 @@ export default {
     TextInput,
     TextAreaInput,
     FileInput,
+    videoPlayer,
   },
   data() {
     return {
@@ -127,6 +142,23 @@ export default {
             .map(str => str.trim())
             .filter(str => str)
         : [];
+    },
+    playerOptions() {
+      return {
+        // width: '100%',
+        // height: '100%',
+        // autoplay: true,
+        // muted: true,
+        language: 'en',
+        playbackRates: [0.7, 1.0, 1.5, 2.0],
+        sources: [
+          {
+            type: 'video/mp4',
+            src: this.video?.link,
+          },
+        ],
+        // poster: this.video?.coverImg?.link,
+      };
     },
   },
   watch: {
@@ -185,6 +217,8 @@ export default {
   },
   created() {
     this.get();
+  },
+  mounted() {
   },
 };
 </script>

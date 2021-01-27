@@ -15,6 +15,7 @@
     "vue": "^2.6.12",
     "vue-core-video-player": "^0.2.0",
     "vue-router": "^3.4.9",
+    "vue-video-player": "^5.0.2",
     "vuetify": "^2.4.2",
     "vuex": "^3.6.0"
   },
