@@ -5,10 +5,12 @@
         <v-progress-circular v-if="loading" indeterminate color="primary"></v-progress-circular>
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" class="player-container" v-if="!loading && video">
-        <video width="100%"  playsinline controls>
+        <vue-core-video-player :src="video.link" />
+
+        <!-- <video width="100%"  playsinline controls>
           <source :src="video.link" type="video/mp4" />
           <source :src="video.link" type="video/webm" />
-        </video>
+        </video> -->
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
         <v-card flat class="transparent">
@@ -117,10 +119,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('courses', [
-      'course',
-      'video',
-    ]),
+    ...mapState('courses', ['course', 'video']),
     descriptions() {
       return this.video?.description
         ? this.video.description
