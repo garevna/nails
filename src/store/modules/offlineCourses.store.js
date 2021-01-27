@@ -14,7 +14,7 @@ const state = {
 };
 
 const getters = {
-  // offlineCoursesEndpoint: (state, getters, rootState) => `${rootState.host}/course/offline`
+
 };
 
 const mutations = {
@@ -38,30 +38,20 @@ const actions = {
   async GET_OFFLINE_COURSES({ commit }) {
     const response = await getData(endpoints.get);
     commit('OFFLINE_COURSES', response);
-    // return state.offlineCourses
   },
   async GET_MORE_OFFLINE_COURSES({ commit }, skip ) {
     const response = await getData(`${endpoints.get}?skip=${skip}`);
     commit('MORE_OFFLINE_COURSES', response);
-    // return state.offlineCourses
   },
   async GET_COURSE({ commit }, id ) {
     const { offlineCourse } = await getData(`${endpoints.get}/${id}`);
     commit('OFFLINE_COURSE_BY_ID', offlineCourse);
-    // return state.offlineCourse
   },
-  async BUY_COURSE(_store, payload) {
+  async BUY_COURSE(state, payload) {
     const { data, error } = await postData(endpoints.buyCourse, payload);
     if (!error && data.link) {
       window.open(data.link);
-      // data: {link: "https://invoice.stripe.com/i/acct_1HhAsJH7jhGffcki/invst_IeJ4ZqdsRng0CAP4uFRkgD59DtVwGYW",…}
-      // invoicePdf: "https://pay.stripe.com/invoice/acct_1HhAsJH7jhGffcki/invst_IeJ4ZqdsRng0CAP4uFRkgD59DtVwGYW/pdf"
-      // link: "https://invoice.stripe.com/i/acct_1HhAsJH7jhGffcki/invst_IeJ4ZqdsRng0CAP4uFRkgD59DtVwGYW"
-      // error: null
     }
-  },
-  async CLEAR_OFFLINE_COURSE_BY_ID({ commit }) {
-    commit('OFFLINE_COURSE_BY_ID_CLEAR');
   },
 };
 

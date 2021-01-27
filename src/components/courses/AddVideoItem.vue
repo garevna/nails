@@ -36,7 +36,7 @@ import TextInput from '@/components/inputs/TextInput.vue'
 import TextAreaInput from '@/components/inputs/TextAreaInput.vue'
 import FileInput from '@/components/inputs/FileInput.vue'
 import PdfInputs from '@/components/courses/PdfInputs.vue'
-const schema = require('@/config/uploadVideosSchema').default
+const schema = require('@/config/uploadLessonsSchema').default
 export default {
   props: {
     data: {

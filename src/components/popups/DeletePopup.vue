@@ -4,7 +4,7 @@
     <v-card>
       <v-card-title> Do you really want to remove this {{ name }} ?</v-card-title>
       <v-card-actions class="justify-center">
-        <v-btn color="buttons" rounded large class="yellow-button" text @click="canselHandler"> Disagree </v-btn>
+        <v-btn color="buttons" rounded large class="yellow-button" text @click="cancelHandler"> Disagree </v-btn>
         <v-btn color="buttons" rounded large class="yellow-button" text @click="deleteHandler"> Agree </v-btn>
       </v-card-actions>
     </v-card>
@@ -14,7 +14,7 @@
 <script>
 export default {
   name: 'DeletePopup',
-  props: ['canselHandler', 'deleteHandler', 'name', 'dialog'],
+  props: ['cancelHandler', 'deleteHandler', 'name', 'dialog'],
   computed: {
     localDialog: {
       get() {

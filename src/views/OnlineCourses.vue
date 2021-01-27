@@ -9,8 +9,6 @@
         :key="index"
         :course="card"
         type="online"
-        :detailInfo="detailInfo"
-        :payDetail="payDetail"
       />
       <v-col class="d-flex justify-center" cols="12" xs="12">
         <v-btn
@@ -64,15 +62,15 @@ export default {
       getMoreCourses: 'GET_MORE_COURSES',
       getAllCourses: 'GET_ALL_COURSES'
     }),
-    detailInfo (route, id) {
-      this.$router.push({ name: route, params: { id } })
-    },
-    payDetail () {
-      this.$router.push({ name: 'personal-data' })
-    },
-    // getMoreOnlineCourses () {
-    //   this.getMoreCourses(this.courses.length)
-    // }
+    // detailInfo (route, id) {
+    //   this.$router.push({ name: route, params: { id } })
+    // },
+    // payDetail (id) {
+    //   this.$router.push({ name:'personal-data',params: { id } })
+    // },
+    getMoreOnlineCourses () {
+      this.getMoreCourses(this.courses.length)
+    }
   },
   mounted () {
     this.getAllCourses()

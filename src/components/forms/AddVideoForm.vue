@@ -40,7 +40,7 @@
         class="yellow-button mr-sm-4 mb-8 mb-sm-0"
         :disabled="disabled"
         @click="clearFormInputs"
-        >Cansel</v-btn
+        >Cancel</v-btn
       >
       <v-btn
         rounded

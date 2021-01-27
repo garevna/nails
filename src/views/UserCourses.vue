@@ -17,7 +17,7 @@
         />
       </v-col>
       <DeletePopup
-        :canselHandler="canselHandler"
+        :cancelHandler="cancelHandler"
         :deleteHandler="deleteCourse"
         name="course"
         :dialog="dialog"
@@ -65,7 +65,7 @@ export default {
     // linkCheck (course) {
     //   return checkCourseLink(course)
     // },
-    canselHandler () {
+    cancelHandler () {
       this.dialog = false
       this.deleteId = null
     },
