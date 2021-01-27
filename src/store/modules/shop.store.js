@@ -24,6 +24,7 @@ const state = {
 
 const getters = {
   selectedCategoryName: state => {
+    if (state.searchParams) return `Search: ${state.searchParams}`;
     return state.activeCategory?.fullName || 'Commodities';
   },
   alsoViewedCommodities: state => {
@@ -51,7 +52,7 @@ const mutations = {
   SHOP_COMMODITIES: (state, payload) => {
     state.commodities = payload.commodities;
     state.totalCommodities = payload.total;
-    state.totalPages = payload.total / 8;
+    state.totalPages = payload.total / 12;
   },
   SHOP_COMMODITY: (state, { commodity }) => {
     state.commodity = commodity[0];
@@ -60,6 +61,7 @@ const mutations = {
     state.commodity = null;
   },
   CLEAR_COMMODITIES: state => {
+    state.searchParams = '';
     state.commodities = [];
   },
   SET_ACTIVE_CATEGORY: (state, { category }) => {
@@ -77,10 +79,25 @@ const actions = {
     }
     state.isCategoriesLoading = false;
   },
-  async SEARCH_COMMODITIES({ state, getters, commit }, { search, skip }) {
-    const response = await (await fetch(`${getters.searchEndpoint}/?query=${search}&skip=${skip}`)).json();
-    commit('SHOP_COMMODITIES', response);
-    return state.comodities;
+  async SEARCH_COMMODITIES({ state, commit, dispatch }, { search }) {
+    state.isShopLoading = true;
+    state.skip = 0;
+    state.searchParams = search;
+    if (!state.searchParams) {
+      dispatch('GET_SHOP_COMMODITIES', {
+        categoryId: state.activeCategory._id,
+      });
+    } else {
+      const { commodities, total, error } = await getData(
+        `${commoditiesEndpoints.search}?query=${state.searchParams}&skip=${state.skip}`
+      );
+      console.log(commodities);
+      if (!error) {
+        commit('SHOP_COMMODITIES', { commodities, total });
+      }
+    }
+
+    state.isShopLoading = false;
   },
   async GET_SHOP_COMMODITIES({ state, commit }, { categoryId, skip }) {
     state.isShopLoading = true;
@@ -103,18 +120,32 @@ const actions = {
   async GET_MORE_COMMODITIES({ state, commit }, { skip }) {
     state.skip = skip;
     const subcategory = state.activeCategory && !!state.activeCategory.parentId;
-    const { commodities, total, error } = await getData(
-      `${commoditiesEndpoints[subcategory ? 'subcommodities' : 'commodities']}/${state.activeCategory._id}?skip=${
-        state.skip
-      }`
-    );
-    if (!error) {
-      commit('SHOP_COMMODITIES', {
-        commodities: commodities,
-        total,
-      });
+    if (!state.searchParams) {
+      const { commodities, total, error } = await getData(
+        `${commoditiesEndpoints[subcategory ? 'subcommodities' : 'commodities']}/${state.activeCategory._id}?skip=${
+          state.skip
+        }`
+      );
+      if (!error) {
+        commit('SHOP_COMMODITIES', {
+          commodities: [...state.commodities, ...commodities],
+          total,
+        });
+      } else {
+        console.log(error);
+      }
     } else {
-      console.log(error);
+      const { commodities, total, error } = await getData(
+        `${commoditiesEndpoints.search}?query=${state.searchParams}&skip=${state.skip}`
+      );
+      if (!error) {
+        commit('SHOP_COMMODITIES', {
+          commodities: [...state.commodities, ...commodities],
+          total,
+        });
+      } else {
+        console.log(error);
+      }
     }
   },
   async GET_COMMODITY({ state, commit, dispatch }, { commodityId }) {

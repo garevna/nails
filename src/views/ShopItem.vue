@@ -120,18 +120,12 @@ export default {
 }
 .card-disabled {
   cursor: pointer;
-  // :before {
-  //   content: '';
-  //   background: #18171740;
-  //   width: 100%;
-  //   height: 100%;
-  //   position: absolute;
-  // }
   opacity: 0.4;
 }
 .viewed-block {
   justify-content: space-around;
 }
+// This should not be removed
 .speciﬁcations {
   white-space: pre;
 }

@@ -52,7 +52,7 @@
     </v-card>
     <v-card v-else width="100%" flat>
       <v-row>
-        <v-col cols="12" sm="6" md="4" lg="3" class="px-5 pb-2" v-for="i in 8" :key="i">
+        <v-col cols="12" sm="6" md="4" lg="3" class="px-5 pb-2" v-for="i in 12" :key="i">
           <v-card class="pa-0 pt-0 mt-0" color="lgrey">
             <v-skeleton-loader type="image, list-item-three-line" animation></v-skeleton-loader>
           </v-card>
@@ -100,8 +100,8 @@ export default {
       const page = +this.$route.query.page;
       return {
         page: !isNaN(page) ? page : 1,
-        total: Math.ceil(this.totalCommodities / 8),
-        skip: !isNaN(page) ? page * 8 - 8 : 0,
+        total: Math.ceil(this.totalCommodities / 12),
+        skip: !isNaN(page) ? page * 12 - 12 : 0,
       };
     },
     mobileMenu() {
@@ -128,7 +128,7 @@ export default {
         });
         this.$store.dispatch('shop/GET_MORE_COMMODITIES', { skip: this.pagination.skip });
         this.pagination.page = page;
-        this.pagination.skip = page * 8 - 8;
+        this.pagination.skip = page * 12 - 12;
       }
     },
     goToItem(id) {
