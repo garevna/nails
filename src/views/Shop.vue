@@ -77,7 +77,6 @@
 
 <script>
 import { mapState } from 'vuex';
-// import Search from '@/components/Shop/Search.vue';
 
 export default {
   name: 'Shop',
@@ -113,16 +112,10 @@ export default {
     },
   },
   watch: {
-    totalCommodities() {
-      console.log(this.totalCommodities);
-    },
     $route(to, from) {
       if (from.name === 'shop' && to.name === 'shop' && to.params.categoryName !== from.params.categoryName) {
         this.$store.dispatch('shop/SET_NEW_CATEGORY', { category: to.params.categoryName });
       }
-    },
-    activeCategory() {
-      console.log(this.activeCategory);
     },
   },
   methods: {
@@ -172,13 +165,5 @@ export default {
   button {
     outline: none !important;
   }
-}
-.empty-message {
-  height: 100%;
-  text-align: center;
-  color: $shopGrayFont;
-}
-.gray-background {
-  background-color: #f4f4f4;
 }
 </style>

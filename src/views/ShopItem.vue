@@ -1,5 +1,5 @@
 <template>
-  <v-row v-if="commodity" flat width="100%" class="pa-0 ma-0">
+  <v-row v-if="commodity && !isCommodityLoading" flat width="100%" class="pa-0 ma-0">
     <v-col cols="12" md="8" lg="11" offset-lg="1" offset-md="4" offset="0">
       <v-row class="pa-0 ma-0">
         <v-col cols="12" md="6" lg="6">
@@ -55,7 +55,58 @@
       </v-row>
     </v-col>
   </v-row>
+  <v-row v-else>
+    <!-- TODO: skeleton loader -->
+    <v-skeleton-loader></v-skeleton-loader>
+  </v-row>
 </template>
+
+<script>
+import { mapState } from 'vuex';
+
+export default {
+  name: 'Shop',
+  components: {},
+  props: ['section'],
+  data() {
+    return {
+      commodityId: this.$route.params.commodityId,
+      activeCard: '',
+    };
+  },
+  computed: {
+    ...mapState(['viewportWidth']),
+    ...mapState('shop', ['categories', 'commodities', 'commodity', 'isCommodityLoading']),
+    mobileMenu() {
+      return this.viewportWidth < 960;
+    },
+    alsoViewedCommodities() {
+      return this.$store.getters['shop/alsoViewedCommodities'];
+    },
+  },
+  methods: {
+    setPhoto(val, toggle) {
+      toggle();
+      this.activeCard = val.link;
+    },
+    buyNow() {
+      this.$router.push({ name: 'shop-payment' });
+    },
+  },
+  async mounted() {
+    if (!this.categories) {
+      await this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
+    }
+    await this.$store.dispatch('shop/GET_COMMODITY', {
+      commodityId: this.commodityId,
+    });
+    console.log(this.alsoViewedCommodities);
+  },
+  beforeDestroy() {
+    this.$store.commit('shop/CLEAR_COMMODITY');
+  },
+};
+</script>
 
 <style lang="scss">
 @import '@/css/variables.scss';
@@ -116,66 +167,3 @@
   }
 }
 </style>
-
-<script>
-import { mapState } from 'vuex';
-
-export default {
-  name: 'Shop',
-  components: {},
-  props: ['section'],
-  data() {
-    return {
-      selectedBlock: 0,
-      selectedSection: {},
-      commodityId: this.$route.params.commodityId,
-      activeCard: '',
-    };
-  },
-  computed: {
-    ...mapState(['viewportWidth']),
-    ...mapState('shop', ['categories', 'commodities', 'commodity']),
-    mobileMenu() {
-      return this.viewportWidth < 960;
-    },
-  },
-  methods: {
-    setSelectedSection(val) {
-      this.selectedSection = val;
-    },
-    setPhoto(val, toggle) {
-      toggle();
-      this.activeCard = val.link;
-    },
-    buyNow() {
-      this.$router.push({ name: 'shop-payment' });
-    },
-  },
-  watch: {
-    categories() {
-      if (this.categories && this.categories.length && this.commodity) {
-        this.selectedSection = this.categories.flat().find(el => el._id === this.commodity.categoryId);
-      }
-    },
-    commodity(newVal) {
-      if (this.categories && this.categories.length && this.commodity) {
-        this.selectedSection = this.categories.flat().find(el => el._id === this.commodity.categoryId);
-      }
-      if (newVal) this.activeCard = newVal.images[0].link;
-    },
-  },
-  mounted() {
-    if (!this.categories) {
-      this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
-    }
-    this.$store.dispatch('shop/GET_COMMODITY', {
-      commodityId: this.commodityId,
-    });
-    // this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
-  },
-  beforeDestroy() {
-    // this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
-    this.$store.commit('shop/CLEAR_COMMODITY');
-  },
-};
-</script>

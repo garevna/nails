@@ -21,13 +21,19 @@ const state = {
   selectedCategoryName: '',
   isCategoriesLoading: false,
   totalPages: 0,
+  alsoViewedCommodities: [],
 };
 
 const getters = {
   selectedCategoryName: state => {
     return state.activeCategory?.fullName || 'Commodities';
   },
-  alsoViewedCommodities: state => {},
+  alsoViewedCommodities: state => {
+    if (state.commodity) {
+      return state.commodities.filter(el => el._id !== state.activeCategory._id);
+    }
+    return state.commodities;
+  },
   commoditiesEndpoint: (state, getters, rootState) => `${rootState.host}/shop/commodities`,
   commodityEndpoint: (state, getters, rootState) => `${rootState.host}/shop/commodity`,
   searchEndpoint: (state, getters, rootState) => `${rootState.host}/shop/search`,
@@ -113,10 +119,16 @@ const actions = {
       console.log(error);
     }
   },
-  async GET_COMMODITY({ state, commit }, { commodityId }) {
+  async GET_COMMODITY({ state, commit, dispatch }, { commodityId }) {
+    state.isCommodityLoading = true;
     const { commodity } = await getData(`${commoditiesEndpoints.commodity}/${commodityId}`);
+    if (commodity[0] && !state.commodities.length) {
+      await dispatch('GET_SHOP_COMMODITIES', {
+        categoryId: commodity[0].subCategoryId || commodity[0].categoryId,
+      });
+    }
     commit('SHOP_COMMODITY', { commodity });
-    return state.commodity;
+    state.isCommodityLoading = false;
   },
   SET_NEW_CATEGORY({ state, commit, dispatch }, { category, categoryId }) {
     if (category && typeof category === 'string') {
