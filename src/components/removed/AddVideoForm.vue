@@ -70,7 +70,7 @@
         min-width="160"
         class="yellow-button mr-sm-4 mb-8 mb-sm-0"
         @click="clearFormInputs"
-        >Cansel</v-btn
+        >Cancel</v-btn
       >
       <v-btn rounded color="buttons" large min-width="160" class="yellow-button" @click="sendData">Submit</v-btn>
     </div>

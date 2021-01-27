@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container>
     <v-row class="d-flex justify-center">
       <v-col cols="12" xs="12">
         <h2 align="center">{{ course && course.nameOfCourse }}</h2>
@@ -10,12 +10,7 @@
       <v-col cols="12" xs="12" v-if="!ready">
         <Spinner />
       </v-col>
-      <v-col
-        v-if="videos && !showForm"
-        cols="12"
-        xs="12"
-        class="d-flex justify-center flex-wrap"
-      >
+      <v-col v-if="videos && !showForm" cols="12" xs="12" class="d-flex justify-center flex-wrap">
         <UserVideoCard
           v-for="video in videos"
           :key="video._id"
@@ -25,116 +20,110 @@
         />
       </v-col>
       <v-col cols="12" xs="12" v-if="!showForm">
-        <h3 align="center">{{ course && course.description }}</h3>
+        <v-card flat class="transparent">
+          <v-card-title class="d-flex justify-center justify-sm-start">On this course:</v-card-title>
+          <v-card-text>
+            <p v-for="(item, index) in descriptions" :key="index" class="text--text">
+              {{ item }}
+            </p>
+          </v-card-text>
+          <!-- <v-card-text>{{ course.infoForBonus }}</v-card-text> -->
+        </v-card>
       </v-col>
       <v-col v-if="showForm" cols="12" xs="12" md="6">
-        <AddVideoForm :showForm.sync="showForm"/>
+        <AddVideoForm :showForm.sync="showForm" />
       </v-col>
-      <v-col
-        cols="12"
-        xs="12"
-        class="d-flex justify-center"
-        v-if="showBtnAddVideo"
-      >
-        <v-btn
-          rounded
-          color="buttons"
-          large
-          min-width="160"
-          class="yellow-button"
-          @click="showForm = true"
-        >
+      <v-col cols="12" xs="12" class="d-flex justify-center" v-if="showBtnAddVideo">
+        <v-btn rounded color="buttons" large min-width="160" class="yellow-button" @click="showForm = true">
           add video</v-btn
         >
       </v-col>
-      <DeletePopup :canselHandler="canselHandler" :deleteHandler="deleteVideo" name="video" :dialog="dialog"/>
+      <DeletePopup :cancelHandler="cancelHandler" :deleteHandler="deleteVideo" name="video" :dialog="dialog" />
     </v-row>
   </v-container>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
-import UserVideoCard from '@/components/courses/UserVideoCard.vue'
-import DeletePopup from '@/components/popups/DeletePopup.vue'
-import Spinner from '@/components/Spinner.vue'
-import AddVideoForm from '@/components/forms/AddVideoForm.vue'
+import UserVideoCard from '@/components/courses/UserVideoCard.vue';
+import DeletePopup from '@/components/popups/DeletePopup.vue';
+import Spinner from '@/components/Spinner.vue';
+import AddVideoForm from '@/components/forms/AddVideoForm.vue';
 
 export default {
   components: {
     Spinner,
     UserVideoCard,
     DeletePopup,
-    AddVideoForm
+    AddVideoForm,
   },
-  data () {
+  data() {
     return {
       loading: false,
-      // videos: null,
       ready: true,
       showForm: false,
-      // course: null,
       dialog: false,
-      deleteId: null
-    }
+      deleteId: null,
+    };
   },
   computed: {
-    ...mapState('courses', [
-      // 'courses',
-      'course'
-      // 'videos',
-      // 'video'
-    ]),
-    videos () {
-      return this.course?.videos ?? []
+    ...mapState('courses', ['course']),
+    videos() {
+      return this.course?.videos ?? [];
     },
-    noVideos () {
-      return !this.videos.length
+    noVideos() {
+      return !this.videos.length;
     },
-    showBtnAddVideo () {
-      return !this.showForm && this.videos.length < 5
-    }
+    showBtnAddVideo() {
+      return !this.showForm && this.videos.length < 5;
+    },
+    descriptions() {
+      return this.course?.description
+        ? this.course.description
+            .split('\n')
+            .map(str => str.trim())
+            .filter(str => str)
+        : [];
+    },
   },
   watch: {},
   methods: {
-    removeVideo (id) {
-      this.dialog = true
-      this.deleteId = id
+    removeVideo(id) {
+      this.dialog = true;
+      this.deleteId = id;
     },
-    canselHandler () {
-      this.dialog = false
-      this.deleteId = null
+    cancelHandler() {
+      this.dialog = false;
+      this.deleteId = null;
     },
-    deleteVideo () {
+    deleteVideo() {
       this.$store.dispatch('courses/DELETE_VIDEO', {
         id: this.deleteId,
-        courseId: this.$route.params.courseid
-      })
-      this.dialog = false
-      this.deleteId = null
+        courseId: this.$route.params.courseid,
+      });
+      this.dialog = false;
+      this.deleteId = null;
     },
-    goToDetailVideo (id) {
+    goToDetailVideo(id) {
       this.$router.push({
         name: 'user-video',
         params: {
-          videoid: id
-        }
-      })
+          videoid: id,
+        },
+      });
     },
-    async getVideos () {
-      this.loading = true
-      await this.$store.dispatch(
-        'courses/GET_COURSE',
-        this.$route.params.courseid
-      )
-      this.loading = false
-    }
+    async getVideos() {
+      this.loading = true;
+      await this.$store.dispatch('courses/GET_COURSE', this.$route.params.courseid);
+      this.loading = false;
+    },
   },
   // mounted () {},
-  created () {
-    this.getVideos()
-  }
-}
+  created() {
+    this.getVideos();
+  },
+};
 </script>
 
 <style></style>
