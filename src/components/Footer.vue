@@ -66,6 +66,39 @@
   </div>
 </template>
 
+<script>
+import IconInstagram from '@/components/svg/IconInstagram.vue';
+import IconFacebook from '@/components/svg/IconFacebook.vue';
+export default {
+  name: 'Footer',
+  props: [],
+  components: {
+    IconInstagram,
+    IconFacebook,
+  },
+  data: () => ({
+    bottomNav: null,
+  }),
+  computed: {
+    // homefone () {
+    //   return this.$vuetify.theme.themes.light.homefone
+    // }
+  },
+  methods: {
+    goToShopRoute(route) {
+      if (this.$route.params.categoryName !== route) {
+        this.$router.push({ name: 'shop', params: { categoryName: route } });
+      }
+    },
+    goToRoute(route) {
+      if (this.$route.name !== route) {
+        this.$router.push({ name: route });
+      }
+    },
+  },
+};
+</script>
+
 <style scoped lang="scss">
 .route {
   cursor: pointer;
@@ -103,7 +136,7 @@
     text-align: center;
   }
   .links-block {
-    font-size: 120%;
+    // font-size: 120%;
     text-align: center;
     h4 {
       margin-bottom: 3px;
@@ -116,36 +149,3 @@
   }
 }
 </style>
-
-<script>
-import IconInstagram from '@/components/svg/IconInstagram.vue';
-import IconFacebook from '@/components/svg/IconFacebook.vue';
-export default {
-  name: 'Footer',
-  props: [],
-  components: {
-    IconInstagram,
-    IconFacebook,
-  },
-  data: () => ({
-    bottomNav: null,
-  }),
-  computed: {
-    // homefone () {
-    //   return this.$vuetify.theme.themes.light.homefone
-    // }
-  },
-  methods: {
-    goToShopRoute(route) {
-      if (this.$route.params.categoryName !== route) {
-        this.$router.push({ name: 'shop', params: { categoryName: route } });
-      }
-    },
-    goToRoute(route) {
-      if (this.$route.name !== route) {
-        this.$router.push({ name: route });
-      }
-    },
-  },
-};
-</script>

@@ -1,13 +1,13 @@
 <template>
-  <v-card flat class="pa-2" min-height="70vh">
+  <v-card flat class="pa-2" :class="{ 'pt-10': !isShopPageOpened }" min-height="70vh">
     <v-row class="ma-0 pa-0">
-      <v-col cols="12">
+      <v-col v-if="isShopPageOpened" cols="12">
         <Search />
       </v-col>
       <v-col cols="12">
         <CategoriesSwitcher />
       </v-col>
-      <v-col cols="4" lg="3" v-if="!mobileMenu">
+      <v-col cols="4" lg="2" v-if="!mobileMenu">
         <LeftSideMenu v-if="categories" />
         <v-card v-else flat>
           <v-row>
@@ -17,7 +17,7 @@
           </v-row>
         </v-card>
       </v-col>
-      <v-col cols="12" md="8" lg="9" class="pa-5">
+      <v-col cols="12" md="8" lg="10" class="pa-5">
         <router-view />
       </v-col>
     </v-row>
@@ -38,8 +38,14 @@ export default {
     mobileMenu() {
       return this.viewportWidth < 960;
     },
+    isShopPageOpened() {
+      return this.$route.name === 'shop';
+    },
   },
   methods: {},
+  mounted() {
+    console.log(this.$route);
+  },
 };
 </script>
 

@@ -159,10 +159,9 @@ export default {
     this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
     window.addEventListener('resize', this.onResize, { passive: true });
   },
-  async beforeCreate() {
+  async created() {
     await this.$store.dispatch('auth/IS_SIGNED');
     await this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
-    // await this.shopInit();
   },
 
   destroyed() {
