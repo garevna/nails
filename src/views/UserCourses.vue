@@ -7,7 +7,7 @@
       <v-col cols="12" xs="12" v-if="emptyCourses">
         <h3 align="center">You don't have courses yet</h3>
       </v-col>
-      <v-col cols="12" xs="12" class="d-flex justify-center flex-wrap">
+      <v-col cols="12" xs="12" v-if="!loading && !emptyCourses" class="d-flex justify-center flex-wrap">
         <UserCourseCard
           v-for="course in courses"
           :key="course._id"
@@ -30,15 +30,12 @@
 <script>
 import { mapState } from 'vuex'
 
-// import CoverImage from '@/components/CoverImage.vue'
 import Spinner from '@/components/Spinner.vue'
 import UserCourseCard from '@/components/courses/UserCourseCard.vue'
 import DeletePopup from '@/components/popups/DeletePopup.vue'
-// import checkCourseLink from '@/helpers/checkCourseLink'
 export default {
   name: 'UserCourses',
   components: {
-    // CoverImage,
     DeletePopup,
     UserCourseCard,
     Spinner
@@ -48,12 +45,9 @@ export default {
       loading: false,
       dialog: false,
       deleteId: null,
-      imageUrl: null,
-      errorLoad: false
     }
   },
   computed: {
-    // ...mapState('userCourses', ['userCourses', 'loading']),
     ...mapState('courses', ['courses', 'course', 'videos', 'video']),
     ...mapState('auth', ['user']),
     emptyCourses () {
@@ -61,10 +55,6 @@ export default {
     }
   },
   methods: {
-    // checkCourseLink: required('@/helpers/checkCourseLink').default,
-    // linkCheck (course) {
-    //   return checkCourseLink(course)
-    // },
     cancelHandler () {
       this.dialog = false
       this.deleteId = null
