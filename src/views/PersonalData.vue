@@ -1,39 +1,41 @@
 <template>
-  <PaymentForm @submit="sendData" :schema="schema"/>
+  <PaymentForm @submit="sendData" :schema="schema" />
 </template>
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex';
 
-import PaymentForm from '@/components/forms/PaymentForm.vue'
-const schema = require('@/config/paymentSchema').default
+import PaymentForm from '@/components/forms/PaymentForm.vue';
+const schema = require('@/config/paymentSchema').default;
 
 export default {
   components: {
-    PaymentForm
+    PaymentForm,
   },
-  data () {
+  data() {
     return {
-      schema
-    }
+      schema,
+    };
   },
-
+  computed: {
+    ...mapState(['error']),
+  },
   methods: {
     ...mapActions('courses', {
       buyCourse: 'BUY_COURSE',
-      getCourse: 'GET_COURSE'
+      getCourse: 'GET_COURSE',
     }),
-    async sendData (data) {
+    async sendData(data) {
       const res = Object.assign({}, data, {
-        productId: this.$route.params.courseid
-      })
-      delete res.message
-      console.log(res)
-      this.buyCourse(res)
-      // ['fullName', 'email', 'phone', 'message', 'checkbox'].forEach((item) => { this[item] = '' })
-    }
+        productId: this.$route.params.courseid,
+      });
+      delete res.message;
+      console.log(res);
+      await this.buyCourse(res);
+      if (!this.error) this.$router.back();
+    },
   },
-  created () {
-    this.getCourse(this.$route.params.courseid)
-  }
-}
+  created() {
+    this.getCourse(this.$route.params.courseid);
+  },
+};
 </script>

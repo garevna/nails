@@ -13,7 +13,6 @@
     "nails-shop-card": "^0.0.4",
     "register-service-worker": "^1.7.2",
     "vue": "^2.6.12",
-    "vue-core-video-player": "^0.2.0",
     "vue-router": "^3.4.9",
     "vue-video-player": "^5.0.2",
     "vuetify": "^2.4.2",

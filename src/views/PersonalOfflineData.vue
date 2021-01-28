@@ -1,20 +1,12 @@
 <template>
   <div>
-    <h4 v-if="error" class="error--text">{{ error }}</h4>
     <div class="d-flex justify-center my-8">
       <table>
         <tr v-for="item in accessDays" :key="item._id">
           <td>{{ item.date }}</td>
           <td>available spots {{ item.availableSpots }}</td>
           <td>
-            <v-btn
-              text
-              :disabled="!item.availableSpots"
-              :class="{ buttons: id === item._id }"
-              @click="
-                id = item._id;
-                error = '';
-              "
+            <v-btn text :disabled="!item.availableSpots" :class="{ buttons: id === item._id }" @click="id = item._id"
               >Select date</v-btn
             >
           </td>
@@ -30,7 +22,7 @@ td {
 }
 </style>
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 
 import PaymentForm from '@/components/forms/PaymentForm.vue';
 const schema = require('@/config/paymentSchema').default;
@@ -42,10 +34,10 @@ export default {
     return {
       schema,
       id: null,
-      error: '',
     };
   },
   computed: {
+    ...mapState(['error']),
     ...mapState('offlineCourses', ['offlineCourse']),
     accessDays() {
       return this.offlineCourse?.dateOfCourses ?? [];
@@ -56,9 +48,16 @@ export default {
       getCourse: 'GET_COURSE',
       buyCourse: 'BUY_COURSE',
     }),
+    ...mapMutations({
+      message: 'MESSAGE'
+    }),
     async sendData(data) {
       if (!this.id) {
-        this.error = 'Please select date !!!';
+        this.message({
+          message: true,
+          messageType: 'Buy offline course',
+          messageText: 'Please, select date !!!',
+        });
         return;
       }
       const res = Object.assign({}, data, {
@@ -66,8 +65,8 @@ export default {
         dateOfCourse: this.id,
       });
       delete res.message;
-      this.buyCourse(res);
-      // ['fullName', 'email', 'phone', 'message', 'checkbox'].forEach((item) => { this[item] = '' })
+      await this.buyCourse(res);
+      if (!this.error)  this.$router.back();
     },
   },
   created() {

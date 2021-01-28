@@ -1,7 +1,7 @@
 /* eslint-disable no-irregular-whitespace */
 const { getData, postData, putData, deleteData } = require('@/helpers').default;
 
-// const errors = require('@/config/errors').default.onlineCourses
+const errors = require('@/config/errors').default.online
 // const messages = require('@/config/messages').default.onlineCourses
 
 const endpoints = require('@/config/endpoints').default.onlineCourses;
@@ -118,10 +118,12 @@ const actions = {
       dispatch('GET_COURSES');
     }
   },
-  async BUY_COURSE(ctx, payload) {
+  async BUY_COURSE({ commit }, payload) {
     const { data, error } = await postData(endpoints.buyCourse, payload);
     if (!error && data.link) {
       window.open(data.link);
+    }else{
+      commit('ERROR', errors.buy, { root: true })
     }
   },
   // !==========================================================================
