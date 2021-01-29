@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/add-course~user-course.fd25dc4b.css"
   },
   {
-    "revision": "a4faef01ebd908efd9ca",
-    "url": "/nails/css/app.c32dad00.css"
+    "revision": "bd157cf5a78348a53581",
+    "url": "/nails/css/app.544d5095.css"
   },
   {
     "revision": "e20ab7b59425dac47c91",
@@ -72,12 +72,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/sign-up.d42973a2.css"
   },
   {
-    "revision": "a3094d937598947b4f37",
-    "url": "/nails/css/user-cabinet.0f217c2a.css"
+    "revision": "f670b7fb86952ed2b5bd",
+    "url": "/nails/css/user-cabinet.d12ebe8e.css"
   },
   {
-    "revision": "6dc51f4b1624bbbc33db",
-    "url": "/nails/css/user-course.8057fcd7.css"
+    "revision": "950170ee410295ca9758",
+    "url": "/nails/css/user-course.2db28b76.css"
   },
   {
     "revision": "eef5cbaf593ba925c35d",
@@ -204,7 +204,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/pdf.3fa92281.svg"
   },
   {
-    "revision": "a7cdb3c05b43a14d260f13b7112d458c",
+    "revision": "04897ae653be1a7eebdca2bbacc5550c",
     "url": "/nails/index.html"
   },
   {
@@ -224,8 +224,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/add-course~user-course.83e38159.js"
   },
   {
-    "revision": "a4faef01ebd908efd9ca",
-    "url": "/nails/js/app.faba2dbe.js"
+    "revision": "bd157cf5a78348a53581",
+    "url": "/nails/js/app.6ad40c54.js"
   },
   {
     "revision": "e20ab7b59425dac47c91",
@@ -292,12 +292,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/sign-up.292dfe5a.js"
   },
   {
-    "revision": "a3094d937598947b4f37",
-    "url": "/nails/js/user-cabinet.5038d11f.js"
+    "revision": "f670b7fb86952ed2b5bd",
+    "url": "/nails/js/user-cabinet.1e27f0fa.js"
   },
   {
-    "revision": "6dc51f4b1624bbbc33db",
-    "url": "/nails/js/user-course.680f93b7.js"
+    "revision": "950170ee410295ca9758",
+    "url": "/nails/js/user-course.edee16ee.js"
   },
   {
     "revision": "eef5cbaf593ba925c35d",
