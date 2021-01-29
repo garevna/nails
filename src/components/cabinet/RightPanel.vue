@@ -1,8 +1,8 @@
 <template>
   <div
-    class="d-flex flex-column align-md-end"
+    class="d-flex flex-column align-md-end cabinet-btn"
   >
-    <v-btn text @click="dialog = true">Log out</v-btn>
+    <v-btn text @click="dialog = true" class="mb-4">Log out</v-btn>
     <v-btn text @click="goTo('user-courses')"> My courses</v-btn>
     <v-btn text>Shoping card</v-btn>
     <v-btn v-if="isAdmin" text @click="goToAdmin">go to admin panel</v-btn>
@@ -73,5 +73,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.cabinet-btn .v-btn__content {
+  font-size: 18px !important;
+}
 </style>

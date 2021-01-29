@@ -1,10 +1,10 @@
 <template>
-  <v-container fluid>
+  <v-container>
     <v-row>
-      <v-col cols="12" xs="10" offset-md="0" md="6" order="2" order-md="1">
-        <h3 class="d-flex justify-center justify-md-start pb-16 pl-md-16">My account</h3>
+      <v-col cols="12" xs="12" md="8" lg="6" xl="4" order="2" order-md="1">
+        <h2 class="d-flex justify-center justify-md-start pb-16 pl-md-16">My account</h2>
 
-        <v-card flat class="">
+        <v-card flat style="padding-bottom: 90px;">
           <v-form ref="profile-form">
             <v-simple-table>
               <tbody>
@@ -33,16 +33,16 @@
                       :outlined="false"
                     />
 
-                    <!-- <v-btn v-if="disabled[name]" text @click="() => (disabled[name] = false)"> edit </v-btn> -->
-
-                    <span class="edit-btn" v-if="disabled[name]" @click="() => (disabled[name] = false)">edit</span>
+                    <span class="edit-btn btnEdit--text" v-if="disabled[name]" @click="() => (disabled[name] = false)"
+                      >edit</span
+                    >
                   </td>
                 </tr>
               </tbody>
             </v-simple-table>
           </v-form>
 
-          <v-card-actions v-if="touched" class="justify-center">
+          <v-card-actions v-if="touched" class="justify-center btn-edit-cansel">
             <v-btn @click="cancel" color="buttons" rounded :disabled="sending" class="yellow-button mr-8">cancel</v-btn>
 
             <v-btn @click="confirm" color="buttons" rounded :disabled="sending" class="yellow-button">confirm</v-btn>
@@ -50,12 +50,11 @@
         </v-card>
       </v-col>
 
-      <v-col cols="12" xs="12" md="6" order="1" order-md="2" class="d-flex flex-column align-md-end">
+      <v-col cols="12" xs="12" md="4" lg="6" xl="8" order="1" order-md="2">
         <RightPanel />
       </v-col>
     </v-row>
-
-    <BotomPanel />
+    <BottomPanel />
   </v-container>
 </template>
 
@@ -64,7 +63,7 @@ import { mapState } from 'vuex';
 const schema = require('@/config/profileSchema').default;
 
 import RightPanel from '@/components/cabinet/RightPanel.vue';
-import BotomPanel from '@/components/cabinet/BotomPanel.vue';
+import BottomPanel from '@/components/cabinet/BottomPanel.vue';
 
 import EmailInput from '@/components/inputs/EmailInput.vue';
 import PhoneInput from '@/components/inputs/PhoneInput.vue';
@@ -74,7 +73,7 @@ export default {
   name: 'UserCabinet',
   components: {
     RightPanel,
-    BotomPanel,
+    BottomPanel,
     EmailInput,
     PhoneInput,
     TextInput,
@@ -107,7 +106,7 @@ export default {
       this.resetDisabled();
     },
     confirm() {
-      if (!this.$refs['profile-form'].validate()) return
+      if (!this.$refs['profile-form'].validate()) return;
       this.data.isPoliticAgree = true;
       this.sending = true;
       this.$store.dispatch('auth/EDIT_USER', this.data);
@@ -131,17 +130,31 @@ export default {
   },
 };
 </script>
-
+<style>
+.edit .v-text-field > .v-input__control > .v-input__slot:before {
+  border-style: none !important;
+}
+</style>
 <style scoped>
+.btn-edit-cansel {
+  position: absolute;
+  bottom:0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+table tr td {
+  font-size: 20px !important;
+}
+table tr td:first-child {
+  width: 40%;
+}
 .edit {
   position: relative;
 }
 .edit-btn {
   position: absolute;
   right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgb(39, 142, 211);
+  bottom: 0;
   cursor: pointer;
 }
 </style>

@@ -142,7 +142,4 @@ export default {
 };
 </script>
 <style scoped>
-.disabled-link-dark {
-  color: grey;
-}
 </style>

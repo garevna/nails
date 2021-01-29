@@ -141,9 +141,6 @@ a {
 .router-link {
   text-decoration: none !important;
 }
-.disabled-link {
-  color: rgba(0, 0, 0, 0.38) !important;
-}
 @media screen and (max-width: 800px) {
   .main-content {
     margin-bottom: 150px !important;
