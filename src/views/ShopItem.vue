@@ -29,10 +29,7 @@
             <h2 class="dgrey--text">{{ commodity.name }}</h2>
             <h4 class="shopfont--text">{{ commodity.brand }}</h4>
             <div class="caption">
-              <h2 
-                max-width="150px"
-                class="speciﬁcations">{{ commodity.speciﬁcations }}
-              </h2>
+              <h2 max-width="150px" class="speciﬁcations">{{ commodity.speciﬁcations }}</h2>
             </div>
             <div class="price">
               <h3 class="dark-gray-font">{{ commodity.price }} AUD</h3>
@@ -49,24 +46,15 @@
           </v-col>
         </v-row>
         <v-col cols="12">
-          <v-sheet
-            elevation="8"
-            width="100%"
-          >
+          <v-sheet elevation="8" width="100%">
             <v-slide-group
-              v-model="model"
               class="pa-4"
               active-class="success"
               show-arrows="desktop"
               next-icon="$next"
               prev-icon="$prev"
             >
-              <v-slide-item
-                width="150" 
-                class="mx-5 my-10" 
-                v-for="n in 8" 
-                :key="n"
-              > 
+              <v-slide-item width="150" class="mx-5 my-10" v-for="n in 8" :key="n">
                 <v-card>
                   <v-img :src="commodity.previewImage[0].link" max-width="150px" max-height="150px" contain></v-img>
                 </v-card>
@@ -81,54 +69,21 @@
     <!-- TODO: skeleton loader -->
     <v-col cols="12" md="8" lg="11" offset-lg="1" offset-md="4" offset="0">
       <v-row class="pa-0 ma-0">
-        <v-col
-          cols="6"
-        >
-          <v-skeleton-loader
-            height="400px"
-            type="image@2"
-          ></v-skeleton-loader>
+        <v-col cols="6">
+          <v-skeleton-loader height="400px" type="image@2"></v-skeleton-loader>
           <v-row class="pa-10 d-flex justify-space-between">
-            <v-skeleton-loader
-              height="100px"
-              width="25%"
-              type="image"
-            ></v-skeleton-loader>
-            <v-skeleton-loader
-              height="100px"
-              width="25%"
-              type="image"
-            ></v-skeleton-loader>
-            <v-skeleton-loader
-              height="100px"
-              width="25%"
-              type="image"
-            ></v-skeleton-loader>
+            <v-skeleton-loader height="100px" width="25%" type="image"></v-skeleton-loader>
+            <v-skeleton-loader height="100px" width="25%" type="image"></v-skeleton-loader>
+            <v-skeleton-loader height="100px" width="25%" type="image"></v-skeleton-loader>
           </v-row>
         </v-col>
-        <v-col
-          cols="12" sm="12" md="5" xl="4" lg="4" class="px-0"
-        >
-          <v-skeleton-loader
-            height="50px"
-            type="heading"
-          ></v-skeleton-loader>
-          <v-skeleton-loader
-            height="100px"
-            width="20%"
-            type="text"
-          ></v-skeleton-loader>
-          <v-skeleton-loader
-            width="100%"
-            type="paragraph@7"
-          ></v-skeleton-loader>
+        <v-col cols="12" sm="12" md="5" xl="4" lg="4" class="px-0">
+          <v-skeleton-loader height="50px" type="heading"></v-skeleton-loader>
+          <v-skeleton-loader height="100px" width="20%" type="text"></v-skeleton-loader>
+          <v-skeleton-loader width="100%" type="paragraph@7"></v-skeleton-loader>
           <v-row class="py-10 d-flex justify-end">
-            <v-skeleton-loader
-              type="button"
-            ></v-skeleton-loader>
-            <v-skeleton-loader
-              type="button"
-            ></v-skeleton-loader>
+            <v-skeleton-loader type="button"></v-skeleton-loader>
+            <v-skeleton-loader type="button"></v-skeleton-loader>
           </v-row>
         </v-col>
       </v-row>
@@ -202,9 +157,6 @@ export default {
 .card-disabled {
   cursor: pointer;
   opacity: 0.4;
-}
-.viewed-block {
-  justify-content: space-around;
 }
 // This should not be removed
 .speciﬁcations {
