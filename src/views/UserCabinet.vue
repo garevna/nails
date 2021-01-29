@@ -3,302 +3,133 @@
     <v-row>
       <v-col cols="12" xs="10" offset-md="0" md="6" order="2" order-md="1">
         <h3 class="d-flex justify-center justify-md-start pb-16 pl-md-16">My account</h3>
-        <v-card flat class="d-sm-flex align-baseline">
-          <v-card flat min-width="140px" class="mr-4">
-            <v-card-text class="pa-0 text-center text-sm-end"
-              >User name</v-card-text
-            >
-          </v-card>
-          <v-card flat width="100%">
-            <v-text-field v-model="userName" disabled />
-          </v-card>
-        </v-card>
-        <!--  -->
-        <v-card flat class="d-sm-flex align-baseline">
-          <v-card flat min-width="140px" class="mr-4">
-            <v-card-text class="pa-0 text-center text-sm-end"
-              >First name</v-card-text
-            >
-          </v-card>
-          <v-card flat width="100%" class="edit-container">
-            <v-text-field
-              v-model="firstName"
-              :disabled="firstNameDisabled"
-              class="pr-8"
-            />
-            <span
-              class="edit-btn"
-              v-if="firstNameDisabled"
-              @click="editHandler('firstNameDisabled')"
-              >edit</span
-            >
-          </v-card>
-        </v-card>
-        <!--  -->
-           <v-card flat class="d-sm-flex align-baseline">
-          <v-card flat min-width="140px" class="mr-4">
-            <v-card-text class="pa-0 text-center text-sm-end"
-              >Last name</v-card-text
-            >
-          </v-card>
-          <v-card flat width="100%" class="edit-container">
-            <v-text-field
-              v-model="lastName"
-              :disabled="lastNameDisabled"
-              class="pr-8"
-            />
-            <span
-              class="edit-btn"
-              v-if="lastNameDisabled"
-              @click="editHandler('lastNameDisabled')"
-              >edit</span
-            >
-          </v-card>
-        </v-card>
-        <!--  -->
-        <v-card flat class="d-sm-flex align-baseline">
-          <v-card flat min-width="140px" class="mr-4">
-            <v-card-text class="pa-0 text-center text-sm-end"
-              >Email</v-card-text
-            >
-          </v-card>
-          <v-card flat width="100%" class="edit-container">
-            <v-text-field
-              v-model="email"
-              :disabled="emailDisabled"
-              class="pr-8"
-            />
-            <span
-              class="edit-btn"
-              v-if="emailDisabled"
-              @click="editHandler('emailDisabled')"
-              >edit</span
-            >
-          </v-card>
-        </v-card>
-        <!--  -->
-        <v-card flat class="d-sm-flex align-baseline">
-          <v-card flat min-width="140px" class="mr-4">
-            <v-card-text class="pa-0 text-center text-sm-end"
-              >Phone number</v-card-text
-            >
-          </v-card>
-          <v-card flat width="100%" class="edit-container">
-            <v-text-field
-              v-model="phone"
-              :disabled="phoneDisabled"
-              class="pr-8"
-            />
-            <span
-              class="edit-btn"
-              v-if="phoneDisabled"
-              @click="editHandler('phoneDisabled')"
-              >edit</span
-            >
-          </v-card>
-        </v-card>
-        <!--  -->
-        <v-card flat class="d-sm-flex align-baseline mt-16">
-          <v-card flat min-width="140px" class="mr-4">
-            <v-card-text class="pa-0 text-center text-sm-end"
-              >Delivery address</v-card-text
-            >
-          </v-card>
-          <v-card flat width="100%" class="edit-container">
-            <v-text-field
-              v-model="deliveryAddress"
-              :disabled="deliveryAddressDisabled"
-              class="pr-8"
-            />
-            <span
-              class="edit-btn"
-              v-if="deliveryAddressDisabled"
-              @click="editHandler('deliveryAddressDisabled')"
-              >edit</span
-            >
-          </v-card>
-        </v-card>
-        <!--  -->
-        <v-card flat class="d-flex justify-center">
-          <v-btn
-            v-if="touched"
-            @click="cancel"
-            color="buttons"
-            rounded
-            class="yellow-button mr-8"
-            >cancel</v-btn
-          >
-          <v-btn
-            v-if="touched"
-            @click="confirm"
-            color="buttons"
-            rounded
-            :disabled="loading"
-            class="yellow-button"
-            >confirm</v-btn
-          >
+
+        <v-card flat class="">
+          <v-form ref="profile-form">
+            <v-simple-table>
+              <tbody>
+                <tr v-for="(field, name) in schema" :key="name">
+                  <td>{{ field.label }}</td>
+                  <td class="d-flex edit">
+                    <EmailInput
+                      v-if="field.type === 'email'"
+                      :value.sync="data[name]"
+                      :required="field.required"
+                      :disabled.sync="disabled[name]"
+                      :outlined="false"
+                    />
+                    <PhoneInput
+                      v-if="field.type === 'phone'"
+                      :value.sync="data[name]"
+                      :required="field.required"
+                      :disabled.sync="disabled[name]"
+                      :outlined="false"
+                    />
+                    <TextInput
+                      v-if="field.type === 'text'"
+                      :value.sync="data[name]"
+                      :required="field.required"
+                      :disabled.sync="disabled[name]"
+                      :outlined="false"
+                    />
+
+                    <!-- <v-btn v-if="disabled[name]" text @click="() => (disabled[name] = false)"> edit </v-btn> -->
+
+                    <span class="edit-btn" v-if="disabled[name]" @click="() => (disabled[name] = false)">edit</span>
+                  </td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+          </v-form>
+
+          <v-card-actions v-if="touched" class="justify-center">
+            <v-btn @click="cancel" color="buttons" rounded :disabled="sending" class="yellow-button mr-8">cancel</v-btn>
+
+            <v-btn @click="confirm" color="buttons" rounded :disabled="sending" class="yellow-button">confirm</v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
-      <v-col
-        cols="12"
-        xs="12"
-        md="6"
-        order="1"
-        order-md="2"
-        class="d-flex flex-column align-md-end"
-      >
-        <v-btn text @click="dialog = true">Log out</v-btn>
-        <v-btn text @click="goTo('user-courses')"> My courses</v-btn>
-        <v-btn text>Shoping card</v-btn>
-        <v-btn v-if="isAdmin" text @click="goToAdmin">go to admin panel</v-btn>
+
+      <v-col cols="12" xs="12" md="6" order="1" order-md="2" class="d-flex flex-column align-md-end">
+        <RightPanel />
       </v-col>
     </v-row>
-    <div class="d-flex flex-column flex-sm-row align-center justify-sm-space-around mt-16">
-      <v-btn @click="goTo('courses')" color="buttons" rounded class="yellow-button"
-        >All courses</v-btn
-      >
-      <v-btn @click="goTo('shop')" color="buttons" rounded class="yellow-button my-12 my-sm-0">Shop</v-btn>
-      <v-btn @click="goTo('add-course')" color="buttons" rounded class="yellow-button"
-        >Add course</v-btn
-      >
-    </div>
-    <v-dialog v-model="dialog" persistent max-width="320">
-      <v-card>
-        <v-card-title> Do you really want to leave ?</v-card-title>
-        <v-card-actions class="justify-center">
-          <v-btn
-            color="buttons"
-            rounded
-            large
-            class="yellow-button"
-            text
-            @click="dialog = false"
-          >
-            Disagree
-          </v-btn>
-          <v-btn
-            color="buttons"
-            rounded
-            large
-            class="yellow-button"
-            text
-            @click="logoutUser"
-          >
-            Agree
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+
+    <BotomPanel />
   </v-container>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
+const schema = require('@/config/profileSchema').default;
+
+import RightPanel from '@/components/cabinet/RightPanel.vue';
+import BotomPanel from '@/components/cabinet/BotomPanel.vue';
+
+import EmailInput from '@/components/inputs/EmailInput.vue';
+import PhoneInput from '@/components/inputs/PhoneInput.vue';
+import TextInput from '@/components/inputs/TextInput.vue';
+
 export default {
   name: 'UserCabinet',
-  data () {
+  components: {
+    RightPanel,
+    BotomPanel,
+    EmailInput,
+    PhoneInput,
+    TextInput,
+  },
+  data() {
     return {
-      dialog: false,
-      userName: '',
-      firstName: '',
-      firstNameDisabled: true,
-      lastName: '',
-      lastNameDisabled: true,
-      email: '',
-      emailDisabled: true,
-      phone: '',
-      phoneDisabled: true,
-      deliveryAddress: '',
-      deliveryAddressDisabled: true,
-      isPoliticAgree: true
-    }
+      schema,
+      data: Object.keys(schema).reduce((acc, key) => Object.assign(acc, { [key]: '' }), {}),
+      disabled: Object.keys(schema).reduce((acc, key) => Object.assign(acc, { [key]: true }), {}),
+      sending: false,
+    };
   },
   computed: {
     ...mapState('auth', ['user']),
-    ...mapState('auth', ['error']),
-    ...mapState('auth', ['loading']),
-    touched () {
-      return !(
-        this.firstNameDisabled &&
-        this.lastNameDisabled &&
-        this.emailDisabled &&
-        this.phoneDisabled &&
-        this.deliveryAddressDisabled
-      )
+    touched() {
+      return Object.values(this.disabled).some(val => !val);
     },
-    isAdmin () {
-      return this.user?.role === 'Admin'
-    }
   },
   watch: {
-    user () {
-      this.fillingInTheFields()
-      this.resetDisabled()
+    user(val) {
+      if (!val) return;
+      this.sending = false;
+      this.resetDisabled();
+      this.fillProfile();
     },
-    error (val) {
-      if (val) {
-        this.$notify({
-          group: 'foo',
-          type: 'error',
-          text: val
-        })
-      }
-    },
-    loading (val) {
-      return val
-    }
   },
   methods: {
-    goToAdmin () {
-      window.open(`${process.env.VUE_APP_API_URL}/admin`)
+    cancel() {
+      this.fillProfile();
+      this.resetDisabled();
     },
-    logoutUser () {
-      this.$store.dispatch('auth/LOG_OUT')
-      this.$router.push({ name: 'home' })
-      this.dialog = false
+    confirm() {
+      if (!this.$refs['profile-form'].validate()) return
+      this.data.isPoliticAgree = true;
+      this.sending = true;
+      this.$store.dispatch('auth/EDIT_USER', this.data);
     },
-    editHandler (type) {
-      this[type] = !this[type]
-    },
-    cancel () {
-      this.fillingInTheFields()
-      this.resetDisabled()
-    },
-    confirm () {
-      const data = {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-        phone: this.phone,
-        deliveryAddress: this.deliveryAddress,
-        isPoliticAgree: this.isPoliticAgree
+    fillProfile() {
+      if (this.user) {
+        Object.keys(this.schema).forEach(key => {
+          this.data[key] = this.user[key];
+        });
       }
-      this.$store.dispatch('auth/EDIT_USER', data)
     },
-
-    fillingInTheFields () {
-      this.userName = this.user.firstName
-      this.firstName = this.user.firstName
-      this.lastName = this.user.lastName
-      this.email = this.user.email
-      this.phone = this.user.phone
-      this.deliveryAddress = this.user.deliveryAddress
+    resetDisabled() {
+      Object.keys(this.disabled).forEach(key => (this.disabled[key] = true));
     },
-    resetDisabled () {
-      this.firstNameDisabled = true
-      this.lastNameDisabled = true
-      this.emailDisabled = true
-      this.phoneDisabled = true
-      this.deliveryAddressDisabled = true
+    goTo(name) {
+      if (this.$route.name !== name) this.$router.push({ name: name });
     },
-    goTo (name) {
-      if (this.$route.name !== name) this.$router.push({ name: name })
-    }
   },
-  beforeMount () {
-    this.fillingInTheFields()
-  }
-}
+  beforeMount() {
+    this.fillProfile();
+  },
+};
 </script>
 
 <style scoped>
