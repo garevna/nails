@@ -7,7 +7,7 @@
   >
     <v-card-title class="d-flex justify-center"
       ><h2>
-        {{ video.name }}
+        {{ videoName }}
       </h2></v-card-title
     >
     <CoverImage :url="linkCheck(video)" :height="250" />
@@ -36,6 +36,11 @@ export default {
   },
   data () {
     return {}
+  },
+  computed: {
+     videoName() {
+      return this.video?.name?.length < 20 ? this.video?.name : this.video?.name?.slice(0, 17) + '...';
+    },
   },
   methods: {
     linkCheck (video) {
