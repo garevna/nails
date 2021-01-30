@@ -2,6 +2,7 @@ export default {
   name: {
     label: 'Name of video',
     type: 'text',
+    limit: 20,
     required: true,
   },
   videoFile: {
@@ -33,6 +34,7 @@ export default {
   description: {
     label: 'Description',
     type: 'textarea',
+    limit: 2000,
     required: true,
   },
 };

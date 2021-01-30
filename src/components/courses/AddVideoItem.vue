@@ -5,6 +5,7 @@
         v-if="schema[name].type === 'text'"
         :value.sync="localData[name]"
         :label="schema[name].label"
+        :limit="schema[name].limit"
         :required="schema[name].required"
       />
       <FileInput
@@ -25,6 +26,7 @@
         v-if="schema[name].type === 'textarea'"
         :value.sync="localData[name]"
         :label="schema[name].label"
+        :limit="schema[name].limit"
         :required="schema[name].required"
       />
     </div>

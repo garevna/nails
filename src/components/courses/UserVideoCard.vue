@@ -5,8 +5,8 @@
     class="ma-4"
     @click="detailHandler"
   >
-    <v-card-title class="d-flex justify-center"
-      ><h2>
+    <v-card-title
+      ><h2 class="text-center">
         {{ videoName }}
       </h2></v-card-title
     >

@@ -8,11 +8,13 @@
             :value.sync="data[name]"
             :label="field.label"
             :required="field.required"
+            :limit="field.limit"
           />
           <NumberInput
             v-if="field.type === 'number'"
             :value.sync="data[name]"
             :label="field.label"
+            :limit="field.limit"
             :required="field.required"
           />
         </div>
@@ -24,17 +26,21 @@
             :value.sync="data[name]"
             :label="field.label"
             :required="field.required"
+            :limit="field.limit"
           />
           <SuitableInputs
             v-if="field.type === 'suitable'"
             :value.sync="data[name]"
             :label="field.label"
+            :required="field.required"
+            :limit="field.limit"
           />
           <TextAreaInput
             v-if="field.type === 'textarea'"
             :value.sync="data[name]"
             :label="field.label"
             :required="field.required"
+            :limit="field.limit"
           />
           <div v-if="field.type === 'file'">
             <v-btn
