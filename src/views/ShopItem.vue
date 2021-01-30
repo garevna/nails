@@ -137,7 +137,8 @@ export default {
     await this.$store.dispatch('shop/GET_COMMODITY', {
       commodityId: this.commodityId,
     });
-    console.log(this.alsoViewedCommodities);
+    this.activeCard = this.commodity.images[0].link
+    // console.log(this.alsoViewedCommodities);
   },
   beforeDestroy() {
     this.$store.commit('shop/CLEAR_COMMODITY');
