@@ -2,6 +2,7 @@ export default {
   name: {
     label: 'Name of video',
     type: 'text',
+    limit: 60,
     required: true,
   },
   imgFile: {
@@ -15,6 +16,7 @@ export default {
   description: {
     label: 'Description',
     type: 'textarea',
+    limit: 2000,
     required: true,
   },
 };

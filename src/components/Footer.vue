@@ -62,7 +62,7 @@
           </v-col>
         </v-row>
       </v-card>
-      <div class="py-4 homefone" style="position: absolute; bottom: 0; right:0; left:0;"></div>
+      <div class="py-4 homefone" style="position: absolute; bottom: 0; right: 0; left: 0"></div>
     </v-bottom-navigation>
   </div>
 </template>
@@ -124,7 +124,7 @@ export default {
 //   text-decoration: none;
 //   color: #333333 !important;
 // }
-.footer-wrapper{
+.footer-wrapper {
   height: 289px;
 }
 // .footer-wrapper {
@@ -134,7 +134,7 @@ export default {
 //   left: 0;
 //   right: 0;
 // }
-.gmail{
+.gmail {
   font-size: 26px;
 }
 @media screen and (max-width: 600px) {
@@ -149,10 +149,11 @@ export default {
     width: 53px;
     height: 53px;
   }
-  .text-center h2, .gmail{
+  .text-center h2,
+  .gmail {
     font-size: 20px;
   }
-  h2.route{
+  h2.route {
     font-size: 18px;
   }
 }

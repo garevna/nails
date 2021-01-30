@@ -8,13 +8,16 @@
       max-height="450"
       class="ma-4"
     >
-      <v-card-title class="d-flex justify-center py-4"
-        ><h2>{{ course.nameOfCourse }}</h2>
+      <v-card-title class="d-flex justify-center py-4">
+        <!-- <h2>{{ course.nameOfCourse }}</h2> -->
+        <h2>{{ courseName }}</h2>
       </v-card-title>
       <CoverImage :url="linkCheck(course)" :height="250" />
       <v-card-actions class="d-flex pa-4">
         <v-chip v-if="!course.isPaid" class="ma-2" color="notPaidAndPublished" text-color="white"> not paid </v-chip>
-        <v-chip v-if="!course.isPublished" class="ma-2" color="notPaidAndPublished" text-color="white"> not published </v-chip>
+        <v-chip v-if="!course.isPublished" class="ma-2" color="notPaidAndPublished" text-color="white">
+          not published
+        </v-chip>
         <v-spacer />
         <v-btn
           rounded
@@ -41,6 +44,11 @@ export default {
   },
   data() {
     return {};
+  },
+  computed: {
+    courseName() {
+      return this.course.nameOfCourse.length < 20 ? this.course.nameOfCourse : this.course.nameOfCourse.slice(0, 17) + '...';
+    },
   },
   methods: {
     linkCheck(course) {

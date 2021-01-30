@@ -48,7 +48,7 @@ const actions = {
     ).json();
     if (error || statusCode) {
       commit('TOKEN', null);
-      commit('ERROR', errors.get, { root: true })
+      // commit('ERROR', errors.get, { root: true })
       if (statusCode === 401) localStorage.removeItem('token');
     } else {
       commit('TOKEN', token);

@@ -43,8 +43,8 @@ export default {
     },
   },
   methods: {},
-  mounted() {
-    console.log(this.$route);
+  async mounted() {
+    this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
   },
 };
 </script>

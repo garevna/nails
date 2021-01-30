@@ -3,8 +3,10 @@
     <v-col cols="12" md="12" lg="11" offset-lg="1" offset="0">
       <v-row class="pa-0 ma-0">
         <v-col cols="12" md="6" lg="6">
-          <v-row class="image-row">
-            <v-img :src="activeCard" max-width="100%" max-height="400px" contain></v-img>
+          <v-row class="image-row d-flex justify-center">
+            <v-card flat class="px-5">
+              <v-img :src="activeCard" :lazy-src="noImage" max-width="100%" max-height="400px" contain></v-img>
+            </v-card>
           </v-row>
           <v-row class="justify-center">
             <v-slide-group :model="activeCard" class="px-0 justify-center" center-active mandatory>
@@ -12,6 +14,7 @@
                 <v-img
                   @click="setPhoto(img, toggle)"
                   :src="img.link"
+                  :lazy-src="noImage"
                   width="60px"
                   height="60px"
                   contain
@@ -54,28 +57,40 @@
               next-icon="$next"
               prev-icon="$prev"
             >
-              <v-slide-item width="150" class="mx-5 my-10" v-for="commodity in alsoViewedCommodities" :key="commodity._id">
+              <v-slide-item width="200" class="mx-5 my-10" v-for="card in alsoViewedCommodities" :key="card._id">
                 <v-card
-                  width="200px" elevation="8"
-                  class="d-fex justify-center pa-4"
+                  width="200px"
+                  elevation="2"
+                  class="d-fex justify-center pa-0 ma-0"
+                  rounded="0"
+                  shaped
+                  color="lgrey"
+                  height="350"
+                  @click="goToCard(card._id)"
+                  link
                 >
-                  <v-card class="d-fex flex-column justify-center align-center mb-5">
-                    <v-img style="border: solid 1px black" :src="commodity.previewImage[0].link" width="100%" height="150px" contain></v-img>
+                  <v-card flat outlined class="d-fex flex-column justify-center align-center ma-0" tile color="lgrey">
+                    <v-img
+                      :src="card.previewImage[0].link"
+                      :lazy-src="noImage"
+                      width="100%"
+                      height="200"
+                      contain
+                    ></v-img>
                   </v-card>
-                  <v-card elevation="0" height="auto">
-                    <router-link
-                      :to="{ name: 'shop-item', params: { categoryName: alsoViewedCommoditiesLink, commodityId: commodity._id }}"
-                    >
-                      <h3
-                        class="dgrey--text mb-2"
-                      >{{commodity.name}}</h3>
-                    </router-link>
-                    <h4
-                      class="dgrey--text mb-5"
-                    >{{commodity.brand}}</h4>
-                    <h3
-                      class="dgrey--text d-flex align-self-end"
-                    >Price: {{commodity.price}} AUD</h3>
+
+                  <v-card
+                    elevation="0"
+                    height="150"
+                    tile
+                    color="lgrey"
+                    class="ma-0 px-3 d-flex flex-column justify-space-between"
+                  >
+                    <span>
+                      <p class="dgrey--text mb-2 font-weight-bold text-h6">{{ card.name }}</p>
+                      <p class="dgrey--text font-weight-medium text-subtitle-1">{{ card.brand }}</p>
+                    </span>
+                    <p class="dgrey--text text-end text-subtitle-1">{{ card.price }} AUD</p>
                   </v-card>
                 </v-card>
               </v-slide-item>
@@ -86,7 +101,6 @@
     </v-col>
   </v-row>
   <v-row v-else class="pa-0 ma-0">
-    <!-- TODO: skeleton loader -->
     <v-col cols="12" md="8" lg="11" offset-lg="1" offset-md="4" offset="0">
       <v-row class="pa-0 ma-0">
         <v-col cols="6">
@@ -128,21 +142,45 @@ export default {
   data() {
     return {
       commodityId: this.$route.params.commodityId,
-      alsoViewedCommoditiesLink: '',
       activeCard: '',
+      noImage: require('@/assets/no-image.png'),
     };
+  },
+  watch: {
+    commodityId(newVal) {
+      this.$store.dispatch('shop/GET_COMMODITY', {
+        commodityId: newVal,
+      });
+    },
   },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState('shop', ['categories', 'commodities', 'commodity', 'isCommodityLoading']),
+    ...mapState('shop', ['categories', 'commodities', 'commodity', 'isCommodityLoading', 'fullListOfCategories']),
     mobileMenu() {
       return this.viewportWidth < 960;
     },
     alsoViewedCommodities() {
       return this.$store.getters['shop/alsoViewedCommodities'];
     },
+    alsoViewedCommoditiesLink() {
+      this.fullListOfCategories;
+      if (!this.alsoViewedCommodities.length) return;
+      const categoryId = this.alsoViewedCommodities[0].subCategoryId || this.alsoViewedCommodities[0].categoryId;
+      const category = this.fullListOfCategories.find(el => el._id === categoryId);
+      if (category && category.slug) return category.slug;
+      return '';
+    },
   },
   methods: {
+    goToCard(id) {
+      this.$store.dispatch('shop/GET_COMMODITY', {
+        commodityId: id,
+      });
+      this.$router.push({
+        name: 'shop-item',
+        params: { categoryName: this.alsoViewedCommoditiesLink, commodityId: id },
+      });
+    },
     setPhoto(val, toggle) {
       toggle();
       this.activeCard = val.link;
@@ -150,30 +188,12 @@ export default {
     buyNow() {
       this.$router.push({ name: 'shop-payment' });
     },
-    setAlsoViewedCommoditiesLink() {
-      const commoditySlug = this.alsoViewedCommodities[0].subCategoryId
-      let subcategoriaName = ''
-      for (let i = 0; i < this.categories.length; i++) {
-        let subcategoriesArray = this.categories[i].subcategories
-        for (let n = 0; n < subcategoriesArray.length; n++) {
-          if (commoditySlug === subcategoriesArray[n]._id) {
-            this.alsoViewedCommoditiesLink = subcategoriesArray[n].slug
-          }
-          
-        }
-      }
-      return subcategoriaName
-    }
   },
   async mounted() {
-    if (!this.categories) {
-      await this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
-    }
     await this.$store.dispatch('shop/GET_COMMODITY', {
       commodityId: this.commodityId,
     });
-    this.activeCard = this.commodity.images[0].link
-    this.setAlsoViewedCommoditiesLink()
+    this.activeCard = (await this.commodity.images[0]) && this.commodity.images[0].link;
   },
   beforeDestroy() {
     this.$store.commit('shop/CLEAR_COMMODITY');
