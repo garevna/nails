@@ -28,6 +28,7 @@
           colorText="primary"
           text="Add pdf file"
           icon="mdi-plus-circle-outline"
+          :accept="schema.accept"
           :size="5000"
         />
       </v-form>

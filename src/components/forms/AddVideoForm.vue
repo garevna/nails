@@ -6,6 +6,7 @@
           v-if="schema[name].type === 'text'"
           :value.sync="data[name]"
           :label="schema[name].label"
+          :limit="schema[name].limit"
           :required="schema[name].required"
         />
         <FileInput
@@ -14,6 +15,7 @@
           :label="schema[name].label"
           :icon="schema[name].icon"
           :size="schema[name].size"
+          :accept="schema[name].accept"
           :required="schema[name].required"
         />
         <PdfInputs
@@ -25,6 +27,7 @@
           v-if="schema[name].type === 'textarea'"
           :value.sync="data[name]"
           :label="schema[name].label"
+          :limit="schema[name].limit"
           :required="schema[name].required"
         />
       </div>

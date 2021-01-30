@@ -6,6 +6,7 @@
         :label="options.label"
         :icon="options.icon"
         :size="options.size"
+        :accept="options.accept"
         :required="options.required"
       />
     </v-col>

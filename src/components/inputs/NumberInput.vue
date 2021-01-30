@@ -4,7 +4,7 @@
     v-model="localValue"
     :label="label"
     :disabled="disabled"
-    :rules="[rules.required, rules.onlyDigits, rules.noRepeat]"
+    :rules="[rules.required, rules.onlyDigits, rules.limit, rules.noRepeat]"
     :outlined="outlined"
   />
 </template>
@@ -20,6 +20,10 @@ export default {
     label: {
       type: String,
       default: '',
+    },
+     limit: {
+      type: Number,
+      default: 10,
     },
     disabled: {
       type: Boolean,
@@ -50,6 +54,7 @@ export default {
         },
        onlyDigits: v =>
           !/\D/g.test(v) || 'input should consist only of digits',
+        limit : v => v.length <= this.limit || `Max ${this.limit} characters`,
         noRepeat: value => {
           return (
             !this.noRepeat || value.split(' ').join('') !== this.noRepeat.split(' ').join('') || 'Digits must not match'

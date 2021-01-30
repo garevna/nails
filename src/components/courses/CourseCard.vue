@@ -6,7 +6,7 @@
         {{ course.accessDays }} days | $ {{ course.price }}
       </v-card-title>
       <v-card-title class="pa-0 pl-4">
-        {{ course.name }}
+        {{ courseName }}
       </v-card-title>
       <v-card-text class="pa-0 px-4 pb-4 text-start">
         {{ course.subtitle }}
@@ -65,6 +65,11 @@ export default {
   },
   data() {
     return {};
+  },
+  computed:{
+    courseName () {
+      return this.course?.nameOfCourse?.length < 20 ? this.course?.nameOfCourse : this.course?.nameOfCourse?.slice(0,17)+'...'
+    }
   },
   watch: {},
   methods: {

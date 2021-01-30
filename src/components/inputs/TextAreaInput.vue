@@ -3,7 +3,7 @@
     :label="label"
     v-model="localValue"
     :disabled="disabled"
-    :rules="[rules.required]"
+    :rules="[rules.required, rules.limit]"
     :outlined="outlined"
     rows="8"
     no-resize
@@ -26,6 +26,10 @@ export default {
       type: Boolean,
       default: false,
     },
+     limit: {
+      type: Number,
+      default: 200,
+    },
     required: {
       type: Boolean,
       default: false,
@@ -45,6 +49,7 @@ export default {
           const res = !(a && b) && (a || b);
           return res || 'Input is required';
         },
+        limit : v => v.length <= this.limit || `Max ${this.limit} characters`,
       },
     };
   },
