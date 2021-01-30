@@ -1,6 +1,6 @@
 <template>
   <div class="footer-wrapper homefone">
-    <v-bottom-navigation fixed v-model="bottomNav" shift height="auto" background-color="#FFC44A" class="footer pb-8">
+    <v-bottom-navigation v-model="bottomNav" shift height="auto" background-color="#FFC44A" class="footer pb-8">
       <v-card flat class="transparent mx-auto" max-width="2400" width="80%">
         <v-row align="start" justify="end" width="100%">
           <v-col cols="12" sm="12" md="5" lg="5">
@@ -62,7 +62,7 @@
           </v-col>
         </v-row>
       </v-card>
-      <div class="py-4 homefone" style="position: absolute; bottom: 0; right:0; left:0;"></div>
+      <div class="py-4 homefone" style="position: absolute; bottom: 0; right: 0; left: 0"></div>
     </v-bottom-navigation>
   </div>
 </template>
@@ -124,7 +124,7 @@ export default {
 //   text-decoration: none;
 //   color: #333333 !important;
 // }
-.footer-wrapper{
+.footer-wrapper {
   height: 289px;
 }
 // .footer-wrapper {
@@ -134,12 +134,12 @@ export default {
 //   left: 0;
 //   right: 0;
 // }
-.gmail{
+.gmail {
   font-size: 26px;
 }
 @media screen and (max-width: 960px) {
-  .v-item-group.v-bottom-navigation--fixed{
-    position: relative;
+  .v-item-group.v-bottom-navigation--fixed {
+    // position: relative;
   }
 }
 @media screen and (max-width: 600px) {
@@ -154,10 +154,11 @@ export default {
     width: 53px;
     height: 53px;
   }
-  .text-center h2, .gmail{
+  .text-center h2,
+  .gmail {
     font-size: 20px;
   }
-  h2.route{
+  h2.route {
     font-size: 18px;
   }
 }
