@@ -60,6 +60,11 @@
     width: 250px;
   }
 }
+@media screen and (max-width: 400px){
+  .logo {
+    width: 200px;
+  }
+}
 </style>
 
 <script>

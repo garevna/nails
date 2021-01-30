@@ -155,5 +155,10 @@ export default {
     margin-top: 0;
   }
 }
+@media screen and (max-width: 400px){
+  .v-application .text-h6 {
+    font-size: 1rem !important;
+  }
+}
 @import '@/css/variables.scss';
 </style>
