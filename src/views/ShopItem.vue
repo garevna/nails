@@ -3,8 +3,10 @@
     <v-col cols="12" md="12" lg="11" offset-lg="1" offset="0">
       <v-row class="pa-0 ma-0">
         <v-col cols="12" md="6" lg="6">
-          <v-row class="image-row">
-            <v-img :src="activeCard" max-width="100%" max-height="400px" contain></v-img>
+          <v-row class="image-row d-flex justify-center">
+            <v-card flat class="px-5">
+              <v-img :src="activeCard" :lazy-src="noImage" max-width="100%" max-height="400px" contain></v-img>
+            </v-card>
           </v-row>
           <v-row class="justify-center">
             <v-slide-group :model="activeCard" class="px-0 justify-center" center-active mandatory>
@@ -12,6 +14,7 @@
                 <v-img
                   @click="setPhoto(img, toggle)"
                   :src="img.link"
+                  :lazy-src="noImage"
                   width="60px"
                   height="60px"
                   contain
@@ -67,7 +70,13 @@
                   link
                 >
                   <v-card flat outlined class="d-fex flex-column justify-center align-center ma-0" tile color="lgrey">
-                    <v-img :src="card.previewImage[0].link" width="100%" height="200" contain></v-img>
+                    <v-img
+                      :src="card.previewImage[0].link"
+                      :lazy-src="noImage"
+                      width="100%"
+                      height="200"
+                      contain
+                    ></v-img>
                   </v-card>
 
                   <v-card
@@ -134,6 +143,7 @@ export default {
     return {
       commodityId: this.$route.params.commodityId,
       activeCard: '',
+      noImage: require('@/assets/no-image.png'),
     };
   },
   watch: {

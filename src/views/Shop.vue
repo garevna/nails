@@ -16,9 +16,9 @@
             <v-card flat width="100%">
               <v-img
                 :src="(card.previewImage[0] && card.previewImage[0].link) || coverImageSrc"
+                :lazy-src="noImage"
                 width="100%"
                 height="270"
-                contain
               />
             </v-card>
             <v-card-text class="pa-2 pb-0">
@@ -84,6 +84,7 @@ export default {
     return {
       categoryName: this.$route.params.categoryName,
       coverImageSrc: require('@/assets/noImage.jpg'),
+      noImage: require('@/assets/no-image.png'),
     };
   },
   computed: {
@@ -143,7 +144,7 @@ export default {
   beforeDestroy() {
     // this.$store.commit('shop/CLEAR_COMMODITIES');
   },
-  async created() {
+  async mounted() {
     await this.$store.dispatch('shop/INIT_SHOP', {
       categoryName: this.categoryName,
       skip: this.pagination.skip,

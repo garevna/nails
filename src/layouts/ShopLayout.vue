@@ -43,7 +43,9 @@ export default {
     },
   },
   methods: {},
-  async mounted() {},
+  async mounted() {
+    this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
+  },
 };
 </script>
 
