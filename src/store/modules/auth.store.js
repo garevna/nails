@@ -1,8 +1,8 @@
 /* eslint-disable quote-props */
 const { postData, putData } = require('@/helpers').default;
 
-// const errors = require('@/config/errors').default.onlineCourses
-// const messages = require('@/config/messages').default.onlineCourses
+const errors = require('@/config/errors').default.auth
+// const messages = require('@/config/messages').default.user
 
 const endpoints = require('@/config/endpoints').default.auth;
 
@@ -10,7 +10,6 @@ const state = {
   token: null,
   isLogged: false,
   user: {},
-  authError: null,
   loading: false,
 };
 
@@ -49,6 +48,7 @@ const actions = {
     ).json();
     if (error || statusCode) {
       commit('TOKEN', null);
+      commit('ERROR', errors.get, { root: true })
       if (statusCode === 401) localStorage.removeItem('token');
     } else {
       commit('TOKEN', token);
@@ -78,7 +78,7 @@ const actions = {
       const token = bearer.split(' ')[1];
       dispatch('CHECK_TOKEN', token);
     } else {
-      commit('ERROR', error);
+      commit('ERROR',  errors.signIn, { root: true });
     }
     commit('LOADING', false);
   },
@@ -90,7 +90,7 @@ const actions = {
       const { email, password } = payload;
       dispatch('SIGN_IN', { email, password });
     } else {
-      commit('ERROR', error);
+      commit('ERROR', errors.signUp, { root: true });
     }
     commit('LOADING', false);
   },
@@ -101,7 +101,7 @@ const actions = {
     if (!error) {
       commit('USER', data);
     } else {
-      commit('ERROR', error);
+      commit('ERROR', errors.put, { root: true });
     }
     commit('LOADING', false);
   },
