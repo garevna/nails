@@ -13,11 +13,13 @@ export default {
     nameOfCourse: {
       label: 'Name of Course',
       type: 'text',
+      limit: 60,
       required: true,
     },
     subtitle: {
       label: 'Subtitle',
       type: 'text',
+      limit: 60,
       required: true,
     },
     accessDays: {
@@ -46,7 +48,7 @@ export default {
       label: 'Info for bonus',
       type: 'text',
       required: true,
-      limit: 150,
+      limit: 250,
     },
   },
   sideRight: {
@@ -54,7 +56,7 @@ export default {
       label: 'This course is suitable for',
       type: 'suitable',
       required: true,
-      limit: 60,
+      limit: 100,
     },
     description: {
       label: 'Description',

@@ -50,6 +50,7 @@
               v-if="schema[name].type === 'text'"
               :value.sync="data[name]"
               :label="schema[name].label"
+              :limit="schema[name].limit"
               :required="schema[name].required"
             />
             <div v-if="schema[name].type === 'file'" class="my-4">
@@ -70,6 +71,7 @@
               v-if="schema[name].type === 'textarea'"
               :value.sync="data[name]"
               :label="schema[name].label"
+              :limit="schema[name].limit"
               :required="schema[name].required"
             />
           </div>
