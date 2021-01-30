@@ -1,6 +1,6 @@
 const { getData, postData } = require('@/helpers').default;
 
-const errors = require('@/config/errors').default.online
+const errors = require('@/config/errors').default.offline;
 // const messages = require('@/config/messages').default.onlineCourses
 
 const endpoints = require('@/config/endpoints').default.offlineCourses;
@@ -13,9 +13,7 @@ const state = {
   totalOfflineCourses: 0,
 };
 
-const getters = {
-
-};
+const getters = {};
 
 const mutations = {
   OFFLINE_COURSES: (state, payload) => {
@@ -37,22 +35,34 @@ const mutations = {
 const actions = {
   async GET_OFFLINE_COURSES({ commit }) {
     const response = await getData(endpoints.get);
-    commit('OFFLINE_COURSES', response);
+    if (response.error) {
+      commit('ERROR', errors.get, { root: true });
+    } else {
+      commit('OFFLINE_COURSES', response);
+    }
   },
-  async GET_MORE_OFFLINE_COURSES({ commit }, skip ) {
+  async GET_MORE_OFFLINE_COURSES({ commit }, skip) {
     const response = await getData(`${endpoints.get}?skip=${skip}`);
-    commit('MORE_OFFLINE_COURSES', response);
+    if (response.error) {
+      commit('ERROR', errors.get, { root: true });
+    } else {
+      commit('MORE_OFFLINE_COURSES', response);
+    }
   },
-  async GET_COURSE({ commit }, id ) {
-    const { offlineCourse } = await getData(`${endpoints.get}/${id}`);
-    commit('OFFLINE_COURSE_BY_ID', offlineCourse);
+  async GET_COURSE({ commit }, id) {
+    const { offlineCourse, error } = await getData(`${endpoints.get}/${id}`);
+    if (error) {
+      commit('ERROR', errors.get, { root: true });
+    } else {
+      commit('OFFLINE_COURSE_BY_ID', offlineCourse);
+    }
   },
   async BUY_COURSE({ commit }, payload) {
     const { data, error } = await postData(endpoints.buyCourse, payload);
     if (!error && data.link) {
       window.open(data.link);
-    }else {
-      commit('ERROR', errors.buy, { root: true })
+    } else {
+      commit('ERROR', errors.buy, { root: true });
     }
   },
 };

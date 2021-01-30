@@ -64,7 +64,7 @@ const actions = {
       commit('COURSES', onlineCourses);
       commit('TOTAL', total);
     } else {
-      // commit('ERROR', errors.get, { root: true })
+      commit('ERROR', errors.get, { root: true })
     }
   },
   async GET_MORE_COURSES({ commit }, skip) {
@@ -73,7 +73,7 @@ const actions = {
       commit('ADD_COURSES', onlineCourses);
       commit('TOTAL', total);
     } else {
-      // commit('ERROR', errors.get, { root: true })
+      commit('ERROR', errors.get, { root: true })
     }
   },
   async GET_COURSES({ commit, rootState }) {
@@ -81,7 +81,7 @@ const actions = {
     if (!error) {
       commit('COURSES', onlineCourses);
     } else {
-      // commit('ERROR', errors.get, { root: true })
+      commit('ERROR', errors.get, { root: true })
     }
   },
   async GET_COURSE({ commit }, id) {
@@ -89,7 +89,7 @@ const actions = {
     if (!error) {
       commit('COURSE', onlineCourse);
     } else {
-      // commit('ERROR', errors.get, { root: true })
+      commit('ERROR', errors.get, { root: true })
     }
   },
   async POST_COURSE({ commit, dispatch }, fd) {
@@ -98,18 +98,16 @@ const actions = {
       dispatch('GET_COURSES');
       commit('COURSE', newOnlineCourse);
     } else {
-      // commit('ERROR', errors.get, { root: true })
+      commit('ERROR', errors.get, { root: true })
     }
   },
   async PUT_COURSE({ state, commit }, { data, id }) {
     const { updatedOnlineCourse, error } = await putData(`${endpoints.get}/${id}`, data);
     if (!error) {
-      // dispatch('GET_COURSE', id);
       commit('COURSE', updatedOnlineCourse);
       commit('COURSES', state.courses.map(course => course._id === id ? updatedOnlineCourse: course));
-      // dispatch('GET_COURSES');
     } else {
-      // commit('ERROR', errors.get, { root: true })
+      commit('ERROR', errors.get, { root: true })
     }
   },
   async DELETE_COURSE({ dispatch }, courseId) {
@@ -127,12 +125,12 @@ const actions = {
     }
   },
   // !==========================================================================
-  async PUT_VIDEO({ dispatch }, { fd, id }) {
+  async PUT_VIDEO({ commit, dispatch }, { fd, id }) {
     const { error } = await putData(`${endpoints.video}/${id}`, fd);
     if (!error) {
       dispatch('GET_FIND_VIDEO', id);
     } else {
-      // commit('ERROR', errors.get, { root: true })
+      commit('ERROR', errors.get, { root: true })
     }
   },
   async ADD_QUEUE({ commit }, arr) {
@@ -150,6 +148,7 @@ const actions = {
         commit('COMPLETE', payload.index);
       } else {
         commit('UPLOAD_FAIL', { index: payload.index, error: true });
+        commit('ERROR', errors.addLesson, { root: true })
       }
     });
     request.send(payload.lesson);
@@ -158,36 +157,44 @@ const actions = {
     const { video, error } = await getData(`${endpoints.findVideo}/${id}`);
     if (!error) {
       commit('VIDEO', video);
+    }else{
+      commit('ERROR', errors.get, { root: true })
     }
   },
   async GET_VIDEO({ commit }, id) {
     const { video, error } = await getData(`${endpoints.video}/${id}`);
     if (!error) {
       commit('VIDEO', video);
+    }else {
+      commit('ERROR', errors.get, { root: true })
     }
   },
-  async DELETE_VIDEO({ dispatch }, { id, courseId }) {
+  async DELETE_VIDEO({ commit, dispatch }, { id, courseId }) {
     const { error } = await deleteData(`${endpoints.video}/${id}`);
     if (!error) {
       dispatch('GET_COURSE', courseId);
+    }else {
+      commit('ERROR', errors.delete, { root: true })
     }
   },
-  async ADD_PDF({ dispatch }, { fd, videoId, currentCourseId }) {
+  async ADD_PDF({ commit, dispatch }, { fd, videoId, currentCourseId }) {
     const { error } = await postData(`${endpoints.pdf}/${videoId}`, fd);
     if (!error) {
       dispatch('GET_COURSES');
       dispatch('GET_COURSE', currentCourseId);
       dispatch('GET_FIND_VIDEO', videoId);
+    }else {
+      commit('ERROR', errors.addPdf, { root: true })
     }
   },
-  async REMOVE_PDF({ dispatch }, { id, videoId, currentCourseId }) {
+  async REMOVE_PDF({ commit, dispatch }, { id, videoId, currentCourseId }) {
     const { error } = await deleteData(`${endpoints.pdf}/${id}`);
     if (!error) {
       dispatch('GET_COURSES');
       dispatch('GET_COURSE', currentCourseId);
       dispatch('GET_FIND_VIDEO', videoId);
     } else {
-      // commit('ERROR', error)
+      commit('ERROR', errors.delete, { root: true })
     }
   },
 };

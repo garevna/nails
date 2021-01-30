@@ -43,20 +43,18 @@ export default {
       maimMenuShowInRouteNames: [
         'home',
         'add-course',
-        'add-course-payment',
         'course-card',
         'course-offline',
         'course-online',
         'personal-data',
-        'payment-details',
+        'personal-data-off',
       ],
     };
   },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState('auth', ['authError']),
-    ...mapState('userCourses', ['userCoursesError']),
     ...mapState('shop', ['activeCategory']),
+    ...mapState('courses', ['uploadDialog']),
     isShopOpened() {
       return this.$route.name === 'shop' || this.$route.name === 'shop-item';
     },
@@ -66,7 +64,6 @@ export default {
       }
       return `${this.$route.meta?.layout || 'default'}-layout`;
     },
-    ...mapState('courses', ['uploadDialog']),
   },
   watch: {},
   methods: {
@@ -123,9 +120,6 @@ h3 {
 }
 a {
   text-decoration: none;
-}
-.vue-core-video-player-layers {
-  z-index: 0 !important;
 }
 .v-expansion-panel-content__wrap {
   padding-top: 50px !important;
