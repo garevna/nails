@@ -141,10 +141,9 @@ export default {
     },
   },
   beforeDestroy() {
-    this.$store.commit('shop/CLEAR_COMMODITIES');
+    // this.$store.commit('shop/CLEAR_COMMODITIES');
   },
   async created() {
-    if (!this.categories) await this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
     await this.$store.dispatch('shop/INIT_SHOP', {
       categoryName: this.categoryName,
       skip: this.pagination.skip,

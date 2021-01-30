@@ -63,7 +63,8 @@
                   shaped
                   color="lgrey"
                   height="350"
-                  :to="{ name: 'shop-item', params: { categoryName: alsoViewedCommoditiesLink, cardId: card._id } }"
+                  @click="goToCard(card._id)"
+                  link
                 >
                   <v-card flat outlined class="d-fex flex-column justify-center align-center ma-0" tile color="lgrey">
                     <v-img :src="card.previewImage[0].link" width="100%" height="200" contain></v-img>
@@ -132,21 +133,44 @@ export default {
   data() {
     return {
       commodityId: this.$route.params.commodityId,
-      alsoViewedCommoditiesLink: '',
       activeCard: '',
     };
   },
+  watch: {
+    commodityId(newVal) {
+      this.$store.dispatch('shop/GET_COMMODITY', {
+        commodityId: newVal,
+      });
+    },
+  },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState('shop', ['categories', 'commodities', 'commodity', 'isCommodityLoading']),
+    ...mapState('shop', ['categories', 'commodities', 'commodity', 'isCommodityLoading', 'fullListOfCategories']),
     mobileMenu() {
       return this.viewportWidth < 960;
     },
     alsoViewedCommodities() {
       return this.$store.getters['shop/alsoViewedCommodities'];
     },
+    alsoViewedCommoditiesLink() {
+      this.fullListOfCategories;
+      if (!this.alsoViewedCommodities.length) return;
+      const categoryId = this.alsoViewedCommodities[0].subCategoryId || this.alsoViewedCommodities[0].categoryId;
+      const category = this.fullListOfCategories.find(el => el._id === categoryId);
+      if (category && category.slug) return category.slug;
+      return '';
+    },
   },
   methods: {
+    goToCard(id) {
+      this.$store.dispatch('shop/GET_COMMODITY', {
+        commodityId: id,
+      });
+      this.$router.push({
+        name: 'shop-item',
+        params: { categoryName: this.alsoViewedCommoditiesLink, commodityId: id },
+      });
+    },
     setPhoto(val, toggle) {
       toggle();
       this.activeCard = val.link;
@@ -154,29 +178,12 @@ export default {
     buyNow() {
       this.$router.push({ name: 'shop-payment' });
     },
-    setAlsoViewedCommoditiesLink() {
-      const commoditySlug = this.alsoViewedCommodities[0].subCategoryId;
-      let subcategoriaName = '';
-      for (let i = 0; i < this.categories.length; i++) {
-        let subcategoriesArray = this.categories[i].subcategories;
-        for (let n = 0; n < subcategoriesArray.length; n++) {
-          if (commoditySlug === subcategoriesArray[n]._id) {
-            this.alsoViewedCommoditiesLink = subcategoriesArray[n].slug;
-          }
-        }
-      }
-      return subcategoriaName;
-    },
   },
   async mounted() {
-    if (!this.categories) {
-      await this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
-    }
     await this.$store.dispatch('shop/GET_COMMODITY', {
       commodityId: this.commodityId,
     });
-    this.activeCard = this.commodity.images[0].link;
-    this.setAlsoViewedCommoditiesLink();
+    this.activeCard = (await this.commodity.images[0]) && this.commodity.images[0].link;
   },
   beforeDestroy() {
     this.$store.commit('shop/CLEAR_COMMODITY');

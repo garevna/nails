@@ -90,12 +90,11 @@ export default {
   },
   mounted() {
     this.onResize();
-    this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
+    // this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
     window.addEventListener('resize', this.onResize, { passive: true });
   },
   async created() {
     await this.$store.dispatch('auth/IS_SIGNED');
-    await this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
   },
 
   destroyed() {

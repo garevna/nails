@@ -43,9 +43,7 @@ export default {
     },
   },
   methods: {},
-  mounted() {
-    console.log(this.$route);
-  },
+  async mounted() {},
 };
 </script>
 
