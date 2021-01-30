@@ -1,6 +1,6 @@
 <template>
-  <v-row class="justify-end my-0 py-0">
-    <v-col cols="11" sm="5" class="d-flex justify-end align-center gray-font pr-lg-10">
+  <v-row class="justify-center justify-sm-end my-0 py-0">
+    <v-col cols="11" sm="5" class="d-flex justify-end align-center gray-font px-0 px-sm-3 pr-lg-10">
       <h4 class="mr-5 pb-3">Search</h4>
       <v-text-field
         @input="searchDebounced"
