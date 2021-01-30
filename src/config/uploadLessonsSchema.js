@@ -3,7 +3,7 @@ export default {
     name: {
       label: 'Name of video',
       type: 'text',
-      limit: 20,
+      limit: 60,
       required: true,
     },
     videoFile: {
