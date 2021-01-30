@@ -1,6 +1,6 @@
 <template>
   <v-row v-if="commodity && !isCommodityLoading" flat width="100%" class="pa-0 ma-0">
-    <v-col cols="12" md="8" lg="11" offset-lg="1" offset-md="4" offset="0">
+    <v-col cols="12" md="12" lg="11" offset-lg="1" offset="0">
       <v-row class="pa-0 ma-0">
         <v-col cols="12" md="6" lg="6">
           <v-row class="image-row">
@@ -46,17 +46,37 @@
           </v-col>
         </v-row>
         <v-col cols="12">
-          <v-sheet elevation="8" width="100%">
+          <v-sheet elevation="0" width="100%">
             <v-slide-group
-              class="pa-4"
+              class="pa-2"
               active-class="success"
               show-arrows="desktop"
               next-icon="$next"
               prev-icon="$prev"
             >
-              <v-slide-item width="150" class="mx-5 my-10" v-for="n in 8" :key="n">
-                <v-card>
-                  <v-img :src="commodity.previewImage[0].link" max-width="150px" max-height="150px" contain></v-img>
+              <v-slide-item width="150" class="mx-5 my-10" v-for="commodity in alsoViewedCommodities" :key="commodity._id">
+                <v-card
+                  width="200px" elevation="8"
+                  class="d-fex justify-center pa-4"
+                >
+                  <v-card class="d-fex flex-column justify-center align-center mb-5">
+                    <v-img style="border: solid 1px black" :src="commodity.previewImage[0].link" width="100%" height="150px" contain></v-img>
+                  </v-card>
+                  <v-card elevation="0" height="auto">
+                    <router-link
+                      :to="{ name: 'shop-item', params: { categoryName: alsoViewedCommoditiesLink, commodityId: commodity._id }}"
+                    >
+                      <h3
+                        class="dgrey--text mb-2"
+                      >{{commodity.name}}</h3>
+                    </router-link>
+                    <h4
+                      class="dgrey--text mb-5"
+                    >{{commodity.brand}}</h4>
+                    <h3
+                      class="dgrey--text d-flex align-self-end"
+                    >Price: {{commodity.price}} AUD</h3>
+                  </v-card>
                 </v-card>
               </v-slide-item>
             </v-slide-group>
@@ -108,6 +128,7 @@ export default {
   data() {
     return {
       commodityId: this.$route.params.commodityId,
+      alsoViewedCommoditiesLink: '',
       activeCard: '',
     };
   },
@@ -129,6 +150,20 @@ export default {
     buyNow() {
       this.$router.push({ name: 'shop-payment' });
     },
+    setAlsoViewedCommoditiesLink() {
+      const commoditySlug = this.alsoViewedCommodities[0].subCategoryId
+      let subcategoriaName = ''
+      for (let i = 0; i < this.categories.length; i++) {
+        let subcategoriesArray = this.categories[i].subcategories
+        for (let n = 0; n < subcategoriesArray.length; n++) {
+          if (commoditySlug === subcategoriesArray[n]._id) {
+            this.alsoViewedCommoditiesLink = subcategoriesArray[n].slug
+          }
+          
+        }
+      }
+      return subcategoriaName
+    }
   },
   async mounted() {
     if (!this.categories) {
@@ -138,7 +173,7 @@ export default {
       commodityId: this.commodityId,
     });
     this.activeCard = this.commodity.images[0].link
-    // console.log(this.alsoViewedCommodities);
+    this.setAlsoViewedCommoditiesLink()
   },
   beforeDestroy() {
     this.$store.commit('shop/CLEAR_COMMODITY');
