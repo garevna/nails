@@ -55,7 +55,7 @@ export default {
     padding-top: 5px !important;
   }
 }
-.v-expansion-panel-header {
-  padding-bottom: 0px !important;
-}
+// .v-expansion-panel-header {
+//   padding-bottom: 0px !important;
+// }
 </style>
