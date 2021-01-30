@@ -59,6 +59,9 @@ export default {
     photo: {
       label: 'Cover picture',
       type: 'file',
+      icon: 'mdi-camera',
+      accept: 'image/png, image/jpeg, image/bmp',
+      size: 10000,
       required: true,
     },
   },

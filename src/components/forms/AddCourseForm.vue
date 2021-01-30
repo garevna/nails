@@ -53,7 +53,9 @@
               :value.sync="data[name]"
               :label="field.label"
               :required="field.required"
-              icon="mdi-camera"
+              :icon="field.icon"
+              :accept="field.accept"
+              :size="field.size"
             />
           </div>
         </div>
