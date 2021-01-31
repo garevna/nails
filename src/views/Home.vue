@@ -19,7 +19,7 @@
             <p>{{ shopText }}</p>
           </v-card-text>
           <v-card-text class="text-center">
-            <v-btn color="buttons" rounded large dark min-width="160" class="yellow-button" @click="goToRoute('shop')"
+            <v-btn color="buttons" rounded large dark min-width="160" class="yellow-button" @click="goToShop()"
               >SHOP</v-btn
             >
           </v-card-text>
@@ -150,6 +150,9 @@ export default {
   methods: {
     goToRoute(route) {
       this.$router.push({ name: route });
+    },
+    goToShop() {
+      this.$router.push({ name: 'shop', params: { categoryName: 'nail-tools' } });
     },
   },
 };
