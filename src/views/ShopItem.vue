@@ -31,11 +31,11 @@
           <v-col cols="12" class="px-0">
             <h2 class="dgrey--text">{{ commodity.name }}</h2>
             <h4 class="shopfont--text">{{ commodity.brand }}</h4>
-            <div class="caption">
-              <h2 max-width="150px" class="speciﬁcations">{{ commodity.speciﬁcations }}</h2>
+            <div class="caption mt-12">
+              <h2 max-width="150px" class="speciﬁcations mt-1">{{ commodity.speciﬁcations }}</h2>
             </div>
-            <div class="price">
-              <h3 class="dark-gray-font">{{ commodity.price }} AUD</h3>
+            <div class="price d-flex flex-column justify-end align-end">
+              <h3 class="darkGrey--text my-6 mx-0">{{ commodity.price }} AUD</h3>
               <div style="width: 200px">
                 <v-btn small width="100%" class="pa-2 ma-2 dgrey--text" color="orange">Add to card</v-btn>
                 <v-btn small width="100%" class="pa-2 ma-2 white--text" color="dgrey">Buy it now</v-btn>
@@ -45,7 +45,7 @@
         </v-col>
         <v-row class="mt-10" v-if="alsoViewedCommodities.length">
           <v-col cols="12">
-            <h2 class="dark-gray-font text-center">People who viewed this item also viewed</h2>
+            <h2 class="darkGrey--text text-center">People who viewed this item also viewed</h2>
           </v-col>
         </v-row>
         <v-col cols="12" v-if="alsoViewedCommodities.length">
@@ -218,31 +218,31 @@ export default {
   white-space: pre-wrap;
 }
 .caption {
-  margin-top: 50px;
+  // margin-top: 50px;
   h2 {
-    margin-top: 5px;
+    // margin-top: 5px;
   }
 }
 
 .price {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-  h3 {
-    margin: 25px 0;
-  }
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: flex-end;
+  // align-items: flex-end;
+  // h3 {
+  //   margin: 25px 0;
+  // }
 }
-.dark-gray-font {
-  color: $darkGrayFont;
-}
-.gray-font {
-  color: $shopGrayFont;
-}
-.description {
-  padding-top: 25px;
-}
+// .dark-gray-font {
+//   color: $darkGrayFont;
+// }
+// .gray-font {
+//   color: $shopGrayFont;
+// }
+// .description {
+//   padding-top: 25px;
+// }
 @media screen and (max-width: 320px) {
   .caption {
     h2 {

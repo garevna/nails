@@ -1,7 +1,7 @@
 <template>
-  <div color="warning menu">
-    <v-btn v-if="!isLogged" @click="goToLogin('sign-in')" class="registration" text> Sign in </v-btn>
-    <v-btn v-if="!isLogged" @click="goToLogin('sign-up')" class="registration" text> Sign up </v-btn>
+  <div color="warning" class="d-lg-flex flex-row flex-nowrap justify-end">
+    <v-btn v-if="!isLogged" @click="goToLogin('sign-in')" class="registration black--text" text> Sign in </v-btn>
+    <v-btn v-if="!isLogged" @click="goToLogin('sign-up')" class="registration black--text" text> Sign up </v-btn>
     <ProductsCart />
     <v-btn icon v-if="isLogged" @click="goToCabinet">
       <v-icon color="secondaryGray">mdi-account</v-icon>
@@ -14,7 +14,7 @@
         </v-btn>
       </template>
 
-      <v-treeview dark class="drop-down-menu" dense :items="items" open-on-click>
+      <v-treeview dark class="black pt-5" dense :items="items" open-on-click>
         <template slot="label" slot-scope="{ item }">
           <a @click="openDialog(item)" class="item-link">{{ item.name }}</a>
         </template>
@@ -36,12 +36,12 @@
 </style>
 <style scoped>
 .menu {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: flex-end;
+  justify-content: flex-end; */
 }
-.menu-app-bar {
+/* .menu-app-bar {
   display: flex;
   padding: 0;
 }
@@ -51,19 +51,19 @@
   padding: 0 0;
   white-space: nowrap;
   flex-grow: 0;
-}
-.menu-item-search {
+} */
+/* .menu-item-search {
   display: flex;
   cursor: pointer;
   padding: 0 0;
   white-space: nowrap;
   flex-grow: 0;
-}
+} */
 .menu-app-bar:not(:last-child),
 .menu-item-app-bar:not(:last-child) {
   margin-right: 20px;
 }
-.search {
+/* .search {
   display: flex;
   margin: 10px 0 10px 0;
   width: 100px;
@@ -75,18 +75,18 @@
   font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.1em;
-}
+} */
 .item-link {
   width: 100%;
 }
-.search:focus {
+/* .search:focus {
   width: 300px;
-}
-.drop-down-menu {
+} */
+/* .drop-down-menu {
   background-color: #000;
-}
+} */
 .registration {
-  color: #000 !important;
+  /* color: #000 !important; */
   font-size: 18px !important;
 }
 @media screen and (max-width: 1330px) {

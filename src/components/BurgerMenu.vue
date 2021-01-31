@@ -24,20 +24,20 @@
                     @click="$emit('update:selected', index); panel = []"
                     style="background: #CACACA"
             >-->
-          <v-list-item class="main-menu-content" @click="goHome">
-            <v-list-item-title class="main-menu-content main-menu-items">Home</v-list-item-title>
+          <v-list-item class="black--text" @click="goHome">
+            <v-list-item-title class="black--text main-menu-items">Home</v-list-item-title>
           </v-list-item>
-          <v-list-item class="main-menu-content" @click="goToShop">
-            <v-list-item-title class="main-menu-content main-menu-items">Shop</v-list-item-title>
+          <v-list-item class="black--text" @click="goToShop">
+            <v-list-item-title class="black--text main-menu-items">Shop</v-list-item-title>
           </v-list-item>
-          <v-list-item class="main-menu-content" @click="goToCourses">
-            <v-list-item-title class="main-menu-content main-menu-items">Courses</v-list-item-title>
+          <v-list-item class="black--text" @click="goToCourses">
+            <v-list-item-title class="black--text main-menu-items">Courses</v-list-item-title>
           </v-list-item>
           <v-list-item v-if="!isLogged" @click="goToLogin('sign-in')">
-            <v-list-item-title class="main-menu-content main-menu-items">Sign in</v-list-item-title>
+            <v-list-item-title class="black--text main-menu-items">Sign in</v-list-item-title>
           </v-list-item>
           <v-list-item v-if="!isLogged" @click="goToLogin('sign-up')">
-            <v-list-item-title class="main-menu-content main-menu-items">Sign up</v-list-item-title>
+            <v-list-item-title class="black--text main-menu-items">Sign up</v-list-item-title>
           </v-list-item>
           <v-list-item v-if="isLogged" class="d-flex justify-center" @click="goToCabinet">
             <v-icon color="secondaryGray">mdi-account</v-icon>
@@ -147,7 +147,7 @@ export default {
 }
 .main-menu-content {
   background: #fafafa !important;
-  color: #000;
+  // color: #000;
 }
 .main-menu-items {
   font-size: 18px;
@@ -159,12 +159,12 @@ export default {
   right: 30px;
   top: -15px;
 }
-.header-container {
-  position: fixed;
-  height: 50px;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 5;
-}
+// .header-container {
+//   position: fixed;
+//   height: 50px;
+//   width: 100%;
+//   top: 0;
+//   left: 0;
+//   z-index: 5;
+// }
 </style>

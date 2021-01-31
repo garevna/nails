@@ -28,25 +28,25 @@
 
           <v-col cols="6" sm="4" md="2" lg="2">
             <v-card-text class="darkGrey--text no-wrap text-center text-sm-left pa-2 pa-sm-4">
-              <h3 class="mb-2">Shop</h3>
+              <h3 class="mb-2 mt-sm-2">Shop</h3>
               <!-- <v-divider></v-divider> -->
-              <h4 class="route mb-1 mb-sm-0" @click="goToShopRoute('cuticle-nippers')">Nippers</h4>
-              <h4 class="route mb-1 mb-sm-0" @click="goToShopRoute('cuticle-scissors')">Scissors</h4>
-              <h4 class="route mb-1 mb-sm-0" @click="goToShopRoute('pushers')">Pushers\Curette</h4>
-              <h4 class="route mb-1 mb-sm-0" @click="goToShopRoute('diamond-drill-bits')">Drill bits</h4>
-              <h4 class="route mb-1 mb-sm-0" @click="goToShopRoute('cosmetics')">Cosmetics</h4>
-              <h4 class="route mb-1 mb-sm-0" @click="goToShopRoute('brushes')">Brushes</h4>
-              <h4 class="route mb-1 mb-sm-0" @click="goToShopRoute('promotions')">Promotions</h4>
+              <h4 class="route mb-1" @click="goToShopRoute('cuticle-nippers')">Nippers</h4>
+              <h4 class="route mb-1" @click="goToShopRoute('cuticle-scissors')">Scissors</h4>
+              <h4 class="route mb-1" @click="goToShopRoute('pushers')">Pushers\Curette</h4>
+              <h4 class="route mb-1" @click="goToShopRoute('diamond-drill-bits')">Drill bits</h4>
+              <h4 class="route mb-1" @click="goToShopRoute('cosmetics')">Cosmetics</h4>
+              <h4 class="route mb-1" @click="goToShopRoute('brushes')">Brushes</h4>
+              <h4 class="route mb-1" @click="goToShopRoute('promotions')">Promotions</h4>
             </v-card-text>
           </v-col>
 
           <v-col cols="6" sm="3" md="2" lg="2">
             <v-card-text class="darkGrey--text no-wrap text-center text-sm-left pa-2 pa-sm-4">
-              <h3 class="route mb-2">Courses</h3>
+              <h3 class="route mb-2 mt-sm-2">Courses</h3>
               <!-- <v-divider></v-divider> -->
-              <h4 class="route mb-1 mb-sm-0" v-on:click="goToRoute('courses')">Manicure</h4>
-              <h4 class="route mb-1 mb-sm-0" v-on:click="goToRoute('courses')">Pedicure</h4>
-              <h4 class="route mb-1 mb-sm-0" v-on:click="goToRoute('courses')">Design</h4>
+              <h4 class="route mb-1" v-on:click="goToRoute('courses')">Manicure</h4>
+              <h4 class="route mb-1" v-on:click="goToRoute('courses')">Pedicure</h4>
+              <h4 class="route mb-1" v-on:click="goToRoute('courses')">Design</h4>
             </v-card-text>
           </v-col>
 
@@ -136,11 +136,6 @@ export default {
 // }
 .gmail {
   font-size: 26px;
-}
-@media screen and (max-width: 960px) {
-  .v-item-group.v-bottom-navigation--fixed {
-    // position: relative;
-  }
 }
 @media screen and (max-width: 600px) {
   // .right-block {
