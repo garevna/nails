@@ -2,7 +2,7 @@
   <v-row justify="center">
     <v-expansion-panels flat accordion class="px-0 py-5 left-side-header">
       <v-expansion-panel v-for="section in categories" :key="section._id">
-        <v-expansion-panel-header class="mb-0" @click="setSection(section)">
+        <v-expansion-panel-header class="mb-0 py-0" @click="setSection(section)">
           <span class="d-flex justify-start align-center text-h5 font-weight-bold dgrey--text">
             {{ section.name }} <v-icon left v-if="section.subcategories.length">mdi-menu-down</v-icon></span
           >
@@ -43,14 +43,27 @@
 <style lang="scss">
 @import '@/css/variables.scss';
 .left-side-header {
-  .v-expansion-panel-header {
-    padding-bottom: 0 !important;
-    padding-top: 0 !important;
-  }
+  // .v-expansion-panel-header {
+  //   padding-bottom: 0 !important;
+  //   padding-top: 0 !important;
+  // }
   .v-expansion-panel-content__wrap {
     padding-top: 0 !important;
     margin-top: 0 !important;
   }
+}
+.left-side-header > div:last-child{
+  position: relative;
+  padding-top: 20px;
+}
+.left-side-header > div:last-child::before{
+  position: absolute;
+  top: 10px;
+  left: 24px;
+  right: 70px;
+  height: 2px;
+  background-color: #333333;
+  z-index: 1;
 }
 .v-expansion-panel--active > .v-expansion-panel-header {
   min-height: 50px !important;

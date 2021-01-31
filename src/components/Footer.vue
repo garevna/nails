@@ -1,10 +1,10 @@
 <template>
   <div class="footer-wrapper homefone">
-    <v-bottom-navigation v-model="bottomNav" shift height="auto" background-color="#FFC44A" class="footer">
+    <v-bottom-navigation v-model="bottomNav" shift height="auto" background-color="#FFC44A" class="footer pb-8">
       <v-card flat class="transparent mx-auto" max-width="2400" width="80%">
         <v-row align="start" justify="end" width="100%">
           <v-col cols="12" sm="12" md="5" lg="5">
-            <v-row class="mt-5 justify-sm-center justify-center">
+            <v-row class="mt-5 justify-center justify-md-start pl-md-5">
               <a href="https://www.instagram.com/nailsaustralia" target="_blank" fab class="social-icon">
                 <IconInstagram />
               </a>
@@ -16,42 +16,42 @@
                 <IconFacebook />
               </a>
             </v-row>
-            <v-row class="mt-5 text-sm-center text-center">
-              <v-card-text class="justify-sm-center gray-text">
+            <v-row class="mt-5 text-center text-md-left">
+              <v-card-text class="justify-sm-center darkGrey--text pa-2 pa-sm-4">
                 <h2>32 Brewer rd, Bentligh 3204 VIC</h2>
-                <a href="mailto:nailsauinfo@gmail.com" class="mail-link">
-                  <h3>nailsauinfo@gmail.com</h3>
+                <a href="mailto:nailsauinfo@gmail.com" class="darkGrey--text">
+                  <h3 class="gmail">nailsauinfo@gmail.com</h3>
                 </a>
               </v-card-text>
             </v-row>
           </v-col>
 
           <v-col cols="6" sm="4" md="2" lg="2">
-            <v-card-text class="gray-text no-wrap links-block">
-              <h3>Shop</h3>
-              <v-divider></v-divider>
-              <h4 class="route" @click="goToShopRoute('cuticle-nippers')">Nippers</h4>
-              <h4 class="route" @click="goToShopRoute('cuticle-scissors')">Scissors</h4>
-              <h4 class="route" @click="goToShopRoute('pushers')">Pushers\Curette</h4>
-              <h4 class="route" @click="goToShopRoute('diamond-drill-bits')">Drill bits</h4>
-              <h4 class="route" @click="goToShopRoute('cosmetics')">Cosmetics</h4>
-              <h4 class="route" @click="goToShopRoute('brushes')">Brushes</h4>
-              <h4 class="route" @click="goToShopRoute('promotions')">Promotions</h4>
+            <v-card-text class="darkGrey--text no-wrap text-center text-sm-left pa-2 pa-sm-4">
+              <h3 class="mb-2 mt-sm-2">Shop</h3>
+              <!-- <v-divider></v-divider> -->
+              <h4 class="route mb-1" @click="goToShopRoute('cuticle-nippers')">Nippers</h4>
+              <h4 class="route mb-1" @click="goToShopRoute('cuticle-scissors')">Scissors</h4>
+              <h4 class="route mb-1" @click="goToShopRoute('pushers')">Pushers\Curette</h4>
+              <h4 class="route mb-1" @click="goToShopRoute('diamond-drill-bits')">Drill bits</h4>
+              <h4 class="route mb-1" @click="goToShopRoute('cosmetics')">Cosmetics</h4>
+              <h4 class="route mb-1" @click="goToShopRoute('brushes')">Brushes</h4>
+              <h4 class="route mb-1" @click="goToShopRoute('promotions')">Promotions</h4>
             </v-card-text>
           </v-col>
 
           <v-col cols="6" sm="3" md="2" lg="2">
-            <v-card-text class="gray-text no-wrap links-block">
-              <h3 class="route">Courses</h3>
-              <v-divider></v-divider>
-              <h4 class="route" v-on:click="goToRoute('courses')">Manicure</h4>
-              <h4 class="route" v-on:click="goToRoute('courses')">Pedicure</h4>
-              <h4 class="route" v-on:click="goToRoute('courses')">Design</h4>
+            <v-card-text class="darkGrey--text no-wrap text-center text-sm-left pa-2 pa-sm-4">
+              <h3 class="route mb-2 mt-sm-2">Courses</h3>
+              <!-- <v-divider></v-divider> -->
+              <h4 class="route mb-1" v-on:click="goToRoute('courses')">Manicure</h4>
+              <h4 class="route mb-1" v-on:click="goToRoute('courses')">Pedicure</h4>
+              <h4 class="route mb-1" v-on:click="goToRoute('courses')">Design</h4>
             </v-card-text>
           </v-col>
 
           <v-col cols="12" sm="5" md="3" lg="3">
-            <v-card-text class="gray-text no-wrap right-block">
+            <v-card-text class="darkGrey--text no-wrap text-center text-sm-left pt-0 pb-2 py-sm-4">
               <h2 class="route" v-on:click="goToRoute('payment')">Payment</h2>
               <h2 class="route" v-on:click="goToRoute('delivery')">Delivery</h2>
               <h2 class="route" v-on:click="goToRoute('return')">Return</h2>
@@ -62,6 +62,7 @@
           </v-col>
         </v-row>
       </v-card>
+      <div class="py-4 homefone" style="position: absolute; bottom: 0; right: 0; left: 0"></div>
     </v-bottom-navigation>
   </div>
 </template>
@@ -113,39 +114,47 @@ export default {
 .social {
   margin-bottom: 210px;
 }
-.gray-text {
-  color: #333333 !important;
-}
+// .gray-text {
+//   color: #333333 !important;
+// }
 .no-wrap {
   white-space: nowrap;
 }
-.mail-link {
-  text-decoration: none;
-  color: #333333 !important;
-}
-
+// .mail-link {
+//   text-decoration: none;
+//   color: #333333 !important;
+// }
 .footer-wrapper {
-  padding-bottom: 30px;
-  position: absolute;
-  width: 100%;
-  left: 0;
-  right: 0;
+  height: 289px;
+}
+// .footer-wrapper {
+//   padding-bottom: 30px;
+//   position: absolute;
+//   width: 100%;
+//   left: 0;
+//   right: 0;
+// }
+.gmail {
+  font-size: 26px;
 }
 @media screen and (max-width: 600px) {
-  .right-block {
-    text-align: center;
-  }
+  // .right-block {
+  //   text-align: center;
+  // }
   .links-block {
-    // font-size: 120%;
-    text-align: center;
-    h4 {
-      margin-bottom: 3px;
-    }
+    font-size: 120%;
+    // text-align: center;
   }
-}
-@media screen and (max-width: 400px) {
   .social-icon {
     width: 53px;
+    height: 53px;
+  }
+  .text-center h2,
+  .gmail {
+    font-size: 20px;
+  }
+  h2.route {
+    font-size: 18px;
   }
 }
 </style>

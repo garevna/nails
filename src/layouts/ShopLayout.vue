@@ -43,8 +43,8 @@ export default {
     },
   },
   methods: {},
-  mounted() {
-    console.log(this.$route);
+  async mounted() {
+    this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
   },
 };
 </script>
@@ -55,7 +55,7 @@ export default {
     padding-top: 5px !important;
   }
 }
-.v-expansion-panel-header {
-  padding-bottom: 0px !important;
-}
+// .v-expansion-panel-header {
+//   padding-bottom: 0px !important;
+// }
 </style>

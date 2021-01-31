@@ -40,10 +40,10 @@
             </v-card>
           </template>
           <v-row justify="center">
-            <v-expansion-panels flat accordion class="px-0 py-5 left-side-header mb-0" :key="panelsKey">
+            <v-expansion-panels flat accordion class="px-0 py-5 homefone left-side-header mb-0" :key="panelsKey">
               <v-expansion-panel v-for="section in categories" :key="section._id">
                 <v-expansion-panel-header
-                  class="mb-0"
+                  class="mb-0 py-0"
                   @click="!section.subcategories.length ? setSection(section) : null"
                 >
                   <span class="d-flex justify-start align-center text-h5 font-weight-bold dgrey--text">
@@ -146,13 +146,21 @@ export default {
   width: 100% !important;
 }
 .swithcer-header {
-  .v-expansion-panel-header {
-    padding-bottom: 0 !important;
-    padding-top: 0 !important;
-  }
+  // .v-expansion-panel-header {
+  //   padding-bottom: 0 !important;
+  //   padding-top: 0 !important;
+  // }
   .v-expansion-panel-content__wrap {
     padding-top: 0 !important;
     margin-top: 0;
+  }
+}
+@media screen and (max-width: 400px){
+  .v-application .text-h6 {
+    font-size: 1rem !important;
+  }
+  .v-application .text-h5{
+    font-size: 1.25rem !important;
   }
 }
 @import '@/css/variables.scss';

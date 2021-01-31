@@ -1,14 +1,14 @@
 <template>
   <div class="header-container homefone">
-    <v-app-bar app color="#FFC44A" outlined dark elevate-on-scroll class="app-bar-header">
+    <v-app-bar app outlined dark elevate-on-scroll class="primary app-bar-header">
       <div class="d-flex align-center">
         <Logo :goHome="goHome" class="logo" />
       </div>
       <v-spacer></v-spacer>
       <div class="orange app-bar d-none d-lg-block menu-app-bar-btn">
-        <v-btn @click="goHome" text>HOME</v-btn>
-        <v-btn @click="goToShop" text>SHOP</v-btn>
-        <v-btn @click="goToCourses" text>COURSES</v-btn>
+        <v-btn class="black--text" @click="goHome" text>HOME</v-btn>
+        <v-btn class="black--text" @click="goToShop" text>SHOP</v-btn>
+        <v-btn class="black--text" @click="goToCourses" text>COURSES</v-btn>
       </div>
       <MenuSystemBar class="d-none d-lg-flex align-center" />
       <BurgerMenu :panel.sync="panel" />
@@ -26,38 +26,43 @@
   -webkit-box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
   -moz-box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
   box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
-  background-color: #ffc44a !important;
+  // background-color: #ffc44a !important;
 }
 .menu-app-bar-btn button {
-  color: #000;
+  // color: #000;
   font-size: 22px;
   font-weight: 700;
 }
-.main-menu-content {
-  background: #fafafa !important;
-  color: #000;
-}
-.main-menu-items {
-  font-size: 18px;
-  line-height: 40px;
-}
-.v-expansion-panel-header {
-  width: 0 !important;
-  position: absolute;
-  right: 30px;
-  top: -15px;
-}
+// .main-menu-content {
+//   background: #fafafa !important;
+//   color: #000;
+// }
+// .main-menu-items {
+//   font-size: 18px;
+//   line-height: 40px;
+// }
+// .v-expansion-panel-header {
+//   width: 0 !important;
+//   position: absolute;
+//   right: 30px;
+//   top: -15px;
+// }
 .header-container {
   position: fixed;
   height: 50px;
   width: 100%;
   top: 0;
   left: 0;
-  z-index: 5;
+  z-index: 10;
 }
 @media screen and (max-width: 600px) {
   .logo {
     width: 250px;
+  }
+}
+@media screen and (max-width: 400px){
+  .logo {
+    width: 200px;
   }
 }
 </style>
