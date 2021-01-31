@@ -38,7 +38,7 @@
               <h3 class="dark-gray-font">{{ commodity.price }} AUD</h3>
               <div style="width: 200px">
                 <v-btn small width="100%" class="pa-2 ma-2 dgrey--text" color="orange">Add to card</v-btn>
-                <v-btn small width="100%" class="pa-2 ma-2 white--text" color="dgrey" @click="buyNow">Buy it now</v-btn>
+                <v-btn small width="100%" class="pa-2 ma-2 white--text" color="dgrey">Buy it now</v-btn>
               </div>
             </div>
           </v-col>
