@@ -1,7 +1,7 @@
 <template>
   <v-hover v-slot="{ hover }" open-delay="100">
-    <v-card dark :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }" :width="400"  :height="420" class="cardfone ma-12">
-      <CoverImage :url="linkCheck(course)" :width="400" :height="250" class="image-course" />
+    <v-card dark :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }" max-width="400" class="ma-12">
+      <CoverImage :url="linkCheck(course)" :height="250"/>
       <v-card-title class="buttons--text pa-0 pl-4 pt-4">
         {{ course.accessDays }} days | $ {{ course.price }}
       </v-card-title>
@@ -71,7 +71,7 @@ export default {
       return this.course?.nameOfCourse?.length < 25 ? this.course?.nameOfCourse : this.course?.nameOfCourse?.slice(0,22)+'...'
     },
     courseSubtitle() {
-      return this.course?.subtitle?.length < 60 ? this.course?.subtitle : this.course?.subtitle?.slice(0, 57) + '...';
+      return this.course?.subtitle?.length < 50 ? this.course?.subtitle : this.course?.subtitle?.slice(0, 47) + '...';
     },
   },
   watch: {},
