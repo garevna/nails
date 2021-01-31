@@ -1,6 +1,6 @@
 <template>
   <v-hover v-slot="{ hover }" open-delay="100">
-    <v-card dark :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }" max-width="400" class="ma-12">
+    <v-card dark :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }" width="400" class="ma-12">
       <CoverImage :url="linkCheck(course)" :height="250"/>
       <v-card-title class="buttons--text pa-0 pl-4 pt-4">
         {{ course.accessDays }} days | $ {{ course.price }}
