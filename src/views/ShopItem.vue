@@ -43,12 +43,12 @@
             </div>
           </v-col>
         </v-col>
-        <v-row class="mt-10">
+        <v-row class="mt-10" v-if="alsoViewedCommodities.length">
           <v-col cols="12">
             <h2 class="dark-gray-font text-center">People who viewed this item also viewed</h2>
           </v-col>
         </v-row>
-        <v-col cols="12">
+        <v-col cols="12" v-if="alsoViewedCommodities.length">
           <v-sheet elevation="0" width="100%">
             <v-slide-group
               class="pa-2"
