@@ -1,7 +1,7 @@
 /* eslint-disable quote-props */
 const { postData, putData } = require('@/helpers').default;
 
-const errors = require('@/config/errors').default.auth
+const errors = require('@/config/errors').default.auth;
 // const messages = require('@/config/messages').default.user
 
 const endpoints = require('@/config/endpoints').default.auth;
@@ -13,8 +13,7 @@ const state = {
   loading: false,
 };
 
-const getters = {
-};
+const getters = {};
 
 const mutations = {
   TOKEN: (state, payload) => {
@@ -78,14 +77,20 @@ const actions = {
       const token = bearer.split(' ')[1];
       dispatch('CHECK_TOKEN', token);
     } else {
-      commit('ERROR',  errors.signIn, { root: true });
+      commit(
+        'ERROR',
+        {
+          ...errors.signIn,
+          errorMessage: error,
+        },
+        { root: true }
+      );
     }
     commit('LOADING', false);
   },
   async SIGN_UP({ commit, dispatch }, payload) {
     commit('LOADING', true);
-    const { error } = 
-      await postData(endpoints.signUp, payload)
+    const { error } = await postData(endpoints.signUp, payload);
     if (!error) {
       const { email, password } = payload;
       dispatch('SIGN_IN', { email, password });
@@ -96,8 +101,7 @@ const actions = {
   },
   async EDIT_USER({ commit }, payload) {
     commit('LOADING', true);
-    const { data, error } = 
-      await putData(`${endpoints.user}/${state.user._id}`, payload)
+    const { data, error } = await putData(`${endpoints.user}/${state.user._id}`, payload);
     if (!error) {
       commit('USER', data);
     } else {
