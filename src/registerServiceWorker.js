@@ -29,7 +29,7 @@
 //     },
 //   });
 // }
-const baseUrl = process.env.NODE_ENV === 'production' ? process.env.BASE_URL : process.env.BASE_URL;
+// const baseUrl = process.env.NODE_ENV === 'production' ? process.env.BASE_URL : process.env.BASE_URL;
 
 function invokeServiceWorkerUpdateFlow(registration) {
   // TODO implement your own UI notification element
@@ -88,7 +88,7 @@ if ('serviceWorker' in navigator) {
     // detect controller change and refresh the page
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       if (!refreshing) {
-        window.location.replace(baseUrl) && window.location.reload();
+        window.location.replace(process.env.BASE_URL) && window.location.reload();
         refreshing = true;
       }
     });
