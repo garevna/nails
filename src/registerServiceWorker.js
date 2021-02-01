@@ -29,7 +29,7 @@
 //     },
 //   });
 // }
-const baseUrl = process.env.NODE_ENV === 'production' ? process.env.BASE_URL + '/nails' : process.env.BASE_URL;
+const baseUrl = process.env.NODE_ENV === 'production' ? process.env.BASE_URL : process.env.BASE_URL;
 
 function invokeServiceWorkerUpdateFlow(registration) {
   // TODO implement your own UI notification element
@@ -61,7 +61,7 @@ if ('serviceWorker' in navigator) {
   // wait for the page to load
   window.addEventListener('load', async () => {
     // register the service worker from the file specified
-    const registration = await navigator.serviceWorker.register('/service-worker.js');
+    const registration = await navigator.serviceWorker.register('/nails/service-worker.js');
     // ensure the case when the updatefound event was missed is also handled
     // by re-invoking the prompt when there's a waiting Service Worker
     if (registration.waiting) {
