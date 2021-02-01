@@ -29,11 +29,12 @@
 //     },
 //   });
 // }
+const baseUrl = process.env.NODE_ENV === 'production' ? process.env.BASE_URL + '/nails' : process.env.BASE_URL;
 
 function invokeServiceWorkerUpdateFlow(registration) {
   // TODO implement your own UI notification element
-  const notification = document.body.appendChild(document.createElement('button'))
-  notification.innerText = 'A new version of the site is available! Click here to update.'
+  const notification = document.body.appendChild(document.createElement('button'));
+  notification.innerText = 'A new version of the site is available! Click here to update.';
   notification.style = `position:fixed;
     padding:5px 10px;
     background:#f44336;
@@ -47,24 +48,24 @@ function invokeServiceWorkerUpdateFlow(registration) {
     transform:translateX(-50%);
     border:none;
     font-weight: 700;
-    `
+    `;
   notification.addEventListener('click', () => {
     if (registration.waiting) {
       // let waiting Service Worker know it should became active
-      registration.waiting.postMessage({ type: 'SKIP_WAITING' })
-      notification.remove()
+      registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+      notification.remove();
     }
-  })
+  });
 }
 if ('serviceWorker' in navigator) {
   // wait for the page to load
   window.addEventListener('load', async () => {
     // register the service worker from the file specified
-    const registration = await navigator.serviceWorker.register('/service-worker.js')
+    const registration = await navigator.serviceWorker.register('/service-worker.js');
     // ensure the case when the updatefound event was missed is also handled
     // by re-invoking the prompt when there's a waiting Service Worker
     if (registration.waiting) {
-      invokeServiceWorkerUpdateFlow(registration)
+      invokeServiceWorkerUpdateFlow(registration);
     }
     registration.addEventListener('updatefound', () => {
       if (registration.installing) {
@@ -73,25 +74,23 @@ if ('serviceWorker' in navigator) {
           if (registration.waiting) {
             // if there's an existing controller (previous Service Worker), show the prompt
             if (navigator.serviceWorker.controller) {
-              invokeServiceWorkerUpdateFlow(registration)
+              invokeServiceWorkerUpdateFlow(registration);
             } else {
               // otherwise it's the first install, nothing to do
-              // eslint-disable-next-line no-console
-              console.log('Service Worker initialized for the first time')
+              console.log('Service Worker initialized for the first time');
             }
           }
-        })
+        });
       }
-    })
-    let refreshing = false
+    });
+    let refreshing = false;
 
     // detect controller change and refresh the page
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       if (!refreshing) {
-        // eslint-disable-next-line no-unused-expressions
-        window.location.replace(process.env.BASE_URL) && window.location.reload()
-        refreshing = true
+        window.location.replace(baseUrl) && window.location.reload();
+        refreshing = true;
       }
-    })
-  })
+    });
+  });
 }
