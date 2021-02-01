@@ -28,7 +28,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/add-course~user-course.fd25dc4b.css"
   },
   {
-    "revision": "ecc934b1af55606de2c4",
+    "revision": "10960d63f7d41032794f",
     "url": "/nails/css/app.c88fcd71.css"
   },
   {
@@ -204,7 +204,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/pdf.3fa92281.svg"
   },
   {
-    "revision": "9ceeb658b0a14089f6380dbc6c2c7dde",
+    "revision": "09227d8d9d406a661d737a31ade01b90",
     "url": "/nails/index.html"
   },
   {
@@ -224,8 +224,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/add-course~user-course.2147a43d.js"
   },
   {
-    "revision": "ecc934b1af55606de2c4",
-    "url": "/nails/js/app.d5c371bf.js"
+    "revision": "10960d63f7d41032794f",
+    "url": "/nails/js/app.b53634da.js"
   },
   {
     "revision": "e20ab7b59425dac47c91",
