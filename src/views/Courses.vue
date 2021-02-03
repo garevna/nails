@@ -1,6 +1,6 @@
 <template>
   <div style="margin-left:-12px; margin-right:-12px;">
-    <h2 class="d-flex justify-center my-12">All courses</h2>
+    <!-- <h2 class="d-flex justify-center my-12 text-h4">All courses</h2> -->
     <Courses />
   </div>
 </template>
