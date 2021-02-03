@@ -18,7 +18,7 @@
             </v-row>
             <v-row class="mt-5 text-center text-md-left">
               <v-card-text class="justify-sm-center darkGrey--text pa-2 pa-sm-4">
-                <h2>32 Brewer rd, Bentligh 3204 VIC</h2>
+                <h2>32 Brewer rd, Bentleigh 3204 VIC</h2>
                 <a href="mailto:nailsauinfo@gmail.com" class="darkGrey--text">
                   <h3 class="gmail">nailsauinfo@gmail.com</h3>
                 </a>

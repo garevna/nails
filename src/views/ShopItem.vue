@@ -1,6 +1,6 @@
 <template>
   <v-row v-if="commodity && !isCommodityLoading" flat width="100%" class="pa-0 ma-0">
-    <v-col cols="12" md="12" lg="11" offset-lg="1" offset="0">
+    <v-col cols="12" md="12" lg="11" offset-lg="1" offset="0" class="pb-0">
       <v-row class="pa-0 ma-0">
         <v-col cols="12" md="6" lg="6">
           <v-row class="image-row d-flex justify-center">
