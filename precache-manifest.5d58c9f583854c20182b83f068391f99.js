@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/add-course~user-course.fd25dc4b.css"
   },
   {
-    "revision": "10960d63f7d41032794f",
-    "url": "/nails/css/app.c88fcd71.css"
+    "revision": "76e129d49aa930d0c830",
+    "url": "/nails/css/app.f10a03f2.css"
   },
   {
     "revision": "e20ab7b59425dac47c91",
@@ -52,7 +52,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/personal-data.705cc658.css"
   },
   {
-    "revision": "42a3543e624330b21ac2",
+    "revision": "19abd2c0487744969749",
     "url": "/nails/css/shop-item.0f8e0f5f.css"
   },
   {
@@ -204,7 +204,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/pdf.3fa92281.svg"
   },
   {
-    "revision": "09227d8d9d406a661d737a31ade01b90",
+    "revision": "e8a092130a07060291e3f23d0fe1067d",
     "url": "/nails/index.html"
   },
   {
@@ -224,8 +224,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/add-course~user-course.2147a43d.js"
   },
   {
-    "revision": "10960d63f7d41032794f",
-    "url": "/nails/js/app.b53634da.js"
+    "revision": "76e129d49aa930d0c830",
+    "url": "/nails/js/app.bf249331.js"
   },
   {
     "revision": "e20ab7b59425dac47c91",
@@ -256,8 +256,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/courses-online.8e9acab4.js"
   },
   {
-    "revision": "694b452b3bcfe804986e",
-    "url": "/nails/js/courses.b8ad2f8f.js"
+    "revision": "d78f396a9f1c7a5d48e3",
+    "url": "/nails/js/courses.8fff77a0.js"
   },
   {
     "revision": "bda877959ac49f297ee7",
@@ -272,8 +272,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/return.1b50ecdd.js"
   },
   {
-    "revision": "42a3543e624330b21ac2",
-    "url": "/nails/js/shop-item.221789f6.js"
+    "revision": "19abd2c0487744969749",
+    "url": "/nails/js/shop-item.3f544772.js"
   },
   {
     "revision": "cfe5626a4577ab5d2b3c",
