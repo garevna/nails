@@ -38,17 +38,17 @@
               <h3 class="darkGrey--text my-6 mx-0">{{ commodity.price }} AUD</h3>
               <div style="width: 200px">
                 <v-btn small width="100%" class="pa-2 ma-2 dgrey--text" color="orange">Add to card</v-btn>
-                <v-btn small width="100%" class="pa-2 ma-2 white--text" color="dgrey" @click="buyNow">Buy it now</v-btn>
+                <v-btn small width="100%" class="pa-2 ma-2 white--text" color="dgrey">Buy it now</v-btn>
               </div>
             </div>
           </v-col>
         </v-col>
-        <v-row class="mt-10">
+        <v-row class="mt-10" v-if="alsoViewedCommodities.length">
           <v-col cols="12">
             <h2 class="darkGrey--text text-center">People who viewed this item also viewed</h2>
           </v-col>
         </v-row>
-        <v-col cols="12">
+        <v-col cols="12" v-if="alsoViewedCommodities.length">
           <v-sheet elevation="0" width="100%">
             <v-slide-group
               class="pa-2"

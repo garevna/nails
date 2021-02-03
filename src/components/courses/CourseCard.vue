@@ -1,16 +1,18 @@
 <template>
   <v-hover v-slot="{ hover }" open-delay="100">
-    <v-card dark :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }" :width="400"  :height="420" class="cardfone ma-12">
-      <CoverImage :url="linkCheck(course)" :width="400" :height="250" class="image-course" />
+    <v-card dark :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }" width="400" class="ma-12">
+      <CoverImage :url="linkCheck(course)" :height="250"/>
       <v-card-title class="buttons--text pa-0 pl-4 pt-4">
         {{ course.accessDays }} days | $ {{ course.price }}
       </v-card-title>
-      <v-card-title class="pa-0 pl-4">
-        {{ courseName }}
-      </v-card-title>
-      <v-card-text class="pa-0 px-4 pb-4 text-start">
-        {{ courseSubtitle }}
-      </v-card-text>
+      <!-- <v-card-title class="pa-0 pl-4"> -->
+        <h3 class="pa-0 pl-4 my-2 items-text">{{ course.nameOfCourse }}</h3>
+      <!-- </v-card-title> -->
+      <!-- <v-card-text class="pa-0 px-4 pb-4 text-start"> -->
+        <!-- {{ courseSubtitle }} -->
+        <!-- {{ course.subtitle }} -->
+       <p class=" pa-0 px-4 items-text spacing">{{ course.subtitle }}</p>
+      <!-- </v-card-text> -->
       <v-card-actions v-if="type === 'online'" class="pl-4 pb-4">
         <v-btn
           color="buttons"
@@ -52,6 +54,17 @@
 </template>
 
 <style scoped>
+.items-text {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+}
+.spacing {
+  letter-spacing: unset;
+}
+
 </style>
 
 <script>
@@ -67,12 +80,12 @@ export default {
     return {};
   },
   computed:{
-    courseName () {
-      return this.course?.nameOfCourse?.length < 25 ? this.course?.nameOfCourse : this.course?.nameOfCourse?.slice(0,22)+'...'
-    },
-    courseSubtitle() {
-      return this.course?.subtitle?.length < 60 ? this.course?.subtitle : this.course?.subtitle?.slice(0, 57) + '...';
-    },
+    // courseName () {
+    //   return this.course?.nameOfCourse?.length < 25 ? this.course?.nameOfCourse : this.course?.nameOfCourse?.slice(0,22)+'...'
+    // },
+    // courseSubtitle() {
+    //   return this.course?.subtitle?.length < 50 ? this.course?.subtitle : this.course?.subtitle?.slice(0, 47) + '...';
+    // },
   },
   watch: {},
   methods: {

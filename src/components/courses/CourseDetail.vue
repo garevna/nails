@@ -45,7 +45,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" xs="12" order="1" sm="6" order-sm="2" align="center" justify="center">
-        <CoverImage :url="linkCheck(course)" :height="250" :width="400"/>
+        <CoverImage :url="linkCheck(course)" :height="500"/>
       </v-col>
       <v-col cols="12" xs="12" order="2">
         <v-card-text class="mt-16 whitefone--text d-flex justify-center justify-sm-start"
