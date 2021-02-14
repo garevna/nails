@@ -1,6 +1,9 @@
 <template>
   <v-container>
     <v-row class="d-flex justify-center">
+      <v-col cols="12" xs="12" align="right">
+        <v-btn v-if="course && !course.isPaid" @click="payDetail" rounded color="buttons" large min-width="160" class="yellow-button"> pay for the course</v-btn>
+      </v-col>
       <v-col cols="12" xs="12">
         <h2 align="center">{{ course && course.nameOfCourse }}</h2>
       </v-col>
@@ -117,6 +120,9 @@ export default {
       this.loading = true;
       await this.$store.dispatch('courses/GET_COURSE', this.$route.params.courseid);
       this.loading = false;
+    },
+    payDetail() {
+      this.$router.push({ name: 'personal-data', params: { courseid: this.$route.params.courseid } });
     },
   },
   // mounted () {},

@@ -32,7 +32,7 @@
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
         <CoverImage :url="linkCheck(video)" :height="500" />
-        <v-card flat class="d-flex justify-center mt-16">
+        <v-card flat class="d-flex justify-center my-16">
           <VideoPdfs />
         </v-card>
       </v-col>
@@ -43,7 +43,7 @@
           </v-btn>
         </div>
       </v-col>
-      <v-col v-if="showForm" cols="12" xs="12">
+      <v-col v-if="showForm" cols="12" xs="12" offset-md="3" md="6" offset-lg="4" lg="4">
         <v-form ref="form-video">
           <div v-for="(item, name) in data" :key="name">
             <TextInput
@@ -63,6 +63,7 @@
                 :label="schema[name].label"
                 :icon="schema[name].icon"
                 :size="schema[name].size"
+                :accept="schema[name].accept"
                 :required="schema[name].required"
               />
             </div>

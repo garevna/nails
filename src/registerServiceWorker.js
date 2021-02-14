@@ -1,35 +1,3 @@
-// /* eslint-disable no-console */
-
-// import { register } from 'register-service-worker';
-
-// if (process.env.NODE_ENV === 'production') {
-//   register(`${process.env.BASE_URL}service-worker.js`, {
-//     ready() {
-//       console.log(
-//         'App is being served from cache by a service worker.\n' + 'For more details, visit https://goo.gl/AFskqB'
-//       );
-//     },
-//     registered() {
-//       console.log('Service worker has been registered.');
-//     },
-//     cached() {
-//       console.log('Content has been cached for offline use.');
-//     },
-//     updatefound() {
-//       console.log('New content is downloading.');
-//     },
-//     updated() {
-//       console.log('New content is available; please refresh.');
-//     },
-//     offline() {
-//       console.log('No internet connection found. App is running in offline mode.');
-//     },
-//     error(error) {
-//       console.error('Error during service worker registration:', error);
-//     },
-//   });
-// }
-const urlFile = process.env.NODE_ENV === 'production' ? '/nails/service-worker.js' : '/service-worker.js';
 
 function invokeServiceWorkerUpdateFlow(registration) {
   // TODO implement your own UI notification element
@@ -61,8 +29,7 @@ if ('serviceWorker' in navigator) {
   // wait for the page to load
   window.addEventListener('load', async () => {
     // register the service worker from the file specified
-    // const registration = await navigator.serviceWorker.register('/service-worker.js');
-    const registration = await navigator.serviceWorker.register(urlFile);
+    const registration = await navigator.serviceWorker.register('/service-worker.js');
     // ensure the case when the updatefound event was missed is also handled
     // by re-invoking the prompt when there's a waiting Service Worker
     if (registration.waiting) {

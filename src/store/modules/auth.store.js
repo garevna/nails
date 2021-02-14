@@ -9,7 +9,7 @@ const endpoints = require('@/config/endpoints').default.auth;
 const state = {
   token: null,
   isLogged: false,
-  user: {},
+  user: null,
   loading: false,
 };
 
@@ -24,6 +24,9 @@ const mutations = {
   },
   USER: (state, payload) => {
     state.user = Object.assign({}, state.user, payload);
+  },
+  LOGOUT: (state, payload) => {
+    state.user =  payload;
   },
   LOADING: (state, payload) => {
     state.loading = payload;
@@ -58,7 +61,7 @@ const actions = {
   },
   async LOG_OUT({ commit }) {
     commit('TOKEN', null);
-    commit('USER', null);
+    commit('LOGOUT', null);
     commit('ISLOGGED', false);
     localStorage.removeItem('token');
   },

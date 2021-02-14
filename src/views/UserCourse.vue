@@ -1,6 +1,19 @@
 <template>
   <v-container id="edit-form">
     <v-row>
+      <v-col cols="12" xs="12" align="right">
+        <v-btn
+          v-if="course && !course.isPaid"
+          @click="payDetail"
+          rounded
+          color="buttons"
+          large
+          min-width="160"
+          class="yellow-button"
+        >
+          pay for the course</v-btn
+        >
+      </v-col>
       <v-col cols="12" xs="12" v-if="course && !editing">
         <CourseDetail :course="course" :type="type" btnTitle="BUY THIS COURSE" />
       </v-col>
@@ -133,6 +146,9 @@ export default {
           },
         });
       }
+    },
+    payDetail() {
+      this.$router.push({ name: 'personal-data', params: { courseid: this.$route.params.courseid } });
     },
   },
   created() {

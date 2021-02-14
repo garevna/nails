@@ -29,7 +29,6 @@ export default {
         productId: this.$route.params.courseid,
       });
       delete res.message;
-      console.log(res);
       await this.buyCourse(res);
       if (!this.error) this.$router.back();
     },
