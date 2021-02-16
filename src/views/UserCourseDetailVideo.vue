@@ -32,11 +32,16 @@
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
         <CoverImage :url="linkCheck(video)" :height="500" />
-        <v-card flat class="d-flex justify-center my-16">
+        <v-card  v-if="published" flat class="d-flex justify-center my-16">
           <VideoPdfs />
         </v-card>
+           <v-card  v-if="!published"  flat class="d-flex justify-center mt-16 transparent">
+          <a v-for="pdf in video.pdfs" :key="pdf._id" :href="pdf.link" target="_blank" class="mx-8"
+            ><v-img src="@/assets/images/pdf.svg" width="50px"
+          /></a>
+        </v-card>
       </v-col>
-      <v-col cols="12" v-if="!showForm" xs="12">
+      <v-col cols="12" v-if="!showForm && published" xs="12">
         <div class="d-flex justify-center mt-8">
           <v-btn rounded color="buttons" large min-width="160" class="yellow-button" @click="showForm = true">
             Edit
@@ -176,6 +181,9 @@ export default {
         // poster: this.video?.coverImg?.link,
       };
     },
+    published() {
+      return !this?.course?.isPublished
+    }
   },
   watch: {
     showForm(val) {

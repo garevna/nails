@@ -57,8 +57,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "course-online" */ '@/views/OnlineCourse.vue'),
   },
   {
-    path: '/courses-online/:courseid/personal-data',
-    name: 'personal-data',
+    path: '/courses-online/:courseid/by-course',
+    name: 'by-course',
+    component: () => import(/* webpackChunkName: "personal-data" */ '@/views/PersonalData.vue'),
+  },  {
+    path: '/courses-online/:courseid/by-course-creator',
+    name: 'by-course-creator',
     component: () => import(/* webpackChunkName: "personal-data" */ '@/views/PersonalData.vue'),
   },
   {

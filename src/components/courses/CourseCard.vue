@@ -96,7 +96,7 @@ export default {
       this.$router.push({ name: route, params: { id: this.course._id } });
     },
     payDetail() {
-      this.$router.push({ name: 'personal-data', params: { courseid: this.course._id } });
+      this.$router.push({ name: 'by-course', params: { courseid: this.course._id } });
     },
   },
 };

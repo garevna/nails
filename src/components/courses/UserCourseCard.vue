@@ -5,7 +5,7 @@
       :class="{ 'on-hover': hover }"
       @click="goToCourse(course._id)"
       width="500"
-      max-height="450"
+      height="400"
       class="ma-4"
     >
       <v-card-title class="d-flex justify-center py-4">
@@ -20,6 +20,7 @@
         </v-chip>
         <v-spacer />
         <v-btn
+          v-if="published"
           rounded
           color="buttons"
           large
@@ -49,6 +50,9 @@ export default {
     courseName() {
       return this.course.nameOfCourse.length < 20 ? this.course.nameOfCourse : this.course.nameOfCourse.slice(0, 17) + '...';
     },
+    published() {
+      return !this?.course?.isPublished
+    }
   },
   methods: {
     linkCheck(course) {

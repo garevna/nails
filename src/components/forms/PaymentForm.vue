@@ -82,13 +82,16 @@ export default {
   },
   methods: {
     fillingForm() {
-      if(!this.user) return
-      this.data.email = this.user.email
-      this.data.phone = this.user.phone
-      this.data.fullName = `${this.user.firstName} ${this.user.lastName}`
+      if (!this.user) return;
+      this.data.email = this.user.email;
+      this.data.phone = this.user.phone;
+      this.data.firstName = this.user.firstName;
+      this.data.lastName = this.user.lastName;
     },
     submit() {
       if (this.$refs.form.validate()) {
+        this.data.userId = this.user ? this.user._id : '';
+        this.data.productId = this.$route.params.courseid;
         this.$emit('submit', this.data);
       }
 
@@ -96,7 +99,7 @@ export default {
     },
   },
   mounted() {
-    setTimeout(this.fillingForm, 1500)
-  }
+    setTimeout(this.fillingForm, 1500);
+  },
 };
 </script>

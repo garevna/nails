@@ -11,6 +11,7 @@ export default {
     delete: 'course/online',
     newCourse: 'course/new/online',
     buyCourse: 'course/buy-online',
+    buyEndCustomer: 'course/buy-online-by-end-customer',
     video: 'course/online/video',
     findVideo: 'course/online/findvideo',
     pdf: 'course/online/pdf',

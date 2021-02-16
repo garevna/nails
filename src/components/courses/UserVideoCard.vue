@@ -4,7 +4,7 @@
       :elevation="hover ? 16 : 2"
       :class="{ 'on-hover': hover }"
       width="500"
-      max-height="450"
+      height="350"
       class="ma-4"
       @click="detailHandler"
     >
@@ -12,7 +12,7 @@
         {{ videoName }}
       </h2>
       <CoverImage :url="linkCheck(video)" :height="250" />
-      <v-card-actions class="d-flex justify-end">
+      <v-card-actions v-if="published" class="d-flex justify-end">
         <v-btn rounded color="buttons" large min-width="160" class="yellow-button" @click.stop="removeHandler"
           >Delete</v-btn
         >
@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 import CoverImage from '@/components/CoverImage.vue';
 import checkVideoLink from '@/helpers/checkVideoLink';
 export default {
@@ -34,9 +36,13 @@ export default {
     return {};
   },
   computed: {
+    ...mapState('courses',['course']),
     videoName() {
       return this.video?.name?.length < 20 ? this.video?.name : this.video?.name?.slice(0, 17) + '...';
     },
+    published() {
+      return !this?.course?.isPublished
+    }
   },
   methods: {
     linkCheck(video) {

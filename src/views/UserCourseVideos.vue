@@ -79,7 +79,7 @@ export default {
       return !this.videos.length;
     },
     showBtnAddVideo() {
-      return !this.showForm && this.videos.length < 5;
+      return !this.course.isPublished && !this.showForm && this.videos.length < 5 ;
     },
     descriptions() {
       return this.course?.description
@@ -122,7 +122,7 @@ export default {
       this.loading = false;
     },
     payDetail() {
-      this.$router.push({ name: 'personal-data', params: { courseid: this.$route.params.courseid } });
+      this.$router.push({ name: 'by-course-creator', params: { courseid: this.$route.params.courseid } });
     },
   },
   // mounted () {},

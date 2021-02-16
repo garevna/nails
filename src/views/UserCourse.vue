@@ -28,7 +28,7 @@
         <div class="d-flex flex-column align-center flex-sm-row justify-sm-center mt-8">
           <v-btn
             @click="goUploadVideos"
-            v-if="addVideos"
+            v-if="published && addVideos"
             color="buttons"
             rounded
             large
@@ -39,7 +39,7 @@
           >
           <v-btn
             @click="fillingForm"
-            v-if="!editing"
+            v-if="published && !editing"
             color="buttons"
             rounded
             large
@@ -91,6 +91,9 @@ export default {
     addVideo() {
       return this?.course?.videos?.length && !this.editing;
     },
+    published() {
+      return !this?.course?.isPublished
+    }
   },
   watch: {
     course(val) {
@@ -148,7 +151,7 @@ export default {
       }
     },
     payDetail() {
-      this.$router.push({ name: 'personal-data', params: { courseid: this.$route.params.courseid } });
+      this.$router.push({ name: 'by-course-creator', params: { courseid: this.$route.params.courseid } });
     },
   },
   created() {

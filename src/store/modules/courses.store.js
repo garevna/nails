@@ -124,6 +124,14 @@ const actions = {
       commit('ERROR', errors.buy, { root: true })
     }
   },
+  async BUY_END_CUSTOMER({ commit }, payload) {
+    const { data, error } = await postData(endpoints.buyEndCustomer, payload);
+    if (!error && data.link) {
+      window.open(data.link);
+    }else{
+      commit('ERROR', errors.buy, { root: true })
+    }
+  },
   // !==========================================================================
   async PUT_VIDEO({ commit, dispatch }, { fd, id }) {
     const { error } = await putData(`${endpoints.video}/${id}`, fd);
