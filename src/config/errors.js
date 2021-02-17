@@ -64,4 +64,11 @@ export default {
       errorMessage: 'Process failed. Message has not been delivered',
     },
   },
+  instagram: {
+    get: {
+      error: true,
+      errorType: 'Reading instagram request',
+      errorMessage: 'Process failed. Data was not received',
+    },
+  }
 };

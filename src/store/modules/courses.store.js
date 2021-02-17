@@ -1,7 +1,7 @@
 /* eslint-disable no-irregular-whitespace */
 const { getData, postData, putData, deleteData } = require('@/helpers').default;
 
-const errors = require('@/config/errors').default.online
+const errors = require('@/config/errors').default.online;
 // const messages = require('@/config/messages').default.onlineCourses
 
 const endpoints = require('@/config/endpoints').default.onlineCourses;
@@ -20,7 +20,7 @@ const mutations = {
     state.courses = payload;
   },
   ADD_COURSES: (state, payload) => {
-    state.courses = payload;
+    state.courses = state.courses.concat(payload);
   },
   COURSE: (state, payload) => {
     state.course = payload;
@@ -59,29 +59,39 @@ const actions = {
   // ===================================================
 
   async GET_ALL_COURSES({ commit }) {
-    const { onlineCourses, error, total } = await getData(endpoints.get);
+    const { onlineCourses, error, total } = await getData(`${endpoints.get}?published=true`);
     if (!error) {
       commit('COURSES', onlineCourses);
       commit('TOTAL', total);
     } else {
-      commit('ERROR', errors.get, { root: true })
+      commit('ERROR', errors.get, { root: true });
     }
   },
   async GET_MORE_COURSES({ commit }, skip) {
-    const { onlineCourses, error, total } = await getData(`${endpoints.get}?skip=${skip}`);
+    const { onlineCourses, error, total } = await getData(`${endpoints.get}?skip=${skip}&published=true`);
     if (!error) {
       commit('ADD_COURSES', onlineCourses);
       commit('TOTAL', total);
     } else {
-      commit('ERROR', errors.get, { root: true })
+      commit('ERROR', errors.get, { root: true });
     }
   },
   async GET_COURSES({ commit, rootState }) {
-    const { onlineCourses, error } = await getData(`${endpoints.get}?userId=${rootState.auth.user._id}`);
+    const { onlineCourses, error, total } = await getData(`${endpoints.get}?userId=${rootState.auth.user._id}`);
     if (!error) {
       commit('COURSES', onlineCourses);
+      commit('TOTAL', total);
     } else {
-      commit('ERROR', errors.get, { root: true })
+      commit('ERROR', errors.get, { root: true });
+    }
+  },
+  async GET_MORE_USER_COURSES({ commit, rootState }, skip) {
+    const { onlineCourses, error, total } = await getData(`${endpoints.get}?userId=${rootState.auth.user._id}&skip=${skip}`);
+    if (!error) {
+      commit('ADD_COURSES', onlineCourses);
+      commit('TOTAL', total);
+    } else {
+      commit('ERROR', errors.get, { root: true });
     }
   },
   async GET_COURSE({ commit }, id) {
@@ -89,7 +99,7 @@ const actions = {
     if (!error) {
       commit('COURSE', onlineCourse);
     } else {
-      commit('ERROR', errors.get, { root: true })
+      commit('ERROR', errors.get, { root: true });
     }
   },
   async POST_COURSE({ commit, dispatch }, fd) {
@@ -98,38 +108,43 @@ const actions = {
       dispatch('GET_COURSES');
       commit('COURSE', newOnlineCourse);
     } else {
-      commit('ERROR', errors.get, { root: true })
+      commit('ERROR', { error: true, errorType: 'Add online course', errorMessage: error }, { root: true });
     }
   },
   async PUT_COURSE({ state, commit }, { data, id }) {
     const { updatedOnlineCourse, error } = await putData(`${endpoints.get}/${id}`, data);
     if (!error) {
       commit('COURSE', updatedOnlineCourse);
-      commit('COURSES', state.courses.map(course => course._id === id ? updatedOnlineCourse: course));
+      commit(
+        'COURSES',
+        state.courses.map(course => (course._id === id ? updatedOnlineCourse : course))
+      );
     } else {
-      commit('ERROR', errors.get, { root: true })
+      commit('ERROR', { error: true, errorType: 'Update online course', errorMessage: error }, { root: true });
     }
   },
-  async DELETE_COURSE({ dispatch }, courseId) {
+  async DELETE_COURSE({ commit, dispatch }, courseId) {
     const response = await deleteData(`${endpoints.delete}/${courseId}`);
     if (!response.error) {
       dispatch('GET_COURSES');
+    } else {
+      commit('ERROR', { error: true, errorType: 'Delete online course', errorMessage: response.error }, { root: true });
     }
   },
   async BUY_COURSE({ commit }, payload) {
     const { data, error } = await postData(endpoints.buyCourse, payload);
     if (!error && data.link) {
       window.open(data.link);
-    }else{
-      commit('ERROR', errors.buy, { root: true })
+    } else {
+      commit('ERROR', errors.buy, { root: true });
     }
   },
   async BUY_END_CUSTOMER({ commit }, payload) {
     const { data, error } = await postData(endpoints.buyEndCustomer, payload);
     if (!error && data.link) {
       window.open(data.link);
-    }else{
-      commit('ERROR', errors.buy, { root: true })
+    } else {
+      commit('ERROR', errors.buy, { root: true });
     }
   },
   // !==========================================================================
@@ -138,7 +153,7 @@ const actions = {
     if (!error) {
       dispatch('GET_FIND_VIDEO', id);
     } else {
-      commit('ERROR', errors.get, { root: true })
+      commit('ERROR', { error: true, errorType: 'Update video lesson', errorMessage: error }, { root: true });
     }
   },
   async ADD_QUEUE({ commit }, arr) {
@@ -156,7 +171,7 @@ const actions = {
         commit('COMPLETE', payload.index);
       } else {
         commit('UPLOAD_FAIL', { index: payload.index, error: true });
-        commit('ERROR', errors.addLesson, { root: true })
+        commit('ERROR', errors.addLesson, { root: true });
       }
     });
     request.send(payload.lesson);
@@ -165,24 +180,24 @@ const actions = {
     const { video, error } = await getData(`${endpoints.findVideo}/${id}`);
     if (!error) {
       commit('VIDEO', video);
-    }else{
-      commit('ERROR', errors.get, { root: true })
+    } else {
+      commit('ERROR', errors.get, { root: true });
     }
   },
   async GET_VIDEO({ commit }, id) {
     const { video, error } = await getData(`${endpoints.video}/${id}`);
     if (!error) {
       commit('VIDEO', video);
-    }else {
-      commit('ERROR', errors.get, { root: true })
+    } else {
+      commit('ERROR', errors.get, { root: true });
     }
   },
   async DELETE_VIDEO({ commit, dispatch }, { id, courseId }) {
     const { error } = await deleteData(`${endpoints.video}/${id}`);
     if (!error) {
       dispatch('GET_COURSE', courseId);
-    }else {
-      commit('ERROR', errors.delete, { root: true })
+    } else {
+      commit('ERROR', { error: true, errorType: 'Delete video lesson', errorMessage: error }, { root: true });
     }
   },
   async ADD_PDF({ commit, dispatch }, { fd, videoId, currentCourseId }) {
@@ -191,8 +206,8 @@ const actions = {
       dispatch('GET_COURSES');
       dispatch('GET_COURSE', currentCourseId);
       dispatch('GET_FIND_VIDEO', videoId);
-    }else {
-      commit('ERROR', errors.addPdf, { root: true })
+    } else {
+      commit('ERROR', { error: true, errorType: 'Add pdf', errorMessage: error }, { root: true });
     }
   },
   async REMOVE_PDF({ commit, dispatch }, { id, videoId, currentCourseId }) {
@@ -202,7 +217,7 @@ const actions = {
       dispatch('GET_COURSE', currentCourseId);
       dispatch('GET_FIND_VIDEO', videoId);
     } else {
-      commit('ERROR', errors.delete, { root: true })
+      commit('ERROR', { error: true, errorType: 'Delete pdf', errorMessage: error }, { root: true });
     }
   },
 };

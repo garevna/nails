@@ -58,6 +58,7 @@ export default new Vuetify({
         onlineCardFone: '#414242',
         disabledPathBreadcrumbs: '#ffffff',
         text: '#fff',
+        textSlider:'#000',
         btnEdit: '#278ed3'
       },
     },

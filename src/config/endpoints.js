@@ -38,4 +38,7 @@ export default {
     files: 'shop/commodity/files',
     newSubcategory: 'Fshop/file',
   },
+  instagram: {
+    get: 'instagram'
+  }
 };

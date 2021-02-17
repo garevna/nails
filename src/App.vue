@@ -92,6 +92,7 @@ export default {
     this.onResize();
     // this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
     window.addEventListener('resize', this.onResize, { passive: true });
+    this.$store.dispatch('instagram/GET_INSTAGRAM');
   },
   async created() {
     await this.$store.dispatch('auth/IS_SIGNED');

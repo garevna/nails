@@ -3,7 +3,7 @@
     <div class="d-flex flex-wrap justify-center">
       <CourseCard v-for="(card, index) in courses" :key="index" :course="card" type="online" />
     </div>
-    <div class="text-center">
+    <div v-if="hideBtn" class="text-center">
       <v-btn
         color="buttons"
         rounded
@@ -12,8 +12,7 @@
         dark
         min-width="90"
         class="yellow-button"
-        v-if="isHideMoreButtonOnline"
-        @click="getMoreCourses"
+        @click="getMore"
         >more courses</v-btn
       >
     </div>
@@ -38,7 +37,7 @@ export default {
   },
   computed: {
     ...mapState('courses', ['courses', 'total']),
-    isHideMoreButtonOnline() {
+    hideBtn() {
       return this.courses.length < this.total;
     },
   },
@@ -47,7 +46,7 @@ export default {
       getMoreCourses: 'GET_MORE_COURSES',
       getAllCourses: 'GET_ALL_COURSES',
     }),
-    getMoreOnlineCourses() {
+    getMore() {
       this.getMoreCourses(this.courses.length);
     },
   },

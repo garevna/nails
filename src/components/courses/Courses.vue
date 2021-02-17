@@ -23,7 +23,7 @@
           :payDetail="payDetail"
         />
       </div>
-      <div class="d-flex justify-center">
+      <div v-if="isHideMoreButtonOnline && this.$route.name !== 'home'" class="d-flex justify-center">
         <v-btn
           color="buttons"
           rounded
@@ -31,7 +31,6 @@
           outlined
           primary
           class="ref d-flex justify-center yellow-button pa-6"
-          v-if="isHideMoreButtonOnline && this.$route.name !== 'home'"
           @click="getMoreOnlineCourses"
           >more online courses</v-btn
         >
@@ -78,7 +77,7 @@
 </template>
 
 <style scoped lang="scss">
-@import "@/css/variables.scss";
+@import '@/css/variables.scss';
 h2 {
   color: white;
 }
@@ -92,61 +91,59 @@ h2 {
 </style>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
-import CourseCard from '@/components/courses/CourseCard.vue'
+import CourseCard from '@/components/courses/CourseCard.vue';
 
 export default {
   components: {
-    CourseCard
+    CourseCard,
   },
-  data () {
-    return {
-    }
+  data() {
+    return {};
   },
   computed: {
     ...mapState('offlineCourses', ['offlineCourses', 'totalOfflineCourses']),
     ...mapState('courses', ['courses', 'total']),
-    isHideMoreButtonOnline () {
-      return this.courses.length < this.total
+    isHideMoreButtonOnline() {
+      return this.courses.length < this.total;
     },
-    isHideMoreButtonOffline () {
-      return this.offlineCourses.length < this.totalOfflineCourses
-    }
+    isHideMoreButtonOffline() {
+      return this.offlineCourses.length < this.totalOfflineCourses;
+    },
   },
   methods: {
-    detailInfo (route, id) {
-      this.$router.push({ name: route, params: { id } })
+    detailInfo(route, id) {
+      this.$router.push({ name: route, params: { id } });
     },
-    payDetail (type, id) {
+    payDetail(type, id) {
       // this.$router.push({ name: 'personal-data' })
       this.$router.push({
         name: type === 'online' ? 'personal-data' : 'personal-data-off',
         params: {
-          courseid: id
-        }
-      })
+          courseid: id,
+        },
+      });
     },
-    toOfflineCourses () {
-      this.$router.push({ name: 'courses-offline' })
+    toOfflineCourses() {
+      this.$router.push({ name: 'courses-offline' });
     },
-    toOnlineCourses () {
-      this.$router.push({ name: 'courses-online' })
+    toOnlineCourses() {
+      this.$router.push({ name: 'courses-online' });
     },
-    async getCourses () {
-      await this.$store.dispatch('offlineCourses/GET_OFFLINE_COURSES')
-      await this.$store.dispatch('courses/GET_ALL_COURSES')
+    getCourses() {
+      this.$store.dispatch('offlineCourses/GET_OFFLINE_COURSES');
+      this.$store.dispatch('courses/GET_ALL_COURSES');
     },
-    async getMoreOnlineCourses () {
-      await this.$store.dispatch('courses/GET_MORE_COURSES', this.courses.length
-      )
+    getMoreOnlineCourses() {
+      this.$store.dispatch('courses/GET_MORE_COURSES', this.courses.length);
     },
-    async getMoreOfflineCourses () {
-      await this.$store.dispatch('offlineCourses/GET_MORE_OFFLINE_COURSES', this.offlineCourses.length)
-    }
+    getMoreOfflineCourses() {
+      this.$store.dispatch('offlineCourses/GET_MORE_OFFLINE_COURSES', this.offlineCourses.length);
+    },
   },
-  mounted () {
-    this.getCourses()
-  }
-}
+  mounted() {
+    this.getCourses();
+  },
+};
 </script>

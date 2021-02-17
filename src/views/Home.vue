@@ -69,10 +69,10 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="12">
-        <v-card flat class="transparent mx-auto my-10" max-width="1360">
+      <v-col cols="12" class="my-16">
+        <!-- <v-card flat class="transparent mx-auto my-10" max-width="1360"> -->
           <Carousel />
-        </v-card>
+        <!-- </v-card> -->
       </v-col>
       <v-col cols="12" class="pa-0">
         <!-- <v-row> -->
