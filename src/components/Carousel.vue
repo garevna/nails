@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="images.length">
     <v-card
       v-if="viewportWidth >= 600"
       flat
