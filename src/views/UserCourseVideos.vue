@@ -79,7 +79,7 @@ export default {
       return !this.videos.length;
     },
     showBtnAddVideo() {
-      return !this.course.isPublished && !this.showForm && this.videos.length < 5 ;
+      return !this.course?.isPublished && !this.showForm && this.videos.length < 5 ;
     },
     descriptions() {
       return this.course?.description
