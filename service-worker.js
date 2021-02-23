@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/nails/precache-manifest.7b7cbd0cf06851692a2be46f60f33384.js"
+  "/nails/precache-manifest.5f559f8f4e50379e53e0e1d563af822b.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "nails"});
