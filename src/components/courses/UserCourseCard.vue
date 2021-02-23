@@ -9,8 +9,7 @@
       class="ma-4"
     >
       <v-card-title class="d-flex justify-center py-4">
-        <!-- <h2>{{ course.nameOfCourse }}</h2> -->
-        <h2>{{ courseName }}</h2>
+        <h2 class="items-text">{{ course.nameOfCourse }}</h2>
       </v-card-title>
       <CoverImage :url="linkCheck(course)" :height="250" />
       <v-card-actions class="d-flex pa-4">
@@ -47,9 +46,9 @@ export default {
     return {};
   },
   computed: {
-    courseName() {
-      return this.course.nameOfCourse.length < 20 ? this.course.nameOfCourse : this.course.nameOfCourse.slice(0, 17) + '...';
-    },
+    // courseName() {
+    //   return this.course.nameOfCourse.length < 20 ? this.course.nameOfCourse : this.course.nameOfCourse.slice(0, 17) + '...';
+    // },
     published() {
       return !this?.course?.isPublished
     }
@@ -63,4 +62,14 @@ export default {
 </script>
 
 <style scoped>
+.items-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.spacing {
+  letter-spacing: unset;
+}
 </style>
