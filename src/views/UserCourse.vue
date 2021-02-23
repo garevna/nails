@@ -24,7 +24,7 @@
         <CourseCard :course="courseData" :type="type" />
       </v-col>
       <v-col cols="12" xs="12">
-        <CourseDetail v-if="editing" :course="courseData" :type="type" btnTitle="BUY THIS COURSE" />
+        <CourseDetail v-if="editing" :course="courseUpdate" :type="type" btnTitle="BUY THIS COURSE" />
         <div class="d-flex flex-column align-center flex-sm-row justify-sm-center mt-8">
           <v-btn
             @click="goUploadVideos"
@@ -93,6 +93,9 @@ export default {
     },
     published() {
       return !this?.course?.isPublished
+    },
+    courseUpdate() {
+      return Object.assign({}, this.course, this.courseData)
     }
   },
   watch: {
