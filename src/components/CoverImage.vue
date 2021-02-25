@@ -22,8 +22,8 @@ export default {
   data() {
     return {
       error: false,
-      // coverImageSrc: `${process.env.BASE_URL}/img/noImage300x300.png`,
-      coverImageSrc: `${process.env.VUE_APP_LOCAL_URL}/img/noImage300x300.png`,
+      coverImageSrc: `${process.env.BASE_URL}/img/noImage300x300.png`,
+      // coverImageSrc: `${process.env.VUE_APP_LOCAL_URL}/img/noImage300x300.png`,
     };
   },
   computed: {

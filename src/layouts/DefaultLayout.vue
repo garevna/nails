@@ -1,5 +1,5 @@
 <template>
-  <v-container class="homefone" fluid>
+  <v-container dark class="homefone" fluid>
     <Breadcrumbs />
     <router-view />
   </v-container>

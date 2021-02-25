@@ -114,8 +114,8 @@ p {
 <script>
 import { mapState } from 'vuex';
 
-import ImageShop from '@/components/svg/ImageShop.vue';
-import ImageCourses from '@/components/svg/ImageCourses.vue';
+// import ImageShop from '@/components/svg/ImageShop.vue';
+// import ImageCourses from '@/components/svg/ImageCourses.vue';
 import Carousel from '@/components/Carousel.vue';
 import Courses from '@/components/courses/Courses.vue';
 
@@ -123,8 +123,8 @@ export default {
   name: 'Home',
   components: {
     Carousel,
-    ImageShop,
-    ImageCourses,
+    ImageShop:() => import('@/components/svg/ImageShop.vue'),
+    ImageCourses:() => import('@/components/svg/ImageCourses.vue'),
     Courses,
   },
   data: () => ({
