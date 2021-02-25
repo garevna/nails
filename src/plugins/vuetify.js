@@ -33,6 +33,7 @@ export default new Vuetify({
         // courses
         coursesGray: '#4D4D4D',
         notPaidAndPublished: '#369ab3',
+        paidAndPublished: '#FFC44A',
         error: '#f5420d',
         onlineCardFone: '#414242',
         disabledPathBreadcrumbs: '#262624',
@@ -54,6 +55,7 @@ export default new Vuetify({
         // courses
         coursesGray: '#4D4D4D',
         notPaidAndPublished: '#369ab3',
+        paidAndPublished: '#FFC44A',
         error: '#f5420d',
         onlineCardFone: '#414242',
         disabledPathBreadcrumbs: '#ffffff',

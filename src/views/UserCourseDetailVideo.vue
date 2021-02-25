@@ -1,23 +1,8 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col cols="12" xs="12">
-        <v-progress-circular v-if="loading" indeterminate color="primary"></v-progress-circular>
-      </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" class="player-container" v-if="!loading && video">
-        <!-- <vue-core-video-player :src="video.link" /> -->
-
-        <!-- <video width="100%"  playsinline controls>
-          <source :src="video.link" type="video/mp4" />
-          <source :src="video.link" type="video/webm" />
-        </video> -->
-
-        <video-player
-          class="vjs-custom-skin"
-          ref="videoPlayer"
-          :options="playerOptions"
-        >
-        </video-player>
+        <video-player class="vjs-custom-skin" ref="videoPlayer" :options="playerOptions"> </video-player>
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
         <v-card flat class="transparent">
@@ -31,19 +16,22 @@
         </v-card>
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
-        <CoverImage :url="linkCheck(video)" :height="500" />
-        <v-card  v-if="published" flat class="d-flex justify-center my-16">
-          <VideoPdfs />
-        </v-card>
-           <v-card  v-if="!published"  flat class="d-flex justify-center mt-16 transparent">
-          <a v-for="pdf in video.pdfs" :key="pdf._id" :href="pdf.link" target="_blank" class="mx-8"
-            ><v-img src="@/assets/images/pdf.svg" width="50px"
-          /></a>
+        <CoverImage :url="linkCheck(video)" :width="'100%'" :height="'auto'" />
+        <v-card flat class="d-flex justify-center my-16">
+          <VideoPdfs :disabled="published" />
         </v-card>
       </v-col>
-      <v-col cols="12" v-if="!showForm && published" xs="12">
+      <v-col cols="12" v-if="!showForm" xs="12">
         <div class="d-flex justify-center mt-8">
-          <v-btn rounded color="buttons" large min-width="160" class="yellow-button" @click="showForm = true">
+          <v-btn
+            :disabled="published"
+            rounded
+            color="buttons"
+            large
+            min-width="160"
+            class="yellow-button"
+            @click="showForm = true"
+          >
             Edit
           </v-btn>
         </div>
@@ -99,22 +87,6 @@
   </v-container>
 </template>
 
-<style>
-.vjs_video_3-dimensions {
-   height: unset;
-   width: unset;
-}
-.video-js {
-    width: 100%;
-    height: 500px;
-}
-.video-js .vjs-big-play-button {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-}
-
-</style>
 
 <script>
 import { mapState, mapActions } from 'vuex';
@@ -182,8 +154,8 @@ export default {
       };
     },
     published() {
-      return !this?.course?.isPublished
-    }
+      return this?.course?.isPublished;
+    },
   },
   watch: {
     showForm(val) {
@@ -242,13 +214,22 @@ export default {
   created() {
     this.get();
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>
 
-<style scoped>
-.pdf-link:not(:last-child) {
-  margin-right: 50px;
+<style>
+.vjs_video_3-dimensions {
+  height: unset;
+  width: unset;
+}
+.video-js {
+  width: 100%;
+  height: 500px;
+}
+.video-js .vjs-big-play-button {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>

@@ -24,7 +24,7 @@
                   class="d-flex transition-fast-in-fast-out orange  v-card--reveal  pa-4"
                   style="height: 100%"
                 >
-                 <p class="textSlider--text text-left">{{ image.caption }}</p> 
+                 <p class="textSlider--text text-left items-text">{{ image.caption }}</p> 
                 </div>
               </v-expand-transition>
                 </v-img>
@@ -55,7 +55,7 @@
 import { mapState } from 'vuex';
 
 export default {
-  name: 'Slider',
+  name: 'Carousel',
   data: () => ({
     model: 0,
     mouseover: false,
@@ -74,7 +74,7 @@ export default {
     images() {
       return this.media.map(item => ({
         img: item.thumbnails[this.widthIndex],
-        caption: item.caption,
+        caption: item.caption || 'Watch video ...',
         shortcode: item.shortcode,
       }));
     },
@@ -112,7 +112,13 @@ export default {
   position: absolute;
   width: 100%;
 }
-
+.items-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+}
 </style>
 <style>
 .v-slide-group.v-item-group > .v-slide-group__next,

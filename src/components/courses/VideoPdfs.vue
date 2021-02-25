@@ -7,13 +7,7 @@
       <div v-for="pdf in pdfs" :key="pdf._id" class="d-flex flex-column align-center mx-4">
         <v-tooltip top color="primary">
           <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              v-on="on"
-              v-bind="attrs"
-              icon
-              color="primary"
-              @click="removePdf(pdf._id)"
-            >
+            <v-btn  :disabled="disabled" v-on="on" v-bind="attrs" icon color="primary" @click="removePdf(pdf._id)">
               <v-icon large>mdi-close-circle-outline</v-icon>
             </v-btn>
           </template>
@@ -30,6 +24,7 @@
           icon="mdi-plus-circle-outline"
           :accept="schema.accept"
           :size="5000"
+          :disabled="disabled"
         />
       </v-form>
     </v-card>
@@ -44,6 +39,12 @@ const schema = require('@/config/addPdfSchema').default;
 
 export default {
   name: 'VideoPdfs',
+  props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+  },
   components: {
     IconFileInput,
   },
@@ -64,7 +65,7 @@ export default {
     data(val) {
       if (!val) return;
       this.addPdf();
-    }
+    },
   },
   methods: {
     ...mapActions('courses', {
@@ -95,8 +96,7 @@ export default {
       this.errors = this.$refs.form.inputs[0]?.errorBucket ?? [];
     },
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>
 

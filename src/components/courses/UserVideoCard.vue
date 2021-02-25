@@ -3,19 +3,17 @@
     <v-card
       :elevation="hover ? 16 : 2"
       :class="{ 'on-hover': hover }"
-      width="500"
-      height="350"
+      :width="width"
       class="ma-4"
       @click="detailHandler"
     >
-      <h2 class="text-center">
-        {{ videoName }}
+      <h2 class="text-center items-text pa-4">
+        {{ video.name }}
       </h2>
-      <CoverImage :url="linkCheck(video)" :height="250" />
-      <v-card-actions v-if="published" class="d-flex justify-end">
-        <v-btn rounded color="buttons" large min-width="160" class="yellow-button" @click.stop="removeHandler"
-          >Delete</v-btn
-        >
+      <CoverImage :url="linkCheck(video)" />
+      <v-card-actions class="pa-4">
+        <v-spacer />
+        <v-btn :disabled="published" rounded color="buttons" class="yellow-button pa-4" @click.stop="removeHandler">Delete</v-btn>
       </v-card-actions>
     </v-card>
   </v-hover>
@@ -27,8 +25,25 @@ import { mapState } from 'vuex';
 import CoverImage from '@/components/CoverImage.vue';
 import checkVideoLink from '@/helpers/checkVideoLink';
 export default {
-  props: ['goToDetailVideo', 'video', 'removeVideo'],
   name: 'UserVideoCard',
+  props: {
+    video: {
+      type: Object,
+      required: true,
+    },
+    goToDetailVideo: {
+      type: Function,
+      required: true,
+    },
+    removeVideo: {
+      type: Function,
+      required: true,
+    },
+    width: {
+      type: String,
+      default: '300',
+    },
+  },
   components: {
     CoverImage,
   },
@@ -36,13 +51,10 @@ export default {
     return {};
   },
   computed: {
-    ...mapState('courses',['course']),
-    videoName() {
-      return this.video?.name?.length < 20 ? this.video?.name : this.video?.name?.slice(0, 17) + '...';
-    },
+    ...mapState('courses', ['course']),
     published() {
-      return !this?.course?.isPublished
-    }
+      return this?.course?.isPublished;
+    },
   },
   methods: {
     linkCheck(video) {
@@ -58,5 +70,15 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.items-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.spacing {
+  letter-spacing: unset;
+}
 </style>

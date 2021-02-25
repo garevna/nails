@@ -4,27 +4,26 @@
       :elevation="hover ? 16 : 2"
       :class="{ 'on-hover': hover }"
       @click="goToCourse(course._id)"
-      width="500"
-      height="400"
+      :width="width"
       class="ma-4"
     >
-      <v-card-title class="d-flex justify-center py-4">
-        <h2 class="items-text">{{ course.nameOfCourse }}</h2>
-      </v-card-title>
-      <CoverImage :url="linkCheck(course)" :height="250" />
-      <v-card-actions class="d-flex pa-4">
-        <v-chip v-if="!course.isPaid" class="ma-2" color="notPaidAndPublished" text-color="white"> not paid </v-chip>
-        <v-chip v-if="!course.isPublished" class="ma-2" color="notPaidAndPublished" text-color="white">
-          not published
-        </v-chip>
+        <h2 class="text-center items-text pa-4">{{ course.nameOfCourse }}</h2>
+      <CoverImage :url="linkCheck(course)" />
+      <div class="pa-4 d-flex">
+        <v-chip :color="paid ? 'paidAndPublished' : 'notPaidAndPublished'"  text-color="white"> {{paid ? 'paid': 'not paid' }}</v-chip>
+        <v-spacer />
+        <v-chip :color="published ? 'paidAndPublished' : 'notPaidAndPublished'"  text-color="white"> {{published ? 'published': 'not published' }}</v-chip>
+        <v-spacer />
+        <v-chip :color="lessonsCounter ? 'paidAndPublished' : 'notPaidAndPublished'" text-color="white">{{lessonsCounter}} lessons </v-chip>
+      </div>
+      <hr class="mx-4" />
+      <v-card-actions class="pa-4">
         <v-spacer />
         <v-btn
-          v-if="published"
+          :disabled="published"
           rounded
           color="buttons"
-          large
-          min-width="160"
-          class="yellow-button"
+          class="yellow-button pa-4"
           @click.stop="removeCourse(course._id)"
           >Delete</v-btn
         >
@@ -37,8 +36,25 @@
 import CoverImage from '@/components/CoverImage.vue';
 import checkCourseLink from '@/helpers/checkCourseLink';
 export default {
-  props: ['goToCourse', 'course', 'removeCourse'],
   name: 'UserCourseCard',
+  props: {
+    course: {
+      type: Object,
+      required: true,
+    },
+    goToCourse: {
+      type: Function,
+      required: true,
+    },
+    removeCourse: {
+      type: Function,
+      required: true,
+    },
+    width: {
+      type: String,
+      default: '300',
+    },
+  },
   components: {
     CoverImage,
   },
@@ -46,11 +62,14 @@ export default {
     return {};
   },
   computed: {
-    // courseName() {
-    //   return this.course.nameOfCourse.length < 20 ? this.course.nameOfCourse : this.course.nameOfCourse.slice(0, 17) + '...';
-    // },
     published() {
-      return !this?.course?.isPublished
+      return this?.course?.isPublished ?? false;
+    },
+    lessonsCounter() {
+      return this?.course?.lessonsCounter ?? 0;
+    },
+    paid() {
+      return this?.course?.isPaid ?? false;
     }
   },
   methods: {

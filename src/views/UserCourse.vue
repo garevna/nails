@@ -15,31 +15,32 @@
         >
       </v-col>
       <v-col cols="12" xs="12" v-if="course && !editing">
-        <CourseDetail :course="course" :type="type" btnTitle="BUY THIS COURSE" />
+        <CourseDetail :course="course" :type="type" btnTitle="BUY THIS COURSE" :preview="true"/>
       </v-col>
       <v-col cols="12" xs="12" md="7" v-if="editing">
         <AddCourseForm :course.sync="courseData" @submit="submit" @back="back" />
       </v-col>
       <v-col v-if="editing" cols="12" xs="12" md="5" class="d-flex flex-column justify-space-between align-center">
-        <CourseCard :course="courseData" :type="type" />
+        <CourseCard :course="courseData" :type="type" :preview="true" />
       </v-col>
       <v-col cols="12" xs="12">
-        <CourseDetail v-if="editing" :course="courseUpdate" :type="type" btnTitle="BUY THIS COURSE" />
+        <CourseDetail v-if="editing" :course="courseUpdate" :type="type" btnTitle="BUY THIS COURSE" :preview="true"/>
         <div class="d-flex flex-column align-center flex-sm-row justify-sm-center mt-8">
           <v-btn
             @click="goUploadVideos"
-            v-if="published && addVideos"
+            v-if="!published && addVideos"
             color="buttons"
             rounded
             large
             dark
             min-width="160"
             class="yellow-button my-8 my-sm-0 mr-sm-8"
-            >Upload videos</v-btn
+            >Upload video lessons of this course</v-btn
           >
           <v-btn
             @click="fillingForm"
-            v-if="published && !editing"
+            v-if="!editing"
+            :disabled="published"
             color="buttons"
             rounded
             large
@@ -57,7 +58,7 @@
             dark
             min-width="160"
             class="yellow-button"
-            >Videos</v-btn
+            > go to all  video lessons of this course</v-btn
           >
         </div>
       </v-col>
@@ -92,7 +93,7 @@ export default {
       return this?.course?.videos?.length && !this.editing;
     },
     published() {
-      return !this?.course?.isPublished
+      return this?.course?.isPublished
     },
     courseUpdate() {
       return Object.assign({}, this.course, this.courseData)

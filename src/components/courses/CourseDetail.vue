@@ -45,7 +45,7 @@
         </v-card>
       </v-col>
       <v-col cols="12" xs="12" order="1" sm="6" order-sm="2" align="center" justify="center">
-        <CoverImage :url="linkCheck(course)" :height="500"/>
+        <CoverImage :url="linkCheck(course)" />
       </v-col>
       <v-col cols="12" xs="12" order="2">
         <v-card-text class="mt-16 whitefone--text d-flex justify-center justify-sm-start"
@@ -100,6 +100,10 @@ export default {
       type: String,
       required: true,
     },
+    preview: {
+      type: Boolean,
+      default: false,
+    },
   },
   components: {
     CoverImage,
@@ -123,14 +127,13 @@ export default {
       return checkCourseLink(course);
     },
     btnHandler() {
-      if (!this.$route.fullPath.includes('user-cabinet')) {
-        this.$router.push({
-          name: this.type === 'online' ? 'by-course' : 'personal-data-off',
-          params: {
-            courseid: this.course._id,
-          },
-        });
-      }
+      if (this.preview) return;
+      this.$router.push({
+        name: this.type === 'online' ? 'by-course' : 'personal-data-off',
+        params: {
+          courseid: this.course._id,
+        },
+      });
     },
   },
 };

@@ -12,7 +12,7 @@ export default {
   components: {
     Breadcrumbs,
   },
-  beforeCreate() {
+  mounted() {
     this.$vuetify.theme.dark = true;
   },
   beforeDestroy() {

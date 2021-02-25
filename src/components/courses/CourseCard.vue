@@ -1,7 +1,7 @@
 <template>
   <v-hover v-slot="{ hover }" open-delay="100">
-    <v-card dark :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }" width="400" class="ma-12">
-      <CoverImage :url="linkCheck(course)" :height="250" />
+    <v-card dark :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }" :width="width" class="ma-12">
+      <CoverImage :url="linkCheck(course)" />
       <v-card-title class="buttons--text pa-0 pl-4 pt-4">
         {{ course.accessDays }} days | $ {{ course.price }}
       </v-card-title>
@@ -47,24 +47,11 @@
   </v-hover>
 </template>
 
-<style scoped>
-.items-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-}
-.spacing {
-  letter-spacing: unset;
-}
-</style>
-
 <script>
 import CoverImage from '@/components/CoverImage.vue';
 import checkCourseLink from '@/helpers/checkCourseLink';
 export default {
-  name: 'course-card',
+  name: 'CourseCard',
   props: {
     course: {
       type: Object,
@@ -73,7 +60,15 @@ export default {
     type: {
       type: String,
       required: true,
-    }
+    },
+    preview: {
+      type: Boolean,
+      default: false,
+    },
+    width: {
+      type: String,
+      default: '300',
+    },
   },
   components: {
     CoverImage,
@@ -81,29 +76,33 @@ export default {
   data() {
     return {};
   },
-  computed: {
-    // courseName () {
-    //   return this.course?.nameOfCourse?.length < 25 ? this.course?.nameOfCourse : this.course?.nameOfCourse?.slice(0,22)+'...'
-    // },
-    // courseSubtitle() {
-    //   return this.course?.subtitle?.length < 50 ? this.course?.subtitle : this.course?.subtitle?.slice(0, 47) + '...';
-    // },
-  },
+  computed: {},
   watch: {},
   methods: {
     linkCheck(course) {
       return checkCourseLink(course);
     },
     detailInfo(route) {
-      if (!this.$route.fullPath.includes('user-cabinet')) {
-        this.$router.push({ name: route, params: { id: this.course._id } });
-      }
+      if (this.preview) return;
+      this.$router.push({ name: route, params: { id: this.course._id } });
     },
     payDetail() {
-      if (!this.$route.fullPath.includes('user-cabinet')) {
-        this.$router.push({ name: 'by-course', params: { courseid: this.course._id } });
-      }
+      if (this.preview) return;
+      this.$router.push({ name: 'by-course', params: { courseid: this.course._id } });
     },
   },
 };
 </script>
+
+<style scoped>
+  .items-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+  .spacing {
+    letter-spacing: unset;
+  }
+</style>

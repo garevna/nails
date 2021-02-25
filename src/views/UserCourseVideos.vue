@@ -38,7 +38,7 @@
       </v-col>
       <v-col cols="12" xs="12" class="d-flex justify-center" v-if="showBtnAddVideo">
         <v-btn rounded color="buttons" large min-width="160" class="yellow-button" @click="showForm = true">
-          add video</v-btn
+          add video lesson</v-btn
         >
       </v-col>
       <DeletePopup :cancelHandler="cancelHandler" :deleteHandler="deleteVideo" name="video" :dialog="dialog" />
