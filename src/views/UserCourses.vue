@@ -16,7 +16,7 @@
           :removeCourse="removeCourse"
         />
       </v-col>
-      <div v-if="hideBtn" class="d-flex justify-center">
+      <div v-if="hideBtn" class="d-flex justify-center my-8">
         <v-btn
           color="buttons"
           rounded
