@@ -3,7 +3,7 @@
   <v-text-field
     ref="email"
     :label="label"
-    v-model="localValue"
+    v-model.trim="localValue"
     :disabled="disabled"
     :rules="[rules.required, rules.email, rules.noRepeat]"
     :outlined="outlined"

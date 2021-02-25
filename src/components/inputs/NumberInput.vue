@@ -1,7 +1,7 @@
 <template>
   <v-text-field
     ref="number"
-    v-model="localValue"
+    v-model.trim="localValue"
     :label="label"
     :disabled="disabled"
     :rules="[rules.required, rules.onlyDigits, rules.limit, rules.noRepeat]"

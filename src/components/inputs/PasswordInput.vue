@@ -4,7 +4,7 @@
   <div class="input-pass">
     <v-text-field
       ref="pass"
-      v-model="localValue"
+      v-model.trim="localValue"
       :disabled="disabled"
       :label="label"
       :type="showPass ? 'text' : 'password'"
