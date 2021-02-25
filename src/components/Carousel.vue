@@ -64,7 +64,7 @@ export default {
     ...mapState(['viewportWidth']),
     ...mapState('instagram', ['media']),
     widthIndex() {
-      let index = 4;
+      let index = 3;
       if (this.viewportWidth < 1904) index = 2;
       if (this.viewportWidth < 1264) index = 1;
       // if (this.viewportWidth < 960) index = 0;
