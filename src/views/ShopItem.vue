@@ -10,8 +10,10 @@
           </v-row>
           <v-row class="justify-center">
             <v-slide-group :model="activeCard" class="px-0 justify-center" center-active mandatory>
-              <v-slide-item v-for="img in commodity.images" :key="img._id" v-slot:default="{ active, toggle }">
+              <v-slide-item v-slot:default="{ active, toggle }">
                 <v-img
+                  v-for="img in commodity.images.slice(4)"
+                  :key="img._id"
                   @click="setPhoto(img, toggle)"
                   :src="img.link"
                   :lazy-src="noImage"
@@ -50,14 +52,8 @@
         </v-row>
         <v-col cols="12" v-if="alsoViewedCommodities.length">
           <v-sheet elevation="0" width="100%">
-            <v-slide-group
-              class="pa-2"
-              active-class="success"
-              show-arrows="desktop"
-              next-icon="$next"
-              prev-icon="$prev"
-            >
-              <v-slide-item width="200" class="mx-5 my-10" v-for="card in alsoViewedCommodities" :key="card._id">
+            <v-row>
+              <v-col v-for="card in alsoViewedCommodities" :key="card._id">
                 <v-card
                   width="200px"
                   elevation="2"
@@ -78,7 +74,6 @@
                       contain
                     ></v-img>
                   </v-card>
-
                   <v-card
                     elevation="0"
                     height="150"
@@ -93,8 +88,8 @@
                     <p class="dgrey--text text-end text-subtitle-1">{{ card.price }} AUD</p>
                   </v-card>
                 </v-card>
-              </v-slide-item>
-            </v-slide-group>
+              </v-col>
+            </v-row>
           </v-sheet>
         </v-col>
       </v-row>
@@ -160,7 +155,9 @@ export default {
       return this.viewportWidth < 960;
     },
     alsoViewedCommodities() {
-      return this.$store.getters['shop/alsoViewedCommodities'];
+      const array = this.$store.getters['shop/alsoViewedCommodities'];
+      if (!Array.isArray(array)) return [];
+      return array.slice(0, 4);
     },
     alsoViewedCommoditiesLink() {
       this.fullListOfCategories;
