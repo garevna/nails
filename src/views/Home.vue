@@ -9,7 +9,7 @@
           <v-card-text class="text-center">
             <p>{{ about }}</p>
           </v-card-text>
-          <v-card v-if="viewportWidth <= 600" flat class="transparent mx-auto my-auto">
+          <v-card v-if="isMobile" flat class="transparent mx-auto my-auto">
             <ImageShop />
           </v-card>
           <v-card-text class="text-center secondary--text">
@@ -25,7 +25,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col v-if="viewportWidth > 600" cols="12" sm="7">
+      <v-col v-if="!isMobile" cols="12" sm="7">
         <v-card flat class="transparent mx-auto my-auto" max-width="700">
           <ImageShop />
         </v-card>
@@ -118,13 +118,14 @@ import { mapState } from 'vuex';
 // import ImageCourses from '@/components/svg/ImageCourses.vue';
 import Carousel from '@/components/Carousel.vue';
 import Courses from '@/components/courses/Courses.vue';
+import ImageCourses from '@/components/svg/ImageCourses.vue'
 
 export default {
   name: 'Home',
   components: {
     Carousel,
     ImageShop:() => import('@/components/svg/ImageShop.vue'),
-    ImageCourses:() => import('@/components/svg/ImageCourses.vue'),
+    ImageCourses,
     Courses,
   },
   data: () => ({
@@ -146,6 +147,9 @@ export default {
         easing: 'easeInOutCubic',
       };
     },
+    isMobile() {
+      return this.viewportWidth < 600;
+    }
   },
   methods: {
     goToRoute(route) {
