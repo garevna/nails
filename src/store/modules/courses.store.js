@@ -200,22 +200,22 @@ const actions = {
       commit('ERROR', { error: true, errorType: 'Delete video lesson', errorMessage: error }, { root: true });
     }
   },
-  async ADD_PDF({ commit, dispatch }, { fd, videoId, currentCourseId }) {
-    const { error } = await postData(`${endpoints.pdf}/${videoId}`, fd);
+  async ADD_PDF({ commit, dispatch }, { fd, lessonId, currentCourseId }) {
+    const { error } = await postData(`${endpoints.pdf}/${lessonId}`, fd);
     if (!error) {
       dispatch('GET_COURSES');
       dispatch('GET_COURSE', currentCourseId);
-      dispatch('GET_FIND_VIDEO', videoId);
+      dispatch('GET_FIND_VIDEO', lessonId);
     } else {
       commit('ERROR', { error: true, errorType: 'Add pdf', errorMessage: error }, { root: true });
     }
   },
-  async REMOVE_PDF({ commit, dispatch }, { id, videoId, currentCourseId }) {
+  async REMOVE_PDF({ commit, dispatch }, { id, lessonId, currentCourseId }) {
     const { error } = await deleteData(`${endpoints.pdf}/${id}`);
     if (!error) {
       dispatch('GET_COURSES');
       dispatch('GET_COURSE', currentCourseId);
-      dispatch('GET_FIND_VIDEO', videoId);
+      dispatch('GET_FIND_VIDEO', lessonId);
     } else {
       commit('ERROR', { error: true, errorType: 'Delete pdf', errorMessage: error }, { root: true });
     }

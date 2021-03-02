@@ -239,23 +239,12 @@ export default {
       return this.validateFiles(validArray);
     },
     ...mapState('auth', ['user']),
-    // ...mapState('userCourses', ['currentCourseVideos', 'loading', 'uploading'])
     ...mapState('courses', ['courses']),
     videos() {
       return this?.courses?.videos ?? [];
     },
   },
   watch: {
-    // videos (videos) {
-    //   if (!videos) return
-    //   this.$router.push({
-    //     name: 'user-course',
-    //     params: {
-    //       // courseid: this.courseId
-    //       courseid: this.$route.params.courseid
-    //     }
-    //   })
-    // }
   },
   methods: {
     validateFile(file) {
@@ -325,7 +314,6 @@ export default {
       this.$router.push({
         name: 'user-course',
         params: {
-          // courseid: this.courseId
           courseid: this.$route.params.courseid,
         },
       });

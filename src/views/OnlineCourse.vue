@@ -25,12 +25,8 @@ export default {
   },
   computed: {
     ...mapState('courses', [
-      // 'courses',
       'course'
-      // 'videos',
-      // 'video'
     ])
-    // ...mapState('onlineCourses', ['onlineCourseById', 'onlineCourseByIdImg'])
   },
   methods: {
     btnCallBack () {
@@ -38,12 +34,9 @@ export default {
     }
   },
   mounted () {
-    this.$store.dispatch('courses/GET_COURSE', this.$route.params.id)
-
-    // this.$store.dispatch('onlineCourses/GET_ONLINE_COURSE_BY_ID', { id: this.$route.params.id })
+    this.$store.dispatch('courses/GET_COURSE', this.$route.params.courseid)
   },
   beforeDestroy () {
-    // this.$store.dispatch('onlineCourses/CLEAR_ONLINE_COURSE_BY_ID')
   }
 }
 </script>

@@ -42,7 +42,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "courses-offline" */ '@/views/OffLineCourses.vue'),
   },
   {
-    path: '/courses-offline/:id',
+    path: '/courses-offline/:courseid',
     name: 'course-offline',
     component: () => import(/* webpackChunkName: "course-offline" */ '@/views/OffLineCourse.vue'),
   },
@@ -52,7 +52,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "courses-online" */ '@/views/OnlineCourses.vue'),
   },
   {
-    path: '/courses-online/:id',
+    path: '/courses-online/:courseid',
     name: 'course-online',
     component: () => import(/* webpackChunkName: "course-online" */ '@/views/OnlineCourse.vue'),
   },
@@ -66,8 +66,8 @@ const routes = [
     component: () => import(/* webpackChunkName: "personal-data" */ '@/views/PersonalData.vue'),
   },
   {
-    path: '/courses-offline/:courseid/personal-data',
-    name: 'personal-data-off',
+    path: '/courses-offline/:courseid/by-offline',
+    name: 'by-offline',
     component: () => import(/* webpackChunkName: "personal-data" */ '@/views/PersonalOfflineData.vue'),
   },
   // {
@@ -186,7 +186,7 @@ const routes = [
         component: () => import(/* webpackChunkName: "user-videos" */ '@/views/UserCourseVideos.vue'),
       },
       {
-        path: 'courses/:courseid/videos/:videoid',
+        path: 'courses/:courseid/videos/:lessonid',
         name: 'user-video',
         meta: { layout: 'Whitefone' },
         component: () => import(/* webpackChunkName: "user-video" */ '@/views/UserCourseDetailVideo.vue'),

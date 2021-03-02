@@ -112,7 +112,7 @@ export default {
       this.$router.push({
         name: 'user-video',
         params: {
-          videoid: id,
+          lessonid: id,
         },
       });
     },

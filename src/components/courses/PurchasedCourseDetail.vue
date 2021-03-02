@@ -63,19 +63,6 @@
           <v-card-text>{{ course.infoForBonus }}</v-card-text>
         </v-card>
       </v-col>
-      <!-- <v-col cols="12" xs="12" class="d-flex justify-center justify-sm-end" order="2">
-        <v-btn
-          color="buttons"
-          rounded
-          small
-          outlined
-          primary
-          min-width="90"
-          class="yellow-button mr-4"
-          @click="btnHandler"
-          >{{ type === 'offline' ? 'Apply' : 'Buy this course' }}</v-btn
-        >
-      </v-col> -->
     </v-row>
   </v-container>
 </template>
@@ -119,19 +106,6 @@ export default {
     linkCheck(course) {
       return checkCourseLink(course);
     },
-    // btnHandler() {
-    //   if (this.preview) return;
-    //   if (!this.user) {
-    //     this.$router.push({ name: 'sign-in' });
-    //     return;
-    //   }
-    //   this.$router.push({
-    //     name: this.type === 'online' ? 'by-course' : 'personal-data-off',
-    //     params: {
-    //       courseid: this.course._id,
-    //     },
-    //   });
-    // },
   },
 };
 </script>

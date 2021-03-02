@@ -114,12 +114,12 @@ export default {
   },
   methods: {
     detailInfo(route, id) {
-      this.$router.push({ name: route, params: { id } });
+      this.$router.push({ name: route, params: { courseid: id } });
     },
     payDetail(type, id) {
       // this.$router.push({ name: 'personal-data' })
       this.$router.push({
-        name: type === 'online' ? 'personal-data' : 'personal-data-off',
+        name: type === 'online' ? 'by-course' : 'by-offline',
         params: {
           courseid: id,
         },

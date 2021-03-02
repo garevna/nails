@@ -46,8 +46,8 @@ export default {
         'course-card',
         'course-offline',
         'course-online',
-        'personal-data',
-        'personal-data-off',
+        'by-course',
+        'by-offline',
       ],
     };
   },

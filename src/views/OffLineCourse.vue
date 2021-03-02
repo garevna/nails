@@ -35,7 +35,7 @@ export default {
     }
   },
   mounted () {
-    this.getCourse(this.$route.params.id)
+    this.getCourse(this.$route.params.courseid)
   },
   beforeDestroy () {
   }

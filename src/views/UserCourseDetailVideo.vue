@@ -202,13 +202,13 @@ export default {
       });
       this.putVideo({
         fd,
-        id: this.$route.params.videoid,
+        id: this.$route.params.lessonid,
       });
       this.showForm = false;
     },
     async get() {
       await this.getCourse(this.$route.params.courseid);
-      await this.getFindVideo(this.$route.params.videoid);
+      await this.getFindVideo(this.$route.params.lessonid);
     },
   },
   created() {

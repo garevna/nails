@@ -88,7 +88,7 @@ export default {
     },
     detailInfo(route) {
       if (this.preview) return;
-      this.$router.push({ name: route, params: { id: this.course._id } });
+      this.$router.push({ name: route, params: { courseid: this.course._id } });
     },
     payDetail() {
       if (this.preview) return;

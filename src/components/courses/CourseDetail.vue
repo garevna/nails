@@ -130,7 +130,7 @@ export default {
         return;
       }
       this.$router.push({
-        name: this.type === 'online' ? 'by-course' : 'personal-data-off',
+        name: this.type === 'online' ? 'by-course' : 'by-offline',
         params: {
           courseid: this.course._id,
         },

@@ -76,7 +76,7 @@ export default {
       if (id) {
         this.removePDF({
           id,
-          videoId: this.$route.params.videoid,
+          lessonId: this.$route.params.lessonid,
           currentCourseId: this.$route.params.courseid,
         });
       }
@@ -88,7 +88,7 @@ export default {
 
         this.addPDF({
           fd,
-          videoId: this.$route.params.videoid,
+          lessonId: this.$route.params.lessonid,
           currentCourseId: this.$route.params.courseid,
         });
         this.$refs.form.reset();

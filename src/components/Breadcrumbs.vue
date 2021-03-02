@@ -6,7 +6,7 @@
           <template v-slot:item="{ item }">
             <v-breadcrumbs-item :disabled="item.disabled">
               <router-link
-                :to="item.href"
+                :to="item.path"
                 class="uppercase"
                 :class="{ 'disabledPathBreadcrumbs--text': item.disabled }"
               >
@@ -22,6 +22,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { breadcrumbsFactory } from '@/helpers/breadcrumbs';
 
 export default {
   name: 'Breadcrumbs',
@@ -30,105 +31,49 @@ export default {
     return {};
   },
   computed: {
-    ...mapState('courses', ['courses', 'course', 'videos', 'video']),
+    ...mapState('courses', ['course', 'video']),
+    ...mapState('purchasedCourses', { purchasedCourse: 'course', purchasedVideo: 'video' }),
     ...mapState('auth', ['user']),
     ...mapState('offlineCourses', ['offlineCourse']),
+    courseId() {
+      return this.$route.params.courseid ?? '';
+    },
+    lessonId() {
+      return this.$route.params.lessonid ?? '';
+    },
+    userName() {
+      return this?.user?.firstName ?? '';
+    },
     courseName() {
       return this?.course?.nameOfCourse ?? '';
     },
-    show () {
-      if (this.type === 'courses-online' ||
-      this.type === 'courses-offline' ||
-      this.type === 'user-cabinet') return true;
-      return false
+    purchasedCourseName() {
+      return this?.purchasedCourse?.nameOfCourse ?? '';
     },
-    videoId() {
-      return this.$route.params.videoid;
+    offlineCourseName() {
+      return this?.offlineCourse?.nameOfCourse ?? '';
     },
-    route() {
-      return this.$route;
+    lessonName() {
+      return this?.video?.name ?? '';
     },
-    itemsOption() {
-      const option = [
-        {
-          text: 'Home',
-          href: '/',
-        },
-      ];
-      const cabinet = [
-        {
-          text: `${this.user?.firstName} cabinet`,
-          href: '/user-cabinet',
-        },
-        {
-          text: `${this.user?.firstName} courses`,
-          href: '/user-cabinet/courses',
-        },
-        {
-          text: this.course?.nameOfCourse,
-          href: `/user-cabinet/courses/${this.$route.params.courseid}`,
-        },
-        {
-          text: 'videos',
-          href: `/user-cabinet/courses/${this.$route.params.courseid}/videos`,
-        },
-        {
-          text: this?.video?.name ?? '',
-          href: '#',
-        },
-      ];
-      const on = [
-        {
-          text: 'Online Courses',
-          href: '/courses-online',
-        },
-        {
-          text: this?.course?.nameOfCourse ?? '',
-          href: `/courses-online/${this.$route.params.id}`,
-        },
-        // {
-        //   text: 'videos',
-        //   href: `/courses-online/${this.$route.params.courseid}/videos`
-        // },
-        // {
-        //   text: this.currentVideo?.name,
-        //   href: '#'
-        // }
-      ];
-      const off = [
-        {
-          text: 'Offline Courses',
-          href: '/courses-offline',
-        },
-        {
-          text: this?.offlineCourse?.nameOfCourse ?? '',
-          href: `/courses-offline/${this.$route.params.id}`,
-        },
-      ];
-      if (this.type === 'courses-online') return option.concat(on);
-      if (this.type === 'courses-offline') return option.concat(off);
-      if (this.type === 'user-cabinet') return option.concat(cabinet);
-      return option;
+    purchasedLessonName() {
+      return this?.purchasedVideo?.name ?? '';
+    },
+    routeName() {
+      return this.$route.name;
+    },
+    show() {
+      const paths = ['courses-online', 'courses-offline', 'user-cabinet', 'courses'];
+      return paths.some(path => this.$route.path.includes(path));
     },
     items() {
-      return this.itemsOption.slice(0, this.paths.length).map((item, index, arr) => {
-        // eslint-disable-next-line no-param-reassign
-        item.disabled = index === arr.length - 1;
-        return item;
-      });
+      return this.breadcrumbs.map((route, index) => Object.assign({ disabled: index === 0 }, route)).reverse();
     },
-    type() {
-      return this.paths[1];
-    },
-    paths() {
-      const paths = this.$route.fullPath.split('/');
-      if (!paths[paths.length-1]) paths.pop()
-      return paths
-    },
+    breadcrumbs: breadcrumbsFactory(),
   },
   watch: {},
   methods: {},
-  created() {},
+  mounted() {},
 };
 </script>
 
