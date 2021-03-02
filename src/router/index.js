@@ -131,6 +131,40 @@ const routes = [
         component: () => import(/* webpackChunkName: "user-courses" */ '@/views/UserCourses.vue'),
       },
       {
+        path: 'purchased-online-courses',
+        name: 'purchased-online-courses',
+        meta: { layout: 'Whitefone' },
+        component: () => import(/* webpackChunkName: "user-courses" */ '@/views/PurchasedCourses.vue'),
+      },
+      {
+        path: 'purchased-online-courses/:courseid',
+        name: 'purchased-online-course',
+        component: () => import(/* webpackChunkName: "user-courses" */ '@/views/PurchasedCourse.vue'),
+      },
+      {
+        path: 'purchased-online-courses/:courseid/lessons',
+        name: 'purchased-lessons',
+        meta: { layout: 'Whitefone' },
+        component: () => import(/* webpackChunkName: "user-courses" */ '@/views/PurchasedLessons.vue'),
+      },
+      {
+        path: 'purchased-online-courses/:courseid/lessons/:lessonid',
+        name: 'purchased-lesson',
+        meta: { layout: 'Whitefone' },
+        component: () => import(/* webpackChunkName: "user-courses" */ '@/views/PurchasedLesson.vue'),
+      },
+      {
+        path: 'purchased-offline-courses',
+        name: 'purchased-offline-courses',
+        meta: { layout: 'Whitefone' },
+        component: () => import(/* webpackChunkName: "user-courses" */ '@/views/PurchasedCourses.vue'),
+      },
+      {
+        path: 'purchased-offline-courses/:courseid',
+        name: 'purchased-offline-course',
+        component: () => import(/* webpackChunkName: "user-courses" */ '@/views/PurchasedCourse.vue'),
+      },
+      {
         path: 'add-course',
         name: 'add-course',
         component: () => import(/* webpackChunkName: "add-course" */ '@/views/AddCourse.vue'),

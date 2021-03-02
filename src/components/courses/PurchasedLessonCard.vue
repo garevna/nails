@@ -1,0 +1,67 @@
+<template>
+  <v-hover v-slot="{ hover }" open-delay="100">
+    <v-card
+      :elevation="hover ? 16 : 2"
+      :class="{ 'on-hover': hover }"
+      :width="width"
+      class="ma-4"
+      @click="$emit('lesson')"
+    >
+      <h2 class="text-center items-text pa-4">
+        {{ video.name }}
+      </h2>
+      <CoverImage :url="linkCheck(video)" />
+      <!-- <v-card-actions class="pa-4">
+        <v-spacer />
+        <v-btn :disabled="published" rounded color="buttons" class="yellow-button pa-4" @click.stop="removeHandler">Delete</v-btn>
+      </v-card-actions> -->
+    </v-card>
+  </v-hover>
+</template>
+
+<script>
+import { mapState } from 'vuex';
+
+import CoverImage from '@/components/CoverImage.vue';
+import checkVideoLink from '@/helpers/checkVideoLink';
+export default {
+  name: 'UserVideoCard',
+  props: {
+    video: {
+      type: Object,
+      required: true,
+    },
+    width: {
+      type: String,
+      default: '300',
+    },
+  },
+  components: {
+    CoverImage,
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    ...mapState('courses', ['course']),
+  },
+  methods: {
+    linkCheck(video) {
+      return checkVideoLink(video);
+    },
+  },
+};
+</script>
+
+<style scoped>
+.items-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.spacing {
+  letter-spacing: unset;
+}
+</style>

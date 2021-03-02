@@ -16,6 +16,9 @@ export default {
     findVideo: 'course/online/findvideo',
     pdf: 'course/online/pdf',
   },
+  orders: {
+    get: 'order'
+  },
   auth: {
     signUp: 'auth/signup',
     signIn: 'auth/signin',

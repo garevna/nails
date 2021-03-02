@@ -7,18 +7,7 @@
       </v-card-title>
       <h3 class="pa-0 pl-4 my-2 items-text">{{ course.nameOfCourse }}</h3>
       <p class="pa-0 px-4 items-text spacing">{{ course.subtitle }}</p>
-      <v-card-actions v-if="type === 'online'" class="pl-4 pb-4">
-        <v-btn
-          color="buttons"
-          rounded
-          small
-          outlined
-          primary
-          min-width="90"
-          class="yellow-button mr-4"
-          @click="payDetail"
-          >pay</v-btn
-        >
+      <v-card-actions class="pl-4 pb-4">
         <v-btn
           color="buttons"
           rounded
@@ -26,21 +15,19 @@
           min-width="90"
           dark
           class="yellow-button"
-          @click="detailInfo('course-online')"
+          @click="$emit('more')"
           >more</v-btn
         >
-      </v-card-actions>
-      <v-card-actions v-else class="pl-4 pb-4">
         <v-btn
+          v-if="type === 'online'"
           color="buttons"
           rounded
-          outlined
           small
-          dark
           min-width="90"
+          dark
           class="yellow-button"
-          @click="detailInfo('course-offline')"
-          >more</v-btn
+          @click="$emit('lessons')"
+          >lessons</v-btn
         >
       </v-card-actions>
     </v-card>
@@ -48,24 +35,18 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
 import CoverImage from '@/components/CoverImage.vue';
 import checkCourseLink from '@/helpers/checkCourseLink';
 export default {
-  name: 'CourseCard',
+  name: 'PurchasedCourseCard',
   props: {
     course: {
       type: Object,
       required: true,
-    },
+    },  
     type: {
       type: String,
-      required: true,
-    },
-    preview: {
-      type: Boolean,
-      default: false,
+      default: 'online',
     },
     width: {
       type: String,
@@ -78,39 +59,25 @@ export default {
   data() {
     return {};
   },
-  computed: {
-    ...mapState('auth', ['user']),
-  },
+  computed: {},
   watch: {},
   methods: {
     linkCheck(course) {
       return checkCourseLink(course);
-    },
-    detailInfo(route) {
-      if (this.preview) return;
-      this.$router.push({ name: route, params: { id: this.course._id } });
-    },
-    payDetail() {
-      if (this.preview) return;
-      if (!this.user) {
-        this.$router.push({ name: 'sign-in' });
-        return;
-      }
-      this.$router.push({ name: 'by-course', params: { courseid: this.course._id } });
     },
   },
 };
 </script>
 
 <style scoped>
-.items-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-}
-.spacing {
-  letter-spacing: unset;
-}
+  .items-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+  .spacing {
+    letter-spacing: unset;
+  }
 </style>

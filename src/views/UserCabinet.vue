@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" xs="12" md="8" lg="6" xl="4" order="2" order-md="1">
+      <v-col cols="12" xs="12" md="7" lg="6" xl="4" order="2" order-md="1">
         <h2 class="d-flex justify-center justify-md-start pb-16 pl-md-16">My account</h2>
 
         <v-card flat style="padding-bottom: 90px;">
@@ -50,7 +50,7 @@
         </v-card>
       </v-col>
 
-      <v-col cols="12" xs="12" md="4" lg="6" xl="8" order="1" order-md="2">
+      <v-col cols="12" xs="12" md="5" lg="6" xl="8" order="1" order-md="2">
         <RightPanel />
       </v-col>
     </v-row>
