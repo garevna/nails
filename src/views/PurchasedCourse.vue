@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container>
     <v-row class="d-flex justify-center">
       <v-col cols="12" xs="12" v-if="loading">
         <Spinner />

@@ -133,7 +133,6 @@ const routes = [
       {
         path: 'purchased-online-courses',
         name: 'purchased-online-courses',
-        meta: { layout: 'Whitefone' },
         component: () => import(/* webpackChunkName: "user-courses" */ '@/views/PurchasedCourses.vue'),
       },
       {
@@ -156,7 +155,6 @@ const routes = [
       {
         path: 'purchased-offline-courses',
         name: 'purchased-offline-courses',
-        meta: { layout: 'Whitefone' },
         component: () => import(/* webpackChunkName: "user-courses" */ '@/views/PurchasedCourses.vue'),
       },
       {

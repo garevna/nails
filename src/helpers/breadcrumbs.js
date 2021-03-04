@@ -1,6 +1,6 @@
-export function breadcrumbsFactory() {
-  return function createBreadcrumbs() {
-    const routes = [
+export function routesFactory() {
+  return function () {
+    return [
       //! Home
       {
         id: 0,
@@ -177,14 +177,5 @@ export function breadcrumbsFactory() {
         text: `${this.purchasedCourseName}`,
       },
     ];
-
-    function search(current) {
-      if (!current) return [];
-      return [current].concat(search(routes.find(route => route.id === current.parentId)));
-    }
-    const currentRoute = routes.find(route => route.name === this.routeName);
-    if (!currentRoute) return [];
-
-    return search(currentRoute);
   };
 }

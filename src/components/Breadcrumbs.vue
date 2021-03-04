@@ -22,7 +22,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { breadcrumbsFactory } from '@/helpers/breadcrumbs';
+import { routesFactory } from '@/helpers/breadcrumbs';
 
 export default {
   name: 'Breadcrumbs',
@@ -69,10 +69,21 @@ export default {
     items() {
       return this.breadcrumbs.map((route, index) => Object.assign({ disabled: index === 0 }, route)).reverse();
     },
-    breadcrumbs: breadcrumbsFactory(),
+    routes: routesFactory(),
+    breadcrumbs() {
+      const currentPath = this.routes.find(route => route.name === this.routeName);
+      if (!currentPath) return [];
+
+      return this.search(currentPath);
+    },
   },
   watch: {},
-  methods: {},
+  methods: {
+    search(current) {
+      if (!current) return [];
+      return [current].concat(this.search(this.routes.find(route => route.id === current.parentId)));
+    },
+  },
   mounted() {},
 };
 </script>
