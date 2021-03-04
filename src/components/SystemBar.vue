@@ -1,19 +1,26 @@
 <template>
-  <div class="header-container homefone">
-    <v-app-bar app outlined dark elevate-on-scroll class="primary app-bar-header">
-      <div class="d-flex align-center">
+  <!-- <div class="header-container homefone"> -->
+  <v-app-bar app dark elevate-on-scroll class="homefone pt-6">
+    <!-- <v-card flat height="40" class="homefone" width="100%">
+      top space
+    </v-card> -->
+    <v-card class="primary app-bar-header d-flex px-4 py-2" style="position: relative;" tile width="100%" height="68">
+      <!-- header space -->
+      <!-- <div class="d-flex align-center"> -->
         <Logo :goHome="goHome" class="logo" />
-      </div>
+      <!-- </div> -->
       <v-spacer></v-spacer>
-      <div class="orange app-bar d-none d-lg-block menu-app-bar-btn">
+      <v-card-actions  v-if="!showBurgerMenu" class="menu-app-bar-btn button pa-0" >
         <v-btn class="black--text" @click="goHome" text>HOME</v-btn>
         <v-btn class="black--text" @click="goToShop" text>SHOP</v-btn>
         <v-btn class="black--text" @click="goToCourses" text>COURSES</v-btn>
-      </div>
-      <MenuSystemBar class="d-none d-lg-flex align-center" />
-      <BurgerMenu :panel.sync="panel" />
-    </v-app-bar>
-  </div>
+      </v-card-actions>
+
+      <MenuSystemBar v-if="!showBurgerMenu"/>
+      <BurgerMenu v-if="showBurgerMenu" :panel.sync="panel" />
+    </v-card>
+  </v-app-bar>
+  <!-- </div> -->
 </template>
 
 <style scoped lang="scss">
@@ -22,7 +29,7 @@
   cursor: pointer;
 }
 .app-bar-header {
-  top: 20px !important;
+  // top: 20px !important;
   -webkit-box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
   -moz-box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
   box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
@@ -55,15 +62,20 @@
   left: 0;
   z-index: 10;
 }
-@media screen and (max-width: 600px) {
-  .logo {
-    width: 250px;
-  }
-}
-@media screen and (max-width: 400px){
-  .logo {
-    width: 200px;
-  }
+// @media screen and (max-width: 600px) {
+//   .logo {
+//     width: 250px;
+//   }
+// }
+// @media screen and (max-width: 400px) {
+//   .logo {
+//     width: 200px;
+//   }
+// }
+</style>
+<style>
+.v-toolbar__content {
+  padding: 0 !important;
 }
 </style>
 
@@ -86,13 +98,17 @@ export default {
     panel: false,
   }),
   computed: {
-    ...mapState('shop', ['categories']),
+    ...mapState(['viewportWidth']),
+    // ...mapState('shop', ['categories']),
     burgerMenuClassFirst() {
       return this.panel === 0 ? 'burger-menu-active--first' : 'burger-menu--first';
     },
     burgerMenuClassSecond() {
       return this.panel === 0 ? 'burger-menu-active--second' : 'burger-menu--second';
     },
+    showBurgerMenu() {
+      return this.viewportWidth < 900
+    }
   },
   methods: {
     goHome() {

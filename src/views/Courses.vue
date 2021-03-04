@@ -1,23 +1,19 @@
 <template>
   <div style="margin-left:-12px; margin-right:-12px;">
-    <!-- <h2 class="d-flex justify-center my-12 text-h4">All courses</h2> -->
     <Courses />
   </div>
 </template>
 
-<style scoped lang="scss">
-</style>
-
 <script>
-import Courses from '@/components/courses/Courses.vue'
+import Courses from '@/components/courses/Courses.vue';
 
 export default {
-  name: 'courses',
+  name: 'CoursesPage',
   components: {
-    Courses
+    Courses,
   },
   data: () => ({}),
   computed: {},
-  methods: {}
-}
+  methods: {},
+};
 </script>

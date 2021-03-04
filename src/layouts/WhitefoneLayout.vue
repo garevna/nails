@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="py-8">
     <Breadcrumbs />
     <router-view />
   </v-container>

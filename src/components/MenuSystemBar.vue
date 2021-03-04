@@ -1,6 +1,7 @@
 <template>
-  <div color="warning" class="d-lg-flex flex-row flex-nowrap justify-end">
-    <v-btn v-if="!isLogged" @click="goToLogin('sign-in')" class="registration black--text" text> Sign in </v-btn>
+  <v-card flat class="transparent d-flex">
+    <v-card-actions>
+        <v-btn v-if="!isLogged" @click="goToLogin('sign-in')" class="registration black--text" text> Sign in </v-btn>
     <v-btn v-if="!isLogged" @click="goToLogin('sign-up')" class="registration black--text" text> Sign up </v-btn>
     <ProductsCart />
     <v-btn icon v-if="isLogged" @click="goToCabinet">
@@ -20,7 +21,9 @@
         </template>
       </v-treeview>
     </v-menu>
-  </div>
+    </v-card-actions>
+  
+  </v-card>
 </template>
 <style>
 .v-treeview-node__label {
@@ -35,56 +38,14 @@
 }
 </style>
 <style scoped>
-.menu {
-  /* display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-end; */
-}
-/* .menu-app-bar {
-  display: flex;
-  padding: 0;
-}
-.menu-item-app-bar {
-  display: flex;
-  cursor: pointer;
-  padding: 0 0;
-  white-space: nowrap;
-  flex-grow: 0;
-} */
-/* .menu-item-search {
-  display: flex;
-  cursor: pointer;
-  padding: 0 0;
-  white-space: nowrap;
-  flex-grow: 0;
-} */
 .menu-app-bar:not(:last-child),
 .menu-item-app-bar:not(:last-child) {
   margin-right: 20px;
 }
-/* .search {
-  display: flex;
-  margin: 10px 0 10px 0;
-  width: 100px;
-  flex-grow: 0;
-  border: 1px solid #000;
-  padding-left: 5px;
-  outline: none;
-  font-family: 'Archivo Narrow';
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-} */
 .item-link {
   width: 100%;
 }
-/* .search:focus {
-  width: 300px;
-} */
-/* .drop-down-menu {
-  background-color: #000;
-} */
+
 .registration {
   /* color: #000 !important; */
   font-size: 18px !important;

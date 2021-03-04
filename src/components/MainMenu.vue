@@ -22,7 +22,7 @@
 <style scoped>
 .main-menu {
   display: flex;
-  margin-top: 80px;
+  /* margin-top: 80px; */
   justify-content: center;
 }
 .shop-menu {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card flat class="py-12 onlineCardFone">
+    <v-card flat tile class="py-12 onlineCardFone">
       <div class="d-flex justify-center">
         <v-btn
           color="buttons"

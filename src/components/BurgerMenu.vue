@@ -3,27 +3,22 @@
     tile
     flat
     v-model="showPanel"
-    class="app-bar d-lg-none"
-    style="position: fixed; left: 0; margin-top: -8px; z-index: 0"
+    class="transparent"
+    style="position:absolute; right:0; width:100%;"
+
   >
-    <v-expansion-panel style="background: transparent">
-      <v-expansion-panel-header expand-icon="none" hide-actions height="80">
-        <v-btn text class="burger-menu" height="48" width="48">
+    <v-expansion-panel class="transparent">
+      <v-expansion-panel-header expand-icon="none" hide-actions class="mt-6">
+        <v-btn text>
           <span :class="burgerMenuClassFirst"></span>
           <span :class="burgerMenuClassSecond"></span>
         </v-btn>
       </v-expansion-panel-header>
       <v-expansion-panel-content
-        class="main-menu-content"
-        style="margin-top: 128px; padding: 64px 16px 16px !important"
+        class="main-menu-content mt-8"
       >
-        <v-list flat class="main-menu-content text-center">
-          <!-- <v-list-item
-                    v-for="(page, index) in pages"
-                    :key="index"
-                    @click="$emit('update:selected', index); panel = []"
-                    style="background: #CACACA"
-            >-->
+        <!-- style="margin-top: 128px; padding: 64px 16px 16px !important" -->
+        <v-list flat class="main-menu-content text-center bgBurgerMenu">
           <v-list-item class="black--text" @click="goHome">
             <v-list-item-title class="black--text main-menu-items">Home</v-list-item-title>
           </v-list-item>
@@ -111,12 +106,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.burger-menu {
-  position: fixed;
-  right: 24px;
-  top: 8px;
-  z-index: 10;
-}
+// .burger-menu {
+//   position: fixed;
+//   right: 24px;
+//   top: 8px;
+//   z-index: 10;
+// }
 .burger-menu--first,
 .burger-menu--second,
 .burger-menu-active--first,
@@ -146,7 +141,7 @@ export default {
   transform: rotate(45deg);
 }
 .main-menu-content {
-  background: #fafafa !important;
+  // background: #fafafa !important;
   // color: #000;
 }
 .main-menu-items {
@@ -155,9 +150,10 @@ export default {
 }
 .v-expansion-panel-header {
   width: 0 !important;
-  position: absolute;
-  right: 30px;
-  top: -15px;
+  position: fixed;
+  right: 50px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 // .header-container {
 //   position: fixed;

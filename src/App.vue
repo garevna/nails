@@ -1,16 +1,15 @@
 <template>
   <v-app dark>
-    <div class="homefone">
+    <!-- <div class="homefone"> -->
       <SystemBar />
-      <MainMenu v-if="maimMenuShowInRouteNames.includes(this.$route.name) && viewportWidth > 900" />
-      <v-main class="main-content">
+      <v-main>
         <component :is="layout">
           <!-- <router-view /> -->
         </component>
       </v-main>
       <Footer />
       <UploadFiles v-if="uploadDialog" />
-    </div>
+    <!-- </div> -->
     <error-message />
     <simple-message />
   </v-app>
@@ -21,7 +20,7 @@ import { mapState } from 'vuex';
 
 import SystemBar from './components/SystemBar.vue';
 import Footer from './components/Footer.vue';
-import MainMenu from '@/components/MainMenu.vue';
+// import MainMenu from '@/components/MainMenu.vue';
 import ShopLayout from './layouts/ShopLayout.vue';
 import DefaultLayout from './layouts/DefaultLayout.vue';
 import WhitefoneLayout from './layouts/WhitefoneLayout.vue';
@@ -32,27 +31,27 @@ export default {
   components: {
     SystemBar,
     Footer,
-    MainMenu,
+    // MainMenu,
     ShopLayout,
     DefaultLayout,
     WhitefoneLayout,
     UploadFiles: () => import('@/components/UploadFiles.vue'),
   },
-  data() {
-    return {
-      maimMenuShowInRouteNames: [
-        'home',
-        'add-course',
-        'course-card',
-        'course-offline',
-        'course-online',
-        'by-course',
-        'by-offline',
-      ],
-    };
-  },
+  // data() {
+  //   return {
+  //     maimMenuShowInRouteNames: [
+  //       'home',
+  //       'add-course',
+  //       'course-card',
+  //       'course-offline',
+  //       'course-online',
+  //       'by-course',
+  //       'by-offline',
+  //     ],
+  //   };
+  // },
   computed: {
-    ...mapState(['viewportWidth']),
+    // ...mapState(['viewportWidth']),
     ...mapState('shop', ['activeCategory']),
     ...mapState('courses', ['uploadDialog']),
     isShopOpened() {
@@ -124,11 +123,11 @@ a {
 .v-expansion-panel-content__wrap {
   padding-top: 50px !important;
 }
-.main-content {
+/* .main-content {
   margin-bottom: 150px !important;
   margin-top: 20px !important;
   min-height: calc(100vh - 500px) !important;
-}
+} */
 .v-btn__content {
   justify-content: center !important;
 }
@@ -136,28 +135,28 @@ a {
   text-decoration: none !important;
 }
 @media screen and (max-width: 800px) {
-  .main-content {
+  /* .main-content {
     margin-bottom: 150px !important;
     min-height: calc(100vh - 650px);
-  }
+  } */
   h1 {
     font-size: 28px;
   }
 }
 @media screen and (max-width: 960px) {
-  .main-content {
+  /* .main-content {
     margin-bottom: 150px !important;
     min-height: calc(100vh - 400px);
-  }
+  } */
 }
 @media screen and (max-width: 600px) {
   .main-content {
-    margin-bottom: 200px !important;
+    /* margin-bottom: 200px !important; */
   }
 }
 @media screen and (max-width: 540px) {
   .main-content {
-    margin-bottom: 150px !important;
+    /* margin-bottom: 150px !important; */
   }
   h1 {
     font-size: 20px;

@@ -1,5 +1,5 @@
 <template>
-  <v-card flat class="pa-2" :class="{ 'pt-10': !isShopPageOpened }" min-height="70vh">
+  <v-card flat class="pa-2 py-16" :class="{ 'pt-10': !isShopPageOpened }" min-height="70vh">
     <v-row class="ma-0 pa-0">
       <v-col v-if="isShopPageOpened" cols="12">
         <Search />

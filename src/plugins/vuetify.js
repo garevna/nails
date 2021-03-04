@@ -21,6 +21,7 @@ export default new Vuetify({
         lgrey: '#F4F4F4',
         // orange
         // light gray
+        bgBurgerMenu: '#fafafa',
         darkGrey: '#333333',
         buttons: '#FFC44A',
         homefone: '#ffffff',
@@ -50,6 +51,7 @@ export default new Vuetify({
         homefone: '#262624',
         warning: '#FAFF00',
         secondaryGray: '#262624',
+        bgBurgerMenu: '#fafafa',
         // shop
         lightFont: '#808080',
         // courses
