@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/add-course~user-course.fd25dc4b.css"
   },
   {
-    "revision": "f31a9a89d0b43277f1f4",
-    "url": "/nails/css/app.24a0e8ce.css"
+    "revision": "35a9f62b318f518782ca",
+    "url": "/nails/css/app.84296224.css"
   },
   {
     "revision": "838cad8c4a55232326f9",
@@ -84,7 +84,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/user-course.faa66015.css"
   },
   {
-    "revision": "34ef3d4f981953758b1e",
+    "revision": "c4fe129a889dfc48519c",
     "url": "/nails/css/user-courses.4f71094b.css"
   },
   {
@@ -200,7 +200,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/pdf.3fa92281.svg"
   },
   {
-    "revision": "12f4fa3e0d78db1b01c3c8e81d355d89",
+    "revision": "321aefcf70e093feec7f9025cce5af79",
     "url": "/nails/index.html"
   },
   {
@@ -220,8 +220,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/add-course~user-course.d59868a5.js"
   },
   {
-    "revision": "f31a9a89d0b43277f1f4",
-    "url": "/nails/js/app.dc519c2b.js"
+    "revision": "35a9f62b318f518782ca",
+    "url": "/nails/js/app.fe2f9e32.js"
   },
   {
     "revision": "838cad8c4a55232326f9",
@@ -256,8 +256,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/courses-online.4b4dae18.js"
   },
   {
-    "revision": "d78f396a9f1c7a5d48e3",
-    "url": "/nails/js/courses.8fff77a0.js"
+    "revision": "1e5155bd69e004ac2dbc",
+    "url": "/nails/js/courses.a494c61c.js"
   },
   {
     "revision": "bda877959ac49f297ee7",
@@ -300,8 +300,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/user-course.edfbfebd.js"
   },
   {
-    "revision": "34ef3d4f981953758b1e",
-    "url": "/nails/js/user-courses.360c40d8.js"
+    "revision": "c4fe129a889dfc48519c",
+    "url": "/nails/js/user-courses.79b30f25.js"
   },
   {
     "revision": "b45f86edc93e0350d49b",
