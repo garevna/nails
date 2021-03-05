@@ -106,12 +106,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-// .burger-menu {
-//   position: fixed;
-//   right: 24px;
-//   top: 8px;
-//   z-index: 10;
-// }
 .burger-menu--first,
 .burger-menu--second,
 .burger-menu-active--first,
@@ -140,10 +134,6 @@ export default {
   width: 32px;
   transform: rotate(45deg);
 }
-.main-menu-content {
-  // background: #fafafa !important;
-  // color: #000;
-}
 .main-menu-items {
   font-size: 18px;
   line-height: 40px;
@@ -155,12 +145,4 @@ export default {
   top: 50%;
   transform: translateY(-50%);
 }
-// .header-container {
-//   position: fixed;
-//   height: 50px;
-//   width: 100%;
-//   top: 0;
-//   left: 0;
-//   z-index: 5;
-// }
 </style>

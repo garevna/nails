@@ -34,7 +34,10 @@ export default {
   computed: {
     ...mapState(['viewportWidth']),
     showMainMenu(){
-      return this.maimMenuShowInRouteNames.includes(this.$route.name) && this.viewportWidth > 900
+      return this.maimMenuShowInRouteNames.includes(this.$route.name) && this.widthLimit
+    },
+    widthLimit() {
+      return this.viewportWidth > 1000
     }
   },
   mounted() {

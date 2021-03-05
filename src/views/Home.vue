@@ -70,14 +70,10 @@
         </v-card>
       </v-col>
       <v-col cols="12" class="my-16">
-        <!-- <v-card flat class="transparent mx-auto my-10" max-width="1360"> -->
           <Carousel />
-        <!-- </v-card> -->
       </v-col>
       <v-col cols="12" class="pa-0">
-        <!-- <v-row> -->
         <Courses id="scroll-with-options" />
-        <!-- </v-row> -->
       </v-col>
       <v-col cols="12" class="d-flex justify-center">
         <v-btn

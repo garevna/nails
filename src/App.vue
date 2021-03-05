@@ -1,15 +1,13 @@
 <template>
   <v-app dark>
-    <!-- <div class="homefone"> -->
-      <SystemBar />
-      <v-main>
-        <component :is="layout">
-          <!-- <router-view /> -->
-        </component>
-      </v-main>
-      <Footer />
-      <UploadFiles v-if="uploadDialog" />
-    <!-- </div> -->
+    <SystemBar />
+    <v-main  class="homefone"> 
+      <component :is="layout">
+        <!-- <router-view /> -->
+      </component>
+    </v-main>
+    <Footer />
+    <UploadFiles v-if="uploadDialog" />
     <error-message />
     <simple-message />
   </v-app>
@@ -20,7 +18,6 @@ import { mapState } from 'vuex';
 
 import SystemBar from './components/SystemBar.vue';
 import Footer from './components/Footer.vue';
-// import MainMenu from '@/components/MainMenu.vue';
 import ShopLayout from './layouts/ShopLayout.vue';
 import DefaultLayout from './layouts/DefaultLayout.vue';
 import WhitefoneLayout from './layouts/WhitefoneLayout.vue';
@@ -31,25 +28,12 @@ export default {
   components: {
     SystemBar,
     Footer,
-    // MainMenu,
     ShopLayout,
     DefaultLayout,
     WhitefoneLayout,
     UploadFiles: () => import('@/components/UploadFiles.vue'),
   },
-  // data() {
-  //   return {
-  //     maimMenuShowInRouteNames: [
-  //       'home',
-  //       'add-course',
-  //       'course-card',
-  //       'course-offline',
-  //       'course-online',
-  //       'by-course',
-  //       'by-offline',
-  //     ],
-  //   };
-  // },
+
   computed: {
     // ...mapState(['viewportWidth']),
     ...mapState('shop', ['activeCategory']),
