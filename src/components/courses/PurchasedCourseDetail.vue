@@ -18,20 +18,13 @@
             >{{ course.accessDays }} days | $ {{ course.price }}</v-card-title
           >
         </v-card>
-        <v-card flat class="transparent" dark v-if="type === 'online'">
-          <v-card-text v-if="!course.isPaid" class="pa-0 pl-4 pb-4 d-flex notPaidAndPublished--text"
-            ><h3>this course has not been paid for yet</h3></v-card-text
-          >
-          <v-card-text v-if="!course.isPublished" class="pa-0 pl-4 d-flex notPaidAndPublished--text"
-            ><h3>this course has not been published yet</h3></v-card-text
-          >
-        </v-card>
         <v-card v-if="type === 'offline'" flat class="transparent d-flex flex-column align-center" dark>
           <v-card-title>Date of courses:</v-card-title>
           <table>
-            <tr v-for="item in course.dateOfCourses" :key="item._id">
+            <tr v-for="item in purchasedDates" :key="item._id">
               <td>{{ item.date }}</td>
               <td>available spots {{ item.availableSpots }}</td>
+              <td> <v-chip :color="item.paid ? 'paidAndPublished' : 'notPaidAndPublished'"  text-color="white"> {{ item.paid ? 'paid': 'not paid' }}</v-chip></td>
             </tr>
           </table>
         </v-card>
@@ -73,7 +66,7 @@ import { mapState } from 'vuex';
 import CoverImage from '@/components/CoverImage.vue';
 import checkCourseLink from '@/helpers/checkCourseLink';
 export default {
-  name: 'CourseDetail',
+  name: 'PurchasedCourseDetail',
   props: {
     course: {
       type: Object,
@@ -81,6 +74,10 @@ export default {
     },
     type: {
       type: String,
+      required: true,
+    },
+    eventDates: {
+      type: Array,
       required: true,
     },
   },
@@ -101,6 +98,15 @@ export default {
             .filter(str => str)
         : [];
     },
+    // purchasedDates() {
+    //   return this.course.dateOfCourses.filter(date => this.eventDates.includes(date.vendorСode))
+    // },
+      purchasedDates() {
+      return this.course.dateOfCourses.map(date => (Object.assign({
+        paid:this.eventDates.includes(date.vendorСode)
+      },date))
+      )
+    }
   },
   methods: {
     linkCheck(course) {

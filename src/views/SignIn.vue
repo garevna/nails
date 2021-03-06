@@ -9,14 +9,14 @@
             :value.sync="data[name]"
             :label="field.label"
             :required="field.required"
-             :outlined="false"
+            :outlined="false"
           />
           <PasswordInput
             v-if="field.type === 'password'"
             :value.sync="data[name]"
             :label="field.label"
             :required="field.required"
-             :outlined="false"
+            :outlined="false"
           />
         </div>
         <v-checkbox
@@ -68,10 +68,12 @@ export default {
   watch: {
     isLogged(newVal) {
       if (newVal) {
-        // this.$router.push({ name: 'user-cabinet'}) 
+        // this.$router.push({ name: 'user-cabinet'})
         const startPath = this.$router.history._startLocation;
         const currentPath = this.$router.history.current.fullPath;
-        (startPath === currentPath) ? this.$router.push({ name: 'user-cabinet' }) : this.$router.back();
+        startPath === currentPath ? this.$router.push({ name: 'user-cabinet' }) : this.$router.back();
+      } else {
+        this.$router.push({ name: 'home' });
       }
     },
   },
@@ -83,7 +85,7 @@ export default {
     },
   },
   mounted() {
-    setTimeout(()=> this.show = true, 500)
+    setTimeout(() => (this.show = true), 500);
   },
   beforeDestroy() {},
 };

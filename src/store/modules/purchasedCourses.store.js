@@ -14,7 +14,6 @@ const state = {
   videos: [],
   video: null,
   total: 0,
-
 };
 const mutations = {
   COURSES: (state, payload) => {
@@ -38,10 +37,8 @@ const mutations = {
 };
 
 const actions = {
-
   // eslint-disable-next-line no-unused-vars
   async GET_ALL_COURSES({ commit, rootState }, type) {
-  
     const { data, total, error } = await (
       await fetch(`${process.env.VUE_APP_API_URL}/${endpoints.get}?idUser=${rootState.auth.user._id}&type=${type}`, {
         method: 'GET',
@@ -51,8 +48,18 @@ const actions = {
         },
       })
     ).json();
+
+    const courses = data.reduce((res, curr) => {
+      const elm = res.find(i => i.id === curr.id);
+      if (!elm) {
+        res.push(curr);
+        return res;
+      }
+      elm.eventDate = elm.eventDate.concat(curr.eventDate);
+      return res;
+    }, []);
     if (!error) {
-      commit('COURSES', data);
+      commit('COURSES', type === 'offline' ? courses: data);
       commit('TOTAL', total);
     } else {
       commit('ERROR', errors.get, { root: true });
@@ -77,7 +84,9 @@ const actions = {
     }
   },
   async GET_MORE_USER_COURSES({ commit, rootState }, skip) {
-    const { onlineCourses, error, total } = await getData(`${endpoints.get}?userId=${rootState.auth.user._id}&skip=${skip}`);
+    const { onlineCourses, error, total } = await getData(
+      `${endpoints.get}?userId=${rootState.auth.user._id}&skip=${skip}`
+    );
     if (!error) {
       commit('ADD_COURSES', onlineCourses);
       commit('TOTAL', total);
@@ -89,7 +98,7 @@ const actions = {
     const { onlineCourse, error } = await getData(`${course.get}/${id}`);
     if (!error) {
       commit('COURSE', onlineCourse);
-      commit('VIDEOS', onlineCourse.videos)
+      commit('VIDEOS', onlineCourse.videos);
     } else {
       commit('ERROR', errors.get, { root: true });
     }

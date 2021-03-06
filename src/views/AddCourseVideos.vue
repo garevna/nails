@@ -124,15 +124,12 @@
   height: 50px;
   border-radius: 40px;
   color: #fff;
-  /* margin-bottom: 15px; */
-  /* box-shadow: 0 6px rgb(15 15 15), 0 3px 15px rgba(0,0,0,.4), inset 0 1px rgba(255,255,255,.3), inset 0 0 3px rgba(255,255,255,.5); */
   transition: 0.2s;
   box-shadow: inset -1px 2px 2px rgba(255, 255, 255, 0.5),
     inset 1px -2px 2px rgba(0, 0, 0, 0.5);
 }
 .v-expansion-panel--active > .btn-open-video {
   background: rgb(38 38 36) linear-gradient(rgb(38 38 36) 20%, rgb(18 18 17));
-  /* box-shadow: 0 2px rgb(12 12 12), 0 1px 6px rgba(0,0,0,.4), inset 0 1px rgba(255,255,255,.3), inset 0 0 3px rgba(255,255,255,.5); */
   box-shadow: inset 1px -2px 2px rgba(255, 255, 255, 0.5),
     inset -1px 2px 2px rgba(0, 0, 0, 0.5);
   transform: translate(0, 4px);
@@ -173,17 +170,6 @@ export default {
     videos () {
       return this?.courses?.videos ?? []
     }
-    // progress () {
-    //   const arr = new Array(this.data.length).fill({
-    //     progress: 0,
-    //     error: false
-    //   })
-    //   this.queue.forEach(obj => {
-    //     arr[obj.index].progres = obj.progress
-    //     arr[obj.index].error = obj.error
-    //   })
-    //   return arr
-    // }
   },
   watch: {
     queue (val) {

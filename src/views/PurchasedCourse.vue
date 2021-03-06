@@ -8,6 +8,7 @@
         <PurchasedCourseDetail
           :type="type"
           :course="course"
+          :eventDates="eventDates"
         />
       </v-col>
     </v-row>
@@ -20,7 +21,7 @@ import { mapState } from 'vuex';
 import Spinner from '@/components/Spinner.vue';
 import PurchasedCourseDetail from '@/components/courses/PurchasedCourseDetail.vue';
 export default {
-  name: 'UserCourses',
+  name: 'PurchasedCourse',
   components: {
     PurchasedCourseDetail,
     Spinner,
@@ -44,6 +45,9 @@ export default {
     hideBtn() {
       return this.courses.length < this.total;
     },
+    eventDates() {
+      return this.courses.find(course => course._id === this.course?._id)?.eventDate ?? []
+    }
   },
   methods: {
     async getCourse() {
@@ -52,6 +56,7 @@ export default {
         await this.$store.dispatch('purchasedCourses/GET_COURSE',this.$route.params.courseid);
       }else {
         await this.$store.dispatch('purchasedCourses/GET_OFFLINE_COURSE',this.$route.params.courseid);
+        await this.$store.dispatch('purchasedCourses/GET_ALL_COURSES', this.type);
       }
        
       this.loading = false;

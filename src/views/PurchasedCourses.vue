@@ -39,7 +39,7 @@ import { mapState } from 'vuex';
 import Spinner from '@/components/Spinner.vue';
 import PurchasedCourseCard from '@/components/courses/PurchasedCourseCard.vue';
 export default {
-  name: 'UserCourses',
+  name: 'PurchasedCourses',
   components: {
     PurchasedCourseCard,
     Spinner,
