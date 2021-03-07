@@ -17,7 +17,7 @@
         <v-slide-item v-for="(image, index) in images" :key="index" v-slot:default="{}">
           <v-hover v-slot="{ hover }">
             <v-card flat class="ma-4" @click="goToInsta(image.shortcode)">
-              <v-img :src="image.img.src" :height="image.img.height" :width="image.img.width" contain >
+              <v-img :src="image.img.src" :height="image.img.width" :width="image.img.width" contain >
               <v-expand-transition>
                 <div
                   v-if="hover"
