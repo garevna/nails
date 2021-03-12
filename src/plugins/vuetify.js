@@ -39,7 +39,8 @@ export default new Vuetify({
         onlineCardFone: '#414242',
         disabledPathBreadcrumbs: '#262624',
         text: '#000',
-        btnEdit: '#278ed3'
+        btnEdit: '#278ed3',
+        burgerBg:'#ddd'
       },
       dark: {
         orange: '#FFC44A',
@@ -63,7 +64,8 @@ export default new Vuetify({
         disabledPathBreadcrumbs: '#ffffff',
         text: '#fff',
         textSlider:'#000',
-        btnEdit: '#278ed3'
+        btnEdit: '#278ed3',
+        burgerBg:'#ddd'
       },
     },
   },

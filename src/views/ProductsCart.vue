@@ -1,0 +1,92 @@
+<template>
+  <div>
+    <div class="mt-12">
+      <v-card
+        v-if="getTotalItem"
+        flat
+        class="d-flex flex-column align-center"
+        outlined
+        style="overflow: scroll; overflow-x: hidden"
+        height="55vh"
+      >
+        <ProductCard v-for="commodity in commodityCards" :key="commodity._id" :product="commodity" />
+      </v-card>
+      <v-card
+        v-else
+        flat
+      >
+      <h2 class="text-center">Your cart is empty</h2>
+      </v-card>
+    </div>
+    <v-footer absolute class="homefone pa-0 pb-6">
+      <v-card flat tile class="primary pb-4" width="100%">
+        <div flat style="position: relative;" class="pb-2">
+          <v-card-title class="d-block text-center">in your cart:</v-card-title>
+          <v-card-text v-if="showPurchaseLimit" class="d-block text-center pa-0"
+            style="position:absolute; bottom:0; left:0;">purchase amount must exceed $ 50</v-card-text
+          >
+        </div>
+
+        <v-card flat class="transparent px-4 text-center">
+          <table style="margin: auto">
+            <tr>
+              <td>
+                Total number of commodities:<span style="font-size: 16px; font-weight: bold">{{ getTotalItem }}</span>
+              </td>
+              <td class="px-4">
+                Total summ of commodities:<span style="font-size: 16px; font-weight: bold">$ {{ getSumPrice }}</span>
+              </td>
+              <td v-if="!responseBtn">
+                <v-btn
+                  :disabled="showPurchaseLimit"
+                  rounded
+                  outlined
+                  large
+                  class="px-8 dgrey--text"
+                  style="font-size: 16px; font-weight: bold"
+                  >Buy</v-btn
+                >
+              </td>
+            </tr>
+          </table>
+          <v-btn
+            v-if="responseBtn"
+            :disabled="showPurchaseLimit"
+            rounded
+            outlined
+            large
+            class="px-8 dgrey--text mt-2"
+            style="font-size: 16px; font-weight: bold"
+            >Buy</v-btn
+          >
+        </v-card>
+      </v-card>
+    </v-footer>
+  </div>
+</template>
+
+<script>
+import { mapState, mapGetters } from 'vuex';
+import ProductCard from '@/components/Shop/ProductCard.vue';
+
+export default {
+  name: 'ProductsCart',
+  components: {
+    ProductCard,
+  },
+  computed: {
+    ...mapState(['viewportWidth']),
+    ...mapState('productCart', ['cart', 'commodities']),
+    ...mapGetters('productCart', ['getSumPrice', 'getTotalItem', 'commodityCards']),
+    responseBtn() {
+      return this.viewportWidth < 400;
+    },
+    showPurchaseLimit() {
+      return this.getSumPrice < 50;
+    },
+  },
+  mounted() {
+  },
+};
+</script>
+

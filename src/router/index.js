@@ -17,7 +17,10 @@ const routes = [
   },
   {
     path: '/shop',
-    redirect: { name: 'shop' },
+    name: 'shop-root',
+    redirect: { name: 'shop', params:{
+      categoryName: 'nail-tools'
+    } },
   },
   {
     path: '/shop/:categoryName',
@@ -30,6 +33,12 @@ const routes = [
     name: 'shop-item',
     meta: { layout: 'Whitefone' },
     component: () => import(/* webpackChunkName: "shop-item" */ '@/views/ShopItem.vue'),
+  },
+  {
+    path: '/products-cart',
+    name: 'products-cart',
+    meta: { layout: 'Whitefone' },
+    component: () => import(/* webpackChunkName: "shop-item" */ '@/views/ProductsCart.vue'),
   },
   {
     path: '/courses',

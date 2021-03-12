@@ -39,8 +39,8 @@
             <div class="price d-flex flex-column justify-end align-end">
               <h3 class="darkGrey--text my-6 mx-0">{{ commodity.price }} AUD</h3>
               <div style="width: 200px">
-                <v-btn small width="100%" class="pa-2 ma-2 dgrey--text" color="orange">Add to card</v-btn>
-                <v-btn small width="100%" class="pa-2 ma-2 white--text" color="dgrey">Buy it now</v-btn>
+                <v-btn small width="100%" class="pa-2 ma-2 dgrey--text" color="orange" @click="addToCart">Add to card</v-btn>
+                <v-btn small width="100%" class="pa-2 ma-2 white--text" color="dgrey" @click="buyNow">Buy it now</v-btn>
               </div>
             </div>
           </v-col>
@@ -131,7 +131,7 @@
 import { mapState } from 'vuex';
 
 export default {
-  name: 'Shop',
+  name: 'ShopItem',
   components: {},
   props: ['section'],
   data() {
@@ -182,7 +182,11 @@ export default {
       toggle();
       this.activeCard = val.link;
     },
+    addToCart(){
+      this.$store.dispatch('productCart/ADD_TO_CART', this.$route.params.commodityId)
+    },
     buyNow() {
+      this.addToCart()
       this.$router.push({ name: 'shop-payment' });
     },
   },
@@ -214,12 +218,12 @@ export default {
 .speciﬁcations {
   white-space: pre-wrap;
 }
-.caption {
+// .caption {
   // margin-top: 50px;
-  h2 {
+  // h2 {
     // margin-top: 5px;
-  }
-}
+  // }
+// }
 
 .price {
   width: 100%;

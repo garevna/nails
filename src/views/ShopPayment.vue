@@ -16,7 +16,7 @@ import { mapState } from 'vuex';
 import MainMenu from '@/components/MainMenu.vue';
 import PaymentDetailsForm from '@/components/forms/PaymentDetailsForm.vue';
 export default {
-  name: 'Shop',
+  name: 'ShopPayment',
   components: { MainMenu, PaymentDetailsForm },
   data() {
     return {};
@@ -29,11 +29,5 @@ export default {
   },
   watch: {},
   methods: {},
-  // mounted () {
-  //   this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.whitefone
-  // },
-  // beforeDestroy () {
-  //   this.$vuetify.theme.themes.light.homefone = this.$vuetify.theme.themes.light.secondaryGray
-  // }
 };
 </script>

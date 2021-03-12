@@ -1,148 +1,76 @@
 <template>
-  <v-expansion-panels
-    tile
-    flat
-    v-model="showPanel"
-    class="transparent"
-    style="position:absolute; right:0; width:100%;"
-
-  >
-    <v-expansion-panel class="transparent">
-      <v-expansion-panel-header expand-icon="none" hide-actions class="mt-6">
-        <v-btn text>
-          <span :class="burgerMenuClassFirst"></span>
-          <span :class="burgerMenuClassSecond"></span>
-        </v-btn>
-      </v-expansion-panel-header>
-      <v-expansion-panel-content
-        class="main-menu-content mt-8"
-      >
-        <!-- style="margin-top: 128px; padding: 64px 16px 16px !important" -->
-        <v-list flat class="main-menu-content text-center bgBurgerMenu">
-          <v-list-item class="black--text" @click="goHome">
-            <v-list-item-title class="black--text main-menu-items">Home</v-list-item-title>
-          </v-list-item>
-          <v-list-item class="black--text" @click="goToShop">
-            <v-list-item-title class="black--text main-menu-items">Shop</v-list-item-title>
-          </v-list-item>
-          <v-list-item class="black--text" @click="goToCourses">
-            <v-list-item-title class="black--text main-menu-items">Courses</v-list-item-title>
-          </v-list-item>
-          <v-list-item v-if="!isLogged" @click="goToLogin('sign-in')">
-            <v-list-item-title class="black--text main-menu-items">Sign in</v-list-item-title>
-          </v-list-item>
-          <v-list-item v-if="!isLogged" @click="goToLogin('sign-up')">
-            <v-list-item-title class="black--text main-menu-items">Sign up</v-list-item-title>
-          </v-list-item>
-          <v-list-item v-if="isLogged" class="d-flex justify-center" @click="goToCabinet">
-            <v-icon color="secondaryGray">mdi-account</v-icon>
-          </v-list-item>
-          <v-list-item class="d-flex justify-center">
-            <ProductsCart />
-          </v-list-item>
-        </v-list>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
-  </v-expansion-panels>
+  <v-card flat tile class="burger-menu" :class="{ 'open-menu': panel }" @click="$emit('update:panel', false)">
+    <v-list class="d-flex burgerBg flex-column align-center">
+      <v-list-item @click="goTo('home')">
+        <v-list-item-title class="black--text main-menu-items">Home</v-list-item-title>
+      </v-list-item>
+      <v-list-item @click="goTo('shop-root')">
+        <v-list-item-title class="black--text main-menu-items">Shop</v-list-item-title>
+      </v-list-item>
+      <v-list-item @click="goTo('courses')">
+        <v-list-item-title class="black--text main-menu-items">Courses</v-list-item-title>
+      </v-list-item>
+      <v-list-item v-if="!isLogged" @click="goTo('sign-in')">
+        <v-list-item-title class="black--text main-menu-items">Sign in</v-list-item-title>
+      </v-list-item>
+      <v-list-item v-if="!isLogged" @click="goTo('sign-up')">
+        <v-list-item-title class="black--text main-menu-items">Sign up</v-list-item-title>
+      </v-list-item>
+      <v-list-item v-if="isLogged" class="d-flex justify-center" @click="goTo('user-cabinet')">
+        <v-icon color="secondaryGray">mdi-account</v-icon>
+      </v-list-item>
+      <v-list-item class="" @click="goTo('products-cart')">
+        <v-icon color="secondaryGray">mdi-shopping</v-icon>
+      </v-list-item>
+    </v-list>
+  </v-card>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 
-import ProductsCart from '@/components/Shop/ProductsCart.vue';
-
 export default {
-  props: ['panel'],
-  components: {
-    ProductsCart,
+  props: {
+    panel: {
+      type: Boolean,
+      required: true,
+    },
   },
+  components: {},
   data() {
     return {};
   },
   computed: {
     ...mapState('auth', ['isLogged']),
-    burgerMenuClassFirst() {
-      return this.panel === 0 ? 'burger-menu-active--first' : 'burger-menu--first';
-    },
-    burgerMenuClassSecond() {
-      return this.panel === 0 ? 'burger-menu-active--second' : 'burger-menu--second';
-    },
-    showPanel: {
-      get: function () {
-        return this.panel;
-      },
-      set: function (val) {
-        this.$emit('update:panel', val);
-      },
-    },
   },
   methods: {
-    goHome() {
-      this.showPanel = false;
-      if (this.$route.name !== 'home') this.$router.push({ name: 'home' });
-    },
-    goToShop() {
-      this.showPanel = false;
-      if (this.$route.name !== 'shop') this.$router.push({ name: 'shop' });
-    },
-    goToCourses() {
-      this.showPanel = false;
-      if (this.$route.name !== 'courses') {
-        this.$router.push({ name: 'courses' });
-      }
-    },
-    goToLogin(name) {
-      this.showPanel = false;
+    goTo(name) {
+      this.$emit('update:panel', false);
       if (this.$route.name !== name) {
         this.$router.push({ name });
       }
     },
-    goToCabinet() {
-      this.showPanel = false;
-      if (this.$route.name !== 'user-cabinet') this.$router.push({ name: 'user-cabinet' });
+    close(e) {
+      console.log(e);
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
-.burger-menu--first,
-.burger-menu--second,
-.burger-menu-active--first,
-.burger-menu-active--second {
-  position: absolute;
-  height: 3px;
-  background: #000;
+.burger-menu {
+  position: fixed;
+  top: -500px;
+  width: 100%;
   left: 0;
-  transition: all 0.5s;
+  transition: top ease-in-out 0.5s;
+  cursor: pointer;
 }
-.burger-menu--first {
-  width: 32px;
-  top: -8px;
-}
-.burger-menu--second {
-  width: 32px;
-  top: 2px;
-}
-.burger-menu-active--first {
-  top: 0;
-  width: 32px;
-  transform: rotate(-45deg);
-}
-.burger-menu-active--second {
-  top: 0;
-  width: 32px;
-  transform: rotate(45deg);
+.open-menu {
+  top: 90px;
 }
 .main-menu-items {
   font-size: 18px;
   line-height: 40px;
-}
-.v-expansion-panel-header {
-  width: 0 !important;
-  position: fixed;
-  right: 50px;
-  top: 50%;
-  transform: translateY(-50%);
 }
 </style>

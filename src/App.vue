@@ -6,7 +6,7 @@
         <!-- <router-view /> -->
       </component>
     </v-main>
-    <Footer />
+    <Footer v-if="showFooter"/>
     <UploadFiles v-if="uploadDialog" />
     <error-message />
     <simple-message />
@@ -40,6 +40,9 @@ export default {
     ...mapState('courses', ['uploadDialog']),
     isShopOpened() {
       return this.$route.name === 'shop' || this.$route.name === 'shop-item';
+    },
+    showFooter() {
+      return this.$route.name !== 'products-cart'
     },
     layout() {
       if (this.isShopOpened) {
@@ -76,6 +79,7 @@ export default {
     // this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
     window.addEventListener('resize', this.onResize, { passive: true });
     this.$store.dispatch('instagram/GET_INSTAGRAM');
+    this.$store.dispatch('productCart/INIT_CART');
   },
   async created() {
     await this.$store.dispatch('auth/IS_SIGNED');
@@ -107,6 +111,18 @@ a {
 .v-expansion-panel-content__wrap {
   padding-top: 50px !important;
 }
+::-webkit-scrollbar {
+  width: 10px; /* ширина для вертикального скролла */
+  height: 8px; /* высота для горизонтального скролла */
+  background-color: #333333;
+}
+
+/* ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+  background-color: #ffc44a;
+  border-radius: 9em;
+}
+
 /* .main-content {
   margin-bottom: 150px !important;
   margin-top: 20px !important;

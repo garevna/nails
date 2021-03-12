@@ -1,5 +1,5 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" :width="width" @click="goHome" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+  <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" :width="width" @click="$emit('click')" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
 viewBox="0 0 12686 1102"
  xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
@@ -31,6 +31,6 @@ viewBox="0 0 12686 1102"
 </style>
 <script>
 export default {
-  props: ['width', 'goHome']
+  props: ['width']
 }
 </script>

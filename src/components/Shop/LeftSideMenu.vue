@@ -73,7 +73,7 @@
 <script>
 import { mapState } from 'vuex';
 export default {
-  name: 'Shop',
+  name: 'LeftSideMenu',
   props: ['setSelectedSection'],
   computed: {
     ...mapState('shop', ['categories', 'activeCategory']),

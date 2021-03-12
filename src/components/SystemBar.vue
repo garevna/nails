@@ -1,54 +1,23 @@
 <template>
   <v-app-bar app dark elevate-on-scroll class="homefone pt-6">
     <v-card class="primary app-bar-header d-flex px-4 py-2" style="position: relative" tile width="100%" height="68">
-      <Logo :goHome="goHome" class="logo" />
+      <Logo @click="goTo('home')" class="logo" />
       <v-spacer></v-spacer>
       <v-card-actions v-if="!widthLimit" class="menu-app-bar-btn button pa-0">
-        <v-btn class="black--text" @click="goHome" text>HOME</v-btn>
-        <v-btn class="black--text" @click="goToShop" text>SHOP</v-btn>
-        <v-btn class="black--text" @click="goToCourses" text>COURSES</v-btn>
+        <v-btn class="black--text" @click="goTo('home')" text>HOME</v-btn>
+        <v-btn class="black--text" @click="goTo('shop-root')" text>SHOP</v-btn>
+        <v-btn class="black--text" @click="goTo('courses')" text>COURSES</v-btn>
       </v-card-actions>
 
       <MenuSystemBar v-if="!widthLimit" />
+      <v-btn text v-if="widthLimit" @click="panel = !panel" class="my-auto">
+        <span :class="burgerMenuClassFirst"></span>
+        <span :class="burgerMenuClassSecond"></span>
+      </v-btn>
       <BurgerMenu v-if="widthLimit" :panel.sync="panel" />
     </v-card>
   </v-app-bar>
 </template>
-
-<style scoped lang="scss">
-.logo {
-  width: 300px;
-  cursor: pointer;
-}
-.app-bar-header {
-  -webkit-box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
-  -moz-box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
-  box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
-}
-.menu-app-bar-btn button {
-  // color: #000;
-  font-size: 22px;
-  font-weight: 700;
-}
-.header-container {
-  position: fixed;
-  height: 50px;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 10;
-}
-@media screen and (max-width: 600px) {
-  .logo {
-    width: 250px;
-  }
-}
-</style>
-<style>
-.v-toolbar__content {
-  padding: 0 !important;
-}
-</style>
 
 <script>
 import { mapState } from 'vuex';
@@ -65,38 +34,84 @@ export default {
     BurgerMenu,
   },
   data: () => ({
-    toggle: 0,
     panel: false,
   }),
   computed: {
     ...mapState(['viewportWidth']),
     // ...mapState('shop', ['categories']),
     burgerMenuClassFirst() {
-      return this.panel === 0 ? 'burger-menu-active--first' : 'burger-menu--first';
+      return !this.panel ? 'burger-menu--first' : 'burger-menu-active--first';
     },
     burgerMenuClassSecond() {
-      return this.panel === 0 ? 'burger-menu-active--second' : 'burger-menu--second';
+      return !this.panel ? 'burger-menu--second' : 'burger-menu-active--second';
     },
     widthLimit() {
       return this.viewportWidth < 1000;
     },
   },
   methods: {
-    goHome() {
-      this.panel = [];
-      if (this.$route.name !== 'home') this.$router.push({ name: 'home' });
-    },
-    goToShop() {
-      this.panel = [];
-      if (this.$route.name !== 'shop') this.$router.push({ name: 'shop', params: { categoryName: 'nail-tools' } });
-    },
-    goToCourses() {
-      this.panel = [];
-      if (this.$route.name !== 'courses') {
-        this.$router.push({ name: 'courses' });
+    goTo(name) {
+      this.panel = false;
+      if (this.$route.name !== name) {
+        this.$router.push({ name });
       }
     },
   },
   mounted() {},
 };
 </script>
+<style scoped lang="scss">
+.logo {
+  width: 300px;
+  cursor: pointer;
+}
+.app-bar-header {
+  -webkit-box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
+  -moz-box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
+  box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
+}
+.menu-app-bar-btn button {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.burger-menu--first,
+.burger-menu--second,
+.burger-menu-active--first,
+.burger-menu-active--second {
+  position: absolute;
+  height: 3px;
+  background: #000;
+  left: 0;
+  transition: all 0.5s;
+}
+.burger-menu--first {
+  width: 32px;
+  top: -8px;
+}
+.burger-menu--second {
+  width: 32px;
+  top: 2px;
+}
+.burger-menu-active--first {
+  top: 0;
+  width: 32px;
+  transform: rotate(-45deg);
+}
+.burger-menu-active--second {
+  top: 0;
+  width: 32px;
+  transform: rotate(45deg);
+}
+
+@media screen and (max-width: 600px) {
+  .logo {
+    width: 250px;
+  }
+}
+</style>
+<style>
+.v-toolbar__content {
+  padding: 0 !important;
+}
+</style>

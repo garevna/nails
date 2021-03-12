@@ -1,30 +1,30 @@
 <template>
   <v-card flat class="transparent d-flex">
     <v-card-actions>
-        <v-btn v-if="!isLogged" @click="goToLogin('sign-in')" class="registration black--text" text> Sign in </v-btn>
-    <v-btn v-if="!isLogged" @click="goToLogin('sign-up')" class="registration black--text" text> Sign up </v-btn>
-    <ProductsCart />
-    <v-btn icon v-if="isLogged" @click="goToCabinet">
-      <v-icon color="secondaryGray">mdi-account</v-icon>
-    </v-btn>
+      <v-btn v-if="!isLogged" @click="goTo('sign-in')" class="registration black--text" text> Sign in </v-btn>
+      <v-btn v-if="!isLogged" @click="goTo('sign-up')" class="registration black--text" text> Sign up </v-btn>
+      <CartBtn @click="goTo('products-cart')" />
+      <v-btn icon v-if="isLogged" @click="goToCabinet">
+        <v-icon color="secondaryGray">mdi-account</v-icon>
+      </v-btn>
 
-    <v-menu v-model="isOpened" bottom left :close-on-content-click="false">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on" @click="isOpened = true">
-          <v-icon color="secondaryGray">mdi-dots-vertical</v-icon>
-        </v-btn>
-      </template>
-
-      <v-treeview dark class="black pt-5" dense :items="items" open-on-click>
-        <template slot="label" slot-scope="{ item }">
-          <a @click="openDialog(item)" class="item-link">{{ item.name }}</a>
+      <v-menu v-model="isOpened" bottom left :close-on-content-click="false">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on" @click="isOpened = true">
+            <v-icon color="secondaryGray">mdi-dots-vertical</v-icon>
+          </v-btn>
         </template>
-      </v-treeview>
-    </v-menu>
+
+        <v-treeview dark class="black pt-5" dense :items="items" open-on-click>
+          <template slot="label" slot-scope="{ item }">
+            <a @click="openDialog(item)" class="item-link">{{ item.name }}</a>
+          </template>
+        </v-treeview>
+      </v-menu>
     </v-card-actions>
-  
   </v-card>
 </template>
+
 <style>
 .v-treeview-node__label {
   cursor: pointer;
@@ -38,6 +38,7 @@
 }
 </style>
 <style scoped>
+
 .menu-app-bar:not(:last-child),
 .menu-item-app-bar:not(:last-child) {
   margin-right: 20px;
@@ -66,25 +67,27 @@
   }
 }
 </style>
+
 <script>
 import { mapState } from 'vuex';
 
-import ProductsCart from '@/components/Shop/ProductsCart.vue';
-const { items } = require('@/config/menuSystemBarSchema').default
+import CartBtn from '@/components/Shop/CartBtn.vue';
+
+const { items } = require('@/config/menuSystemBarSchema').default;
 export default {
-  components: { ProductsCart },
+  components: { CartBtn },
   data() {
     return {
       isOpened: false,
       key: 1,
-      items
+      items,
     };
   },
   computed: {
     ...mapState('auth', ['isLogged']),
   },
   methods: {
-    goToLogin(name) {
+    goTo(name) {
       if (this.$route.name !== name) this.$router.push({ name });
     },
     goToCabinet() {
