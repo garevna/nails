@@ -12,13 +12,13 @@
     </v-card>
     <v-spacer />
     <v-card-actions class="d-flex justify-center">
-      <v-btn color="blue darken-1" :disabled="product.count <= 1" icon @click="decrementCount(product._id)">
+      <v-btn color="blue darken-1" :disabled="disabledMinus" icon @click="decrementCount(product._id)">
         <v-icon>mdi-minus</v-icon>
       </v-btn>
       <v-card-text>{{ product.count }}</v-card-text>
       <v-btn
         color="blue darken-1"
-        :disabled="product.count === product.amount || product.count >= 99"
+        :disabled="disabledPlus"
         icon
         @click="incrementCount(product._id)"
       >
@@ -84,6 +84,12 @@ export default {
     summPriceItem() {
       return this.product.count * this.product.price;
     },
+    disabledPlus(){
+      return this.product.count >= this.product.amount || this.product.count >= 99 || this.product.amount === 0
+    },
+    disabledMinus() {
+      return this.product.count <= 1
+    }
   },
   methods: {
     checkUrl(card) {

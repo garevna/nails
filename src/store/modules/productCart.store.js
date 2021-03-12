@@ -35,6 +35,14 @@ const mutations = {
     state.cart = payload;
   },
   COMMODITIES: (state, payload) => {
+    state.cart = state.cart.map(item => {
+      const amount = payload.find(commodity => commodity._id === item._id)?.amount ?? 0;
+      return item.count <= amount
+        ? item
+        : Object.assign(item, {
+            count: amount,
+          });
+    });
     state.commodities = payload ?? [];
   },
 };

@@ -39,8 +39,8 @@
             <div class="price d-flex flex-column justify-end align-end">
               <h3 class="darkGrey--text my-6 mx-0">{{ commodity.price }} AUD</h3>
               <div style="width: 200px">
-                <v-btn small width="100%" class="pa-2 ma-2 dgrey--text" color="orange" @click="addToCart">Add to card</v-btn>
-                <v-btn small width="100%" class="pa-2 ma-2 white--text" color="dgrey" @click="buyNow">Buy it now</v-btn>
+                <v-btn :disabled="!commodity.amount" small width="100%" class="pa-2 ma-2 dgrey--text" color="orange" @click="addToCart">Add to card</v-btn>
+                <v-btn :disabled="!commodity.amount" small width="100%" class="pa-2 ma-2 white--text" color="dgrey" @click="buyNow">Buy it now</v-btn>
               </div>
             </div>
           </v-col>

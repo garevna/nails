@@ -19,8 +19,9 @@
       <v-list-item v-if="isLogged" class="d-flex justify-center" @click="goTo('user-cabinet')">
         <v-icon color="secondaryGray">mdi-account</v-icon>
       </v-list-item>
-      <v-list-item class="" @click="goTo('products-cart')">
-        <v-icon color="secondaryGray">mdi-shopping</v-icon>
+      <v-list-item class="py-4">
+        <!-- <v-icon color="secondaryGray">mdi-shopping</v-icon> -->
+        <CartBtn @click="goTo('products-cart')" />
       </v-list-item>
     </v-list>
   </v-card>
@@ -29,6 +30,8 @@
 <script>
 import { mapState } from 'vuex';
 
+import CartBtn from '@/components/Shop/CartBtn.vue';
+
 export default {
   props: {
     panel: {
@@ -36,7 +39,7 @@ export default {
       required: true,
     },
   },
-  components: {},
+  components: { CartBtn },
   data() {
     return {};
   },
