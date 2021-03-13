@@ -1,7 +1,7 @@
 <template>
   <v-app dark>
-    <SystemBar />
-    <v-main  class="homefone"> 
+    <SystemBar/>
+    <v-main class="homefone"> 
       <component :is="layout">
         <!-- <router-view /> -->
       </component>
@@ -16,11 +16,11 @@
 <script>
 import { mapState } from 'vuex';
 
-import SystemBar from './components/SystemBar.vue';
-import Footer from './components/Footer.vue';
-import ShopLayout from './layouts/ShopLayout.vue';
-import DefaultLayout from './layouts/DefaultLayout.vue';
-import WhitefoneLayout from './layouts/WhitefoneLayout.vue';
+import SystemBar from '@/components/SystemBar.vue';
+import Footer from '@/components/Footer.vue';
+import ShopLayout from '@/layouts/ShopLayout.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import WhitefoneLayout from '@/layouts/WhitefoneLayout.vue';
 
 export default {
   name: 'App',
@@ -78,6 +78,7 @@ export default {
     this.onResize();
     // this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
     window.addEventListener('resize', this.onResize, { passive: true });
+    // this.shopInit()
     this.$store.dispatch('instagram/GET_INSTAGRAM');
     this.$store.dispatch('productCart/INIT_CART');
   },

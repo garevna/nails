@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center">
+  <!-- <v-row justify="center"> -->
     <v-expansion-panels flat accordion class="px-0 py-5 left-side-header">
       <v-expansion-panel v-for="section in categories" :key="section._id">
         <v-expansion-panel-header class="mb-0 py-0" @click="setSection(section)">
@@ -37,7 +37,7 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
-  </v-row>
+  <!-- </v-row> -->
 </template>
 
 <style lang="scss">

@@ -1,143 +1,85 @@
 <template>
-  <v-row v-if="commodity && !isCommodityLoading" flat width="100%" class="pa-0 ma-0">
-    <v-col cols="12" md="12" lg="11" offset-lg="1" offset="0" class="pb-0">
-      <v-row class="pa-0 ma-0">
-        <v-col cols="12" md="6" lg="6">
-          <v-row class="image-row d-flex justify-center">
-            <v-card flat class="px-5">
-              <v-img :src="activeCard" :lazy-src="noImage" max-width="100%" max-height="400px" contain></v-img>
-            </v-card>
-          </v-row>
-          <v-row class="justify-center">
-            <v-slide-group :model="activeCard" class="px-0 justify-center" center-active mandatory>
-              <v-slide-item v-slot:default="{ active, toggle }">
-                <v-img
-                  v-for="img in commodity.images.slice(4)"
-                  :key="img._id"
-                  @click="setPhoto(img, toggle)"
-                  :src="img.link"
-                  :lazy-src="noImage"
-                  width="60px"
-                  height="60px"
-                  contain
-                  active
-                  alt="Commodity image"
-                  :class="[active ? 'card-active' : 'card-disabled', 'mx-2']"
-                ></v-img>
-              </v-slide-item>
-            </v-slide-group>
-          </v-row>
-        </v-col>
+  <v-row v-if="commodity && !isCommodityLoading">
+    <v-col cols="12" sm="6" lg="5">
+      <!-- <v-row class="image-row d-flex justify-center"> -->
+      <v-card flat class="px-5">
+        <v-img :src="currentLink" :lazy-src="noImage" height="400px" contain></v-img>
+        <!-- </v-row> -->
+        <!-- <v-row class="justify-center"> -->
+        <!-- center-active mandatory -->
+        <v-slide-group v-model="activeCard" center-active mandatory show-arrows>
+          <v-slide-item v-slot:default="{ active, toggle }" v-for="img in previewImgs" :key="img._id">
+            <v-img
+              @click="toggle"
+              :src="img.link"
+              :lazy-src="noImage"
+              width="60"
+              height="60"
+              contain
+              active
+              alt="Commodity image"
+              :class="[active ? 'card-active' : 'card-disabled', 'mx-2']"
+            ></v-img>
+          </v-slide-item>
+        </v-slide-group>
+      </v-card>
+      <!-- </v-row> -->
+    </v-col>
 
-        <v-col cols="12" sm="12" md="5" xl="4" lg="4" class="px-0">
-          <v-col cols="12" class="px-0">
-            <h2 class="dgrey--text">{{ commodity.name }}</h2>
-            <h4 class="shopfont--text">{{ commodity.brand }}</h4>
-            <div class="caption mt-12">
-              <h2 max-width="150px" class="speciﬁcations mt-1">{{ commodity.speciﬁcations }}</h2>
-            </div>
-            <div class="price d-flex flex-column justify-end align-end">
-              <h3 class="darkGrey--text my-6 mx-0">{{ commodity.price }} AUD</h3>
-              <div style="width: 200px">
-                <v-btn :disabled="!commodity.amount" small width="100%" class="pa-2 ma-2 dgrey--text" color="orange" @click="addToCart">Add to card</v-btn>
-                <v-btn :disabled="!commodity.amount" small width="100%" class="pa-2 ma-2 white--text" color="dgrey" @click="buyNow">Buy it now</v-btn>
-              </div>
-            </div>
-          </v-col>
-        </v-col>
-        <v-row class="mt-10" v-if="alsoViewedCommodities.length">
-          <v-col cols="12">
-            <h2 class="darkGrey--text text-center">People who viewed this item also viewed</h2>
-          </v-col>
-        </v-row>
-        <v-col cols="12" v-if="alsoViewedCommodities.length">
-          <v-sheet elevation="0" width="100%">
-            <v-row>
-              <v-col v-for="card in alsoViewedCommodities" :key="card._id">
-                <v-card
-                  width="200px"
-                  elevation="2"
-                  class="d-fex justify-center pa-0 ma-0"
-                  rounded="0"
-                  shaped
-                  color="lgrey"
-                  height="350"
-                  @click="goToCard(card._id)"
-                  link
-                >
-                  <v-card flat outlined class="d-fex flex-column justify-center align-center ma-0" tile color="lgrey">
-                    <v-img
-                      :src="card.previewImage[0].link"
-                      :lazy-src="noImage"
-                      width="100%"
-                      height="200"
-                      contain
-                    ></v-img>
-                  </v-card>
-                  <v-card
-                    elevation="0"
-                    height="150"
-                    tile
-                    color="lgrey"
-                    class="ma-0 px-3 d-flex flex-column justify-space-between"
-                  >
-                    <span>
-                      <p class="dgrey--text mb-2 font-weight-bold text-h6">{{ card.name }}</p>
-                      <p class="dgrey--text font-weight-medium text-subtitle-1">{{ card.brand }}</p>
-                    </span>
-                    <p class="dgrey--text text-end text-subtitle-1">{{ card.price }} AUD</p>
-                  </v-card>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-sheet>
-        </v-col>
-      </v-row>
+    <v-col cols="12" sm="6" offset-lg="1" lg="5">
+      <!-- <v-row>
+            <v-col cols="12"> -->
+      <h2 class="dgrey--text">{{ commodity.name }}</h2>
+      <h4 class="shopfont--text">{{ commodity.brand }}</h4>
+      <div class="caption mt-12">
+        <h2 max-width="150px" class="speciﬁcations mt-1">{{ commodity.speciﬁcations }}</h2>
+      </div>
+      <div class="price d-flex flex-column justify-end align-center align-sm-end">
+        <h3 class="darkGrey--text my-6 mx-0">{{ commodity.price }} AUD</h3>
+        <v-card flat style="position: relative; box-sizing: border-box" class="px-4 px-sm-10">
+          <span
+            v-if="!commodity.amount"
+            style="position: absolute; top: -20px; font-size: 14px; left: 50%; transform: translateX(-50%)"
+            >not available</span
+          >
+          <v-btn
+            :disabled="!commodity.amount"
+            small
+            width="100%"
+            class="pa-2 mt-2 dgrey--text"
+            color="orange"
+            @click="addToCart"
+            >Add to card</v-btn
+          >
+          <v-btn
+            :disabled="!commodity.amount"
+            small
+            width="100%"
+            class="pa-2 mt-4 white--text"
+            color="dgrey"
+            @click="buyNow"
+            >Buy it now</v-btn
+          >
+        </v-card>
+      </div>
     </v-col>
-  </v-row>
-  <v-row v-else class="pa-0 ma-0">
-    <v-col cols="12" md="8" lg="11" offset-lg="1" offset-md="4" offset="0">
-      <v-row class="pa-0 ma-0">
-        <v-col cols="6">
-          <v-skeleton-loader height="400px" type="image@2"></v-skeleton-loader>
-          <v-row class="pa-10 d-flex justify-space-between">
-            <v-skeleton-loader height="100px" width="25%" type="image"></v-skeleton-loader>
-            <v-skeleton-loader height="100px" width="25%" type="image"></v-skeleton-loader>
-            <v-skeleton-loader height="100px" width="25%" type="image"></v-skeleton-loader>
-          </v-row>
-        </v-col>
-        <v-col cols="12" sm="12" md="5" xl="4" lg="4" class="px-0">
-          <v-skeleton-loader height="50px" type="heading"></v-skeleton-loader>
-          <v-skeleton-loader height="100px" width="20%" type="text"></v-skeleton-loader>
-          <v-skeleton-loader width="100%" type="paragraph@7"></v-skeleton-loader>
-          <v-row class="py-10 d-flex justify-end">
-            <v-skeleton-loader type="button"></v-skeleton-loader>
-            <v-skeleton-loader type="button"></v-skeleton-loader>
-          </v-row>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12" sm="6" md="4" lg="3" class="px-5 pb-2" v-for="i in 4" :key="i">
-          <v-card class="pa-0 pt-0 mt-0" color="lgrey">
-            <v-skeleton-loader type="image, list-item-three-line" animation></v-skeleton-loader>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-col>
+    <AlsoViewed :commodities="alsoViewedCommodities" :loading="isCommodityLoading" />
   </v-row>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 
+import AlsoViewed from '@/components/Shop/AlsoViewed.vue';
+
 export default {
   name: 'ShopItem',
-  components: {},
+  components: { AlsoViewed },
   props: ['section'],
   data() {
     return {
-      commodityId: this.$route.params.commodityId,
-      activeCard: '',
+      // commodityId: this.$route.params.commodityId,
+      activeCard: 0,
       noImage: require('@/assets/no-image.png'),
     };
   },
@@ -159,10 +101,18 @@ export default {
       if (!Array.isArray(array)) return [];
       return array.slice(0, 4);
     },
+    previewImgs() {
+      console.log('img',this.commodity?.images ?? [])
+      return this.commodity?.images ?? [];
+    },
+    currentLink() {
+      return this.commodity.images[this.activeCard]?.link ?? this.noImage;
+    },
     alsoViewedCommoditiesLink() {
       this.fullListOfCategories;
       if (!this.alsoViewedCommodities.length) return;
       const categoryId = this.alsoViewedCommodities[0].subCategoryId || this.alsoViewedCommodities[0].categoryId;
+      console.log('fullListOfCategories',[...this.fullListOfCategories])
       const category = this.fullListOfCategories.find(el => el._id === categoryId);
       if (category && category.slug) return category.slug;
       return '';
@@ -178,23 +128,26 @@ export default {
         params: { categoryName: this.alsoViewedCommoditiesLink, commodityId: id },
       });
     },
-    setPhoto(val, toggle) {
-      toggle();
-      this.activeCard = val.link;
-    },
-    addToCart(){
-      this.$store.dispatch('productCart/ADD_TO_CART', this.$route.params.commodityId)
+    // setPhoto(val, toggle) {
+    //   toggle();
+    //   this.activeCard = val.link;
+    // },
+    addToCart() {
+      this.$store.dispatch('productCart/ADD_TO_CART', this.$route.params.commodityId);
     },
     buyNow() {
-      this.addToCart()
+      this.addToCart();
       this.$router.push({ name: 'shop-payment' });
     },
   },
   async mounted() {
     await this.$store.dispatch('shop/GET_COMMODITY', {
-      commodityId: this.commodityId,
+      commodityId: this.$route.params.commodityId,
     });
-    this.activeCard = (await this.commodity.images[0]) && this.commodity.images[0].link;
+    // await this.$store.dispatch('shop/INIT_SHOP', {
+    //   categoryName: this.categoryName,
+    // });
+    // this.activeCard = (await this.commodity.images[0]) && this.commodity.images[0].link;
   },
   beforeDestroy() {
     this.$store.commit('shop/CLEAR_COMMODITY');
@@ -207,9 +160,9 @@ export default {
 .card-active {
   opacity: 1;
 }
-.image-row {
-  height: 430px;
-}
+// .image-row {
+//   height: 430px;
+// }
 .card-disabled {
   cursor: pointer;
   opacity: 0.4;
@@ -219,10 +172,10 @@ export default {
   white-space: pre-wrap;
 }
 // .caption {
-  // margin-top: 50px;
-  // h2 {
-    // margin-top: 5px;
-  // }
+// margin-top: 50px;
+// h2 {
+// margin-top: 5px;
+// }
 // }
 
 .price {

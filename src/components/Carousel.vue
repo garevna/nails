@@ -121,10 +121,6 @@ export default {
 }
 </style>
 <style>
-.v-slide-group.v-item-group > .v-slide-group__next,
-.v-slide-group.v-item-group > .v-slide-group__prev {
-  display: none !important;
-}
 .right-arrow {
   position: absolute;
   width: 50px;
