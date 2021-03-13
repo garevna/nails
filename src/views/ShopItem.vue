@@ -144,10 +144,7 @@ export default {
     await this.$store.dispatch('shop/GET_COMMODITY', {
       commodityId: this.$route.params.commodityId,
     });
-    // await this.$store.dispatch('shop/INIT_SHOP', {
-    //   categoryName: this.categoryName,
-    // });
-    // this.activeCard = (await this.commodity.images[0]) && this.commodity.images[0].link;
+    this.$store.dispatch('shop/SET_NEW_CATEGORY', { category: this.$route.params.categoryName });
   },
   beforeDestroy() {
     this.$store.commit('shop/CLEAR_COMMODITY');
