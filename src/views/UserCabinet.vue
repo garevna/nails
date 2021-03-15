@@ -31,6 +31,7 @@
                       :required="field.required"
                       :disabled.sync="disabled[name]"
                       :outlined="false"
+                      :limit="field.limit"
                     />
 
                     <span class="edit-btn btnEdit--text" v-if="disabled[name]" @click="() => (disabled[name] = false)"

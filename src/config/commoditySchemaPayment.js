@@ -10,7 +10,7 @@ export default {
     required: true,
   },
   email: {
-    label: 'Email',
+    label: 'E-mail',
     type: 'email',
     required: true,
   },
@@ -19,10 +19,9 @@ export default {
     type: 'phone',
     required: true,
   },
-  deliveryAddress: {
-    label: 'Delivery address',
-    type: 'text',
-    required: false,
-    limit: 100
-  },
+  // deliveryAddress:{
+  //   label: 'Delivery address',
+  //   type: 'text',
+  //   required: true,
+  // }
 };

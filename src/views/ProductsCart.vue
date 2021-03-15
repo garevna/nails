@@ -11,19 +11,19 @@
       >
         <ProductCard v-for="commodity in commodityCards" :key="commodity._id" :product="commodity" />
       </v-card>
-      <v-card
-        v-else
-        flat
-      >
-      <h2 class="text-center">Your cart is empty</h2>
+      <v-card v-else flat>
+        <h2 class="text-center">Your cart is empty</h2>
       </v-card>
     </div>
     <v-footer absolute class="homefone pa-0 pb-6">
       <v-card flat tile class="primary pb-4" width="100%">
-        <div flat style="position: relative;" class="pb-2">
+        <div flat style="position: relative" class="pb-2">
           <v-card-title class="d-block text-center">in your cart:</v-card-title>
-          <v-card-text v-if="showPurchaseLimit" class="d-block text-center pa-0"
-            style="position:absolute; bottom:0; left:0;">purchase amount must exceed $ 50</v-card-text
+          <v-card-text
+            v-if="showPurchaseLimit"
+            class="d-block text-center pa-0"
+            style="position: absolute; bottom: 0; left: 0"
+            >purchase amount must exceed $ 50</v-card-text
           >
         </div>
 
@@ -44,6 +44,7 @@
                   large
                   class="px-8 dgrey--text"
                   style="font-size: 16px; font-weight: bold"
+                  @click="$router.push({ name: 'shop-payment' })"
                   >Buy</v-btn
                 >
               </td>
@@ -57,6 +58,7 @@
             large
             class="px-8 dgrey--text mt-2"
             style="font-size: 16px; font-weight: bold"
+            @click="$router.push({ name: 'shop-payment' })"
             >Buy</v-btn
           >
         </v-card>
@@ -85,8 +87,6 @@ export default {
       return this.getSumPrice < 50;
     },
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>
-

@@ -44,5 +44,8 @@ export default {
   },
   instagram: {
     get: 'instagram'
+  },
+  delivery: {
+    get: 'delivery-prices',
   }
 };

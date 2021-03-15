@@ -4,7 +4,7 @@
   >
     <v-btn text @click="dialog = true" class="mb-4">Log out</v-btn>
     <v-btn text @click="goTo('user-courses')"> My courses</v-btn>
-    <v-btn text>Shoping card</v-btn>
+    <v-btn text @click="goTo('products-cart')">Shoping card</v-btn>
     <v-btn v-if="!isAdmin" text @click="goTo('purchased-online-courses')">purchased online courses</v-btn>
     <v-btn v-if="!isAdmin" text @click="goTo('purchased-offline-courses')">purchased offline courses</v-btn>
     <v-btn v-if="isAdmin" text @click="goToAdmin">go to admin panel</v-btn>

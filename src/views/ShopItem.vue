@@ -102,7 +102,6 @@ export default {
       return array.slice(0, 4);
     },
     previewImgs() {
-      console.log('img',this.commodity?.images ?? [])
       return this.commodity?.images ?? [];
     },
     currentLink() {
