@@ -28,7 +28,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/add-course~user-course.fd25dc4b.css"
   },
   {
-    "revision": "c175dc7f981d6d914c86",
+    "revision": "d94422a3541c72a55939",
     "url": "/nails/css/app.ee8110dd.css"
   },
   {
@@ -60,8 +60,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/shop-item.f0f6ac39.css"
   },
   {
-    "revision": "15c8623f9f8323ef2e15",
-    "url": "/nails/css/shop-payment.652c11fe.css"
+    "revision": "7163efddbbe2cdb99d29",
+    "url": "/nails/css/shop-payment.9516bc52.css"
   },
   {
     "revision": "f32eae0e5d5d1cd075ed",
@@ -200,7 +200,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/pdf.3fa92281.svg"
   },
   {
-    "revision": "b91adeb9b5b2e274e3eb18573b0beb5e",
+    "revision": "cb40e4cb74916ae9ac98af4895ae2e68",
     "url": "/nails/index.html"
   },
   {
@@ -220,8 +220,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/add-course~user-course.4b86a1c6.js"
   },
   {
-    "revision": "c175dc7f981d6d914c86",
-    "url": "/nails/js/app.ea39dfda.js"
+    "revision": "d94422a3541c72a55939",
+    "url": "/nails/js/app.3db57f9f.js"
   },
   {
     "revision": "836b710ec0add97e948c",
@@ -276,8 +276,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/shop-item.c2ac9d27.js"
   },
   {
-    "revision": "15c8623f9f8323ef2e15",
-    "url": "/nails/js/shop-payment.e3e17d8b.js"
+    "revision": "7163efddbbe2cdb99d29",
+    "url": "/nails/js/shop-payment.04bf94df.js"
   },
   {
     "revision": "f32eae0e5d5d1cd075ed",
