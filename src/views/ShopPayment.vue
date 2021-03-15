@@ -93,7 +93,7 @@ export default {
           userId: this?.user?._id ?? '',
           products: this.cart.map(item => ({
             productId: item._id,
-            mount: item.count,
+            amount: item.count,
           })),
         },
         this.details

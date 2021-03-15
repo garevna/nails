@@ -13,7 +13,7 @@
       <v-btn class="left-arrow orange--text" icon large @click="left">
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
-      <v-slide-group v-model="model" center-active dark>
+      <v-slide-group v-model="model" center-active dark class="hide-arrow">
         <v-slide-item v-for="(image, index) in images" :key="index" v-slot:default="{}">
           <v-hover v-slot="{ hover }">
             <v-card flat class="ma-4" @click="goToInsta(image.shortcode)">
@@ -121,6 +121,10 @@ export default {
 }
 </style>
 <style>
+.hide-arrow.v-slide-group.v-item-group > .v-slide-group__next,
+.hide-arrow.v-slide-group.v-item-group > .v-slide-group__prev {
+  display: none !important;
+}
 .right-arrow {
   position: absolute;
   width: 50px;
