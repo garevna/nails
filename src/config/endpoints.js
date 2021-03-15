@@ -47,5 +47,8 @@ export default {
   },
   delivery: {
     get: 'delivery-prices',
+  },
+  payment:{
+    buyBasket:'buy-from-basket'
   }
 };

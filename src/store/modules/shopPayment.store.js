@@ -1,7 +1,8 @@
-const { getData } = require('@/helpers').default;
+const { getData, postData } = require('@/helpers').default;
 
 const endpoints = require('@/config/endpoints').default.delivery;
-// const errors = require('@/config/errors').default.online;
+const { buyBasket } = require('@/config/endpoints').default.payment;
+const errors = require('@/config/errors').default.online;
 // const messages = require('@/config/messages').default.online;
 
 const state = {
@@ -51,6 +52,16 @@ const actions = {
     const { data } = await getData(`${endpoints.get}?type=${type}`);
     return data;
   },
+  async PAY(ctx, cart) {
+    const { data, error } = await postData(buyBasket,cart);
+    console.log(data)
+    if (!error && data.link) {
+      window.open(data.link);
+    } else {
+      ctx.commit('ERROR', errors.buy, { root: true });
+    }
+
+  }
 };
 
 export default {

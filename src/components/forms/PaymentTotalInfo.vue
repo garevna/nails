@@ -91,7 +91,7 @@
       </v-col>
     </v-row>
 
-    <PrevNextBtns @prev="$emit('prev')" @next="$emit('pay')" nextText="pay" nextIcon="mdi-credit-card-outline"  class="my-8"/>
+    <PrevNextBtns @prev="$emit('prev')" @next="$emit('next')" nextText="pay" nextIcon="mdi-credit-card-outline"  class="my-8"/>
   </v-card>
 </template>
 

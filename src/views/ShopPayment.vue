@@ -6,14 +6,6 @@
       </v-col>
     </v-row>
 
-    <!-- <v-tabs v-model="tab" background-color="homefone accent-4" centered dark icons-and-text :style="`border-top: 2px solid ${$vuetify.theme.themes.dark.primary};
-    border-bottom: 2px solid ${$vuetify.theme.themes.dark.primary}`" class="mt-4">
-
-      <v-tab v-for="i in items" :key="i.text">
-        {{ i.text }}
-      </v-tab>
-    </v-tabs> -->
-
     <v-row>
       <v-col cols="12">
         <v-tabs-items v-model="tab" class="homefone">
@@ -135,7 +127,8 @@ export default {
       this.tab += 1;
     },
     pay() {
-      console.log(this.details);
+      this.$store.dispatch('shopPayment/PAY',this.submitObj);
+      console.log(this.submitObj);
     },
   },
   mounted() {},
