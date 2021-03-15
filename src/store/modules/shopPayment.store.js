@@ -17,6 +17,7 @@ const state = {
     type: 'pickup',
     _id: '604b30ea4955c5f8cf9726cc',
   },
+  loading: false
 };
 const getters = {};
 const mutations = {
@@ -32,6 +33,9 @@ const mutations = {
   PICKUP: (state, payload) => {
     state.pickup = payload;
   },
+  LOADING:(state, payload) =>{
+    state.loading = payload
+  }
 };
 
 const actions = {
@@ -52,16 +56,16 @@ const actions = {
     const { data } = await getData(`${endpoints.get}?type=${type}`);
     return data;
   },
-  async PAY(ctx, cart) {
-    const { data, error } = await postData(buyBasket,cart);
-    console.log(data)
+  async PAY({ commit }, cart) {
+    commit('LOADING', true);
+    const { data, error } = await postData(buyBasket, cart);
     if (!error && data.link) {
       window.open(data.link);
     } else {
-      ctx.commit('ERROR', errors.buy, { root: true });
+      commit('ERROR', errors.buy, { root: true });
     }
-
-  }
+    commit('LOADING', false);
+  },
 };
 
 export default {

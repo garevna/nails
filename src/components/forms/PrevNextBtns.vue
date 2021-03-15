@@ -2,12 +2,12 @@
   <v-card flat class="transparent">
     <v-card-actions>
       <v-spacer />
-      <v-btn @click="$emit('prev')">
+      <v-btn :disabled="prevDisabled" @click="$emit('prev')">
         <v-icon class="mr-1">{{ prevIcon }}</v-icon>
         {{ prevText }}
       </v-btn>
       <v-spacer />
-      <v-btn @click="$emit('next')">
+      <v-btn :disabled="nextDisabled" @click="$emit('next')">
         {{ nextText }}
         <v-icon class="ml-1">{{ nextIcon }}</v-icon>
       </v-btn>
@@ -35,6 +35,14 @@ export default {
     nextIcon: {
       type: String,
       default: 'mdi-arrow-right',
+    },
+    prevDisabled: {
+      type: Boolean,
+      default: false,
+    },
+    nextDisabled: {
+      type: Boolean,
+      default: false,
     },
   },
 };

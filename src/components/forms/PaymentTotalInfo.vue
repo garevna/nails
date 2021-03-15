@@ -91,12 +91,19 @@
       </v-col>
     </v-row>
 
-    <PrevNextBtns @prev="$emit('prev')" @next="$emit('next')" nextText="pay" nextIcon="mdi-credit-card-outline"  class="my-8"/>
+    <PrevNextBtns
+      @prev="$emit('prev')"
+      @next="$emit('next')"
+      :nextDisabled="loading"
+      nextText="pay"
+      nextIcon="mdi-credit-card-outline"
+      class="my-8"
+    />
   </v-card>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import PrevNextBtns from '@/components/forms/PrevNextBtns.vue';
 
 export default {
@@ -119,6 +126,7 @@ export default {
   },
 
   computed: {
+    ...mapState('shopPayment', ['loading']),
     ...mapGetters('productCart', ['commodityCards', 'getTotalItem', 'getSumPrice']),
     tableRow() {
       return this.commodityCards.map(item => ({
