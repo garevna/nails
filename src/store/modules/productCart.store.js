@@ -102,6 +102,11 @@ const actions = {
     localStorage.setItem('cart', JSON.stringify(state.cart));
     dispatch('GET_COMMODITIES');
   },
+  CLEAR_CART({commit}) {
+    console.log('Clear cart')
+    commit('CLEAR_CART');
+    localStorage.removeItem('cart');
+  }
 };
 
 export default {

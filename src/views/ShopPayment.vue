@@ -126,9 +126,9 @@ export default {
       if (this.tab >= this.items.length - 1) return;
       this.tab += 1;
     },
-    pay() {
-      this.$store.dispatch('shopPayment/PAY',this.submitObj);
-      console.log(this.submitObj);
+    async pay() {
+      const res = await this.$store.dispatch('shopPayment/PAY', this.submitObj);
+      if (res) this.$router.push({ name: 'home' });
     },
   },
   mounted() {},
