@@ -1,6 +1,6 @@
 <template>
   <div
-    class="d-flex flex-column align-md-end cabinet-btn"
+    class="d-flex flex-column align-lg-end cabinet-btn"
   >
     <v-btn text @click="dialog = true" class="mb-4">Log out</v-btn>
     <v-btn text @click="goTo('user-courses')"> My courses</v-btn>

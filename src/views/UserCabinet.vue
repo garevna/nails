@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" xs="12" md="7" lg="6" xl="4" order="2" order-md="1">
+      <v-col cols="12"  lg="8" xl="4" order="2" order-lg="1">
         <h2 class="d-flex justify-center justify-md-start pb-16 pl-md-16">My account</h2>
 
         <v-card flat style="padding-bottom: 90px;">
@@ -9,7 +9,8 @@
             <v-simple-table>
               <tbody>
                 <tr v-for="(field, name) in schema" :key="name">
-                  <td>{{ field.label }}</td>
+                  <td v-if="!showBlockLabel">{{ field.label }}</td>
+                  <h4 v-if="showBlockLabel" class="text-center pt-4">{{ field.label }}</h4>
                   <td class="d-flex edit">
                     <EmailInput
                       v-if="field.type === 'email'"
@@ -51,7 +52,7 @@
         </v-card>
       </v-col>
 
-      <v-col cols="12" xs="12" md="5" lg="6" xl="8" order="1" order-md="2">
+      <v-col cols="12" lg="4" xl="8" order="1" order-lg="2">
         <RightPanel />
       </v-col>
     </v-row>
@@ -88,10 +89,14 @@ export default {
     };
   },
   computed: {
+    ...mapState(['viewportWidth']),
     ...mapState('auth', ['user']),
     touched() {
       return Object.values(this.disabled).some(val => !val);
     },
+    showBlockLabel() {
+      return this.viewportWidth < 960 
+    }
   },
   watch: {
     user(val) {
@@ -151,6 +156,7 @@ table tr td:first-child {
 }
 .edit {
   position: relative;
+  width: 100% !important;
 }
 .edit-btn {
   position: absolute;
