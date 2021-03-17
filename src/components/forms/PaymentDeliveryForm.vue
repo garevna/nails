@@ -85,7 +85,7 @@
         </v-col>
       </v-row>
     </v-card>
-    <PrevNextBtns @prev="$emit('prev')" @next="next" prevIcon="mdi-shopping" prevText="back to cart" />
+    <PrevNextBtns @prev="$emit('prev')" @next="next" prevIcon="mdi-shopping" prevText="back to cart" class="pt-16"/>
   </v-card>
 </template>
 
