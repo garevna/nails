@@ -111,7 +111,6 @@ export default {
       this.fullListOfCategories;
       if (!this.alsoViewedCommodities.length) return;
       const categoryId = this.alsoViewedCommodities[0].subCategoryId || this.alsoViewedCommodities[0].categoryId;
-      console.log('fullListOfCategories',[...this.fullListOfCategories])
       const category = this.fullListOfCategories.find(el => el._id === categoryId);
       if (category && category.slug) return category.slug;
       return '';

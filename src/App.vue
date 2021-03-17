@@ -66,7 +66,6 @@ export default {
         categoryName,
       });
       if (this.$route.name === 'shop' && !categoryName) {
-        console.log(this.activeCategory);
         // await this.$router.push({
         //   name: 'shop',
         //   params: { categoryName: this.activeCategory.slug },

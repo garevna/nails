@@ -21,36 +21,40 @@ export default {
       errorMessage: 'Process failed... Data was not saved',
     },
   },
-
+  shop: {
+    get: {
+      error: true,
+      errorType: 'Reading shop requests',
+      errorMessage: 'Process failed. Data was not received',
+    },
+  },
   online: {
     get: {
       error: true,
       errorType: 'Reading online requests',
       errorMessage: 'Process failed. Data was not received',
     },
-    post:{
-
-    },
+    post: {},
     delete: {
       error: true,
       errorType: 'Delete requests',
-      errorMessage: 'Process failed...'
+      errorMessage: 'Process failed...',
     },
     buy: {
       error: true,
       errorType: 'Buy online course',
       errorMessage: 'Process failed. Message has not been delivered',
     },
-    addLesson:{
+    addLesson: {
       error: true,
       errorType: 'Upload requests',
       errorMessage: 'Process failed... Data was not saved',
     },
-    addPdf:{
+    addPdf: {
       error: true,
       errorType: 'Upload requests',
       errorMessage: 'Process failed... Data was not saved',
-    }
+    },
   },
   offline: {
     get: {
@@ -70,5 +74,5 @@ export default {
       errorType: 'Reading instagram request',
       errorMessage: 'Process failed. Data was not received',
     },
-  }
+  },
 };

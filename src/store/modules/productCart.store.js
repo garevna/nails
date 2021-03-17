@@ -103,7 +103,6 @@ const actions = {
     dispatch('GET_COMMODITIES');
   },
   CLEAR_CART({commit}) {
-    console.log('Clear cart')
     commit('CLEAR_CART');
     localStorage.removeItem('cart');
   }

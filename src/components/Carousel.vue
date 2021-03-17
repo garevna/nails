@@ -94,8 +94,6 @@ export default {
     },
     goToInsta(shortcode) {
       window.open(`${process.env.VUE_APP_INSTA_URL}/p/${shortcode}`);
-      // this.model = index;
-      // console.log(index);
     },
   },
   mounted() {

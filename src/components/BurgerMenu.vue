@@ -53,9 +53,6 @@ export default {
         this.$router.push({ name });
       }
     },
-    close(e) {
-      console.log(e);
-    },
   },
 };
 </script>

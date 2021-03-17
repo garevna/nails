@@ -6,6 +6,8 @@ const { getData } = require('@/helpers').default;
 const categoriesEndpoints = require('@/config/endpoints').default.categories;
 const commoditiesEndpoints = require('@/config/endpoints').default.commodities;
 
+const errors = require('@/config/errors').default.shop;
+
 const state = {
   isShopLoading: false,
   isCommodityLoading: false,
@@ -91,7 +93,6 @@ const actions = {
       const { commodities, total, error } = await getData(
         `${commoditiesEndpoints.search}?query=${state.searchParams}&skip=${state.skip}`
       );
-      console.log(commodities);
       if (!error) {
         commit('SHOP_COMMODITIES', { commodities, total });
       }
@@ -113,7 +114,7 @@ const actions = {
         total,
       });
     } else {
-      console.log(error);
+      commit('ERROR', errors.get, { root: true });
     }
     state.isShopLoading = false;
   },
@@ -132,7 +133,7 @@ const actions = {
           total,
         });
       } else {
-        console.log(error);
+        commit('ERROR', errors.get, { root: true });
       }
     } else {
       const { commodities, total, error } = await getData(
@@ -144,7 +145,7 @@ const actions = {
           total,
         });
       } else {
-        console.log(error);
+        commit('ERROR', errors.get, { root: true });
       }
     }
   },
@@ -177,7 +178,6 @@ const actions = {
     if (state.categories && state.categories[0] && state.fullListOfCategories) {
       if (categoryName) {
         const category = state.fullListOfCategories.find(el => categoryName === el.slug);
-        console.log('category init', category);
         await commit('SET_ACTIVE_CATEGORY', {
           category: category || state.categories[0],
         });
