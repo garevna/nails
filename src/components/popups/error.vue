@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="480px" class="pa-4">
     <v-card flat>
-      <v-toolbar dark dense color="error">
+      <v-toolbar dark dense color="error" class="px-4">
         <v-icon class="mr-4"> mdi-alert </v-icon>
         <v-toolbar-title> Error </v-toolbar-title>
         <v-spacer></v-spacer>

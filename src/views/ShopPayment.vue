@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row>
+    <v-row v-if="!mobileMenu">
       <v-col cols="12" offset-md="2" md="8">
         <StepLine :currentStep="tab" :steps="items" />
       </v-col>

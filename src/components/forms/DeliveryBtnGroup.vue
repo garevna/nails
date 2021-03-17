@@ -1,9 +1,14 @@
 <template>
-  <v-radio-group v-model="localType" row>
-    <v-radio v-for="btn in btns" :key="btn.value" :label="btn.label" :value="btn.value"></v-radio>
+  <v-radio-group v-model="localType" :row="!isMobile">
+    <v-radio
+      v-for="btn in btns"
+      :key="btn.value"
+      :label="btn.label"
+      :value="btn.value"
+      :disabled="disabledBtn"
+    ></v-radio>
   </v-radio-group>
 </template>
-<style scoped></style>
 <script>
 export default {
   name: 'DeliveryBtnGroup',
@@ -11,6 +16,14 @@ export default {
     type: {
       type: String,
       required: true,
+    },
+    disabledBtn: {
+      type: Boolean,
+      default: false,
+    },
+    isMobile: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {
@@ -39,12 +52,12 @@ export default {
   computed: {
     localType: {
       get() {
-        return this.type
+        return this.type;
       },
       set(val) {
-        this.$emit('update:type', val)
-      }
-    }
+        this.$emit('update:type', val);
+      },
+    },
   },
   methods: {},
   mounted() {},

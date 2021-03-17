@@ -1,6 +1,6 @@
 <template>
   <v-card flat class="homefone text-center">
-    <v-card-title class="d-flex justify-center"> Total info</v-card-title>
+    <h2 class="text-center pb-8"> Total info</h2>
 
     <v-row>
       <v-col cols="12" md="6">
@@ -144,7 +144,7 @@ export default {
 };
 </script>
 <style scoped>
-th {
+th,td {
   padding: 10px;
 }
 </style>

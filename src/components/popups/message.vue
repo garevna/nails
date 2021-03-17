@@ -1,8 +1,8 @@
 <template>
   <v-dialog v-model="dialog" max-width="480px" class="pa-4">
     <v-card flat>
-      <v-toolbar dark dense color="primary">
-        <v-icon class="mr-4"> mdi-message-text </v-icon>
+      <v-toolbar dark dense color="primary" class="px-4"> 
+        <v-icon> mdi-message-text </v-icon>
         <v-toolbar-title> Message </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon @click="dialog = false">

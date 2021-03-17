@@ -1,9 +1,9 @@
 <template>
   <v-card flat class="homefone">
-    <h3 class="text-center">Select the type of delivery</h3>
-
+    <h3 class="text-center" v-if="!disabledRadioBtn">Select the type of delivery</h3>
+    <h3 class="text-center" v-if="disabledRadioBtn">Your order must not be less than $50. Pickup available only.</h3>
     <v-card flat width="100%" class="d-flex justify-center transparent">
-      <DeliveryBtnGroup :type.sync="deliveryType" />
+      <DeliveryBtnGroup :type.sync="deliveryType" :disabledBtn="disabledRadioBtn" :isMobile="mobileMenu"/>
     </v-card>
 
     <v-card flat v-if="deliveryType === 'pickup'" class="transparent d-flex flex-column align-center text-center">
@@ -73,19 +73,24 @@
             <v-card-text>Cost: ${{ currInternationalPrice.price }}</v-card-text>
           </v-card>
 
-          <v-card flat v-else  height="100%" class="transparent d-flex justify-center flex-column align-center text-center">
+          <v-card
+            flat
+            v-else
+            height="100%"
+            class="transparent d-flex justify-center flex-column align-center text-center"
+          >
             <v-card-title>Choose a country from the list</v-card-title>
             <v-card-text>You can use the search bar</v-card-text>
           </v-card>
         </v-col>
       </v-row>
     </v-card>
-    <PrevNextBtns @prev="$emit('prev')" @next="next" prevIcon="mdi-shopping" prevText="back to cart"/>
+    <PrevNextBtns @prev="$emit('prev')" @next="next" prevIcon="mdi-shopping" prevText="back to cart" />
   </v-card>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters, mapMutations } from 'vuex';
 
 import DeliveryBtnGroup from '@/components/forms/DeliveryBtnGroup.vue';
 import PrevNextBtns from '@/components/forms/PrevNextBtns.vue';
@@ -93,7 +98,7 @@ export default {
   name: 'PaymentDeliveryForm',
   components: {
     DeliveryBtnGroup,
-    PrevNextBtns
+    PrevNextBtns,
   },
   data() {
     return {
@@ -105,7 +110,9 @@ export default {
   },
 
   computed: {
+    ...mapState(['viewportWidth']),
     ...mapState('shopPayment', ['express', 'standard', 'international', 'pickup']),
+    ...mapGetters('productCart', ['commodityCards', 'getTotalItem', 'getSumPrice']),
     filteredInternational() {
       return this.international
         .filter(country => country.country.toLowerCase().includes(this.countrySearch.toLowerCase()))
@@ -114,29 +121,49 @@ export default {
     currInternationalPrice() {
       return this.international.find(item => item._id === this.currInternationalPriceId);
     },
+    disabledRadioBtn() {
+      return this.getSumPrice < 50;
+    },
+    mobileMenu() {
+      return this.viewportWidth < 960;
+    },
   },
-  watch:{
-  },
+  watch: {},
   methods: {
+    ...mapMutations({
+      message: 'MESSAGE',
+    }),
     validation() {
-      if (!this.deliveryType) return false
-      if (this.deliveryType === 'international' && !this.currInternationalPriceId) return false
-      return true
+      if (!this.deliveryType) {
+        this.message({
+          message: true,
+          messageType: 'Delivery',
+          messageText: 'Please, select delivery type !!!',
+        });
+        return false;
+      }
+      if (this.deliveryType === 'international' && !this.currInternationalPriceId) {
+        this.message({
+          message: true,
+          messageType: 'Delivery',
+          messageText: 'Please, select country !!!',
+        });
+        return false;
+      }
+      return true;
     },
     next() {
-      if (!this.validation()) {
-        // this.error = true
-        return
-      }
+      if (!this.validation()) return;
       const data = {
         type: this.deliveryType,
-        id: this.currInternationalPriceId
-      }
-      this.$emit('next', data)
-    }
+        id: this.currInternationalPriceId,
+      };
+      this.$emit('next', data);
+    },
   },
   mounted() {
     this.$store.dispatch('shopPayment/GET_DELIVERY_PRICES');
+    if (this.getSumPrice < 50) this.deliveryType = 'pickup';
   },
 };
 </script>
