@@ -21,8 +21,7 @@ export default {
   },
   deliveryAddress: {
     label: 'Delivery address',
-    type: 'text',
+    type: 'autocomplete',
     required: false,
-    limit: 100
   },
 };

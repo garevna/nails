@@ -6,8 +6,6 @@ const errors = require('@/config/errors').default.offline;
 const endpoints = require('@/config/endpoints').default.offlineCourses;
 
 const state = {
-  courses:
-    'Integer a erat accumsan, facilisis massa a, fringilla lacus. Praesent eget mollis metus, eu blandit erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed id rutrum nisl. In quis nulla et libero pretium consectetur ultricies vel elit. Cras commodo diam vitae porta viverra. Vestibulum dapibus imperdiet lacinia. Phasellus interdum quis erat a aliquam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed vel mauris nec dolor rutrum vulputate dapibus quis lectus.',
   offlineCourses: [],
   offlineCourse: null,
   totalOfflineCourses: 0,

@@ -33,8 +33,14 @@
                       :disabled.sync="disabled[name]"
                       :outlined="false"
                       :limit="field.limit"
+                    />      
+                    <InputWithAutocomplete
+                      v-if="field.type === 'autocomplete'"
+                      :value.sync="data[name]"
+                      :required="field.required"
+                      :disabled.sync="disabled[name]"
+                      :outlined="false"
                     />
-
                     <span class="edit-btn btnEdit--text" v-if="disabled[name]" @click="() => (disabled[name] = false)"
                       >edit</span
                     >
@@ -70,6 +76,7 @@ import BottomPanel from '@/components/cabinet/BottomPanel.vue';
 import EmailInput from '@/components/inputs/EmailInput.vue';
 import PhoneInput from '@/components/inputs/PhoneInput.vue';
 import TextInput from '@/components/inputs/TextInput.vue';
+import InputWithAutocomplete from '@/components/inputs/InputWithAutocomplete.vue';
 
 export default {
   name: 'UserCabinet',
@@ -79,6 +86,7 @@ export default {
     EmailInput,
     PhoneInput,
     TextInput,
+    InputWithAutocomplete
   },
   data() {
     return {

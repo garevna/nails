@@ -18,8 +18,8 @@
               @next="deliveryNext"
             />
             <v-row v-if="item.type === 'detail'">
-              <v-col cols="12" offset-sm="2" sm="8" offset-md="4" md="4">
-                <PaymentDetailsForm :pickup="pickupDelivery" @prev="back" @next="detailNext" class="my-4" />
+              <v-col cols="12" offset-sm="2" sm="8" offset-md="3" md="6">
+                <PaymentDetailsForm :pickup="pickupDelivery" @prev="back" @next="detailNext" :country="deliveryCountry.countryCode" class="my-4" />
               </v-col>
             </v-row>
             <PaymentTotalInfo

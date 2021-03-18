@@ -3,7 +3,7 @@
     <h3 class="text-center" v-if="!disabledRadioBtn">Select the type of delivery</h3>
     <h3 class="text-center" v-if="disabledRadioBtn">Your order must not be less than $50. Pickup available only.</h3>
     <v-card flat width="100%" class="d-flex justify-center transparent">
-      <DeliveryBtnGroup :type.sync="deliveryType" :disabledBtn="disabledRadioBtn" :isMobile="mobileMenu"/>
+      <DeliveryBtnGroup :type.sync="deliveryType" :disabledBtn="disabledRadioBtn" :isMobile="mobileMenu" />
     </v-card>
 
     <v-card flat v-if="deliveryType === 'pickup'" class="transparent d-flex flex-column align-center text-center">
@@ -85,7 +85,7 @@
         </v-col>
       </v-row>
     </v-card>
-    <PrevNextBtns @prev="$emit('prev')" @next="next" prevIcon="mdi-shopping" prevText="back to cart" class="pt-16"/>
+    <PrevNextBtns @prev="$emit('prev')" @next="next" prevIcon="mdi-shopping" prevText="back to cart" class="pt-16" />
   </v-card>
 </template>
 
