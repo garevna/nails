@@ -14,7 +14,9 @@ import '@/css/fonts.scss';
 Vue.config.productionTip = false;
 
 import 'video.js/dist/video-js.css'
- 
+
+Vue.prototype.maps = () => window?.google?.maps
+
 Vue.use(VueVideoPlayer)
 Vue.component('error-message', ErrorMessage)
 Vue.component('simple-message', Message)

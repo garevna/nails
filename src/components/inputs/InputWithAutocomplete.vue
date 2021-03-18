@@ -83,7 +83,7 @@ export default {
     async initAddressInputField() {
       try {
         const input = this.$refs['autocomplete-input'].$refs.input;
-        const Autocomplete = window.google.maps.places.Autocomplete;
+        const Autocomplete = this.maps().places.Autocomplete;
         this.autocomplete = new Autocomplete(input, { componentRestrictions: { country: this.country } });
       } catch (err) {
         console.warn(err);
@@ -93,7 +93,7 @@ export default {
     },
   },
   async mounted() {
-    if (!window?.google?.maps) await loadScript();
+    if (!this.maps()) await loadScript();
     this.initAddressInputField();
   },
 };

@@ -3,14 +3,9 @@
     <span
       v-if="getTotalItem"
       style="position: absolute; top: -19px; left: 50%; transform: translateX(-50%); color: #000"
-      >${{ getSumPrice }}</span
-    >
-    <v-icon color="secondaryGray">mdi-shopping</v-icon>
-    <span
-      v-if="getTotalItem"
-      style="position: absolute; bottom: -19px; left: 50%; transform: translateX(-50%); color: #000"
       >{{ getTotalItem }}</span
     >
+    <v-icon color="secondaryGray">mdi-shopping</v-icon>
   </v-btn>
 </template>
 

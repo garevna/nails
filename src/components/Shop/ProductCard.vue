@@ -15,7 +15,7 @@
       <v-btn color="blue darken-1" :disabled="disabledMinus" icon @click="decrementCount(product._id)">
         <v-icon>mdi-minus</v-icon>
       </v-btn>
-      <v-card-text>{{ product.count }}</v-card-text>
+      <v-card-text class="error--text" style="font-size: 18px; font-weight: bold">{{ product.count }}</v-card-text>
       <v-btn
         color="blue darken-1"
         :disabled="disabledPlus"

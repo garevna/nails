@@ -31,7 +31,7 @@
           <table style="margin: auto">
             <tr>
               <td>
-                Total number of commodities:<span style="font-size: 16px; font-weight: bold">{{ getTotalItem }}</span>
+                Total number of commodities:<span style="font-size: 18px; font-weight: bold" :style="{color:$vuetify.theme.themes.dark.error}">{{ getTotalItem }}</span>
               </td>
               <td class="px-4">
                 Total summ of commodities:<span style="font-size: 16px; font-weight: bold">$ {{ getSumPrice }}</span>
