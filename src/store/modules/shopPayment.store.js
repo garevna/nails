@@ -17,6 +17,7 @@ const state = {
     type: 'pickup',
     _id: '604b30ea4955c5f8cf9726cc',
   },
+  // pickup: null,
   loading: false,
 };
 const getters = {};
@@ -44,7 +45,7 @@ const actions = {
     //   root: true,
     // });
     commit('STANDARD', (await dispatch('GET_PRICES', 'standard'))[0]);
-    // commit('PICKUP', (await dispatch('GET_PRICES', 'pickup'))[0]);
+    commit('PICKUP', (await dispatch('GET_PRICES', 'pickup'))[0]);
     commit('EXPRESS', (await dispatch('GET_PRICES', 'express'))[0]);
     commit('INTERNATIONAL', await dispatch('GET_PRICES', 'international'));
     // commit('LOADING', false, {

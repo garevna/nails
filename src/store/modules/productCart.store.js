@@ -85,7 +85,7 @@ const actions = {
   async GET_COMMODITIES(ctx) {
     const { commodity, error } = await postData(`${endpoints.getById}`, { ids: ctx.state.cart.map(item => item._id) });
     if (!error) {
-      ctx.commit('COMMODITIES', commodity);
+      ctx.commit('COMMODITIES', commodity.filter(item => item));
     } else {
       ctx.commit('ERROR', errors.get, { root: true });
     }

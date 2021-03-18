@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import PaymentDeliveryForm from '@/components/forms/PaymentDeliveryForm.vue';
 import StepLine from '@/components/StepLine.vue';
 import PaymentDetailsForm from '@/components/forms/PaymentDetailsForm.vue';
@@ -75,6 +75,7 @@ export default {
     ...mapState('auth', ['user']),
     ...mapState('shopPayment', ['express', 'standard', 'pickup', 'international']),
     ...mapState('productCart', ['cart']),
+    ...mapGetters('productCart', ['commodityCards']),
     mobileMenu() {
       return this.viewportWidth < 960;
     },
@@ -91,7 +92,7 @@ export default {
         {
           deliveryTypeId: this.deliveryTypeId,
           userId: this?.user?._id ?? '',
-          products: this.cart.map(item => ({
+          products: this.commodityCards.map(item => ({
             productId: item._id,
             amount: item.count,
           })),
