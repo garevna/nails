@@ -2,11 +2,15 @@
   <div>
     <div class="d-flex justify-center my-8">
       <table>
-        <tr v-for="item in accessDays" :key="item._id">
+        <tr>
+          <th>Date of course</th>
+          <th>Available spots</th>
+        </tr>
+        <tr v-for="item in dateOfCourses" :key="item.id">
           <td>{{ item.date }}</td>
-          <td>available spots {{ item.availableSpots }}</td>
+          <td class="text-right">{{ item.availableSpots }}</td>
           <td>
-            <v-btn text :disabled="!item.availableSpots" :class="{ buttons: id === item._id }" @click="id = item._id"
+            <v-btn text :disabled="!item.availableSpots" :class="{ buttons: id === item.id }" @click="id = item.id"
               >Select date</v-btn
             >
           </td>
@@ -25,6 +29,7 @@ td {
 import { mapState, mapActions, mapMutations } from 'vuex';
 
 import PaymentForm from '@/components/forms/PaymentForm.vue';
+import { datesToString } from '@/helpers/datesToString';
 const schema = require('@/config/paymentSchema').default;
 export default {
   components: {
@@ -42,6 +47,13 @@ export default {
     accessDays() {
       return this.offlineCourse?.dateOfCourses ?? [];
     },
+    dateOfCourses() {
+      return this.accessDays.map(item => ({
+        date: this.formatedDate(item.date),
+        availableSpots: item.availableSpots,
+        id: item._id,
+      }));
+    },
   },
   methods: {
     ...mapActions('offlineCourses', {
@@ -49,7 +61,7 @@ export default {
       buyCourse: 'BUY_COURSE',
     }),
     ...mapMutations({
-      message: 'MESSAGE'
+      message: 'MESSAGE',
     }),
     async sendData(data) {
       if (!this.id) {
@@ -66,7 +78,17 @@ export default {
       });
       delete res.message;
       await this.buyCourse(res);
-      if (!this.error)  this.$router.back();
+      if (!this.error) this.$router.back();
+    },
+    formatedDate(date) {
+      let dates = [];
+      try {
+        dates = JSON.parse(date);
+      } catch (e) {
+        // console.error(e.message);
+      }
+      if (!Array.isArray(dates)) dates = [];
+      return datesToString(dates);
     },
   },
   created() {

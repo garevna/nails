@@ -27,11 +27,14 @@
           >
         </v-card>
         <v-card v-if="type === 'offline'" flat class="transparent d-flex flex-column align-center" dark>
-          <v-card-title>Date of courses:</v-card-title>
           <table>
-            <tr v-for="item in course.dateOfCourses" :key="item._id">
+            <tr>
+              <th>Date of course</th>
+              <th>Available spots</th>
+            </tr>
+            <tr v-for="item in dateOfCourses" :key="item.id">
               <td>{{ item.date }}</td>
-              <td>available spots {{ item.availableSpots }}</td>
+              <td class="text-right">{{ item.availableSpots }}</td>
             </tr>
           </table>
         </v-card>
@@ -85,6 +88,8 @@ import { mapState } from 'vuex';
 
 import CoverImage from '@/components/CoverImage.vue';
 import checkCourseLink from '@/helpers/checkCourseLink';
+import { datesToString } from '@/helpers/datesToString';
+
 export default {
   name: 'CourseDetail',
   props: {
@@ -118,10 +123,27 @@ export default {
             .filter(str => str)
         : [];
     },
+    dateOfCourses() {
+      return this.course.dateOfCourses.map(item => ({
+        date: this.formatedDate(item.date),
+        availableSpots: item.availableSpots,
+        id: item._id
+      }));
+    },
   },
   methods: {
     linkCheck(course) {
       return checkCourseLink(course);
+    },
+    formatedDate(date) {
+      let dates = [];
+      try {
+        dates = JSON.parse(date);
+      } catch (e) {
+        // console.error(e.message);
+      }
+      if (!Array.isArray(dates)) dates = [];
+      return datesToString(dates);
     },
     btnHandler() {
       if (this.preview) return;
