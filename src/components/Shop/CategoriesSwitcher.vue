@@ -29,16 +29,14 @@
               v-bind="attrs"
               v-on="on"
             >
-              <span class="coursesGray--text font-weight-black text-h6 text-start w-100">{{
-                selectedCategoryName
-              }}</span>
+              <ShopBreadcrumbs :disabled="true" :mobile="true" class="coursesGray--text font-weight-black text-h6 text-start w-100"/>
             </v-btn>
+
             <v-card v-else width="100%" color="lgrey" class="category-switcher-header px-2 d-flex justify-start">
-              <span class="coursesGray--text font-weight-black text-h6 text-start w-100">{{
-                selectedCategoryName
-              }}</span>
+              <ShopBreadcrumbs class="coursesGray--text font-weight-black text-h6 text-start w-100"/>
             </v-card>
           </template>
+          
           <v-row justify="center">
             <v-expansion-panels flat accordion class="px-0 py-5 homefone left-side-header mb-0" :key="panelsKey">
               <v-expansion-panel v-for="section in categories" :key="section._id">
@@ -93,9 +91,11 @@
 
 <script>
 import { mapState } from 'vuex';
+import ShopBreadcrumbs from '@/components/Shop/ShopBreadcrumbs.vue';
 
 export default {
-  name: 'CategoriesSwithcer',
+  name: 'CategoriesSwitcher',
+  components: { ShopBreadcrumbs },
   data() {
     return {
       isOpened: false,
@@ -155,11 +155,11 @@ export default {
     margin-top: 0;
   }
 }
-@media screen and (max-width: 400px){
+@media screen and (max-width: 400px) {
   .v-application .text-h6 {
     font-size: 1rem !important;
   }
-  .v-application .text-h5{
+  .v-application .text-h5 {
     font-size: 1.25rem !important;
   }
 }

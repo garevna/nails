@@ -12,15 +12,14 @@ const routes = [
     component: Home,
   },
   {
-    path: '*',
-    redirect: '/',
-  },
-  {
     path: '/shop',
     name: 'shop-root',
-    redirect: { name: 'shop', params:{
-      categoryName: 'nail-tools'
-    } },
+    redirect: {
+      name: 'shop',
+      params: {
+        categoryName: 'nail-tools',
+      },
+    },
   },
   {
     path: '/shop/:categoryName',
@@ -38,7 +37,7 @@ const routes = [
     path: '/products-cart',
     name: 'products-cart',
     meta: { layout: 'Whitefone' },
-    component: () => import(/* webpackChunkName: "shop-item" */ '@/views/ProductsCart.vue'),
+    component: () => import(/* webpackChunkName: "products-cart" */ '@/views/ProductsCart.vue'),
   },
   {
     path: '/courses',
@@ -69,7 +68,8 @@ const routes = [
     path: '/courses-online/:courseid/by-course',
     name: 'by-course',
     component: () => import(/* webpackChunkName: "personal-data" */ '@/views/PersonalData.vue'),
-  },  {
+  },
+  {
     path: '/courses-online/:courseid/by-course-creator',
     name: 'by-course-creator',
     component: () => import(/* webpackChunkName: "personal-data" */ '@/views/PersonalData.vue'),
@@ -206,6 +206,10 @@ const routes = [
         next({ name: 'sign-in' });
       }
     },
+  },
+  {
+    path: '*',
+    redirect: '/',
   },
 ];
 
