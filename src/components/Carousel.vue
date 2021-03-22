@@ -1,5 +1,5 @@
 <template>
-  <div v-if="images.length">
+  <div v-if="data.length">
     <v-card
       v-if="viewportWidth >= 600"
       flat
@@ -10,29 +10,32 @@
       <v-btn class="right-arrow orange--text" icon large @click="right">
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>
+
       <v-btn class="left-arrow orange--text" icon large @click="left">
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
+
       <v-slide-group v-model="model" center-active dark class="hide-arrow">
-        <v-slide-item v-for="(image, index) in images" :key="index" v-slot:default="{}">
+        <v-slide-item v-for="(image, index) in data" :key="index" v-slot:default="{}">
           <v-hover v-slot="{ hover }">
-            <v-card flat class="ma-4" @click="goToInsta(image.shortcode)">
-              <v-img :src="image.img.src" :height="image.img.width" :width="image.img.width" contain >
-              <v-expand-transition>
-                <div
-                  v-if="hover"
-                  class="d-flex transition-fast-in-fast-out orange  v-card--reveal  pa-4"
-                  style="height: 100%"
-                >
-                 <p class="textSlider--text text-left items-text">{{ image.caption }}</p> 
-                </div>
-              </v-expand-transition>
-                </v-img>
+            <v-card flat class="ma-4" @click="goToInsta(image.link)">
+              <v-img :src="image.display_url" :height="dimension" :width="dimension" cover>
+                <v-expand-transition>
+                  <div
+                    v-if="hover && image.text"
+                    class="d-flex transition-fast-in-fast-out orange v-card--reveal pa-4"
+                    style="height: 100%"
+                  >
+                    <p class="textSlider--text text-left items-text">{{ image.text }}</p>
+                  </div>
+                </v-expand-transition>
+              </v-img>
             </v-card>
           </v-hover>
         </v-slide-item>
       </v-slide-group>
     </v-card>
+
     <v-carousel
       v-else
       v-model="model"
@@ -42,9 +45,9 @@
       light
       class="transparent"
     >
-      <v-carousel-item v-for="(image, index) in images" :key="index">
-        <v-card flat class="ma-4" hover  @click="goToInsta(image.shortcode)">
-          <v-img :src="image.img.src" contain />
+      <v-carousel-item v-for="(image, index) in data" :key="index">
+        <v-card flat class="ma-4" hover @click="goToInsta(image.link)">
+          <v-img :src="image.display_url" contain />
         </v-card>
       </v-carousel-item>
     </v-carousel>
@@ -62,21 +65,14 @@ export default {
   }),
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState('instagram', ['media']),
-    widthIndex() {
-      let index = 3;
-      if (this.viewportWidth < 1904) index = 2;
-      if (this.viewportWidth < 1264) index = 1;
-      // if (this.viewportWidth < 960) index = 0;
-      if (this.viewportWidth < 600) index = 0;
-      return index;
-    },
-    images() {
-      return this.media.map(item => ({
-        img: item.thumbnails[this.widthIndex],
-        caption: item.caption || 'Watch video ...',
-        shortcode: item.shortcode,
-      }));
+    ...mapState('instagram', ['data']),
+    dimension() {
+      let dimension = 640;
+      if (this.viewportWidth < 1904) dimension = 360;
+      // if (this.viewportWidth < 1264) dimension = 400;
+      // if (this.viewportWidth < 960) dimension = 360;
+      if (this.viewportWidth < 600) dimension = 240;
+      return dimension;
     },
   },
   methods: {
@@ -86,14 +82,14 @@ export default {
     },
     left() {
       if (this.model) this.model -= 1;
-      else this.model = this.images.length - 1;
+      else this.model = this.data.length - 1;
     },
     right() {
-      if (this.model < this.images.length - 1) this.model += 1;
+      if (this.model < this.data.length - 1) this.model += 1;
       else this.model = 0;
     },
-    goToInsta(shortcode) {
-      window.open(`${process.env.VUE_APP_INSTA_URL}/p/${shortcode}`);
+    goToInsta(link) {
+      window.open(link);
     },
   },
   mounted() {

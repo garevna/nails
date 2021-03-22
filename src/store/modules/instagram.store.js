@@ -6,18 +6,14 @@ const errors = require('@/config/errors').default.instagram;
 const endpoints = require('@/config/endpoints').default.instagram;
 
 const state = {
-  media:[],
-  posts: [],
-  data:null
+  data: [],
 };
 
 const getters = {};
 
 const mutations = {
-  DATA: (state, { media, posts, ...rest}) => {
-    state.media = media ?? [];
-    state.posts = posts ?? [];
-    state.data = rest ?? null;
+  DATA: (state, payload) => {
+    state.data = payload ?? [];
   },
 };
 
@@ -27,8 +23,10 @@ const actions = {
     if (error) {
       commit('ERROR', errors.get, { root: true });
     } else {
-      commit('DATA', data)
-      
+      commit(
+        'DATA',
+        data.map(item => Object.assign(item, { text: item.text[0] ?? '' }))
+      );
     }
   },
 };
