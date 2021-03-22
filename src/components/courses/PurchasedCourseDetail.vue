@@ -19,12 +19,16 @@
           >
         </v-card>
         <v-card v-if="type === 'offline'" flat class="transparent d-flex flex-column align-center" dark>
-          <v-card-title>Date of courses:</v-card-title>
-          <table>
-            <tr v-for="item in purchasedDates" :key="item._id">
+           <table>
+            <tr>
+              <th>Date of course</th>
+              <th>Available spots</th>
+              <th>Purchased dates</th>
+            </tr>
+            <tr v-for="item in dateOfCourses" :key="item.id">
               <td>{{ item.date }}</td>
-              <td>available spots {{ item.availableSpots }}</td>
-              <td> <v-chip :color="item.paid ? 'paidAndPublished' : 'notPaidAndPublished'"  text-color="white"> {{ item.paid ? 'paid': 'not paid' }}</v-chip></td>
+              <td class="text-right">{{ item.availableSpots }}</td>
+              <td class="text-right"> <v-chip :color="item.paid ? 'paidAndPublished' : 'notPaidAndPublished'"  text-color="white"> {{ item.paid ? 'paid': 'not paid' }}</v-chip></td>
             </tr>
           </table>
         </v-card>
@@ -62,6 +66,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { datesToString } from '@/helpers/datesToString';
 
 import CoverImage from '@/components/CoverImage.vue';
 import checkCourseLink from '@/helpers/checkCourseLink';
@@ -98,26 +103,35 @@ export default {
             .filter(str => str)
         : [];
     },
-    // purchasedDates() {
-    //   return this.course.dateOfCourses.filter(date => this.eventDates.includes(date.vendorСode))
-    // },
-      purchasedDates() {
-      return this.course.dateOfCourses.map(date => (Object.assign({
-        paid:this.eventDates.includes(date.vendorСode)
-      },date))
-      )
-    }
+    dateOfCourses() {
+      return this.course.dateOfCourses.map(item => ({
+        date: this.formatedDate(item.date),
+        availableSpots: item.availableSpots,
+        id: item._id,
+        paid: this.eventDates.includes(item.vendorСode)
+      }));
+    },
   },
   methods: {
     linkCheck(course) {
       return checkCourseLink(course);
+    },
+    formatedDate(date) {
+      let dates = [];
+      try {
+        dates = JSON.parse(date);
+      } catch (e) {
+        // console.error(e.message);
+      }
+      if (!Array.isArray(dates)) dates = [];
+      return datesToString(dates);
     },
   },
 };
 </script>
 
 <style scoped>
-td {
+td,th {
   padding: 8px;
 }
 </style>
