@@ -4,6 +4,7 @@
       <v-col cols="12">
         <h2 class="darkGrey--text text-center">People who viewed this item also viewed</h2>
       </v-col>
+
       <v-col cols="12">
         <div class="d-flex justify-center flex-wrap">
           <ShopCard
@@ -12,7 +13,7 @@
             :commodity="commodity"
             :width="width"
             height="320"
-            @click="$emit('click', commodity._id)"
+            @click="$emit('click', { id: commodity._id, categoryId: commodity.subCategoryId })"
           />
         </div>
       </v-col>
@@ -54,9 +55,10 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex';
-
 import ShopCard from '@/components/Shop/ShopCard.vue';
+
+const marginCard = 16;
+const padding = 12;
 
 export default {
   name: 'AlsoViewed',
@@ -73,47 +75,20 @@ export default {
   },
   data() {
     return {
-      commodityId: this.$route.params.commodityId,
-      activeCard: 0,
       noImage: require('@/assets/no-image.png'),
       width: '200',
       clientWidth: 600,
     };
   },
-  watch: {
-    // commodityId(newVal) {
-    //   this.$store.dispatch('shop/GET_COMMODITY', {
-    //     commodityId: newVal,
-    //   });
-    // },
-  },
+  watch: {},
   computed: {
-    // ...mapState(['viewportWidth']),
-    // ...mapState('shop', ['categories', 'commodities', 'commodity', 'isCommodityLoading', 'fullListOfCategories']),
-    mobileMenu() {
-      return this.viewportWidth < 960;
-    },
     count() {
-      const width = this.clientWidth - 12 * 2;
-      const cardWidth = +this.width + 16 * 2;
+      const width = this.clientWidth - padding * 2;
+      const cardWidth = +this.width + marginCard * 2;
       return Math.floor(width / cardWidth);
     },
     filteredCommodities() {
       return this.commodities.slice(0, this.count);
-    },
-    previewImgs() {
-      return this.commodity?.images;
-    },
-    currentLink() {
-      return this.commodity.images[this.activeCard]?.link ?? this.noImage;
-    },
-    alsoViewedCommoditiesLink() {
-      this.fullListOfCategories;
-      if (!this.alsoViewedCommodities.length) return;
-      const categoryId = this.alsoViewedCommodities[0].subCategoryId || this.alsoViewedCommodities[0].categoryId;
-      const category = this.fullListOfCategories.find(el => el._id === categoryId);
-      if (category && category.slug) return category.slug;
-      return '';
     },
   },
   methods: {
@@ -122,10 +97,10 @@ export default {
     },
   },
   mounted() {
-    this.clientWidth = this.$el?.clientWidth;
+    this.updateWidth();
   },
   updated() {
-    this.clientWidth = this.$el?.clientWidth;
+    this.updateWidth();
   },
 };
 </script>

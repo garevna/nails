@@ -1,43 +1,44 @@
 <template>
-  <!-- <v-row justify="center"> -->
-    <v-expansion-panels flat accordion class="px-0 py-5 left-side-header">
-      <v-expansion-panel v-for="section in categories" :key="section._id">
-        <v-expansion-panel-header class="mb-0 py-0" @click="setSection(section)">
-          <span class="d-flex justify-start align-center text-h5 font-weight-bold dgrey--text">
-            {{ section.name }} <v-icon left v-if="section.subcategories.length">mdi-menu-down</v-icon></span
-          >
-        </v-expansion-panel-header>
-        <v-expansion-panel-content class="justify-md-start justify-center" v-if="section.subcategories.length">
-          <v-row class="ma-0">
-            <v-col v-for="(subsection, ind) in section.subcategories" :key="ind" cols="12" class="pa-1 ma-0">
-              <span
-                @click="setSection(subsection)"
-                style="cursor: pointer"
-                class="lgray--text text-h6 ml-5 mb-2 font-weight-medium"
-                :style="{
-                  textDecoration: activeCategory && activeCategory._id === subsection._id ? 'underline' : 'none',
-                }"
-              >
-                {{ subsection.name }}
-              </span>
-            </v-col>
-            <v-col class="d-flex ml-10 mt-2 pa-0">
-              <span
-                @click="setSection(section)"
-                style="cursor: pointer"
-                :style="{
-                  textDecoration: activeCategory && activeCategory._id === section._id ? 'underline' : 'none',
-                }"
-                class="lgray--text text-h6 font-weight-medium"
-              >
-                View all
-              </span>
-            </v-col>
-          </v-row>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
-  <!-- </v-row> -->
+  <v-expansion-panels flat accordion class="px-0 py-5 left-side-header">
+    <v-expansion-panel v-for="section in categories" :key="section._id">
+      <v-expansion-panel-header class="mb-0 py-0">
+        <span class="d-flex justify-start align-center text-h5 font-weight-bold dgrey--text">
+          {{ section.name }}
+          <v-icon left v-if="section.subcategories.length">mdi-menu-down</v-icon>
+        </span>
+      </v-expansion-panel-header>
+
+      <v-expansion-panel-content class="justify-md-start justify-center" v-if="section.subcategories.length">
+        <v-row class="ma-0">
+          <v-col v-for="(subsection, ind) in section.subcategories" :key="ind" cols="12" class="pa-1 ma-0">
+            <span
+              @click="setSection(subsection)"
+              style="cursor: pointer"
+              class="lgray--text text-h6 ml-5 mb-2 font-weight-medium"
+              :style="{
+                textDecoration: textDecoration(subsection._id),
+              }"
+            >
+              {{ subsection.name }}
+            </span>
+          </v-col>
+
+          <v-col class="d-flex ml-10 mt-2 pa-0">
+            <span
+              @click="setSection(section)"
+              style="cursor: pointer"
+              :style="{
+                textDecoration: textDecoration(section._id),
+              }"
+              class="lgray--text text-h6 font-weight-medium"
+            >
+              View all
+            </span>
+          </v-col>
+        </v-row>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+  </v-expansion-panels>
 </template>
 
 <style lang="scss">
@@ -52,11 +53,11 @@
     margin-top: 0 !important;
   }
 }
-.left-side-header > div:last-child{
+.left-side-header > div:last-child {
   position: relative;
   padding-top: 20px;
 }
-.left-side-header > div:last-child::before{
+.left-side-header > div:last-child::before {
   position: absolute;
   top: 10px;
   left: 24px;
@@ -71,14 +72,15 @@
 </style>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
+
 export default {
   name: 'LeftSideMenu',
-  props: ['setSelectedSection'],
   computed: {
-    ...mapState('shop', ['categories', 'activeCategory']),
-    panels() {
-      return this.categories.map(() => false);
+    ...mapState('shop', ['categories']),
+    ...mapGetters('shop', ['fullListOfCategories']),
+    activeCategory() {
+      return this.fullListOfCategories.find(category => category.slug === this.$route.params.categoryName) ?? null;
     },
   },
   methods: {
@@ -89,6 +91,9 @@ export default {
           params: { categoryName: section.slug },
         });
       }
+    },
+    textDecoration(id) {
+      return this.activeCategory?._id === id ? 'underline' : 'none';
     },
   },
 };

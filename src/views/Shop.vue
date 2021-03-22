@@ -21,6 +21,7 @@
             <p class="dgrey--text text-center text-h4 font-weight-medium">
               Unfortunately, there are no products <br />
             </p>
+
             <p class="dgrey--text text-center text-h4 font-weight-medium">suitable for your request...</p>
           </v-card-text>
         </v-card>
@@ -35,12 +36,12 @@
       </v-col>
     </v-row>
 
-    <v-row v-if="totalPages > 1 && !isShopLoading">
+    <v-row v-if="pages > 0 && !isShopLoading">
       <v-col cols="12" class="mt-10">
         <v-pagination
-          v-model="pagination.page"
-          :length="pagination.total"
-          @input="setPage"
+          v-model="page"
+          :length="pages"
+          :total-visible="8"
           color="orange"
           prev-icon="mdi-menu-left"
           next-icon="mdi-menu-right"
@@ -52,8 +53,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
+import { mapState, mapGetters } from 'vuex';
 import ShopCard from '@/components/Shop/ShopCard.vue';
 
 export default {
@@ -63,34 +63,16 @@ export default {
   },
   data() {
     return {
-      categoryName: this.$route.params.categoryName,
       coverImageSrc: require('@/assets/noImage.jpg'),
       noImage: require('@/assets/no-image.png'),
+      page: +this.$route.query.page || 1,
     };
   },
   computed: {
-    ...mapState(['viewportWidth']),
-    ...mapState('shop', [
-      'categories',
-      'isShopLoading',
-      'commodities',
-      'totalCommodities',
-      'activeCategory',
-      'totalPages',
-    ]),
-    pagination() {
-      const page = +this.$route.query.page;
-      return {
-        page: !isNaN(page) ? page : 1,
-        total: Math.ceil(this.totalCommodities / 12),
-        skip: !isNaN(page) ? page * 12 - 12 : 0,
-      };
-    },
-    mobileMenu() {
-      return this.viewportWidth < 960;
-    },
-    selectedCategoryName() {
-      return this.$store.getters.selectedCategoryName;
+    ...mapState('shop', ['isShopLoading', 'categories', 'commodities', 'pageSize', 'total', 'search']),
+    ...mapGetters('shop', ['fullListOfCategories', 'pages']),
+    activeCategory() {
+      return this.fullListOfCategories.find(category => category.slug === this.$route.params.categoryName) ?? null;
     },
     contentShow() {
       return this.commodities.length;
@@ -100,48 +82,53 @@ export default {
     },
   },
   watch: {
-    $route(to, from) {
-      if (from.name === 'shop' && to.name === 'shop' && to.params.categoryName !== from.params.categoryName) {
-        this.$store.dispatch('shop/SET_NEW_CATEGORY', { category: to.params.categoryName });
+    activeCategory() {
+      this.getCommodities();
+    },
+    page(newPage, oldPage) {
+      if (newPage !== oldPage) {
+        this.$router.push({
+          name: this.$route.name,
+          params: { categoryName: this.$route.params.categoryName },
+          query: { page: newPage },
+        });
       }
+      this.getCommodities();
+    },
+    search(str) {
+      this.page = 1;
+      console.log('search', str);
+      this.getCommodities();
     },
   },
   methods: {
-    setPage(page) {
-      if (page !== this.$route.query.page) {
-        this.$router.push({
-          name: 'shop',
-          params: { categoryId: this.categoryId },
-          query: { page },
-        });
-        this.$store.dispatch('shop/GET_MORE_COMMODITIES', { skip: this.pagination.skip });
-        this.pagination.page = page;
-        this.pagination.skip = page * 12 - 12;
-      }
+    categorySlug(id) {
+      return this.fullListOfCategories.find(category => category._id === id)?.slug ?? 'missing-category';
     },
-    goToItem(id) {
+    goToItem({ id, categoryId }) {
       this.$router.push({
         name: 'shop-item',
         params: {
           commodityId: id,
+          categoryName: this.categorySlug(categoryId),
         },
       });
     },
-  },
-  beforeDestroy() {
-    // this.$store.commit('shop/CLEAR_COMMODITIES');
+    async getCommodities() {
+      if (!this.search && this.$route.name === 'shop-root') {
+        await this.$store.dispatch('shop/RANDOM_COMMODITIES');
+      } else {
+        if (!this.activeCategory) return;
+        await this.$store.dispatch('shop/GET_COMMODITIES', {
+          categoryId: this.activeCategory?._id,
+          isSubcategory: !Array.isArray(this.activeCategory.subcategories),
+          page: this.page,
+        });
+      }
+    },
   },
   async mounted() {
-    await this.$store.dispatch('shop/INIT_SHOP', {
-      categoryName: this.categoryName,
-      skip: this.pagination.skip,
-    });
-    if (!this.categoryName) {
-      await this.$router.replace({
-        name: 'shop',
-        params: { categoryName: this.activeCategory.slug },
-      });
-    }
+    await this.getCommodities();
   },
 };
 </script>

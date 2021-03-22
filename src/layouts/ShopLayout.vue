@@ -1,8 +1,8 @@
 <template>
   <!-- :class="{ 'pt-10': !isShopPageOpened }" min-height="70vh" -->
   <v-container fluid class="mt-12">
-    <v-row v-if="isShopPageOpened" >
-      <v-col cols="12"  >
+    <v-row v-if="isShopPageOpened">
+      <v-col cols="12">
         <Search />
       </v-col>
     </v-row>
@@ -15,7 +15,7 @@
 
     <v-row>
       <v-col cols="12" md="4" lg="3" v-if="!mobileMenu">
-        <LeftSideMenu v-if="categories" />
+        <LeftSideMenu v-if="isShowLeftSideMenu" />
         <v-card v-else flat class="transparent">
           <v-skeleton-loader v-for="i in 7" :key="i" height="30px" animation type="image"></v-skeleton-loader>
         </v-card>
@@ -27,6 +27,7 @@
     </v-row>
   </v-container>
 </template>
+
 <script>
 import { mapState } from 'vuex';
 import LeftSideMenu from '@/components/Shop/LeftSideMenu.vue';
@@ -38,18 +39,18 @@ export default {
   components: { LeftSideMenu, CategoriesSwitcher, Search },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState('shop', ['activeCategory', 'categories']),
+    ...mapState('shop', ['categories']),
     mobileMenu() {
       return this.viewportWidth < 960;
     },
     isShopPageOpened() {
-      return this.$route.name === 'shop';
+      return ['shop', 'shop-root'].includes(this.$route.name);
+    },
+    isShowLeftSideMenu() {
+      return this.categories?.length;
     },
   },
   methods: {},
-  async mounted() {
-    this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
-  },
 };
 </script>
 

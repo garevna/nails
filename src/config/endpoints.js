@@ -40,6 +40,7 @@ export default {
     newCommodity: 'shop/new/commodity',
     files: 'shop/commodity/files',
     newSubcategory: 'Fshop/file',
+    random: 'shop/random',
     getById: 'shop/commodities-by-ids'
   },
   instagram: {

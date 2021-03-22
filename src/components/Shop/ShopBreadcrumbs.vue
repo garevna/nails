@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'ShopBreadcrumbs',
@@ -24,7 +24,14 @@ export default {
     return {};
   },
   computed: {
-    ...mapState('shop', ['activeCategory', 'categories', 'commodity']),
+    ...mapState('shop', ['categories', 'commodity']),
+    ...mapGetters('shop', ['fullListOfCategories']),
+    activeCategory() {
+      return this.fullListOfCategories.find(category => category.slug === this.$route.params.categoryName);
+    },
+    route() {
+      return this.$route;
+    },
     sucategories() {
       return this.categories.reduce((accum, current) => accum.concat(current.sucategories), []);
     },
@@ -35,46 +42,62 @@ export default {
     },
     breadcrumbs() {
       let routes = [];
-      if (!this.mobile) {
-        routes = [
-          {
-            name: 'Home',
-            slug: '/',
-          },
-          {
-            name: 'Shop',
-            slug: '/shop',
-          },
-        ];
-      }
 
-      if (!this.activeCategory) return routes;
+      const home = { name: 'Home', slug: '/' };
+
+      const shop = { name: 'Shop', slug: '/shop' };
 
       const active = {
-        name: this.activeCategory.name,
-        slug: `/shop/${this.activeCategory.slug}`,
+        name: this.activeCategory?.name ?? 'Missing category',
+        slug: `/shop/${this.activeCategory?.slug ?? 'missing-category'}`,
       };
 
-      if (Array.isArray(this.activeCategory.subcategories)) {
-        // category
-        routes.push(active);
+      let category = null;
+      let subcategory = null;
+
+      if (Array.isArray(this.activeCategory?.subcategories)) {
+        category = active;
       } else {
-        const category = this.categories.find(item => item._id === this.activeCategory.parentId);
-        if (category && !this.mobile)
-          // category
-          routes.push({
-            name: category.name,
-            slug: `/shop/${category.slug}`,
-          });
-        // subcutegory
-        routes.push(active);
+        const cat = this.categories.find(item => item._id === this.activeCategory?.parentId);
+        category = { name: cat?.name ?? 'Missing category', slug: `/shop/${cat?.slug ?? 'missing-category'}` };
+        subcategory = active;
       }
 
-      if (this.commodity)
-        routes.push({
-          name: this.commodity.name,
-          slug: '*',
-        });
+      const commodity = {
+        name: this.commodity?.name ?? '',
+        slug: '',
+      };
+
+      if (this.$route.name === 'shop-root') {
+        return [home, shop];
+      }
+
+      if (!this.mobile) {
+        routes = routes.concat([home, shop, category]);
+
+        if (subcategory) routes.push(subcategory);
+
+        if (this.$route.name === 'shop-item') {
+          routes.push(commodity);
+        }
+
+        return routes;
+      }
+
+      // mobile version
+      if (this.$route.name === 'shop-item') {
+        routes.push(category);
+
+        if (subcategory) routes.push(subcategory);
+
+        routes.push(commodity);
+      } else {
+        if (!subcategory) routes.push(shop);
+
+        routes.push(category);
+
+        if (subcategory) routes.push(subcategory);
+      }
 
       return routes;
     },

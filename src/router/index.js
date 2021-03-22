@@ -14,23 +14,19 @@ const routes = [
   {
     path: '/shop',
     name: 'shop-root',
-    redirect: {
-      name: 'shop',
-      params: {
-        categoryName: 'nail-tools',
-      },
-    },
+    meta: { layout: 'Shop' },
+    component: () => import(/* webpackChunkName: "shop" */ '@/views/Shop.vue'),
   },
   {
     path: '/shop/:categoryName',
     name: 'shop',
-    meta: { layout: 'Whitefone' },
+    meta: { layout: 'Shop' },
     component: () => import(/* webpackChunkName: "shop" */ '@/views/Shop.vue'),
   },
   {
     path: '/shop/:categoryName/:commodityId',
     name: 'shop-item',
-    meta: { layout: 'Whitefone' },
+    meta: { layout: 'Shop' },
     component: () => import(/* webpackChunkName: "shop-item" */ '@/views/ShopItem.vue'),
   },
   {

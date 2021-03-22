@@ -38,16 +38,10 @@ export default {
     // ...mapState(['viewportWidth']),
     ...mapState('shop', ['activeCategory']),
     ...mapState('courses', ['uploadDialog']),
-    isShopOpened() {
-      return this.$route.name === 'shop' || this.$route.name === 'shop-item';
-    },
     showFooter() {
       return this.$route.name !== 'products-cart'
     },
     layout() {
-      if (this.isShopOpened) {
-        return 'shop-layout';
-      }
       return `${this.$route.meta?.layout || 'default'}-layout`;
     },
   },
@@ -56,28 +50,11 @@ export default {
     onResize() {
       this.$store.commit('CHANGE_VIEWPORT_WIDTH');
     },
-    async shopInit() {
-      let categoryName;
-      const isShopOpened = this.$route.name === 'shop';
-      if (isShopOpened) {
-        categoryName = this.$route.params.categoryName;
-      }
-      await this.$store.dispatch('shop/INIT_SHOP', {
-        categoryName,
-      });
-      if (this.$route.name === 'shop' && !categoryName) {
-        // await this.$router.push({
-        //   name: 'shop',
-        //   params: { categoryName: this.activeCategory.slug },
-        // });
-      }
-    },
   },
   mounted() {
     this.onResize();
-    // this.$store.dispatch('shop/GET_SHOP_CATEGORIES');
     window.addEventListener('resize', this.onResize, { passive: true });
-    // this.shopInit()
+    this.$store.dispatch('shop/GET_CATEGORIES');
     this.$store.dispatch('instagram/GET_INSTAGRAM');
     this.$store.dispatch('productCart/INIT_CART');
   },
@@ -86,9 +63,7 @@ export default {
   },
 
   destroyed() {
-    if (typeof window !== 'undefined') {
-      window.removeEventListener('resize', this.onResize, { passive: true });
-    }
+    window.removeEventListener('resize', this.onResize, { passive: true });
   },
 };
 </script>

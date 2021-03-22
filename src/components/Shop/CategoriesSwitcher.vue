@@ -29,14 +29,18 @@
               v-bind="attrs"
               v-on="on"
             >
-              <ShopBreadcrumbs :disabled="true" :mobile="true" class="coursesGray--text font-weight-black text-h6 text-start w-100"/>
+              <ShopBreadcrumbs
+                :disabled="true"
+                :mobile="true"
+                class="coursesGray--text font-weight-black text-h6 text-start w-100"
+              />
             </v-btn>
 
             <v-card v-else width="100%" color="lgrey" class="category-switcher-header px-2 d-flex justify-start">
-              <ShopBreadcrumbs class="coursesGray--text font-weight-black text-h6 text-start w-100"/>
+              <ShopBreadcrumbs class="coursesGray--text font-weight-black text-h6 text-start w-100" />
             </v-card>
           </template>
-          
+
           <v-row justify="center">
             <v-expansion-panels flat accordion class="px-0 py-5 homefone left-side-header mb-0" :key="panelsKey">
               <v-expansion-panel v-for="section in categories" :key="section._id">
@@ -45,9 +49,11 @@
                   @click="!section.subcategories.length ? setSection(section) : null"
                 >
                   <span class="d-flex justify-start align-center text-h5 font-weight-bold dgrey--text">
-                    {{ section.name }} <v-icon left v-if="section.subcategories.length">mdi-menu-down</v-icon></span
-                  >
+                    {{ section.name }}
+                    <v-icon left v-if="section.subcategories.length">mdi-menu-down</v-icon>
+                  </span>
                 </v-expansion-panel-header>
+
                 <v-expansion-panel-content class="justify-md-start justify-center" v-if="section.subcategories.length">
                   <v-row class="ma-0">
                     <v-col v-for="(subsection, ind) in section.subcategories" :key="ind" cols="12" class="pa-1 ma-0">
@@ -56,19 +62,19 @@
                         style="cursor: pointer"
                         class="lgray--text text-h6 ml-5 mb-2 font-weight-medium"
                         :style="{
-                          textDecoration:
-                            activeCategory && activeCategory._id === subsection._id ? 'underline' : 'none',
+                          textDecoration: textDecoration(subsection._id),
                         }"
                       >
                         {{ subsection.name }}
                       </span>
                     </v-col>
+
                     <v-col class="d-flex ma-0 mt-2 px-1 py-0">
                       <span
                         @click="setSection(section)"
                         style="cursor: pointer"
                         :style="{
-                          textDecoration: activeCategory && activeCategory._id === section._id ? 'underline' : 'none',
+                          textDecoration: textDecoration(section._id),
                         }"
                         class="lgray--text text-h6 font-weight-medium ml-5"
                       >
@@ -82,6 +88,7 @@
           </v-row>
         </v-menu>
       </v-card>
+
       <v-card v-else width="100%" height="50px">
         <v-skeleton-loader height="100%" animation type="image"></v-skeleton-loader>
       </v-card>
@@ -90,8 +97,10 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import ShopBreadcrumbs from '@/components/Shop/ShopBreadcrumbs.vue';
+
+const mobileWidthLimit = 960;
 
 export default {
   name: 'CategoriesSwitcher',
@@ -105,19 +114,13 @@ export default {
   },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState('shop', [
-      'categoriesHeaderName',
-      'activeCategory',
-      'isCategoriesLoading',
-      'categories',
-      'commodities',
-      'selectedSectionName',
-    ]),
-    selectedCategoryName() {
-      return this.$store.getters['shop/selectedCategoryName'];
+    ...mapState('shop', ['isCategoriesLoading', 'categories', 'commodities']),
+    ...mapGetters('shop', ['fullListOfCategories']),
+    activeCategory() {
+      return this.fullListOfCategories.find(category => category.slug === this.$route.params.categoryName) ?? null;
     },
     mobileMenu() {
-      return this.viewportWidth < 960;
+      return this.viewportWidth < mobileWidthLimit;
     },
   },
   watch: {
@@ -136,6 +139,9 @@ export default {
           params: { categoryName: section.slug },
         });
       }
+    },
+    textDecoration(id) {
+      return this.activeCategory?._id === id ? 'underline' : 'none';
     },
   },
 };

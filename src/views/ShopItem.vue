@@ -63,43 +63,32 @@
         </v-card>
       </div>
     </v-col>
-    <AlsoViewed :commodities="alsoViewedCommodities" :loading="isCommodityLoading" />
+    <AlsoViewed :commodities="alsoViewedCommodities" :loading="isCommodityLoading" @click="goToItem" />
   </v-row>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-
+import { mapState, mapGetters } from 'vuex';
 import AlsoViewed from '@/components/Shop/AlsoViewed.vue';
 
 export default {
   name: 'ShopItem',
   components: { AlsoViewed },
-  props: ['section'],
   data() {
     return {
-      // commodityId: this.$route.params.commodityId,
       activeCard: 0,
       noImage: require('@/assets/no-image.png'),
     };
   },
-  watch: {
-    commodityId(newVal) {
-      this.$store.dispatch('shop/GET_COMMODITY', {
-        commodityId: newVal,
-      });
-    },
-  },
   computed: {
     ...mapState(['viewportWidth']),
-    ...mapState('shop', ['categories', 'commodities', 'commodity', 'isCommodityLoading', 'fullListOfCategories']),
-    mobileMenu() {
-      return this.viewportWidth < 960;
+    ...mapState('shop', ['categories', 'commodities', 'commodity', 'isCommodityLoading']),
+    ...mapGetters('shop', ['fullListOfCategories', 'pages']),
+    activeCategory() {
+      return this.fullListOfCategories.find(category => category.slug === this.$route.params.categoryName) ?? null;
     },
     alsoViewedCommodities() {
-      const array = this.$store.getters['shop/alsoViewedCommodities'];
-      if (!Array.isArray(array)) return [];
-      return array.slice(0, 4);
+      return this.commodities.filter(commodity => commodity._id !== this.$route.params.commodityId);
     },
     previewImgs() {
       return this.commodity?.images ?? [];
@@ -107,29 +96,33 @@ export default {
     currentLink() {
       return this.commodity.images[this.activeCard]?.link ?? this.noImage;
     },
-    alsoViewedCommoditiesLink() {
-      this.fullListOfCategories;
-      if (!this.alsoViewedCommodities.length) return;
-      const categoryId = this.alsoViewedCommodities[0].subCategoryId || this.alsoViewedCommodities[0].categoryId;
-      const category = this.fullListOfCategories.find(el => el._id === categoryId);
-      if (category && category.slug) return category.slug;
-      return '';
+  },
+  watch: {
+    commodityId(newVal) {
+      this.$store.dispatch('shop/GET_COMMODITY', {
+        commodityId: newVal,
+      });
+    },
+    activeCategory() {
+      this.getCommodities();
+    },
+    $route() {
+      this.getCommodity();
     },
   },
   methods: {
-    goToCard(id) {
-      this.$store.dispatch('shop/GET_COMMODITY', {
-        commodityId: id,
-      });
+    categorySlug(id) {
+      return this.fullListOfCategories.find(category => category._id === id)?.slug ?? 'missing-category';
+    },
+    goToItem({ id, categoryId }) {
       this.$router.push({
         name: 'shop-item',
-        params: { categoryName: this.alsoViewedCommoditiesLink, commodityId: id },
+        params: {
+          commodityId: id,
+          categoryName: this.categorySlug(categoryId),
+        },
       });
     },
-    // setPhoto(val, toggle) {
-    //   toggle();
-    //   this.activeCard = val.link;
-    // },
     addToCart() {
       this.$store.dispatch('productCart/ADD_TO_CART', this.$route.params.commodityId);
     },
@@ -137,15 +130,21 @@ export default {
       this.addToCart();
       this.$router.push({ name: 'shop-payment' });
     },
+    getCommodities() {
+      if (!this.activeCategory) return;
+      this.$store.dispatch('shop/GET_COMMODITIES', {
+        categoryId: this.activeCategory?._id,
+        isSubcategory: !Array.isArray(this.activeCategory.subcategories),
+      });
+    },
+    async getCommodity() {
+      await this.$store.dispatch('shop/GET_COMMODITY', {
+        commodityId: this.$route.params.commodityId,
+      });
+    },
   },
   async mounted() {
-    await this.$store.dispatch('shop/GET_COMMODITY', {
-      commodityId: this.$route.params.commodityId,
-    });
-    this.$store.dispatch('shop/SET_NEW_CATEGORY', { category: this.$route.params.categoryName });
-  },
-  beforeDestroy() {
-    this.$store.commit('shop/CLEAR_COMMODITY');
+    await this.getCommodity();
   },
 };
 </script>
