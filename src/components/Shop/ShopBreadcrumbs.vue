@@ -59,8 +59,10 @@ export default {
         category = active;
       } else {
         const cat = this.categories.find(item => item._id === this.activeCategory?.parentId);
-        category = { name: cat?.name ?? 'Missing category', slug: `/shop/${cat?.slug ?? 'missing-category'}` };
-        subcategory = active;
+        if (cat) {
+          category = { name: cat.name, slug: `/shop/${cat.slug}` };
+          subcategory = active;
+        }
       }
 
       const commodity = {
@@ -73,20 +75,20 @@ export default {
       }
 
       if (!this.mobile) {
-        routes = routes.concat([home, shop, category]);
+        routes = routes.concat([home, shop]);
+
+        if (category) routes.push(category);
 
         if (subcategory) routes.push(subcategory);
 
-        if (this.$route.name === 'shop-item') {
-          routes.push(commodity);
-        }
+        if (this.$route.name === 'shop-item') routes.push(commodity);
 
         return routes;
       }
 
       // mobile version
       if (this.$route.name === 'shop-item') {
-        routes.push(category);
+        if (category) routes.push(category);
 
         if (subcategory) routes.push(subcategory);
 
@@ -94,7 +96,7 @@ export default {
       } else {
         if (!subcategory) routes.push(shop);
 
-        routes.push(category);
+        if (category) routes.push(category);
 
         if (subcategory) routes.push(subcategory);
       }
