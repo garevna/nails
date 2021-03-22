@@ -52,7 +52,7 @@
 
           <v-col cols="12" sm="5" md="3" lg="3">
             <v-card-text class="darkGrey--text no-wrap text-center text-sm-left pt-0 pb-2 py-sm-4">
-              <h2 class="route" v-on:click="goToRoute('payment')">Payment</h2>
+              <h2 class="route" v-on:click="goToRoute('products-cart')">Payment</h2>
               <h2 class="route" v-on:click="goToRoute('delivery')">Delivery</h2>
               <h2 class="route" v-on:click="goToRoute('return')">Return</h2>
               <p></p>

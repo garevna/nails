@@ -60,7 +60,11 @@ const actions = {
     if (!error && data.link) {
       window.open(data.link);
     } else {
-      commit('ERROR', errors.buy, { root: true });
+      commit('ERROR', {
+        error: errors.buy.error,
+        errorType: errors.buy.errorType,
+        errorMessage: error || errors.buy.errorMessage
+      }, { root: true });
     }
   },
 };

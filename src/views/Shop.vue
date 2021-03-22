@@ -36,7 +36,7 @@
       </v-col>
     </v-row>
 
-    <v-row v-if="pages > 0 && !isShopLoading">
+    <v-row v-if="pages > 1 && !isShopLoading">
       <v-col cols="12" class="mt-10">
         <v-pagination
           v-model="page"
