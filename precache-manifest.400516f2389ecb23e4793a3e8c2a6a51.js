@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/add-course~user-course.fd25dc4b.css"
   },
   {
-    "revision": "5fb2558691f6f93a2e4b",
-    "url": "/nails/css/app.694baee5.css"
+    "revision": "f55d0bbf07c74364d3cb",
+    "url": "/nails/css/app.bf27d787.css"
   },
   {
     "revision": "836b710ec0add97e948c",
@@ -40,8 +40,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/chunk-6612774e.58d537c5.css"
   },
   {
-    "revision": "5b12c725aa8033a8f318",
-    "url": "/nails/css/chunk-vendors.9555e43f.css"
+    "revision": "6143c0506af2a5b03920",
+    "url": "/nails/css/chunk-vendors.fb816d9d.css"
   },
   {
     "revision": "fb41cf64e57e4431e65a",
@@ -56,15 +56,19 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/personal-data.203cf141.css"
   },
   {
-    "revision": "5847a580e6fd777daf2e",
-    "url": "/nails/css/shop-item.f0f6ac39.css"
+    "revision": "3325074cbfb51b64e9dd",
+    "url": "/nails/css/products-cart.d39dc8be.css"
+  },
+  {
+    "revision": "5bb13544ed7847c7623e",
+    "url": "/nails/css/shop-item.ae0e16ee.css"
   },
   {
     "revision": "b6cf958e1d71ffda39fd",
     "url": "/nails/css/shop-payment.c69a7ab8.css"
   },
   {
-    "revision": "f32eae0e5d5d1cd075ed",
+    "revision": "567c803a2156e4efa631",
     "url": "/nails/css/shop.c719487b.css"
   },
   {
@@ -200,7 +204,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/pdf.3fa92281.svg"
   },
   {
-    "revision": "6bdafa5a877087d29faf820b95754c53",
+    "revision": "f6fffa99b0916119a02e9475479b3126",
     "url": "/nails/index.html"
   },
   {
@@ -220,8 +224,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/add-course~user-course.4b86a1c6.js"
   },
   {
-    "revision": "5fb2558691f6f93a2e4b",
-    "url": "/nails/js/app.19b124de.js"
+    "revision": "f55d0bbf07c74364d3cb",
+    "url": "/nails/js/app.1466f869.js"
   },
   {
     "revision": "836b710ec0add97e948c",
@@ -232,7 +236,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/chunk-6612774e.4f48daeb.js"
   },
   {
-    "revision": "5b12c725aa8033a8f318",
+    "revision": "6143c0506af2a5b03920",
     "url": "/nails/js/chunk-vendors.f772b263.js"
   },
   {
@@ -268,20 +272,24 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/personal-data.d6f8cf59.js"
   },
   {
+    "revision": "3325074cbfb51b64e9dd",
+    "url": "/nails/js/products-cart.368d89ef.js"
+  },
+  {
     "revision": "d23527674999f0cf74e8",
     "url": "/nails/js/return.7ca1a9c8.js"
   },
   {
-    "revision": "5847a580e6fd777daf2e",
-    "url": "/nails/js/shop-item.1a96543f.js"
+    "revision": "5bb13544ed7847c7623e",
+    "url": "/nails/js/shop-item.02a01ca3.js"
   },
   {
     "revision": "b6cf958e1d71ffda39fd",
     "url": "/nails/js/shop-payment.53fcc550.js"
   },
   {
-    "revision": "f32eae0e5d5d1cd075ed",
-    "url": "/nails/js/shop.172cfdaf.js"
+    "revision": "567c803a2156e4efa631",
+    "url": "/nails/js/shop.11af5904.js"
   },
   {
     "revision": "058f86effbe7f39fe0cb",
