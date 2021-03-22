@@ -48,18 +48,20 @@ const actions = {
         },
       })
     ).json();
-
-    const courses = data.reduce((res, curr) => {
-      const elm = res.find(i => i.id === curr.id);
-      if (!elm) {
-        res.push(curr);
+    let courses = [];
+    if (type === 'offline') {
+      courses = data.reduce((res, curr) => {
+        const elm = res.find(i => i.id === curr.id);
+        if (!elm) {
+          res.push(curr);
+          return res;
+        }
+        elm.eventDate = elm.eventDate.concat(curr.eventDate);
         return res;
-      }
-      elm.eventDate = elm.eventDate.concat(curr.eventDate);
-      return res;
-    }, []);
+      }, []);
+    }
     if (!error) {
-      commit('COURSES', type === 'offline' ? courses: data);
+      commit('COURSES', type === 'offline' ? courses : data);
       commit('TOTAL', total);
     } else {
       commit('ERROR', errors.get, { root: true });

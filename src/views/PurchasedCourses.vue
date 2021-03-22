@@ -9,8 +9,8 @@
       </v-col>
       <v-col cols="12" xs="12" v-if="!loading && !emptyCourses" class="d-flex justify-center flex-wrap">
         <PurchasedCourseCard
-          v-for="course in courses"
-          :key="course._id"
+          v-for="(course, index) in courses"
+          :key="course._id + index"
           :type="type"
           @more="goToCourse(course._id)"
           @lessons="goToLessons(course._id)"
@@ -67,7 +67,7 @@ export default {
   methods: {
     goToCourse(id) {
       this.$router.push({
-        name: this.type ==='online' ?'purchased-online-course' : 'purchased-offline-course',
+        name: this.type === 'online' ? 'purchased-online-course' : 'purchased-offline-course',
         params: {
           courseid: id,
         },
