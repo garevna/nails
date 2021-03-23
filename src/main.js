@@ -10,7 +10,6 @@ import ErrorMessage from '@/components/popups/error.vue'
 import Message from '@/components/popups/message.vue'
 
 import '@/css/fonts.scss';
-// import '@/css/variables.scss'
 Vue.config.productionTip = false;
 
 import 'video.js/dist/video-js.css'

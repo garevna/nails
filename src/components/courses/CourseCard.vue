@@ -2,12 +2,12 @@
   <v-hover v-slot="{ hover }" open-delay="100">
     <v-card dark :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }" :width="width" class="ma-12">
       <CoverImage :url="linkCheck(course)" />
-      <v-card-title class="buttons--text pa-0 pl-4 pt-4">
+      <v-card-title class="buttons--text px-4">
         {{ course.accessDays }} days | $ {{ course.price }}
       </v-card-title>
-      <h3 class="pa-0 pl-4 my-2 text-truncate">{{ course.nameOfCourse }}</h3>
-      <p class="pa-0 px-4 text-truncate spacing">{{ course.subtitle }}</p>
-      <v-card-actions v-if="type === 'online'" class="pl-4 pb-4">
+      <h3 class="px-4 pb-4 text-truncate">{{ course.nameOfCourse }}</h3>
+      <p class="px-4 text-truncate spacing">{{ course.subtitle }}</p>
+      <v-card-actions v-if="type === 'online'" class="pa-4">
         <v-btn
           color="buttons"
           rounded
@@ -30,7 +30,7 @@
           >more</v-btn
         >
       </v-card-actions>
-      <v-card-actions v-else class="pl-4 pb-4">
+      <v-card-actions v-else class="pa-4">
         <v-btn
           color="buttons"
           rounded

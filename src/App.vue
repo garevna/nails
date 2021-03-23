@@ -81,9 +81,6 @@ h3 {
   line-height: 150%;
 }
 
-/* .v-expansion-panel-content__wrap {
-  padding-top: 50px !important;
-} */
 ::-webkit-scrollbar {
   width: 10px; /* ширина для вертикального скролла */
   height: 8px; /* высота для горизонтального скролла */
