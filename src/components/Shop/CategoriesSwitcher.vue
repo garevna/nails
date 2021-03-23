@@ -20,11 +20,10 @@
           :key="menuKey"
         >
           <template v-slot:activator="{ on, attrs }">
-            <v-btn
+            <v-card
               v-if="mobileMenu"
-              block
               color="lgrey"
-              class="category-switcher-header d-flex justify-start"
+              class="category-switcher-header d-flex justify-start flex-wrap px-4"
               expand-icon="mdi-menu-down"
               v-bind="attrs"
               v-on="on"
@@ -34,7 +33,7 @@
                 :mobile="true"
                 class="coursesGray--text font-weight-black text-h6 text-start w-100"
               />
-            </v-btn>
+            </v-card>
 
             <v-card v-else width="100%" color="lgrey" class="category-switcher-header px-2 d-flex justify-start">
               <ShopBreadcrumbs class="coursesGray--text font-weight-black text-h6 text-start w-100" />

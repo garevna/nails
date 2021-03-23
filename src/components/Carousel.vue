@@ -67,7 +67,7 @@ export default {
     ...mapState(['viewportWidth']),
     ...mapState('instagram', ['data']),
     dimension() {
-      let dimension = 640;
+      let dimension = 400;
       if (this.viewportWidth < 1904) dimension = 300;
       // if (this.viewportWidth < 1264) dimension = 400;
       // if (this.viewportWidth < 960) dimension = 360;
