@@ -7,7 +7,7 @@
       class="ma-4"
       @click="detailHandler"
     >
-      <h2 class="text-center items-text pa-4">
+      <h2 class="text-center text-truncate pa-4">
         {{ video.name }}
       </h2>
       <CoverImage :url="linkCheck(video)" />
@@ -70,15 +70,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.items-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-}
-.spacing {
-  letter-spacing: unset;
-}
-</style>

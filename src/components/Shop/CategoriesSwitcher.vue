@@ -23,7 +23,7 @@
             <v-card
               v-if="mobileMenu"
               color="lgrey"
-              class="category-switcher-header d-flex justify-start flex-wrap px-4"
+              class="d-flex justify-start flex-wrap px-4"
               expand-icon="mdi-menu-down"
               v-bind="attrs"
               v-on="on"
@@ -31,12 +31,12 @@
               <ShopBreadcrumbs
                 :disabled="true"
                 :mobile="true"
-                class="coursesGray--text font-weight-black text-h6 text-start w-100"
+                class="coursesGray--text font-weight-black text-h6 text-start"
               />
             </v-card>
 
             <v-card v-else width="100%" color="lgrey" class="category-switcher-header px-2 d-flex justify-start">
-              <ShopBreadcrumbs class="coursesGray--text font-weight-black text-h6 text-start w-100" />
+              <ShopBreadcrumbs class="coursesGray--text font-weight-black text-h6 text-start" />
             </v-card>
           </template>
 
@@ -145,28 +145,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.w-100 {
-  width: 100% !important;
-}
-.swithcer-header {
-  // .v-expansion-panel-header {
-  //   padding-bottom: 0 !important;
-  //   padding-top: 0 !important;
-  // }
-  .v-expansion-panel-content__wrap {
-    padding-top: 0 !important;
-    margin-top: 0;
-  }
-}
-@media screen and (max-width: 400px) {
-  .v-application .text-h6 {
-    font-size: 1rem !important;
-  }
-  .v-application .text-h5 {
-    font-size: 1.25rem !important;
-  }
-}
-@import '@/css/variables.scss';
-</style>

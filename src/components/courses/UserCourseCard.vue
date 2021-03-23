@@ -7,7 +7,7 @@
       :width="width"
       class="ma-4"
     >
-        <h2 class="text-center items-text pa-4">{{ course.nameOfCourse }}</h2>
+        <h2 class="text-center text-truncate pa-4">{{ course.nameOfCourse }}</h2>
       <CoverImage :url="linkCheck(course)" />
       <div class="pa-4 d-flex">
         <v-chip :color="paid ? 'paidAndPublished' : 'notPaidAndPublished'"  text-color="white"> {{paid ? 'paid': 'not paid' }}</v-chip>
@@ -79,16 +79,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.items-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-}
-.spacing {
-  letter-spacing: unset;
-}
-</style>

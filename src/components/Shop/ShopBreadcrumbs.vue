@@ -1,8 +1,12 @@
 <template>
-  <v-breadcrumbs :items="items" divider=">" large class="pa-0">
+  <v-breadcrumbs :items="items" divider=">" large class="pa-0 text-truncate">
     <template v-slot:item="{ item }">
       <v-breadcrumbs-item :disabled="item.disabled">
-        <router-link :to="item.slug" class="uppercase" :class="{ 'disabledPathBreadcrumbs--text': item.disabled }">
+        <router-link
+          :to="item.slug"
+          class="text-uppercase text-h6 font-weight-black text-decoration-none"
+          :class="{ 'disabledPathBreadcrumbs--text': item.disabled }"
+        >
           {{ item.name }}
         </router-link>
       </v-breadcrumbs-item>
@@ -110,8 +114,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.uppercase {
-  text-transform: uppercase;
-}
-</style>

@@ -80,12 +80,10 @@ h3 {
   font-family: 'Arial Bold' !important;
   line-height: 150%;
 }
-a {
-  text-decoration: none;
-}
-.v-expansion-panel-content__wrap {
+
+/* .v-expansion-panel-content__wrap {
   padding-top: 50px !important;
-}
+} */
 ::-webkit-scrollbar {
   width: 10px; /* ширина для вертикального скролла */
   height: 8px; /* высота для горизонтального скролла */
@@ -98,43 +96,8 @@ a {
   border-radius: 9em;
 }
 
-/* .main-content {
-  margin-bottom: 150px !important;
-  margin-top: 20px !important;
-  min-height: calc(100vh - 500px) !important;
-} */
 .v-btn__content {
   justify-content: center !important;
 }
-.router-link {
-  text-decoration: none !important;
-}
-@media screen and (max-width: 800px) {
-  /* .main-content {
-    margin-bottom: 150px !important;
-    min-height: calc(100vh - 650px);
-  } */
-  h1 {
-    font-size: 28px;
-  }
-}
-@media screen and (max-width: 960px) {
-  /* .main-content {
-    margin-bottom: 150px !important;
-    min-height: calc(100vh - 400px);
-  } */
-}
-@media screen and (max-width: 600px) {
-  .main-content {
-    /* margin-bottom: 200px !important; */
-  }
-}
-@media screen and (max-width: 540px) {
-  .main-content {
-    /* margin-bottom: 150px !important; */
-  }
-  h1 {
-    font-size: 20px;
-  }
-}
+
 </style>

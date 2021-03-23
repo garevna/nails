@@ -7,7 +7,7 @@
             <v-breadcrumbs-item :disabled="item.disabled">
               <router-link
                 :to="item.path"
-                class="uppercase"
+                class="text-uppercase text-decoration-none"
                 :class="{ 'disabledPathBreadcrumbs--text': item.disabled }"
               >
                 {{ item.text }}
@@ -87,9 +87,3 @@ export default {
   mounted() {},
 };
 </script>
-
-<style scoped>
-.uppercase {
-  text-transform: uppercase;
-}
-</style>
