@@ -94,7 +94,7 @@ export default {
           userId: this?.user?._id ?? '',
           products: this.commodityCards.map(item => ({
             productId: item._id,
-            amount: item.count,
+            purchasedAmount: item.count,
           })),
         },
         this.details
