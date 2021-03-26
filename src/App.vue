@@ -16,21 +16,15 @@
 <script>
 import { mapState } from 'vuex';
 
-import SystemBar from '@/components/SystemBar.vue';
-import Footer from '@/components/Footer.vue';
-import ShopLayout from '@/layouts/ShopLayout.vue';
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import WhitefoneLayout from '@/layouts/WhitefoneLayout.vue';
-
 export default {
   name: 'App',
-
+  
   components: {
-    SystemBar,
-    Footer,
-    ShopLayout,
-    DefaultLayout,
-    WhitefoneLayout,
+    SystemBar: () => import('@/components/SystemBar.vue'),
+    Footer: () => import('@/components/Footer.vue'),
+    ShopLayout: () => import('@/layouts/ShopLayout.vue'),
+    DefaultLayout: () => import('@/layouts/DefaultLayout.vue'),
+    WhitefoneLayout: () => import('@/layouts/WhitefoneLayout.vue'),
     UploadFiles: () => import('@/components/UploadFiles.vue'),
   },
 
@@ -55,7 +49,7 @@ export default {
     this.onResize();
     window.addEventListener('resize', this.onResize, { passive: true });
     this.$store.dispatch('shop/GET_CATEGORIES');
-    this.$store.dispatch('instagram/GET_INSTAGRAM');
+    // this.$store.dispatch('instagram/GET_INSTAGRAM');
     this.$store.dispatch('productCart/INIT_CART');
   },
   async created() {

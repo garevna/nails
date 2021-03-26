@@ -19,7 +19,13 @@
             />
             <v-row v-if="item.type === 'detail'">
               <v-col cols="12" offset-sm="2" sm="8" offset-md="3" md="6">
-                <PaymentDetailsForm :pickup="pickupDelivery" @prev="back" @next="detailNext" :country="deliveryCountry.countryCode" class="my-4" />
+                <PaymentDetailsForm
+                  :pickup="pickupDelivery"
+                  @prev="back"
+                  @next="detailNext"
+                  :country="deliveryCountry.countryCode"
+                  class="my-4"
+                />
               </v-col>
             </v-row>
             <PaymentTotalInfo
@@ -38,14 +44,15 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import PaymentDeliveryForm from '@/components/forms/PaymentDeliveryForm.vue';
-import StepLine from '@/components/StepLine.vue';
-import PaymentDetailsForm from '@/components/forms/PaymentDetailsForm.vue';
-import PaymentTotalInfo from '@/components/forms/PaymentTotalInfo.vue';
 
 export default {
   name: 'ShopPayment',
-  components: { PaymentDeliveryForm, StepLine, PaymentDetailsForm, PaymentTotalInfo },
+  components: {
+    PaymentDeliveryForm: () => import('@/components/forms/PaymentDeliveryForm.vue'),
+    StepLine: () => import('@/components/StepLine.vue'),
+    PaymentDetailsForm: () => import('@/components/forms/PaymentDetailsForm.vue'),
+    PaymentTotalInfo: () => import('@/components/forms/PaymentTotalInfo.vue'),
+  },
   data() {
     return {
       tab: 0,

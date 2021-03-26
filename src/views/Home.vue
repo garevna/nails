@@ -69,9 +69,9 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="12" class="my-16">
+      <!-- <v-col cols="12" class="my-16">
           <Carousel />
-      </v-col>
+      </v-col> -->
       <v-col cols="12" class="pa-0">
         <Courses id="scroll-with-options" />
       </v-col>
@@ -110,19 +110,13 @@ p {
 <script>
 import { mapState } from 'vuex';
 
-// import ImageShop from '@/components/svg/ImageShop.vue';
-// import ImageCourses from '@/components/svg/ImageCourses.vue';
-import Carousel from '@/components/Carousel.vue';
-import Courses from '@/components/courses/Courses.vue';
-import ImageCourses from '@/components/svg/ImageCourses.vue'
-
 export default {
   name: 'Home',
   components: {
-    Carousel,
+    // Carousel:() => import('@/components/courses/Courses.vue'),
     ImageShop:() => import('@/components/svg/ImageShop.vue'),
-    ImageCourses,
-    Courses,
+    ImageCourses:() => import('@/components/svg/ImageCourses.vue'),
+    Courses:() => import('@/components/courses/Courses.vue'),
   },
   data: () => ({
     selector: '#scroll-with-options',
