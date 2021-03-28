@@ -1,6 +1,6 @@
 <template>
   <!-- :class="{ 'pt-10': !isShopPageOpened }" min-height="70vh" -->
-  <v-container fluid class="mt-12">
+  <v-container fluid class="mt-12" id="top-page">
     <v-row v-if="isShopPageOpened">
       <v-col cols="12">
         <Search />

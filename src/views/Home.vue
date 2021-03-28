@@ -51,7 +51,7 @@
               dark
               min-width="160"
               class="yellow-button mr-4 mb-4"
-              @click="$vuetify.goTo(target, options)"
+              @click="scrollTo"
               >ALL COURSES</v-btn
             >
             <v-btn
@@ -114,12 +114,11 @@ export default {
   name: 'Home',
   components: {
     // Carousel:() => import('@/components/courses/Courses.vue'),
-    ImageShop:() => import('@/components/svg/ImageShop.vue'),
-    ImageCourses:() => import('@/components/svg/ImageCourses.vue'),
-    Courses:() => import('@/components/courses/Courses.vue'),
+    ImageShop: () => import('@/components/svg/ImageShop.vue'),
+    ImageCourses: () => import('@/components/svg/ImageCourses.vue'),
+    Courses: () => import('@/components/courses/Courses.vue'),
   },
   data: () => ({
-    selector: '#scroll-with-options',
   }),
   computed: {
     ...mapState(['viewportWidth']),
@@ -130,16 +129,9 @@ export default {
       if (!isNaN(value)) return Number(value);
       else return value;
     },
-    options() {
-      return {
-        duration: 300,
-        offset: 0,
-        easing: 'easeInOutCubic',
-      };
-    },
     isMobile() {
       return this.viewportWidth < 600;
-    }
+    },
   },
   methods: {
     goToRoute(route) {
@@ -147,6 +139,14 @@ export default {
     },
     goToShop() {
       this.$router.push({ name: 'shop', params: { categoryName: 'nail-tools' } });
+    },
+    scrollTo() {
+      const options = {
+        duration: 600,
+        offset: 0,
+        easing: 'easeInOutCubic',
+      };
+       this.$vuetify.goTo('#scroll-with-options', options);
     },
   },
 };

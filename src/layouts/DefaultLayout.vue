@@ -1,6 +1,6 @@
 <template>
-  <v-container dark class="homefone py-12" fluid>
-    <MainMenu v-if="showMainMenu"/>
+  <v-container dark class="homefone py-12" fluid id="top-page">
+    <MainMenu v-if="showMainMenu" />
     <Breadcrumbs />
     <router-view />
   </v-container>
@@ -33,12 +33,12 @@ export default {
   },
   computed: {
     ...mapState(['viewportWidth']),
-    showMainMenu(){
-      return this.maimMenuShowInRouteNames.includes(this.$route.name) && this.widthLimit
+    showMainMenu() {
+      return this.maimMenuShowInRouteNames.includes(this.$route.name) && this.widthLimit;
     },
     widthLimit() {
-      return this.viewportWidth > 1000
-    }
+      return this.viewportWidth > 1000;
+    },
   },
   mounted() {
     this.$vuetify.theme.dark = true;

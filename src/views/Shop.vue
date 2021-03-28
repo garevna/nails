@@ -49,6 +49,18 @@
         ></v-pagination>
       </v-col>
     </v-row>
+
+    <v-row v-if="showBtnMore && !isShopLoading">
+      <v-col cols="12" class="mt-10">
+        <v-card flat>
+          <v-card-actions class="justify-center">
+            <v-btn color="buttons" rounded large dark min-width="160" class="yellow-button" @click="otherCommodities"
+              >other goods</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -75,10 +87,13 @@ export default {
       return this.fullListOfCategories.find(category => category.slug === this.$route.params.categoryName) ?? null;
     },
     contentShow() {
-      return this.commodities.length;
+      return this.commodities.length && !this.isShopLoading;
     },
     contentEmpty() {
       return !this.contentShow && !this.isShopLoading;
+    },
+    showBtnMore() {
+      return this.$route.name === 'shop-root';
     },
   },
   watch: {
@@ -113,6 +128,15 @@ export default {
           categoryName: this.categorySlug(categoryId),
         },
       });
+    },
+    async otherCommodities() {
+      const options = {
+        duration: 600,
+        offset: 100,
+        easing: 'easeInOutCubic',
+      };
+      await this.getCommodities();
+      this.$vuetify.goTo('#top-page', options);
     },
     async getCommodities() {
       if (!this.search && this.$route.name === 'shop-root') {

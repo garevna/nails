@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const { getData } = require('@/helpers').default;
 
 const categoriesEndpoints = require('@/config/endpoints').default.categories;
@@ -51,11 +52,21 @@ const mutations = {
   SEARCH: (state, payload) => {
     state.search = payload;
   },
+  LOADING: (state, payload) => {
+    state.isShopLoading = payload;
+  },
+  CATEGORIES_LOADING:(state, payload) => {
+    state.isCategoriesLoading = payload;
+  },
+  COMMODITY_LOADING:(state, payload) => {
+    state.isCommodityLoading = payload;
+  }
 };
 
 const actions = {
   async GET_CATEGORIES({ commit, state }) {
-    state.isCategoriesLoading = true;
+    commit('CATEGORIES_LOADING', true);
+
 
     const { categories, error } = await getData(categoriesEndpoints.categories);
 
@@ -63,11 +74,11 @@ const actions = {
       commit('CATEGORIES', categories);
     }
 
-    state.isCategoriesLoading = false;
+    commit('CATEGORIES_LOADING', false);
   },
 
   async SEARCH_COMMODITIES({ state, commit }, { page }) {
-    state.isShopLoading = true;
+    commit('LOADING', true);
 
     const { commodities, total, error } = await getData(
       `${commoditiesEndpoints.search}?query=${state.search}&skip=${state.pageSize * (page - 1)}`
@@ -76,8 +87,7 @@ const actions = {
     if (!error) {
       commit('COMMODITIES', { commodities, total });
     }
-
-    state.isShopLoading = false;
+    commit('LOADING', false);
   },
 
   async GET_COMMODITIES({ state, commit, dispatch }, { categoryId, isSubcategory, page }) {
@@ -86,7 +96,7 @@ const actions = {
       return;
     }
 
-    state.isShopLoading = true;
+    commit('LOADING', true);
 
     const { commodities, total, error } = await getData(
       `${commoditiesEndpoints[isSubcategory ? 'subcommodities' : 'commodities']}/${categoryId}?skip=${
@@ -103,23 +113,26 @@ const actions = {
       commit('ERROR', errors.get, { root: true });
     }
 
-    state.isShopLoading = false;
+    commit('LOADING', false);
   },
 
   async GET_COMMODITY({ state, commit }, { commodityId }) {
-    state.isCommodityLoading = true;
+    // commit('LOADING', true);
+    commit('COMMODITY_LOADING', true);
+
 
     const { commodity, error } = await getData(`${commoditiesEndpoints.commodity}/${commodityId}`);
 
     if (!error) {
       commit('COMMODITY', { commodity: commodity[0] });
     }
+    // commit('LOADING', false);
+    commit('COMMODITY_LOADING', false);
 
-    state.isCommodityLoading = false;
   },
 
   async RANDOM_COMMODITIES({ state, commit }) {
-    state.isShopLoading = true;
+    commit('LOADING', true);
     state.activeCategory = null;
 
     const { data, total, error } = await getData(commoditiesEndpoints.random);
@@ -133,7 +146,8 @@ const actions = {
       commit('ERROR', errors.get, { root: true });
     }
 
-    state.isShopLoading = false;
+    commit('LOADING', false);
+
   },
 };
 
