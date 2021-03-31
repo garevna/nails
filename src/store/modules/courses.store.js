@@ -14,6 +14,8 @@ const state = {
   total: 0,
   queue: [],
   uploadDialog: false,
+  loading: false
+
 };
 const mutations = {
   COURSES: (state, payload) => {
@@ -52,6 +54,9 @@ const mutations = {
     state.queue.forEach(obj => {
       if (obj.index === index) obj.progress = progress;
     });
+  },
+  LOADING:(state, payload) => {
+    state.loading = payload;
   },
 };
 
@@ -132,20 +137,26 @@ const actions = {
     }
   },
   async BUY_COURSE({ commit }, payload) {
+    commit('LOADING', true);
     const { data, error } = await postData(endpoints.buyCourse, payload);
     if (!error && data.link) {
       window.open(data.link);
     } else {
       commit('ERROR', errors.buy, { root: true });
     }
+    commit('LOADING', false);
+
   },
   async BUY_END_CUSTOMER({ commit }, payload) {
+    commit('LOADING', true);
     const { data, error } = await postData(endpoints.buyEndCustomer, payload);
     if (!error && data.link) {
       window.open(data.link);
     } else {
       commit('ERROR', errors.buy, { root: true });
     }
+    commit('LOADING', false);
+
   },
   // !==========================================================================
   async PUT_VIDEO({ commit, dispatch }, { fd, id }) {

@@ -17,7 +17,7 @@
         </tr>
       </table>
     </div>
-    <PaymentForm @submit="sendData" :schema="schema" />
+    <PaymentForm @submit="sendData" :schema="schema" :loading="loading"/>
   </div>
 </template>
 <style scoped>
@@ -43,7 +43,7 @@ export default {
   },
   computed: {
     ...mapState(['error']),
-    ...mapState('offlineCourses', ['offlineCourse']),
+    ...mapState('offlineCourses', ['offlineCourse', 'loading']),
     accessDays() {
       return this.offlineCourse?.dateOfCourses ?? [];
     },

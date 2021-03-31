@@ -34,7 +34,7 @@
           <v-checkbox v-model="checkbox" :rules="[rules.required]" label="Agree to privacy policy" dark></v-checkbox>
         </v-col>
         <v-col cols="12" style="text-align: center">
-          <v-btn color="buttons" rounded outlined small dark min-width="90" class="yellow-button mt-4" @click="submit"
+          <v-btn color="buttons" :disabled="loading" rounded outlined small dark min-width="90" class="yellow-button mt-4" @click="submit"
             >submit</v-btn
           >
         </v-col>
@@ -58,6 +58,10 @@ export default {
       type: Object,
       required: true,
     },
+    loading:{
+      type: Boolean,
+      default: false
+    }
   },
   name: 'PaymentForm',
   components: {
@@ -94,8 +98,6 @@ export default {
         this.data.productId = this.$route.params.courseid;
         this.$emit('submit', this.data);
       }
-
-      // ['fullName', 'email', 'phone', 'message', 'checkbox'].forEach((item) => { this[item] = '' })
     },
   },
   mounted() {

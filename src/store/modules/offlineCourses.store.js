@@ -9,6 +9,7 @@ const state = {
   offlineCourses: [],
   offlineCourse: null,
   totalOfflineCourses: 0,
+  loading: false
 };
 
 const getters = {};
@@ -27,6 +28,9 @@ const mutations = {
   },
   OFFLINE_COURSE_BY_ID_CLEAR: state => {
     state.offlineCourse = null;
+  },
+  LOADING:(state, payload) => {
+    state.loading = payload;
   },
 };
 
@@ -56,6 +60,7 @@ const actions = {
     }
   },
   async BUY_COURSE({ commit }, payload) {
+    commit('LOADING', true);
     const { data, error } = await postData(endpoints.buyCourse, payload);
     if (!error && data.link) {
       window.open(data.link);
@@ -66,6 +71,7 @@ const actions = {
         errorMessage: error || errors.buy.errorMessage
       }, { root: true });
     }
+    commit('LOADING', false);
   },
 };
 
