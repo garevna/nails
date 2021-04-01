@@ -28,7 +28,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/add-course~user-course.fd25dc4b.css"
   },
   {
-    "revision": "bf2653bff42840052785",
+    "revision": "938805dbeb6ffd16e045",
     "url": "/nails/css/app.4b0952a7.css"
   },
   {
@@ -116,11 +116,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/personal-data.b45c5cbc.css"
   },
   {
-    "revision": "46a29e89cad64ad2e038",
+    "revision": "dfba0775ba0f093d3ce5",
     "url": "/nails/css/products-cart.56451765.css"
   },
   {
-    "revision": "31b065abe72bab708623",
+    "revision": "f57d75b5f05053047818",
     "url": "/nails/css/shop-item.8e36c877.css"
   },
   {
@@ -268,7 +268,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/pdf.3fa92281.svg"
   },
   {
-    "revision": "eb19a5049526177fc83bdcaa2283a122",
+    "revision": "4d5b31ed25bbcd04a90963940e421b4b",
     "url": "/nails/index.html"
   },
   {
@@ -288,8 +288,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/add-course~user-course.4b86a1c6.js"
   },
   {
-    "revision": "bf2653bff42840052785",
-    "url": "/nails/js/app.8b5a7d55.js"
+    "revision": "938805dbeb6ffd16e045",
+    "url": "/nails/js/app.4639733d.js"
   },
   {
     "revision": "9e3650c2b4c18c04356f",
@@ -392,16 +392,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/personal-data.09df6297.js"
   },
   {
-    "revision": "46a29e89cad64ad2e038",
-    "url": "/nails/js/products-cart.99296400.js"
+    "revision": "dfba0775ba0f093d3ce5",
+    "url": "/nails/js/products-cart.a451be60.js"
   },
   {
     "revision": "d23527674999f0cf74e8",
     "url": "/nails/js/return.7ca1a9c8.js"
   },
   {
-    "revision": "31b065abe72bab708623",
-    "url": "/nails/js/shop-item.2b3726d8.js"
+    "revision": "f57d75b5f05053047818",
+    "url": "/nails/js/shop-item.96238778.js"
   },
   {
     "revision": "7e086af086530a9163d3",
