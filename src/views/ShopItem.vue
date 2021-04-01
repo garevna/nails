@@ -82,6 +82,7 @@ export default {
   },
   computed: {
     ...mapState(['viewportWidth']),
+    ...mapState('auth', ['isLogged']),
     ...mapState('shop', ['categories', 'commodities', 'commodity', 'isCommodityLoading']),
     ...mapGetters('shop', ['fullListOfCategories', 'pages']),
     activeCategory() {
@@ -128,6 +129,10 @@ export default {
     },
     buyNow() {
       this.addToCart();
+      if (!this.isLogged) {
+        this.$router.push({ name: 'sign-in' });
+        return;
+      }
       this.$router.push({ name: 'shop-payment' });
     },
     getCommodities() {
@@ -154,9 +159,6 @@ export default {
 .card-active {
   opacity: 1;
 }
-// .image-row {
-//   height: 430px;
-// }
 .card-disabled {
   cursor: pointer;
   opacity: 0.4;
@@ -165,32 +167,10 @@ export default {
 .speciﬁcations {
   white-space: pre-wrap;
 }
-// .caption {
-// margin-top: 50px;
-// h2 {
-// margin-top: 5px;
-// }
-// }
-
 .price {
   width: 100%;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: flex-end;
-  // align-items: flex-end;
-  // h3 {
-  //   margin: 25px 0;
-  // }
 }
-// .dark-gray-font {
-//   color: $darkGrayFont;
-// }
-// .gray-font {
-//   color: $shopGrayFont;
-// }
-// .description {
-//   padding-top: 25px;
-// }
+
 @media screen and (max-width: 320px) {
   .caption {
     h2 {

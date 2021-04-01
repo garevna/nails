@@ -31,7 +31,11 @@
           <table style="margin: auto">
             <tr>
               <td>
-                Total number of commodities:<span style="font-size: 18px; font-weight: bold" :style="{color:$vuetify.theme.themes.dark.error}">{{ getTotalItem }}</span>
+                Total number of commodities:<span
+                  style="font-size: 18px; font-weight: bold"
+                  :style="{ color: $vuetify.theme.themes.dark.error }"
+                  >{{ getTotalItem }}</span
+                >
               </td>
               <td class="px-4">
                 Total summ of commodities:<span style="font-size: 16px; font-weight: bold">$ {{ getSumPrice }}</span>
@@ -44,7 +48,7 @@
                   large
                   class="px-8 dgrey--text"
                   style="font-size: 16px; font-weight: bold"
-                  @click="$router.push({ name: 'shop-payment' })"
+                  @click="buy"
                   >Buy</v-btn
                 >
               </td>
@@ -58,7 +62,7 @@
             large
             class="px-8 dgrey--text mt-2"
             style="font-size: 16px; font-weight: bold"
-            @click="$router.push({ name: 'shop-payment' })"
+            @click="buy"
             >Buy</v-btn
           >
         </v-card>
@@ -78,6 +82,7 @@ export default {
   },
   computed: {
     ...mapState(['viewportWidth']),
+    ...mapState('auth', ['isLogged']),
     ...mapState('productCart', ['cart', 'commodities']),
     ...mapGetters('productCart', ['getSumPrice', 'getTotalItem', 'commodityCards']),
     responseBtn() {
@@ -85,6 +90,15 @@ export default {
     },
     showPurchaseLimit() {
       return this.getSumPrice < 50;
+    },
+  },
+  methods: {
+    buy() {
+      if (!this.isLogged) {
+        this.$router.push({ name: 'sign-in' });
+        return;
+      }
+      this.$router.push({ name: 'shop-payment' });
     },
   },
   mounted() {},
