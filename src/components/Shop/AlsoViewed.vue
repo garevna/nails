@@ -75,7 +75,6 @@ export default {
   },
   data() {
     return {
-      noImage: require('@/assets/no-image.png'),
       width: '200',
       clientWidth: 600,
     };

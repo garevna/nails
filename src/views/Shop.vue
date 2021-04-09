@@ -1,67 +1,57 @@
 <template>
-  <v-container fluid>
-    <v-row v-if="contentShow">
-      <v-col cols="12">
-        <div class="d-flex justify-center flex-wrap">
-          <ShopCard v-for="commodity in commodities" :key="commodity.id" :commodity="commodity" @click="goToItem" />
-        </div>
-      </v-col>
-    </v-row>
+  <v-card flat>
+    <v-card flat v-if="contentShow" class="d-flex justify-center flex-wrap">
+      <ShopCard
+        v-for="commodity in commodities"
+        :key="commodity.id"
+        :commodity="commodity"
+        @click="goToItem"
+        width="250"
+        height="350"
+      />
+    </v-card>
 
-    <v-row v-if="contentEmpty">
-      <v-col>
-        <v-card
-          flat
-          height="100%"
-          class="justify-center align-items-center flex-column ma-0 pa-0 d-flex"
-          width="100%"
-          justify="center"
+    <v-card flat v-if="contentEmpty">
+      <v-card
+        flat
+        height="100%"
+        class="justify-center align-items-center flex-column ma-0 pa-0 d-flex"
+        width="100%"
+        justify="center"
+      >
+        <v-card-text class="d-flex flex-column justify-center align-center">
+          <p class="dgrey--text text-center text-h4 font-weight-medium">Unfortunately, there are no products <br /></p>
+
+          <p class="dgrey--text text-center text-h4 font-weight-medium">suitable for your request...</p>
+        </v-card-text>
+      </v-card>
+    </v-card>
+
+    <v-card flat v-if="isShopLoading" class="d-flex justify-center flex-wrap">
+      <v-card class="pa-0 pt-0 ma-4 skeleton" v-for="i in 12" :key="i" color="lgrey" width="250" height="350">
+        <v-skeleton-loader type="image, list-item-three-line" animation></v-skeleton-loader>
+      </v-card>
+    </v-card>
+
+    <v-card flat v-if="pages > 1 && !isShopLoading" class="mt-10">
+      <v-pagination
+        v-model="page"
+        :length="pages"
+        :total-visible="8"
+        color="orange"
+        prev-icon="mdi-menu-left"
+        next-icon="mdi-menu-right"
+      ></v-pagination>
+    </v-card>
+
+    <v-card flat v-if="showBtnMore && !isShopLoading" class="mt-10">
+      <v-card-actions class="justify-center">
+        <v-btn color="buttons" rounded large dark min-width="160" class="yellow-button" @click="otherCommodities"
+          >other goods</v-btn
         >
-          <v-card-text class="d-flex flex-column justify-center align-center">
-            <p class="dgrey--text text-center text-h4 font-weight-medium">
-              Unfortunately, there are no products <br />
-            </p>
-
-            <p class="dgrey--text text-center text-h4 font-weight-medium">suitable for your request...</p>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-
-    <v-row v-if="isShopLoading">
-      <v-col cols="12" sm="6" md="4" lg="3" class="px-5 pb-2" v-for="i in 12" :key="i">
-        <v-card class="pa-0 pt-0 mt-0" color="lgrey">
-          <v-skeleton-loader type="image, list-item-three-line" animation></v-skeleton-loader>
-        </v-card>
-      </v-col>
-    </v-row>
-
-    <v-row v-if="pages > 1 && !isShopLoading">
-      <v-col cols="12" class="mt-10">
-        <v-pagination
-          v-model="page"
-          :length="pages"
-          :total-visible="8"
-          color="orange"
-          prev-icon="mdi-menu-left"
-          next-icon="mdi-menu-right"
-          class="pagination-buttons"
-        ></v-pagination>
-      </v-col>
-    </v-row>
-
-    <v-row v-if="showBtnMore && !isShopLoading">
-      <v-col cols="12" class="mt-10">
-        <v-card flat>
-          <v-card-actions class="justify-center">
-            <v-btn color="buttons" rounded large dark min-width="160" class="yellow-button" @click="otherCommodities"
-              >other goods</v-btn
-            >
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+      </v-card-actions>
+    </v-card>
+  </v-card>
 </template>
 
 <script>
@@ -75,8 +65,6 @@ export default {
   },
   data() {
     return {
-      coverImageSrc: require('@/assets/noImage.jpg'),
-      noImage: require('@/assets/no-image.png'),
       page: +this.$route.query.page || 1,
     };
   },
@@ -110,9 +98,8 @@ export default {
       }
       this.getCommodities();
     },
-    search(str) {
+    search() {
       this.page = 1;
-      console.log('search', str);
       this.getCommodities();
     },
   },
@@ -157,11 +144,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
-@import '@/css/variables.scss';
-.pagination-buttons {
-  button {
-    outline: none !important;
-  }
+<style>
+.skeleton .v-skeleton-loader__image {
+  height: 250px !important;
 }
 </style>

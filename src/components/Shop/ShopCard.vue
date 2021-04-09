@@ -1,21 +1,22 @@
 <template>
   <v-card
     :width="width"
+    :height="height"
     tile
     shaped
     color="lgrey"
-    class="pa-2 ma-4"
+    class="ma-4"
     @click="$emit('click', { id: commodity._id, categoryId: commodity.subCategoryId })"
   >
-    <v-img :src="src" :lazy-src="noImage" :width="width" :height="width" />
+    <CoverImage width="100%" :height="width" :url="checkShopCardLink(commodity)" />
 
     <v-card-text class="pa-2 pb-0">
       <span>
-        <p class="text-h6 ma-0 pa-0 font-weight-bold dgrey--text text-start">
+        <p class="text-h6 ma-0 pa-0 text-truncate font-weight-bold dgrey--text text-start">
           {{ commodity.name }}
         </p>
 
-        <p class="text-subtitle-1 ma-0 font-weight-medium dgrey--text text-start">
+        <p class="text-subtitle-1 ma-0 text-truncate font-weight-medium dgrey--text text-start">
           {{ commodity.brand }}
         </p>
       </span>
@@ -26,6 +27,8 @@
 </template>
 
 <script>
+import checkShopCardLink from '@/helpers/checkShopCardLink';
+
 export default {
   name: 'ShopCard',
   props: {
@@ -42,6 +45,9 @@ export default {
       default: '400',
     },
   },
+  components: {
+    CoverImage: () => import('@/components/CoverImage.vue'),
+  },
   data() {
     return {
       coverImageSrc: require('@/assets/noImage.jpg'),
@@ -49,11 +55,13 @@ export default {
     };
   },
   computed: {
-    src() {
-      return (this.commodity.previewImage[0] && this.commodity.previewImage[0].link) || this.coverImageSrc;
-    },
+    // src() {
+    //   return (this.commodity.previewImage[0] && this.commodity.previewImage[0].link) || this.coverImageSrc;
+    // },
   },
 
-  methods: {},
+  methods: {
+    checkShopCardLink,
+  },
 };
 </script>
