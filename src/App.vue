@@ -46,7 +46,6 @@ export default {
     },
   },
   mounted() {
-    console.log('current version 2')
     this.onResize();
     window.addEventListener('resize', this.onResize, { passive: true });
     this.$store.dispatch('shop/GET_CATEGORIES');
