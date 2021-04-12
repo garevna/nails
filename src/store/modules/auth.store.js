@@ -112,6 +112,41 @@ const actions = {
     }
     commit('LOADING', false);
   },
+  async CHANGE_PASSWORD(ctx, payload) {
+    const { error } = await (
+      await fetch(`${process.env.VUE_APP_API_URL}/${endpoints.change}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          Authorization: `Bearer ${ctx.state.token}`,
+        },
+        body: JSON.stringify(payload),
+      })
+    ).json();
+    if (!error) {
+      ctx.commit(
+        'MESSAGE',
+        {
+          message: true,
+          messageType: 'Change password',
+          messageText: 'Your password has been successfully changed',
+        },
+        { root: true }
+      );
+      return true;
+    } else {
+      ctx.commit(
+        'ERROR',
+        {
+          error: true,
+          errorType: 'Change password',
+          errorMessage: error,
+        },
+        { root: true }
+      );
+      return false;
+    }
+  },
   async REQUEST_RESET(ctx, payload) {
     const { error } = await postData(endpoints.reset, { email: payload });
     if (!error) {

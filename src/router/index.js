@@ -177,6 +177,12 @@ const routes = [
         meta: { layout: 'Whitefone' },
         component: () => import(/* webpackChunkName: "user-course-detail-video" */ '@/views/UserCourseDetailVideo.vue'),
       },
+      {
+        path: 'change-password',
+        name: 'change-password',
+        meta: { layout: 'Whitefone' },
+        component: () => import(/* webpackChunkName: "change-password" */ '@/views/ChangePassword.vue'),
+      },
     ],
     beforeEnter: (to, from, next) => {
       if (store.state.isLogged) {

@@ -1,38 +1,18 @@
 <template>
-  <div
-    class="d-flex flex-column align-lg-end cabinet-btn"
-  >
+  <div class="d-flex flex-column align-lg-end cabinet-btn">
     <v-btn text @click="dialog = true" class="mb-4">Log out</v-btn>
     <v-btn text @click="goTo('user-courses')"> My courses</v-btn>
     <v-btn text @click="goTo('products-cart')">Shoping card</v-btn>
     <v-btn v-if="!isAdmin" text @click="goTo('purchased-online-courses')">purchased online courses</v-btn>
     <v-btn v-if="!isAdmin" text @click="goTo('purchased-offline-courses')">purchased offline courses</v-btn>
     <v-btn v-if="isAdmin" text @click="goToAdmin">go to admin panel</v-btn>
-
+    <v-btn text class="mt-4" @click="goTo('change-password')">change password</v-btn>
     <v-dialog v-model="dialog" persistent max-width="320">
       <v-card>
         <v-card-title> Do you really want to leave ?</v-card-title>
         <v-card-actions class="justify-center">
-          <v-btn
-            color="buttons"
-            rounded
-            large
-            class="yellow-button"
-            text
-            @click="dialog = false"
-          >
-            Disagree
-          </v-btn>
-          <v-btn
-            color="buttons"
-            rounded
-            large
-            class="yellow-button"
-            text
-            @click="logoutUser"
-          >
-            Agree
-          </v-btn>
+          <v-btn color="buttons" rounded large class="yellow-button" text @click="dialog = false"> Disagree </v-btn>
+          <v-btn color="buttons" rounded large class="yellow-button" text @click="logoutUser"> Agree </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -40,39 +20,37 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from 'vuex';
 
 export default {
   name: 'RightPanel',
-  data () {
+  data() {
     return {
       dialog: false,
-    }
+    };
   },
   computed: {
     ...mapState('auth', ['user']),
-    isAdmin () {
-      return this.user?.role === 'Admin'
-    }
+    isAdmin() {
+      return this.user?.role === 'Admin';
+    },
   },
-  watch: {
-  },
+  watch: {},
   methods: {
-    goToAdmin () {
-      window.open(`${process.env.VUE_APP_API_URL}/admin`)
+    goToAdmin() {
+      window.open(`${process.env.VUE_APP_API_URL}/admin`);
     },
-    logoutUser () {
-      this.$store.dispatch('auth/LOG_OUT')
-      this.$router.push({ name: 'home' })
-      this.dialog = false
+    logoutUser() {
+      this.$store.dispatch('auth/LOG_OUT');
+      this.$router.push({ name: 'home' });
+      this.dialog = false;
     },
-    goTo (name) {
-      if (this.$route.name !== name) this.$router.push({ name: name })
-    }
+    goTo(name) {
+      if (this.$route.name !== name) this.$router.push({ name: name });
+    },
   },
-  beforeMount () {
-  }
-}
+  beforeMount() {},
+};
 </script>
 
 <style>

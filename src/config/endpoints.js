@@ -26,6 +26,7 @@ export default {
     checkToken: 'user/findByJwt',
     reset: 'pass/reset',
     restore: 'pass/restore',
+    change: 'pass/change',
   },
   categories: {
     categories: 'shop/categories',
