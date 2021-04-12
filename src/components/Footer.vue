@@ -24,7 +24,7 @@
             </v-card-text>
           </v-col>
 
-          <v-col v-if="hideOnMobile" cols="12" sm="6" md="2" order="2" >
+          <v-col v-if="hideOnMobile" cols="12" sm="6" md="2" order="2">
             <v-card-text class="darkGrey--text no-wrap text-center text-sm-left pa-2 pa-sm-4">
               <h3 class="mb-2 mt-sm-2">Shop</h3>
               <h4 class="route mb-1" @click="goToShopRoute('cuticle-nippers')">Nippers</h4>
@@ -48,9 +48,7 @@
 
           <v-col cols="12" sm="6" md="4" order="1" order-md="4">
             <v-card-text class="darkGrey--text no-wrap text-center text-sm-start pt-0 pb-2 py-sm-4">
-              <h2 class="route" v-on:click="goToRoute('products-cart')">Payment</h2>
-              <h2 class="route" v-on:click="goToRoute('delivery')">Delivery</h2>
-              <h2 class="route" v-on:click="goToRoute('return')">Return</h2>
+              <h2 class="route" v-on:click="goToRoute('payment-and-delivery-terms')">Payment and Delivery Terms</h2>
               <p></p>
               <h2 class="route" v-on:click="goToRoute('add-course')">Add course</h2>
               <h2 class="route" v-on:click="goToRoute('cooperation')">Cooperation</h2>
@@ -75,13 +73,12 @@ export default {
     IconInstagram,
     IconFacebook,
   },
-  data: () => ({
-  }),
+  data: () => ({}),
   computed: {
     ...mapState(['viewportWidth']),
     hideOnMobile() {
       return this.viewportWidth > 600;
-    }
+    },
   },
   methods: {
     goToShopRoute(route) {

@@ -1,16 +1,16 @@
 const state = {
   about:
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum magna a felis semper, non congue dui ultricies. Pellentesque molestie consectetur fermentum. Nam sit amet interdum nibh, vel ultrices nibh.',
+    'We have been working in this area since 2013 and are always up to date with the latest trends in the nail industry. The Nails Australia team works hard to ensure the client will get the best products and services possible in the nail industry. On our website you will find professional tools, top quality materials for beauty artists, DIY and professional cosmetics as well as a timetable for courses in Russian manicure, pedicure, nail extension and the most trending designs. We also provide the most comprehensive learning platform on which Australian and New Zealand beauty/nail artists can both learn and teach aspiring artists.',
 
-  // INFO: no used
   shop:
-    'Pellentesque pretium, massa at scelerisque venenatis, felis ligula pharetra erat, nec laoreet tellus felis et dui. Etiam condimentum rhoncus nulla. Nulla erat neque, ullamcorper non mauris vel, tempus tincidunt dui. Vestibulum dictum posuere massa, ut pellentesque sapien feugiat nec. Nulla facilisi. Vestibulum euismod felis sit amet nisl commodo, in efficitur risus ultricies. Nullam cursus sem dui, sit amet semper mi luctus ac. Integer egestas, arcu sed pharetra ullamcorper, purus velit accumsan eros, non sollicitudin augue felis et enim. Aliquam odio odio, rutrum sit amet sollicitudin vulputate, interdum eget felis. Sed nec diam libero.',
+    'We are a multi-brand shop stocked with professional manicure, pedicure, beauty products, materials for Lash&Brow artists and cosmetics. We also take great caution in selecting tool and material vendors for our shop to ensure our products are of the highest quality. All presented products are not only in high demand, but have the best customer reviews and are even carefully examined by our staff before they go on the shelf.',
 
-  shopText:
-    'Shopping is an activity in which a customer browses the available goods or services presented by one or more retailers with the potential intent to purchase a suitable selection of them. A typology of shopper types has been developed by scholars which identifies one group of shoppers as recreational shoppers, that is, those who enjoy shopping and view it as a leisure activity.',
-
-  courses:
-    'Integer a erat accumsan, facilisis massa a, fringilla lacus. Praesent eget mollis metus, eu blandit erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed id rutrum nisl. In quis nulla et libero pretium consectetur ultricies vel elit. Cras commodo diam vitae porta viverra. Vestibulum dapibus imperdiet lacinia. Phasellus interdum quis erat a aliquam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed vel mauris nec dolor rutrum vulputate dapibus quis lectus.',
+  courses: `Our courses are suitable for artists of all levels of experience; whether it’s a beginner artist, an intermediate artist seeking to expand their qualifications, or a professional artist seeking to learn new techniques, our courses can and will provide that which they seek.
+    <p>
+    If you are an experienced beauty and nail artist and you have knowledge you’d like to share, we can provide a platform for you to reach a large audience, just follow the link ‘add courses’, check T’s&C’s and fill the application form. 
+    </p>
+    <p>Join our beauty community; it’s interesting, entertaining and worth being proficient in. We are more than happy to have you along with us.
+    </p>`,
 };
 
 const getters = {};

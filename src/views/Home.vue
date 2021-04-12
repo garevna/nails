@@ -16,7 +16,7 @@
             <h2>S H O P</h2>
           </v-card-text>
           <v-card-text class="text-center">
-            <p>{{ shopText }}</p>
+            <p>{{ shop }}</p>
           </v-card-text>
           <v-card-text class="text-center">
             <v-btn color="buttons" rounded large dark min-width="160" class="yellow-button" @click="goToShop()"
@@ -41,17 +41,24 @@
             <h2>C O U R S E S</h2>
           </v-card-text>
           <v-card-text class="text-center">
-            <p>{{ courses }}</p>
+            <p>
+              Our courses are suitable for artists of all levels of experience; whether it’s a beginner artist, an
+              intermediate artist seeking to expand their qualifications, or a professional artist seeking to learn new
+              techniques, our courses can and will provide that which they seek.
+            </p>
+            <p>
+              If you are an experienced beauty and nail artist and you have knowledge you’d like to share, we can
+              provide a platform for you to reach a large audience, just follow the link
+              <a @click="goToAddCourse">add courses</a>, check T’s&C’s and fill the application
+              form.
+            </p>
+            <p>
+              Join our beauty community; it’s interesting, entertaining and worth being proficient in. We are more than
+              happy to have you along with us.
+            </p>
           </v-card-text>
           <v-card-text class="text-center">
-            <v-btn
-              color="buttons"
-              rounded
-              large
-              dark
-              min-width="160"
-              class="yellow-button mr-4 mb-4"
-              @click="scrollTo"
+            <v-btn color="buttons" rounded large dark min-width="160" class="yellow-button mr-4 mb-4" @click="scrollTo"
               >ALL COURSES</v-btn
             >
             <v-btn
@@ -118,12 +125,11 @@ export default {
     ImageCourses: () => import('@/components/svg/ImageCourses.vue'),
     Courses: () => import('@/components/courses/Courses.vue'),
   },
-  data: () => ({
-  }),
+  data: () => ({}),
   computed: {
     ...mapState(['viewportWidth']),
     ...mapState('auth', ['isLogged']),
-    ...mapState('home', ['about', 'shop', 'shopText', 'courses']),
+    ...mapState('home', ['about', 'shop', 'courses']),
     target() {
       const value = this.selector;
       if (!isNaN(value)) return Number(value);
@@ -140,13 +146,20 @@ export default {
     goToShop() {
       this.$router.push({ name: 'shop', params: { categoryName: 'nail-tools' } });
     },
+    goToAddCourse() {
+      if (this.isLogged) {
+        this.$router.push({ name: 'add-course' });
+        return;
+      }
+      this.$router.push({ name: 'sign-in' });
+    },
     scrollTo() {
       const options = {
         duration: 600,
         offset: 0,
         easing: 'easeInOutCubic',
       };
-       this.$vuetify.goTo('#scroll-with-options', options);
+      this.$vuetify.goTo('#scroll-with-options', options);
     },
   },
 };

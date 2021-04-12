@@ -43,22 +43,22 @@ const routes = [
   {
     path: '/courses-offline',
     name: 'courses-offline',
-    component: () => import(/* webpackChunkName: "courses-offline" */ '@/views/OffLineCourses.vue'),
+    component: () => import(/* webpackChunkName: "offline-courses" */ '@/views/OffLineCourses.vue'),
   },
   {
     path: '/courses-offline/:courseid',
     name: 'course-offline',
-    component: () => import(/* webpackChunkName: "course-offline" */ '@/views/OffLineCourse.vue'),
+    component: () => import(/* webpackChunkName: "offline-course" */ '@/views/OffLineCourse.vue'),
   },
   {
     path: '/courses-online',
     name: 'courses-online',
-    component: () => import(/* webpackChunkName: "courses-online" */ '@/views/OnlineCourses.vue'),
+    component: () => import(/* webpackChunkName: "online-courses" */ '@/views/OnlineCourses.vue'),
   },
   {
     path: '/courses-online/:courseid',
     name: 'course-online',
-    component: () => import(/* webpackChunkName: "course-online" */ '@/views/OnlineCourse.vue'),
+    component: () => import(/* webpackChunkName: "online-course" */ '@/views/OnlineCourse.vue'),
   },
   {
     path: '/courses-online/:courseid/by-course',
@@ -73,7 +73,7 @@ const routes = [
   {
     path: '/courses-offline/:courseid/by-offline',
     name: 'by-offline',
-    component: () => import(/* webpackChunkName: "personal-data" */ '@/views/PersonalOfflineData.vue'),
+    component: () => import(/* webpackChunkName: "personal-offline-data" */ '@/views/PersonalOfflineData.vue'),
   },
   // {
   //   path: '/payment-details',
@@ -85,15 +85,15 @@ const routes = [
   //   name: 'payment',
   //   component: () => import(/* webpackChunkName: "payment" */ '@/views/Payment.vue'),
   // },
+  // {
+  //   path: '/delivery',
+  //   name: 'delivery',
+  //   component: () => import(/* webpackChunkName: "delivery" */ '@/views/Delivery.vue'),
+  // },
   {
-    path: '/delivery',
-    name: 'delivery',
-    component: () => import(/* webpackChunkName: "delivery" */ '@/views/Delivery.vue'),
-  },
-  {
-    path: '/return',
-    name: 'return',
-    component: () => import(/* webpackChunkName: "return" */ '@/views/Return.vue'),
+    path: '/payment-and-delivery-terms',
+    name: 'payment-and-delivery-terms',
+    component: () => import(/* webpackChunkName: "payment-and-delivery-terms" */ '@/views/PaymentAndDeliveryTerms.vue'),
   },
   {
     path: '/cooperation',
@@ -138,34 +138,34 @@ const routes = [
       {
         path: 'purchased-online-courses',
         name: 'purchased-online-courses',
-        component: () => import(/* webpackChunkName: "user-courses" */ '@/views/PurchasedCourses.vue'),
+        component: () => import(/* webpackChunkName: "purchased-courses" */ '@/views/PurchasedCourses.vue'),
       },
       {
         path: 'purchased-online-courses/:courseid',
         name: 'purchased-online-course',
-        component: () => import(/* webpackChunkName: "user-courses" */ '@/views/PurchasedCourse.vue'),
+        component: () => import(/* webpackChunkName: "purchased-course" */ '@/views/PurchasedCourse.vue'),
       },
       {
         path: 'purchased-online-courses/:courseid/lessons',
         name: 'purchased-lessons',
         meta: { layout: 'Whitefone' },
-        component: () => import(/* webpackChunkName: "user-courses" */ '@/views/PurchasedLessons.vue'),
+        component: () => import(/* webpackChunkName: "purchased-lessons" */ '@/views/PurchasedLessons.vue'),
       },
       {
         path: 'purchased-online-courses/:courseid/lessons/:lessonid',
         name: 'purchased-lesson',
         meta: { layout: 'Whitefone' },
-        component: () => import(/* webpackChunkName: "user-courses" */ '@/views/PurchasedLesson.vue'),
+        component: () => import(/* webpackChunkName: "purchased-lesson" */ '@/views/PurchasedLesson.vue'),
       },
       {
         path: 'purchased-offline-courses',
         name: 'purchased-offline-courses',
-        component: () => import(/* webpackChunkName: "user-courses" */ '@/views/PurchasedCourses.vue'),
+        component: () => import(/* webpackChunkName: "purchased-courses" */ '@/views/PurchasedCourses.vue'),
       },
       {
         path: 'purchased-offline-courses/:courseid',
         name: 'purchased-offline-course',
-        component: () => import(/* webpackChunkName: "user-courses" */ '@/views/PurchasedCourse.vue'),
+        component: () => import(/* webpackChunkName: "purchased-course" */ '@/views/PurchasedCourse.vue'),
       },
       {
         path: 'add-course',
@@ -186,13 +186,13 @@ const routes = [
         path: 'courses/:courseid/videos',
         name: 'user-videos',
         meta: { layout: 'Whitefone' },
-        component: () => import(/* webpackChunkName: "user-videos" */ '@/views/UserCourseVideos.vue'),
+        component: () => import(/* webpackChunkName: "user-course-videos" */ '@/views/UserCourseVideos.vue'),
       },
       {
         path: 'courses/:courseid/videos/:lessonid',
         name: 'user-video',
         meta: { layout: 'Whitefone' },
-        component: () => import(/* webpackChunkName: "user-video" */ '@/views/UserCourseDetailVideo.vue'),
+        component: () => import(/* webpackChunkName: "user-course-detail-video" */ '@/views/UserCourseDetailVideo.vue'),
       },
     ],
     beforeEnter: (to, from, next) => {
