@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "crypto-js": "^4.0.0",
     "nails-shop-card": "^0.0.4",
     "register-service-worker": "^1.7.2",
     "vue": "^2.6.12",

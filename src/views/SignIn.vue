@@ -31,14 +31,10 @@
     </div>
   </v-form>
 </template>
-<style scoped>
-.input-container {
-  min-width: 350px;
-}
-</style>
-<style lang="scss">
-</style>
+
 <script>
+import sha256 from 'crypto-js/sha256';
+import Base64 from 'crypto-js/enc-base64';
 import { mapState } from 'vuex';
 import EmailInput from '@/components/inputs/EmailInput.vue';
 import PasswordInput from '@/components/inputs/PasswordInput.vue';
@@ -80,7 +76,10 @@ export default {
   methods: {
     submit() {
       if (this.$refs.form.validate()) {
-        this.$store.dispatch('auth/SIGN_IN', this.data);
+        const data = Object.assign({}, this.data, {
+          password: Base64.stringify(sha256(this.data.password)),
+        });
+        this.$store.dispatch('auth/SIGN_IN', data);
       }
     },
   },
@@ -90,3 +89,9 @@ export default {
   beforeDestroy() {},
 };
 </script>
+
+<style scoped>
+.input-container {
+  min-width: 350px;
+}
+</style>

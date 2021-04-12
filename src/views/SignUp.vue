@@ -48,12 +48,13 @@
 </template>
 <style scoped>
 .inputUp:last-child {
-  margin-left: 25px; 
+  margin-left: 25px;
 }
 </style>
 <script>
+import sha256 from 'crypto-js/sha256';
+import Base64 from 'crypto-js/enc-base64';
 import { mapState } from 'vuex';
-
 import EmailInput from '@/components/inputs/EmailInput.vue';
 import PasswordInput from '@/components/inputs/PasswordInput.vue';
 import TextInput from '@/components/inputs/TextInput.vue';
@@ -103,13 +104,14 @@ export default {
         const data = Object.assign({}, this.data, {
           role: 'User',
           isPoliticAgree: this.isPoliticAgree,
+          password: Base64.stringify(sha256(this.data.password)),
         });
         this.$store.dispatch('auth/SIGN_UP', data);
       }
     },
   },
-  beforeRouteEnter (to, from, next) {
-    next(vm => vm.$store.state.auth.isLogged && vm.$router.push({ name: 'user-cabinet' }))
+  beforeRouteEnter(to, from, next) {
+    next(vm => vm.$store.state.auth.isLogged && vm.$router.push({ name: 'user-cabinet' }));
   },
 };
 </script>
