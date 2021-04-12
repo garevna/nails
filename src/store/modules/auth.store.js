@@ -26,7 +26,7 @@ const mutations = {
     state.user = Object.assign({}, state.user, payload);
   },
   LOGOUT: (state, payload) => {
-    state.user =  payload;
+    state.user = payload;
   },
   LOADING: (state, payload) => {
     state.loading = payload;
@@ -111,6 +111,49 @@ const actions = {
       commit('ERROR', errors.put, { root: true });
     }
     commit('LOADING', false);
+  },
+  async REQUEST_RESET(ctx, payload) {
+    const { error } = await postData(endpoints.reset, { email: payload });
+    if (!error) {
+      ctx.commit(
+        'MESSAGE',
+        {
+          message: true,
+          messageType: 'Request reset',
+          messageText: 'A link to reset your password has been sent to your email',
+        },
+        { root: true }
+      );
+      return true;
+    } else {
+      ctx.commit(
+        'ERROR',
+        {
+          error: true,
+          errorType: 'Request reset',
+          errorMessage: error,
+        },
+        { root: true }
+      );
+      return false;
+    }
+  },
+  async RESTORE(ctx, payload) {
+    const { error } = await postData(endpoints.restore, payload);
+    if (!error) {
+      return true;
+    } else {
+      ctx.commit(
+        'ERROR',
+        {
+          error: true,
+          errorType: 'Restore password',
+          errorMessage: error,
+        },
+        { root: true }
+      );
+      return false;
+    }
   },
 };
 

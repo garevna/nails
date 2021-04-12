@@ -40,7 +40,8 @@ export default new Vuetify({
         disabledPathBreadcrumbs: '#262624',
         text: '#000',
         btnEdit: '#278ed3',
-        burgerBg:'#ddd'
+        burgerBg:'#ddd',
+        forgotPass: '#a29f9f'
       },
       dark: {
         orange: '#FFC44A',
@@ -65,7 +66,8 @@ export default new Vuetify({
         text: '#fff',
         textSlider:'#000',
         btnEdit: '#278ed3',
-        burgerBg:'#ddd'
+        burgerBg:'#ddd',
+        forgotPass: '#a29f9f'
       },
     },
   },

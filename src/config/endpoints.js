@@ -17,13 +17,15 @@ export default {
     pdf: 'course/online/pdf',
   },
   orders: {
-    get: 'order'
+    get: 'order',
   },
   auth: {
     signUp: 'auth/signup',
     signIn: 'auth/signin',
     user: 'user',
-    checkToken: 'user/findByJwt'
+    checkToken: 'user/findByJwt',
+    reset: 'pass/reset',
+    restore: 'pass/restore',
   },
   categories: {
     categories: 'shop/categories',
@@ -41,15 +43,15 @@ export default {
     files: 'shop/commodity/files',
     newSubcategory: 'Fshop/file',
     random: 'shop/random',
-    getById: 'shop/commodities-by-ids'
+    getById: 'shop/commodities-by-ids',
   },
   instagram: {
-    get: 'instagram'
+    get: 'instagram',
   },
   delivery: {
     get: 'delivery-prices',
   },
-  payment:{
-    buyBasket:'buy-from-basket'
-  }
+  payment: {
+    buyBasket: 'buy-from-basket',
+  },
 };

@@ -19,11 +19,9 @@
             :outlined="false"
           />
         </div>
-        <v-checkbox
-          v-model="isPoliticAgree"
-          :rules="[rules.required]"
-          label=" Agree to terms and conditions"
-        ></v-checkbox>
+        <p class="forgotPass--text text-center text-subtitle-1">
+          Forgot password click <router-link to="/request-reset">here</router-link>
+        </p>
       </div>
       <div class="d-flex">
         <v-btn @click="submit" color="buttons" rounded :disabled="loading" class="yellow-button">sign in</v-btn>
@@ -53,9 +51,6 @@ export default {
       schema,
       isPoliticAgree: false,
       data: Object.keys(schema).reduce((acc, key) => Object.assign(acc, { [key]: '' }), {}),
-      rules: {
-        required: v => !!v || 'input is required',
-      },
     };
   },
   computed: {
@@ -64,10 +59,7 @@ export default {
   watch: {
     isLogged(newVal) {
       if (newVal) {
-        // this.$router.push({ name: 'user-cabinet'})
-        const startPath = this.$router.history._startLocation;
-        const currentPath = this.$router.history.current.fullPath;
-        startPath === currentPath ? this.$router.push({ name: 'user-cabinet' }) : this.$router.back();
+        this.$router.push({ name: 'user-cabinet' });
       } else {
         this.$router.push({ name: 'home' });
       }

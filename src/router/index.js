@@ -75,21 +75,6 @@ const routes = [
     name: 'by-offline',
     component: () => import(/* webpackChunkName: "personal-offline-data" */ '@/views/PersonalOfflineData.vue'),
   },
-  // {
-  //   path: '/payment-details',
-  //   name: 'payment-details',
-  //   component: () => import(/* webpackChunkName: "payment-details" */ '@/views/PaymentDetails.vue'),
-  // },
-  // {
-  //   path: '/payment',
-  //   name: 'payment',
-  //   component: () => import(/* webpackChunkName: "payment" */ '@/views/Payment.vue'),
-  // },
-  // {
-  //   path: '/delivery',
-  //   name: 'delivery',
-  //   component: () => import(/* webpackChunkName: "delivery" */ '@/views/Delivery.vue'),
-  // },
   {
     path: '/payment-and-delivery-terms',
     name: 'payment-and-delivery-terms',
@@ -119,8 +104,6 @@ const routes = [
   },
   {
     path: '/user-cabinet',
-    // name: 'user-cabinet',
-    // meta: { layout: 'Whitefone' },
     component: () => import(/* webpackChunkName: "user-home" */ '@/views/UserHome.vue'),
     children: [
       {
@@ -202,6 +185,18 @@ const routes = [
         next({ name: 'sign-in' });
       }
     },
+  },
+  {
+    path: '/request-reset',
+    name: 'request-reset',
+    meta: { layout: 'Whitefone' },
+    component: () => import(/* webpackChunkName: "request-reset" */ '@/views/RequestReset.vue'),
+  },
+  {
+    path: '/reset/:hash',
+    name: 'reset',
+    meta: { layout: 'Whitefone' },
+    component: () => import(/* webpackChunkName: "reset" */ '@/views/Reset.vue'),
   },
   {
     path: '*',
