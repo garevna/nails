@@ -2,7 +2,7 @@
 const { postData, putData } = require('@/helpers').default;
 
 const errors = require('@/config/errors').default.auth;
-// const messages = require('@/config/messages').default.user
+const { requestReset, resetPass, changePass } = require('@/config/messages').default.auth;
 
 const endpoints = require('@/config/endpoints').default.auth;
 
@@ -19,7 +19,7 @@ const mutations = {
   TOKEN: (state, payload) => {
     state.token = payload;
   },
-  ISLOGGED: (state, payload) => {
+  IS_LOGGED: (state, payload) => {
     state.isLogged = payload;
   },
   USER: (state, payload) => {
@@ -55,14 +55,14 @@ const actions = {
     } else {
       commit('TOKEN', token);
       commit('USER', user);
-      commit('ISLOGGED', !!user);
+      commit('IS_LOGGED', !!user);
       localStorage.setItem('token', token);
     }
   },
   async LOG_OUT({ commit }) {
     commit('TOKEN', null);
     commit('LOGOUT', null);
-    commit('ISLOGGED', false);
+    commit('IS_LOGGED', false);
     localStorage.removeItem('token');
   },
   async SIGN_IN({ commit, dispatch }, payload) {
@@ -124,15 +124,7 @@ const actions = {
       })
     ).json();
     if (!error) {
-      ctx.commit(
-        'MESSAGE',
-        {
-          message: true,
-          messageType: 'Change password',
-          messageText: 'Your password has been successfully changed',
-        },
-        { root: true }
-      );
+      ctx.commit('MESSAGE', changePass, { root: true });
       return true;
     } else {
       ctx.commit(
@@ -150,15 +142,7 @@ const actions = {
   async REQUEST_RESET(ctx, payload) {
     const { error } = await postData(endpoints.reset, { email: payload });
     if (!error) {
-      ctx.commit(
-        'MESSAGE',
-        {
-          message: true,
-          messageType: 'Request reset',
-          messageText: 'A link to reset your password has been sent to your email',
-        },
-        { root: true }
-      );
+      ctx.commit('MESSAGE', requestReset, { root: true });
       return true;
     } else {
       ctx.commit(
@@ -176,6 +160,7 @@ const actions = {
   async RESTORE(ctx, payload) {
     const { error } = await postData(endpoints.restore, payload);
     if (!error) {
+      ctx.commit('MESSAGE', resetPass, { root: true });
       return true;
     } else {
       ctx.commit(
