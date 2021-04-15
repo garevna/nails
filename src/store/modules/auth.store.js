@@ -98,7 +98,7 @@ const actions = {
       const { email, password } = payload;
       dispatch('SIGN_IN', { email, password });
     } else {
-      commit('ERROR', errors.signUp, { root: true });
+      commit('ERROR', Object.assign({}, errors.signUp, { errorMessage: error }), { root: true });
     }
     commit('LOADING', false);
   },
