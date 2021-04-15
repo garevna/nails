@@ -8,7 +8,7 @@
           small
           outlined
           primary
-          class="ref d-flex justify-center yellow-button pa-6"
+          class="d-flex justify-center yellow-button pa-6 text-h6 font-weight-black"
           @click="toOnlineCourses"
           >Online courses</v-btn
         >
@@ -30,7 +30,7 @@
           small
           outlined
           primary
-          class="ref d-flex justify-center yellow-button pa-6"
+          class="d-flex justify-center yellow-button pa-6 text-h6 font-weight-black"
           @click="getMoreOnlineCourses"
           >more online courses</v-btn
         >
@@ -44,7 +44,7 @@
           outlined
           large
           dark
-          class="ref d-flex justify-center yellow-button pa-6"
+          class="d-flex justify-center yellow-button pa-6 text-h6 font-weight-black"
           @click="toOfflineCourses"
           >Offline courses</v-btn
         >
@@ -66,7 +66,7 @@
           small
           outlined
           primary
-          class="ref d-flex justify-center yellow-button pa-6"
+          class="d-flex justify-center yellow-button pa-6 text-h6 font-weight-black"
           v-if="isHideMoreButtonOnline && this.$route.name !== 'home'"
           @click="getMoreOfflineCourses"
           >more offline courses</v-btn
@@ -75,20 +75,6 @@
     </v-card>
   </div>
 </template>
-
-<style scoped lang="scss">
-@import '@/css/variables.scss';
-h2 {
-  color: white;
-}
-.ref {
-  font-size: 20px !important;
-}
-.ref:hover {
-  cursor: pointer;
-  color: #ffc44a;
-}
-</style>
 
 <script>
 import { mapState } from 'vuex';
@@ -117,7 +103,6 @@ export default {
       this.$router.push({ name: route, params: { courseid: id } });
     },
     payDetail(type, id) {
-      // this.$router.push({ name: 'personal-data' })
       this.$router.push({
         name: type === 'online' ? 'by-course' : 'by-offline',
         params: {

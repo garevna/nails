@@ -7,14 +7,10 @@
       class="ma-4"
       @click="$emit('lesson')"
     >
-      <h2 class="text-center items-text pa-4">
+      <h2 class="text-center text-truncate pa-4">
         {{ video.name }}
       </h2>
       <CoverImage :url="linkCheck(video)" />
-      <!-- <v-card-actions class="pa-4">
-        <v-spacer />
-        <v-btn :disabled="published" rounded color="buttons" class="yellow-button pa-4" @click.stop="removeHandler">Delete</v-btn>
-      </v-card-actions> -->
     </v-card>
   </v-hover>
 </template>
@@ -54,13 +50,6 @@ export default {
 </script>
 
 <style scoped>
-.items-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-}
 .spacing {
   letter-spacing: unset;
 }

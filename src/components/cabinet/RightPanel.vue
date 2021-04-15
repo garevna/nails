@@ -1,12 +1,17 @@
 <template>
   <div class="d-flex flex-column align-lg-end cabinet-btn">
-    <v-btn text @click="dialog = true" class="mb-4">Log out</v-btn>
-    <v-btn text @click="goTo('user-courses')"> My courses</v-btn>
-    <v-btn text @click="goTo('products-cart')">Shoping card</v-btn>
-    <v-btn v-if="!isAdmin" text @click="goTo('purchased-online-courses')">purchased online courses</v-btn>
-    <v-btn v-if="!isAdmin" text @click="goTo('purchased-offline-courses')">purchased offline courses</v-btn>
-    <v-btn v-if="isAdmin" text @click="goToAdmin">go to admin panel</v-btn>
-    <v-btn text class="mt-4" @click="goTo('change-password')">change password</v-btn>
+    <v-btn text @click="dialog = true" class="mb-4 text-h6 font-weight-medium">Log out</v-btn>
+    <v-btn text @click="goTo('user-courses')" class="text-h6 font-weight-medium"> My courses</v-btn>
+    <v-btn text @click="goTo('products-cart')" class="text-h6 font-weight-medium">Shoping card</v-btn>
+    <v-btn text v-if="!isAdmin" @click="goTo('purchased-online-courses')" class="text-h6 font-weight-medium"
+      >purchased online courses</v-btn
+    >
+    <v-btn text v-if="!isAdmin" @click="goTo('purchased-offline-courses')" class="text-h6 font-weight-medium"
+      >purchased offline courses</v-btn
+    >
+    <v-btn text @click="goTo('change-password')" class="text-h6 font-weight-medium">change password</v-btn>
+    <v-btn text v-if="isAdmin" @click="goToAdmin" class="mt-4 text-h6 font-weight-black">go to admin panel</v-btn>
+    
     <v-dialog v-model="dialog" persistent max-width="320">
       <v-card>
         <v-card-title> Do you really want to leave ?</v-card-title>
@@ -49,12 +54,5 @@ export default {
       if (this.$route.name !== name) this.$router.push({ name: name });
     },
   },
-  beforeMount() {},
 };
 </script>
-
-<style>
-.cabinet-btn .v-btn__content {
-  font-size: 18px !important;
-}
-</style>

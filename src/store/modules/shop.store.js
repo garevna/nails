@@ -55,18 +55,17 @@ const mutations = {
   LOADING: (state, payload) => {
     state.isShopLoading = payload;
   },
-  CATEGORIES_LOADING:(state, payload) => {
+  CATEGORIES_LOADING: (state, payload) => {
     state.isCategoriesLoading = payload;
   },
-  COMMODITY_LOADING:(state, payload) => {
+  COMMODITY_LOADING: (state, payload) => {
     state.isCommodityLoading = payload;
-  }
+  },
 };
 
 const actions = {
   async GET_CATEGORIES({ commit, state }) {
     commit('CATEGORIES_LOADING', true);
-
 
     const { categories, error } = await getData(categoriesEndpoints.categories);
 
@@ -117,18 +116,14 @@ const actions = {
   },
 
   async GET_COMMODITY({ state, commit }, { commodityId }) {
-    // commit('LOADING', true);
     commit('COMMODITY_LOADING', true);
-
 
     const { commodity, error } = await getData(`${commoditiesEndpoints.commodity}/${commodityId}`);
 
     if (!error) {
       commit('COMMODITY', { commodity: commodity[0] });
     }
-    // commit('LOADING', false);
     commit('COMMODITY_LOADING', false);
-
   },
 
   async RANDOM_COMMODITIES({ state, commit }) {
@@ -147,7 +142,6 @@ const actions = {
     }
 
     commit('LOADING', false);
-
   },
 };
 

@@ -41,7 +41,8 @@ export default new Vuetify({
         text: '#000',
         btnEdit: '#278ed3',
         burgerBg:'#ddd',
-        forgotPass: '#a29f9f'
+        forgotPass: '#a29f9f',
+        notAvailable:'#949393'
       },
       dark: {
         orange: '#FFC44A',

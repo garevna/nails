@@ -96,9 +96,5 @@ export default {
       this.errors = this.$refs.form.inputs[0]?.errorBucket ?? [];
     },
   },
-  mounted() {},
 };
 </script>
-
-  <style scoped>
-</style>

@@ -1,5 +1,4 @@
 <template>
-  <!-- <v-dialog v-model="dialog" :retain-focus="false" persistent max-width="320"> -->
   <v-dialog v-model="localDialog" persistent max-width="320">
     <v-card>
       <v-card-title> Do you really want to remove this {{ name }} ?</v-card-title>
@@ -28,4 +27,3 @@ export default {
 };
 </script>
 
-<style></style>
