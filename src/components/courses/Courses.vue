@@ -13,7 +13,7 @@
           >Online courses</v-btn
         >
       </div>
-      <div class="d-flex flex-wrap justify-center">
+      <div v-if="!loading" class="d-flex flex-wrap justify-center">
         <CourseCard
           v-for="(card, index) in courses"
           :key="index"
@@ -23,6 +23,9 @@
           :payDetail="payDetail"
         />
       </div>
+
+      <CardSkeleton v-if="loading" />
+
       <div v-if="isHideMoreButtonOnline && this.$route.name !== 'home'" class="d-flex justify-center">
         <v-btn
           color="buttons"
@@ -49,7 +52,8 @@
           >Offline courses</v-btn
         >
       </div>
-      <div class="d-flex flex-wrap justify-center">
+
+      <div v-if="!loading" class="d-flex flex-wrap justify-center">
         <CourseCard
           v-for="(card, index) in offlineCourses"
           :key="index"
@@ -59,6 +63,9 @@
           :payDetail="payDetail"
         />
       </div>
+
+      <CardSkeleton v-if="loading" type="offline" />
+
       <div class="d-flex justify-center">
         <v-btn
           color="buttons"
@@ -80,13 +87,17 @@
 import { mapState } from 'vuex';
 
 import CourseCard from '@/components/courses/CourseCard.vue';
+import CardSkeleton from '@/components/courses/CardSkeleton.vue';
 
 export default {
   components: {
     CourseCard,
+    CardSkeleton,
   },
   data() {
-    return {};
+    return {
+      loading: false,
+    };
   },
   computed: {
     ...mapState('offlineCourses', ['offlineCourses', 'totalOfflineCourses']),
@@ -116,9 +127,11 @@ export default {
     toOnlineCourses() {
       this.$router.push({ name: 'courses-online' });
     },
-    getCourses() {
-      this.$store.dispatch('offlineCourses/GET_OFFLINE_COURSES');
-      this.$store.dispatch('courses/GET_ALL_COURSES');
+    async getCourses() {
+      this.loading = true;
+      await this.$store.dispatch('offlineCourses/GET_OFFLINE_COURSES');
+      await this.$store.dispatch('courses/GET_ALL_COURSES');
+      this.loading = false;
     },
     getMoreOnlineCourses() {
       this.$store.dispatch('courses/GET_MORE_COURSES', this.courses.length);

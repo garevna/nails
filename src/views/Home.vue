@@ -40,7 +40,7 @@
           <v-card-text class="text-center secondary--text">
             <h2>C O U R S E S</h2>
           </v-card-text>
-          <v-card-text class="text-center">
+          <v-card-text class="text-left">
             <p>
               Our courses are suitable for artists of all levels of experience; whether it’s a beginner artist, an
               intermediate artist seeking to expand their qualifications, or a professional artist seeking to learn new
@@ -76,12 +76,11 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <!-- <v-col cols="12" class="my-16">
-          <Carousel />
-      </v-col> -->
+
       <v-col cols="12" class="pa-0">
         <Courses id="scroll-with-options" />
       </v-col>
+
       <v-col cols="12" class="d-flex justify-center">
         <v-btn
           color="buttons"
@@ -97,22 +96,6 @@
     </v-row>
   </v-container>
 </template>
-
-<style>
-p {
-  text-align: justify;
-  color: #ddf;
-  letter-spacing: 0.1rem;
-}
-.yellow-button {
-  color: #000 !important;
-  font-weight: bold;
-  font-size: 16px !important;
-}
-.text-center h2 {
-  font-size: 28px;
-}
-</style>
 
 <script>
 import { mapState } from 'vuex';
@@ -164,3 +147,19 @@ export default {
   },
 };
 </script>
+
+<style>
+p {
+  /* text-align: justify; */
+  /* color: #ddf; */
+  /* letter-spacing: 0.1rem; */
+}
+.yellow-button {
+  color: #000 !important;
+  font-weight: bold;
+  font-size: 16px !important;
+}
+.text-center h2 {
+  font-size: 28px;
+}
+</style>

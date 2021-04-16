@@ -1,13 +1,11 @@
 <template>
   <div>
-    <div class="d-flex flex-wrap justify-center">
-      <CourseCard
-        v-for="(card, index) in offlineCourses"
-        :key="index"
-        :course="card"
-        type="offline"
-      />
+    <div v-if="!loading" class="d-flex flex-wrap justify-center">
+      <CourseCard v-for="(card, index) in offlineCourses" :key="index" :course="card" type="offline" />
     </div>
+
+    <CardSkeleton v-if="loading" type="offline" />
+
     <div class="text-center">
       <v-btn
         color="buttons"
@@ -32,14 +30,18 @@
 import { mapActions, mapState } from 'vuex';
 
 import CourseCard from '@/components/courses/CourseCard.vue';
+import CardSkeleton from '@/components/courses/CardSkeleton.vue';
 
 export default {
   name: 'OfflineCourses',
   components: {
     CourseCard,
+    CardSkeleton,
   },
   data() {
-    return {};
+    return {
+      loading: false,
+    };
   },
   computed: {
     ...mapState('offlineCourses', ['offlineCourses', 'totalOfflineCourses']),
@@ -56,8 +58,10 @@ export default {
       this.getMoreCourses(this.offlineCourses.length);
     },
   },
-  mounted() {
-    this.getCourses();
+  async mounted() {
+    this.loading = true;
+    await this.getCourses();
+    this.loading = false;
   },
 };
 </script>

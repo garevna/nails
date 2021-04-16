@@ -1,18 +1,13 @@
 <template>
   <div>
-    <div class="d-flex flex-wrap justify-center">
+    <div v-if="!loading" class="d-flex flex-wrap justify-center">
       <CourseCard v-for="(card, index) in courses" :key="index" :course="card" type="online" />
     </div>
+
+    <CardSkeleton v-if="loading" />
+
     <div v-if="hideBtn" class="text-center">
-      <v-btn
-        color="buttons"
-        rounded
-        outlined
-        small
-        dark
-        min-width="90"
-        class="yellow-button"
-        @click="getMore"
+      <v-btn color="buttons" rounded outlined small dark min-width="90" class="yellow-button" @click="getMore"
         >more courses</v-btn
       >
     </div>
@@ -26,14 +21,18 @@
 import { mapState, mapActions } from 'vuex';
 
 import CourseCard from '@/components/courses/CourseCard.vue';
+import CardSkeleton from '@/components/courses/CardSkeleton.vue';
 
 export default {
-  name: 'courses-online',
+  name: 'online-courses',
   components: {
     CourseCard,
+    CardSkeleton,
   },
   data() {
-    return {};
+    return {
+      loading: false,
+    };
   },
   computed: {
     ...mapState('courses', ['courses', 'total']),
@@ -50,8 +49,10 @@ export default {
       this.getMoreCourses(this.courses.length);
     },
   },
-  mounted() {
-    this.getAllCourses();
+  async mounted() {
+    this.loading = true;
+    await this.getAllCourses();
+    this.loading = false;
   },
 };
 </script>
