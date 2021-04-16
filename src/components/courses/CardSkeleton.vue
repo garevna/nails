@@ -15,6 +15,7 @@
 
 <script>
 export default {
+  name: 'CardSkeleton',
   props: {
     width: {
       type: String,

@@ -11,27 +11,9 @@
       />
     </v-card>
 
-    <v-card flat v-if="contentEmpty">
-      <v-card
-        flat
-        height="100%"
-        class="justify-center align-items-center flex-column ma-0 pa-0 d-flex"
-        width="100%"
-        justify="center"
-      >
-        <v-card-text class="d-flex flex-column justify-center align-center">
-          <p class="dgrey--text text-center text-h4 font-weight-medium">Unfortunately, there are no products <br /></p>
+    <EmptyContent v-if="contentEmpty" />
 
-          <p class="dgrey--text text-center text-h4 font-weight-medium">suitable for your request...</p>
-        </v-card-text>
-      </v-card>
-    </v-card>
-
-    <v-card flat v-if="isShopLoading" class="d-flex justify-center flex-wrap">
-      <v-card class="pa-0 pt-0 ma-4 skeleton" v-for="i in 12" :key="i" color="lgrey" width="250" height="350">
-        <v-skeleton-loader type="image, list-item-three-line" animation></v-skeleton-loader>
-      </v-card>
-    </v-card>
+    <ShopCardSkeleton v-if="isShopLoading" />
 
     <v-card flat v-if="pages > 1 && !isShopLoading" class="mt-10">
       <v-pagination
@@ -57,11 +39,15 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import ShopCard from '@/components/Shop/ShopCard.vue';
+import ShopCardSkeleton from '@/components/Shop/ShopCardSkeleton.vue';
+import EmptyContent from '@/components/Shop/EmptyContent.vue';
 
 export default {
   name: 'Shop',
   components: {
     ShopCard,
+    ShopCardSkeleton,
+    EmptyContent,
   },
   data() {
     return {
@@ -138,14 +124,9 @@ export default {
       }
     },
   },
-  async mounted() {
-    await this.getCommodities();
+  mounted() {
+    this.getCommodities();
   },
 };
 </script>
 
-<style>
-.skeleton .v-skeleton-loader__image {
-  height: 250px !important;
-}
-</style>

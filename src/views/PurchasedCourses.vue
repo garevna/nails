@@ -17,18 +17,6 @@
           :course="course"
         />
       </v-col>
-      <!-- <div v-if="hideBtn" class="d-flex justify-center my-8">
-        <v-btn
-          color="buttons"
-          rounded
-          small
-          outlined
-          primary
-          class="ref d-flex justify-center yellow-button pa-6"
-          @click="getMoreCourses"
-          >more courses</v-btn
-        >
-      </div> -->
     </v-row>
   </v-container>
 </template>
@@ -81,17 +69,10 @@ export default {
       await this.$store.dispatch('purchasedCourses/GET_ALL_COURSES', this.type);
       this.loading = false;
     },
-    // async getMoreCourses() {
-    //   await this.$store.dispatch('courses/GET_MORE_USER_COURSES', this.courses.length);
-    // },
   },
   created() {
     this.getCourses();
   },
-  mounted() {},
-  beforeMount() {},
 };
 </script>
 
-  <style scoped>
-</style>

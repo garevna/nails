@@ -40,7 +40,7 @@ import CoverImage from '@/components/CoverImage.vue';
 import checkVideoLink from '@/helpers/checkVideoLink';
 
 export default {
-  name: 'UserCourseDetailVideo',
+  name: 'PurchasedLesson',
   components: {
     CoverImage,
 

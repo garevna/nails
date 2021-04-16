@@ -49,10 +49,6 @@ export default {
   created() {
     this.getCourse();
   },
-  mounted() {},
-  beforeMount() {},
 };
 </script>
 
-  <style scoped>
-</style>

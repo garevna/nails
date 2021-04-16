@@ -51,8 +51,6 @@ export default {
       }
     },
   },
-  mounted() {},
-  beforeDestroy() {},
 };
 </script>
 

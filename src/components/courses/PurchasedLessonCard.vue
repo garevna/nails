@@ -21,7 +21,7 @@ import { mapState } from 'vuex';
 import CoverImage from '@/components/CoverImage.vue';
 import checkVideoLink from '@/helpers/checkVideoLink';
 export default {
-  name: 'UserVideoCard',
+  name: 'PurchasedLessonCard',
   props: {
     video: {
       type: Object,

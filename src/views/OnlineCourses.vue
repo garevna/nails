@@ -21,7 +21,7 @@ import CourseCard from '@/components/courses/CourseCard.vue';
 import CardSkeleton from '@/components/courses/CardSkeleton.vue';
 
 export default {
-  name: 'online-courses',
+  name: 'OnlineCourses',
   components: {
     CourseCard,
     CardSkeleton,

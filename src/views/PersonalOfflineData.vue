@@ -17,7 +17,7 @@
         </tr>
       </table>
     </div>
-    <PaymentForm @submit="sendData" :schema="schema" :loading="loading"/>
+    <PaymentForm @submit="sendData" :schema="schema" :loading="loading" />
   </div>
 </template>
 <style scoped>
@@ -32,6 +32,7 @@ import PaymentForm from '@/components/forms/PaymentForm.vue';
 import { datesToString } from '@/helpers/datesToString';
 const schema = require('@/config/paymentSchema').default;
 export default {
+  name: 'PersonalOfflineData',
   components: {
     PaymentForm,
   },
