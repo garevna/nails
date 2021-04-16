@@ -28,8 +28,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/add-course~user-course.fd25dc4b.css"
   },
   {
-    "revision": "d4299d9aa23a5db08d7e",
-    "url": "/nails/css/app.f7e31004.css"
+    "revision": "38174a4ebbeec475f734",
+    "url": "/nails/css/app.b103e6bf.css"
   },
   {
     "revision": "cb87aeecfa5d789d0785",
@@ -64,10 +64,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/chunk-4410a594.f5adc122.css"
   },
   {
-    "revision": "63ca642461c1203ec45b",
-    "url": "/nails/css/chunk-4788b8b0.2f84f83b.css"
-  },
-  {
     "revision": "63784180892d38594231",
     "url": "/nails/css/chunk-596d6346.b8765dac.css"
   },
@@ -92,7 +88,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/chunk-8c0d4f90.a895551c.css"
   },
   {
-    "revision": "c0246a2164302bfacd3f",
+    "revision": "08338a639fb535a2bec5",
+    "url": "/nails/css/chunk-9ec9ed4c.ac4f03dc.css"
+  },
+  {
+    "revision": "40c012b974da611b3509",
     "url": "/nails/css/chunk-a78750ac.8a351c63.css"
   },
   {
@@ -124,16 +124,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/purchased-course.9c66f079.css"
   },
   {
-    "revision": "5028e96216f4e422888f",
-    "url": "/nails/css/purchased-courses.9d5c2ea9.css"
+    "revision": "403cd577fea98ac71814",
+    "url": "/nails/css/purchased-courses.c6f5c816.css"
   },
   {
     "revision": "aafac842890db02b0b95",
     "url": "/nails/css/purchased-lesson.02d268d7.css"
   },
   {
-    "revision": "e86fd7c9777e8452c95c",
-    "url": "/nails/css/purchased-lessons.bdb99486.css"
+    "revision": "0b28f020bc739255fd1c",
+    "url": "/nails/css/purchased-lessons.c6f5c816.css"
   },
   {
     "revision": "13e1dea35c4dbce9909d",
@@ -180,8 +180,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/css/user-course-videos.c6f5c816.css"
   },
   {
-    "revision": "5029b9874cf3b146df2d",
-    "url": "/nails/css/user-course.a1ed053f.css"
+    "revision": "20cbcaea7c64751a11d5",
+    "url": "/nails/css/user-course.512dc821.css"
   },
   {
     "revision": "9599ec33dab4491a2796",
@@ -292,7 +292,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/img/pdf.3fa92281.svg"
   },
   {
-    "revision": "fa1774f820f7f31623f7f9db996eff2c",
+    "revision": "ae506a937214217f010fd90181525bcd",
     "url": "/nails/index.html"
   },
   {
@@ -312,8 +312,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/add-course~user-course.ae2bc94b.js"
   },
   {
-    "revision": "d4299d9aa23a5db08d7e",
-    "url": "/nails/js/app.15a0afa0.js"
+    "revision": "38174a4ebbeec475f734",
+    "url": "/nails/js/app.4975a226.js"
   },
   {
     "revision": "cb87aeecfa5d789d0785",
@@ -344,8 +344,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/chunk-2d0d07bb.720a67bc.js"
   },
   {
-    "revision": "2633e43e9375cf0fa5a7",
-    "url": "/nails/js/chunk-2d0d6735.06b7fb37.js"
+    "revision": "a0bc661fe1d9b603f753",
+    "url": "/nails/js/chunk-2d0d6735.12392570.js"
   },
   {
     "revision": "be31b1bc8aa255cb3ae0",
@@ -358,10 +358,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "fde8cfa65a9165c6b99c",
     "url": "/nails/js/chunk-4410a594.4501502f.js"
-  },
-  {
-    "revision": "63ca642461c1203ec45b",
-    "url": "/nails/js/chunk-4788b8b0.02d859e1.js"
   },
   {
     "revision": "63784180892d38594231",
@@ -392,8 +388,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/chunk-9e9c9b90.6561a4bb.js"
   },
   {
-    "revision": "c0246a2164302bfacd3f",
-    "url": "/nails/js/chunk-a78750ac.bb43331f.js"
+    "revision": "08338a639fb535a2bec5",
+    "url": "/nails/js/chunk-9ec9ed4c.e3a1b73a.js"
+  },
+  {
+    "revision": "40c012b974da611b3509",
+    "url": "/nails/js/chunk-a78750ac.dcc4274e.js"
   },
   {
     "revision": "4e0b454824a69376adad",
@@ -404,24 +404,24 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/cooperation.8c56274c.js"
   },
   {
-    "revision": "e9e7cb9b4e391f7fbb56",
-    "url": "/nails/js/courses.d8e35368.js"
+    "revision": "83058d576e8519dda109",
+    "url": "/nails/js/courses.13eb2fc9.js"
   },
   {
     "revision": "6e50887dfc88a3e3ec6d",
     "url": "/nails/js/offline-course.531e33c0.js"
   },
   {
-    "revision": "cd5c1a776aff3d58e1a8",
-    "url": "/nails/js/offline-courses.af7d38a2.js"
+    "revision": "93ad292e7126160e548c",
+    "url": "/nails/js/offline-courses.13beff8a.js"
   },
   {
     "revision": "2f416fdfd57bc94f611b",
     "url": "/nails/js/online-course.8bf24091.js"
   },
   {
-    "revision": "96c7b66abbc192a60057",
-    "url": "/nails/js/online-courses.3a1f5bd8.js"
+    "revision": "ea140e87d6d590da1eed",
+    "url": "/nails/js/online-courses.4f088413.js"
   },
   {
     "revision": "cb16e67eec29f176d00b",
@@ -448,16 +448,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/purchased-course.bec4628d.js"
   },
   {
-    "revision": "5028e96216f4e422888f",
-    "url": "/nails/js/purchased-courses.e8025a73.js"
+    "revision": "403cd577fea98ac71814",
+    "url": "/nails/js/purchased-courses.48fda402.js"
   },
   {
     "revision": "aafac842890db02b0b95",
     "url": "/nails/js/purchased-lesson.f697208b.js"
   },
   {
-    "revision": "e86fd7c9777e8452c95c",
-    "url": "/nails/js/purchased-lessons.ee161828.js"
+    "revision": "0b28f020bc739255fd1c",
+    "url": "/nails/js/purchased-lessons.55034274.js"
   },
   {
     "revision": "13e1dea35c4dbce9909d",
@@ -504,8 +504,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/nails/js/user-course-videos.34a6e34e.js"
   },
   {
-    "revision": "5029b9874cf3b146df2d",
-    "url": "/nails/js/user-course.539732d3.js"
+    "revision": "20cbcaea7c64751a11d5",
+    "url": "/nails/js/user-course.553b89f7.js"
   },
   {
     "revision": "9599ec33dab4491a2796",
