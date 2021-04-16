@@ -7,15 +7,12 @@
     <CardSkeleton v-if="loading" />
 
     <div v-if="hideBtn" class="text-center">
-      <v-btn color="buttons" rounded outlined small dark min-width="90" class="yellow-button" @click="getMore"
+      <v-btn color="buttons" rounded outlined large class="yellow-button" @click="getMore"
         >more courses</v-btn
       >
     </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-</style>
 
 <script>
 import { mapState, mapActions } from 'vuex';

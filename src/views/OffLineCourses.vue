@@ -8,14 +8,12 @@
 
     <div class="text-center">
       <v-btn
+        v-if="isHideMoreButtonOffline"
         color="buttons"
         rounded
         outlined
-        small
-        dark
-        min-width="90"
+        large
         class="yellow-button"
-        v-if="isHideMoreButtonOffline"
         @click="getMoreOfflineCourses"
         >more courses</v-btn
       >

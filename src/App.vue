@@ -1,12 +1,12 @@
 <template>
   <v-app dark>
-    <SystemBar/>
-    <v-main class="homefone"> 
+    <SystemBar />
+    <v-main class="homefone">
       <component :is="layout">
         <!-- <router-view /> -->
       </component>
     </v-main>
-    <Footer v-if="showFooter"/>
+    <Footer v-if="showFooter" />
     <UploadFiles v-if="uploadDialog" />
     <error-message />
     <simple-message />
@@ -18,7 +18,7 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'App',
-  
+
   components: {
     SystemBar: () => import('@/components/SystemBar.vue'),
     Footer: () => import('@/components/Footer.vue'),
@@ -33,7 +33,7 @@ export default {
     ...mapState('shop', ['activeCategory']),
     ...mapState('courses', ['uploadDialog']),
     showFooter() {
-      return this.$route.name !== 'products-cart'
+      return this.$route.name !== 'products-cart';
     },
     layout() {
       return `${this.$route.meta?.layout || 'default'}-layout`;
@@ -90,5 +90,9 @@ h3 {
 .v-btn__content {
   justify-content: center !important;
 }
-
+.yellow-button {
+  color: #000 !important;
+  font-weight: bold;
+  font-size: 16px !important;
+}
 </style>

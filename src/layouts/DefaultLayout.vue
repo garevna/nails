@@ -1,5 +1,5 @@
 <template>
-  <v-container dark class="homefone py-12" fluid id="top-page">
+  <v-container dark class="homefone py-12 px-0" fluid id="top-page">
     <MainMenu v-if="showMainMenu" />
     <Breadcrumbs />
     <router-view />

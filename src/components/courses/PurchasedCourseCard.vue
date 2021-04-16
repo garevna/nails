@@ -6,7 +6,7 @@
         {{ course.accessDays }} days | $ {{ course.price }}
       </v-card-title>
       <h3 class="pa-0 pl-4 my-2 text-truncate">{{ course.nameOfCourse }}</h3>
-      <p class="pa-0 px-4 text-truncate spacing">{{ course.subtitle }}</p>
+      <p class="pa-0 px-4 text-truncate">{{ course.subtitle }}</p>
       <v-card-actions class="pl-4 pb-4">
         <v-btn
           color="buttons"
@@ -68,9 +68,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-  .spacing {
-    letter-spacing: unset;
-  }
-</style>

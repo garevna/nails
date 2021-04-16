@@ -14,12 +14,14 @@ export default new Vuetify({
   theme: {
     themes: {
       light: {
+        //Home
+        colorParagraph: '#ddf',
+        // orange
         primary: '#FFC44A',
         orange: '#FFC44A',
         secondary: '#dde',
         dgrey: '#333333',
         lgrey: '#F4F4F4',
-        // orange
         // light gray
         bgBurgerMenu: '#fafafa',
         darkGrey: '#333333',
@@ -45,6 +47,9 @@ export default new Vuetify({
         notAvailable:'#949393'
       },
       dark: {
+        //Home
+        colorParagraph: '#ddf',
+        // orange
         orange: '#FFC44A',
         primary: '#FFC44A',
         // light gray

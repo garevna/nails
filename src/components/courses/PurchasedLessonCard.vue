@@ -49,8 +49,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.spacing {
-  letter-spacing: unset;
-}
-</style>

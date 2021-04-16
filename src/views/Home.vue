@@ -1,21 +1,21 @@
 <template>
-  <v-container fluid style="padding: 0; margin: 0">
-    <v-row align="center" justify="center">
+  <v-container fluid>
+    <v-row>
       <v-col cols="12" sm="5">
         <v-card flat class="transparent mx-auto my-auto" max-width="480">
-          <v-card-text class="text-center secondary--text">
-            <h2>ABOUT</h2>
-          </v-card-text>
-          <v-card-text class="text-center">
+          <v-card-title class="justify-center secondary--text">
+            <h2 class="text-h4 font-weight-medium">A B O U T</h2>
+          </v-card-title>
+          <v-card-text class="text-justify colorParagraph--text">
             <p>{{ about }}</p>
           </v-card-text>
           <v-card v-if="isMobile" flat class="transparent mx-auto my-auto">
             <ImageShop />
           </v-card>
-          <v-card-text class="text-center secondary--text">
-            <h2>S H O P</h2>
-          </v-card-text>
-          <v-card-text class="text-center">
+          <v-card-title class="justify-center secondary--text">
+            <h2 class="text-h4 font-weight-medium">S H O P</h2>
+          </v-card-title>
+          <v-card-text class="text-justify colorParagraph--text">
             <p>{{ shop }}</p>
           </v-card-text>
           <v-card-text class="text-center">
@@ -37,10 +37,10 @@
       </v-col>
       <v-col cols="12" sm="5">
         <v-card flat class="transparent mx-auto my-auto" max-width="480">
-          <v-card-text class="text-center secondary--text">
-            <h2>C O U R S E S</h2>
-          </v-card-text>
-          <v-card-text class="text-left">
+          <v-card-title class="justify-center secondary--text">
+            <h2 class="text-h4 font-weight-medium">C O U R S E S</h2>
+          </v-card-title>
+          <v-card-text class="text-justify colorParagraph--text">
             <p>
               Our courses are suitable for artists of all levels of experience; whether it’s a beginner artist, an
               intermediate artist seeking to expand their qualifications, or a professional artist seeking to learn new
@@ -49,16 +49,15 @@
             <p>
               If you are an experienced beauty and nail artist and you have knowledge you’d like to share, we can
               provide a platform for you to reach a large audience, just follow the link
-              <a @click="goToAddCourse">add courses</a>, check T’s&C’s and fill the application
-              form.
+              <a @click="goToAddCourse">add courses</a>, check T’s&C’s and fill the application form.
             </p>
             <p>
               Join our beauty community; it’s interesting, entertaining and worth being proficient in. We are more than
               happy to have you along with us.
             </p>
           </v-card-text>
-          <v-card-text class="text-center">
-            <v-btn color="buttons" rounded large dark min-width="160" class="yellow-button mr-4 mb-4" @click="scrollTo"
+          <v-card-actions class="d-flex flex-column flex-md-row justify-md-center">
+            <v-btn color="buttons" rounded large min-width="160" class="yellow-button mb-4 mb-md-0" @click="scrollTo"
               >ALL COURSES</v-btn
             >
             <v-btn
@@ -67,33 +66,29 @@
               rounded
               outlined
               large
-              dark
               min-width="160"
-              class="yellow-button mr-4 mb-4"
+              class="yellow-button ml-0 ml-md-4"
               @click="goToRoute('add-course')"
               >ADD COURSE</v-btn
             >
-          </v-card-text>
+          </v-card-actions>
         </v-card>
       </v-col>
+    </v-row>
 
-      <v-col cols="12" class="pa-0">
+    <v-row>
+      <v-col class="pa-0">
         <Courses id="scroll-with-options" />
       </v-col>
-
-      <v-col cols="12" class="d-flex justify-center">
-        <v-btn
-          color="buttons"
-          rounded
-          large
-          dark
-          min-width="160"
-          class="yellow-button mr-4 mb-4"
-          @click="goToRoute('courses')"
-          >MORE COURSES...</v-btn
-        >
-      </v-col>
     </v-row>
+
+    <v-card flat class="transparent">
+      <v-card-actions class="d-flex justify-center">
+        <v-btn color="buttons" rounded large class="yellow-button pa-4" @click="goToRoute('courses')"
+          >MORE COURSES</v-btn
+        >
+      </v-card-actions>
+    </v-card>
   </v-container>
 </template>
 
@@ -147,19 +142,3 @@ export default {
   },
 };
 </script>
-
-<style>
-p {
-  /* text-align: justify; */
-  /* color: #ddf; */
-  /* letter-spacing: 0.1rem; */
-}
-.yellow-button {
-  color: #000 !important;
-  font-weight: bold;
-  font-size: 16px !important;
-}
-.text-center h2 {
-  font-size: 28px;
-}
-</style>
