@@ -1,26 +1,33 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12" xs="12" md="6" class="d-flex justify-center justify-md-end">
-        <v-btn
-          rounded
-          color="buttons"
-          large
-          dark
-          min-width="160"
-          class="yellow-button"
-          :class="{ 'button-unactive': isActive }"
-          :disabled="!$route.params.courseid"
-          @click="toggleBtn"
-          >CONFIRM DETAILS</v-btn
-        >
+      <v-col cols="12">
+        <v-card flat class="transparent">
+          <v-card-actions class="flex-column flex-sm-row justify-center btn-group">
+            <v-btn
+              rounded
+              color="buttons"
+              large
+              class="yellow-button mb-4 mb-sm-0 pa-4"
+              :class="{ 'button-unactive': isActive }"
+              :disabled="!$route.params.courseid"
+              @click="toggleBtn"
+              >CONFIRM DETAILS</v-btn
+            >
+            <v-btn color="buttons" rounded large dark class="yellow-button pa-4 ml-0 ml-sm-4" @click="goToUserCourse"
+              >EDIT DETAILS</v-btn
+            >
+          </v-card-actions>
+        </v-card>
+      </v-col>
+
+      <!-- <v-col cols="12" xs="12" md="6" class="d-flex justify-center justify-md-end">
+      
       </v-col>
       <v-col cols="12" xs="12" md="6" class="d-flex justify-center justify-md-start">
-        <v-btn color="buttons" rounded large dark min-width="160" class="yellow-button" @click="goToUserCourse"
-          >EDIT DETAILS</v-btn
-        >
-      </v-col>
-      <v-col cols="12" xs="12" md="4">
+       
+      </v-col> -->
+      <v-col cols="12" md="5">
         <v-card flat dark class="secondaryGray">
           <v-card-title>Requirements to the video</v-card-title>
           <v-card-text
@@ -30,43 +37,47 @@
           >
         </v-card>
       </v-col>
-      <v-col cols="12" xs="12" md="8">
+      <v-col cols="12" md="7">
         <p>Upload video for moderation</p>
-        <v-expansion-panels flat :disabled="!isActive">
-          <v-expansion-panel
-            v-for="(field, i) in data"
-            :key="i"
-            class="d-flex flex-column align-center align-sm-stretch justify-sm-center"
-          >
+        <v-expansion-panels flat :disabled="!isActive" class="add-videos">
+          <v-expansion-panel v-for="(field, i) in data" :key="i" class="homefone">
             <v-expansion-panel-header
               class="btn-open-video mb-4"
               :class="{ 'button-unactive': !isActive }"
-              width="100%"
               @click="expansionIndex = i"
             >
               + add video {{ i + 1 }}
               <h3 class="error-form error--text" v-if="!validates[i]">error</h3>
             </v-expansion-panel-header>
-            <v-expansion-panel-content class="mt-8">
-              <v-form :ref="`form${i}`">
-                <AddVideoItem :data.sync="data[i]" />
-              </v-form>
+            <v-expansion-panel-content class="mt-10">
+              <v-row>
+                <v-col cols="12" md="10" lg="8">
+                  <v-form :ref="`form${i}`">
+                    <AddVideoItem :data.sync="data[i]" />
+                  </v-form>
+                </v-col>
+              </v-row>
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
       </v-col>
-      <v-col cols="12" xs="12" class="pa-0 my-8 d-flex justify-center">
-        <v-btn
-          rounded
-          color="buttons"
-          large
-          dark
-          min-width="160"
-          class="yellow-button"
-          :disabled="disabledSubmit"
-          @click="sendData"
-          >PROCEED AND CHECKOUT</v-btn
-        >
+
+      <v-col cols="12">
+        <v-card flat class="transparent my-8">
+          <v-card-actions class="justify-center">
+            <v-btn
+              rounded
+              color="buttons"
+              large
+              dark
+              min-width="160"
+              class="yellow-button"
+              :disabled="disabledSubmit"
+              @click="sendData"
+              >PROCEED AND CHECKOUT</v-btn
+            >
+          </v-card-actions>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -202,51 +213,44 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/css/variables.scss';
-
-.v-expansion-panel-content__wrap {
-  /* GLOBAL  */
-  padding: 0 0 0 !important;
+.add-videos {
+  & .v-expansion-panel-content__wrap {
+    padding: 0 0 0 !important;
+  }
+  & .v-expansion-panel--active > .v-expansion-panel-header {
+    min-height: unset !important;
+  }
+  & .btn-open-video {
+    border-bottom-left-radius: 40px !important;
+    border-bottom-right-radius: 40px !important;
+  }
+  & .btn-open-video {
+    width: 150px;
+    height: 50px;
+    border-radius: 40px;
+    transition: 0.2s;
+    box-shadow: inset -1px 2px 2px rgba(255, 255, 255, 0.5), inset 1px -2px 2px rgba(0, 0, 0, 0.5);
+  }
+  & .v-expansion-panel--active > .btn-open-video {
+    background: rgb(38 38 36) linear-gradient(rgb(38 38 36) 20%, rgb(18 18 17));
+    box-shadow: inset 1px -2px 2px rgba(255, 255, 255, 0.5), inset -1px 2px 2px rgba(0, 0, 0, 0.5);
+    transform: translate(0, 4px);
+  }
+  & .error-form {
+    position: absolute;
+    top: 50%;
+    right: -50px;
+    transform: translateY(-50%);
+  }
+  & .button-unactive {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+    color: rgba(255, 255, 255, 0.3) !important;
+  }
 }
-.theme--dark.v-expansion-panels .v-expansion-panel {
-  background-color: $homefoneDark;
-}
-</style>
-<style scoped>
-.error-form {
-  position: absolute;
-  top: 50%;
-  right: -50px;
-  transform: translateY(-50%);
-}
-.v-expansion-panels:not(.v-expansion-panels--accordion):not(.v-expansion-panels--tile)
-  > .v-expansion-panel--next-active
-  .v-expansion-panel-header {
-  border-bottom-left-radius: 40px !important;
-  border-bottom-right-radius: 40px !important;
-}
-.theme--light.v-expansion-panels .v-expansion-panel {
-  background-color: #262624 !important;
-}
-.v-expansion-panel--active > .v-expansion-panel-header {
-  min-height: unset !important;
-}
-.btn-open-video {
-  width: 150px;
-  height: 50px;
-  border-radius: 40px;
-  color: #fff;
-  transition: 0.2s;
-  box-shadow: inset -1px 2px 2px rgba(255, 255, 255, 0.5), inset 1px -2px 2px rgba(0, 0, 0, 0.5);
-}
-.v-expansion-panel--active > .btn-open-video {
-  background: rgb(38 38 36) linear-gradient(rgb(38 38 36) 20%, rgb(18 18 17));
-  box-shadow: inset 1px -2px 2px rgba(255, 255, 255, 0.5), inset -1px 2px 2px rgba(0, 0, 0, 0.5);
-  transform: translate(0, 4px);
-}
-
-.button-unactive {
-  background-color: rgba(255, 255, 255, 0.12) !important;
-  color: rgba(255, 255, 255, 0.3) !important;
+.btn-group {
+  & .button-unactive {
+    background-color: rgba(255, 255, 255, 0.12) !important;
+    color: rgba(255, 255, 255, 0.3) !important;
+  }
 }
 </style>
