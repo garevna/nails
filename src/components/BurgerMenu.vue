@@ -1,26 +1,13 @@
 <template>
   <v-card flat tile class="burger-menu" :class="{ 'open-menu': panel }" @click="$emit('update:panel', false)">
     <v-list class="d-flex burgerBg flex-column align-center">
-      <v-list-item @click="goTo('home')">
-        <v-list-item-title class="black--text main-menu-items">Home</v-list-item-title>
-      </v-list-item>
-      <v-list-item @click="goTo('shop-root')">
-        <v-list-item-title class="black--text main-menu-items">Shop</v-list-item-title>
-      </v-list-item>
-      <v-list-item @click="goTo('courses')">
-        <v-list-item-title class="black--text main-menu-items">Courses</v-list-item-title>
-      </v-list-item>
-      <v-list-item v-if="!isLogged" @click="goTo('sign-in')">
-        <v-list-item-title class="black--text main-menu-items">Sign in</v-list-item-title>
-      </v-list-item>
-      <v-list-item v-if="!isLogged" @click="goTo('sign-up')">
-        <v-list-item-title class="black--text main-menu-items">Sign up</v-list-item-title>
+      <v-list-item v-for="(item, i) in list" :key="i" @click="goTo(item.name)">
+        <v-list-item-title class="black--text main-menu-items">{{ item.text }}</v-list-item-title>
       </v-list-item>
       <v-list-item v-if="isLogged" class="d-flex justify-center" @click="goTo('user-cabinet')">
         <v-icon color="secondaryGray">mdi-account</v-icon>
       </v-list-item>
       <v-list-item class="py-4">
-        <!-- <v-icon color="secondaryGray">mdi-shopping</v-icon> -->
         <CartBtn @click="goTo('products-cart')" />
       </v-list-item>
     </v-list>
@@ -45,6 +32,35 @@ export default {
   },
   computed: {
     ...mapState('auth', ['isLogged']),
+    list() {
+      return [
+        {
+          name: 'home',
+          text: 'Home',
+          view: true,
+        },
+        {
+          name: 'shop-root',
+          text: 'Shop',
+          view: true,
+        },
+        {
+          name: 'courses',
+          text: 'Courses',
+          view: true,
+        },
+        {
+          name: 'sign-in',
+          text: 'Sign in',
+          view: !this.isLogged,
+        },
+        {
+          name: 'sign-up',
+          text: 'Sign up',
+          view: !this.isLogged,
+        },
+      ].filter(item => item.view);
+    },
   },
   methods: {
     goTo(name) {
@@ -60,14 +76,17 @@ export default {
 <style scoped lang="scss">
 .burger-menu {
   position: fixed;
-  top: -500px;
+  top: 100px;
   width: 100%;
   left: 0;
-  transition: top ease-in-out 0.5s;
+  max-height: 0;
+  transition: max-height 0.15s ease-out;
+  overflow: hidden;
   cursor: pointer;
 }
 .open-menu {
-  top: 90px;
+  max-height: 500px;
+  transition: max-height 0.25s ease-in;
 }
 .main-menu-items {
   font-size: 18px;

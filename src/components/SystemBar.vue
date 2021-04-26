@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app dark elevate-on-scroll class="homefone pt-6">
+  <v-app-bar app dark elevate-on-scroll class="homefone header pt-6">
     <v-card class="primary app-bar-header d-flex px-4 py-2" style="position: relative" tile width="100%" height="68">
       <Logo @click="goTo('home')" class="logo" />
       <v-spacer></v-spacer>
@@ -10,9 +10,9 @@
       </v-card-actions>
 
       <MenuSystemBar v-if="!widthLimit" />
-      <v-btn text v-if="widthLimit" @click="panel = !panel" class="my-auto">
-        <span :class="burgerMenuClassFirst"></span>
-        <span :class="burgerMenuClassSecond"></span>
+      <v-btn text v-if="widthLimit" @click="panel = !panel" class="my-auto menu">
+        <span class="menu" :class="burgerMenuClassFirst"></span>
+        <span class="menu" :class="burgerMenuClassSecond"></span>
       </v-btn>
       <BurgerMenu v-if="widthLimit" :panel.sync="panel" />
     </v-card>
@@ -58,9 +58,19 @@ export default {
     },
   },
   mounted() {},
+  created() {
+    document.addEventListener(
+      'click',
+      e => {
+        if (!e.target.classList.contains('menu')) this.panel = false;
+      },
+      true
+    );
+  },
 };
 </script>
-<style scoped lang="scss">
+
+<style scoped>
 .logo {
   width: 300px;
   cursor: pointer;
@@ -111,7 +121,7 @@ export default {
 }
 </style>
 <style>
-.v-toolbar__content {
+.header .v-toolbar__content {
   padding: 0 !important;
 }
 </style>
