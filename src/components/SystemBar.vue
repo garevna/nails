@@ -4,9 +4,9 @@
       <Logo @click="goTo('home')" class="logo" />
       <v-spacer></v-spacer>
       <v-card-actions v-if="!widthLimit" class="menu-app-bar-btn button pa-0">
-        <v-btn class="black--text" @click="goTo('home')" text>HOME</v-btn>
-        <v-btn class="black--text" @click="goTo('shop-root')" text>SHOP</v-btn>
-        <v-btn class="black--text" @click="goTo('courses')" text>COURSES</v-btn>
+        <v-btn class="header-btn black--text" @click="goTo('home')" text>HOME</v-btn>
+        <v-btn class="header-btn black--text" @click="goTo('shop-root')" text>SHOP</v-btn>
+        <v-btn class="header-btn black--text" @click="goTo('courses')" text>COURSES</v-btn>
       </v-card-actions>
 
       <MenuSystemBar v-if="!widthLimit" />
@@ -80,10 +80,10 @@ export default {
   -moz-box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
   box-shadow: 0px 15px 8px 0px rgba(0, 0, 0, 0.68) !important;
 }
-.menu-app-bar-btn button {
+/* .menu-app-bar-btn button {
   font-size: 22px;
   font-weight: 700;
-}
+} */
 
 .burger-menu--first,
 .burger-menu--second,

@@ -45,40 +45,41 @@
               <v-expansion-panel v-for="section in categories" :key="section._id">
                 <v-expansion-panel-header
                   class="mb-0 py-0"
+                  :class="{ hide: !section.subcategories.length }"
                   @click="!section.subcategories.length ? setSection(section) : null"
                 >
-                  <span class="d-flex justify-start align-center text-h5 font-weight-bold dgrey--text">
+                  <h2 class="d-flex justify-start align-center dgrey--text">
                     {{ section.name }}
-                    <v-icon left v-if="section.subcategories.length">mdi-menu-down</v-icon>
-                  </span>
+                    <!-- <v-icon left v-if="section.subcategories.length">mdi-menu-down</v-icon> -->
+                  </h2>
                 </v-expansion-panel-header>
 
                 <v-expansion-panel-content class="justify-md-start justify-center" v-if="section.subcategories.length">
                   <v-row class="ma-0">
                     <v-col v-for="(subsection, ind) in section.subcategories" :key="ind" cols="12" class="pa-1 ma-0">
-                      <span
+                      <h3
                         @click="setSection(subsection)"
                         style="cursor: pointer"
-                        class="lgray--text text-h6 ml-5 mb-2 font-weight-medium"
+                        class="lgray--text ml-5 mb-2"
                         :style="{
                           textDecoration: textDecoration(subsection._id),
                         }"
                       >
                         {{ subsection.name }}
-                      </span>
+                      </h3>
                     </v-col>
 
                     <v-col class="d-flex ma-0 mt-2 px-1 py-0">
-                      <span
+                      <h3
                         @click="setSection(section)"
                         style="cursor: pointer"
                         :style="{
                           textDecoration: textDecoration(section._id),
                         }"
-                        class="lgray--text text-h6 font-weight-medium ml-5"
+                        class="lgray--text ml-5"
                       >
                         View all
-                      </span>
+                      </h3>
                     </v-col>
                   </v-row>
                 </v-expansion-panel-content>

@@ -66,15 +66,21 @@ export default {
 html,
 body,
 .v-application {
-  font-family: 'Arial' !important;
+  font-family: 'robotoblack' !important;
 }
 h1,
 h2,
-h3 {
-  font-family: 'Arial Bold' !important;
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'robotobold' !important;
   line-height: 150%;
 }
-
+.header-btn {
+  font-family: 'robotobold' !important;
+  font-size: 16px !important;
+}
 ::-webkit-scrollbar {
   width: 10px; /* ширина для вертикального скролла */
   height: 8px; /* высота для горизонтального скролла */
@@ -92,7 +98,11 @@ h3 {
 }
 .yellow-button {
   color: #000 !important;
-  font-weight: bold;
+  font-family: 'robotobold' !important;
+  /* font-weight: bold; */
   font-size: 16px !important;
+}
+.hide .v-expansion-panel-header__icon {
+  display: none !important;
 }
 </style>

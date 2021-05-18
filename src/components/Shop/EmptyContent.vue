@@ -7,9 +7,9 @@
     justify="center"
   >
     <v-card-text class="d-flex flex-column justify-center align-center">
-      <p class="dgrey--text text-center text-h4 font-weight-medium">Unfortunately, there are no products <br /></p>
+      <h2 class="dgrey--text text-center">Unfortunately, there are no products <br /></h2>
 
-      <p class="dgrey--text text-center text-h4 font-weight-medium">suitable for your request...</p>
+      <h2 class="dgrey--text text-center">suitable for your request...</h2>
     </v-card-text>
   </v-card>
 </template>
