@@ -17,7 +17,10 @@
         <v-row class="ma-0">
           <v-col v-for="(subsection, ind) in section.subcategories" :key="ind" cols="12" class="pa-1 ma-0">
             <h3
-              @click="setSection(subsection)"
+              @click="
+                setSection(subsection);
+                $emit('subClick');
+              "
               style="cursor: pointer"
               class="lgray--text ml-5 mb-2"
               :style="{
@@ -48,18 +51,24 @@
 
 
 <script>
-import { mapState, mapGetters } from 'vuex';
-
 export default {
-  name: 'LeftSideMenu',
+  name: 'AccordionMenu',
+  props: {
+    categories: {
+      type: Array,
+      default: new Array(),
+    },
+    fullListOfCategories: {
+      type: Array,
+      default: new Array(),
+    },
+  },
   data() {
     return {
       currentIndex: null,
     };
   },
   computed: {
-    ...mapState('shop', ['categories']),
-    ...mapGetters('shop', ['fullListOfCategories']),
     activeCategory() {
       return this.fullListOfCategories.find(category => category.slug === this.$route.params.categoryName) ?? null;
     },
