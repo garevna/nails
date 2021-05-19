@@ -8,7 +8,7 @@
     <v-progress-linear
       v-for="(item, index) in filteredError"
       :key="index + 14"
-      v-model="item.progress"
+      :value="item.progress"
       color="error"
       class="ma-2"
       height="25"
@@ -21,13 +21,15 @@
     <v-progress-linear
       v-for="(item, index) in filteredQueue"
       :key="index"
-      v-model="item.progress"
+      :value="item.progress"
       color="buttons"
+      :indeterminate="item.progress === 100"
       class="ma-2"
       height="25"
     >
       <template v-slot:default="{ value }">
-        <strong>{{ Math.ceil(value) }}%</strong>
+        <strong>{{ item.progress === 100 ? 'saving file' : Math.ceil(value)+
+          "%" }}</strong>
       </template>
     </v-progress-linear>
     <v-card-actions class="ma-2">
@@ -108,7 +110,5 @@ export default {
       this.addQueue([])
     }
   },
-  created () {},
-  beforeDestroy () {}
 }
 </script>
