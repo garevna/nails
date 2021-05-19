@@ -19,7 +19,7 @@
             :outlined="false"
           />
         </div>
-        <p class="forgotPass--text text-center text-subtitle-1">
+        <p class="forgotPass--text text-center">
           Forgot password click <router-link to="/request-reset">here</router-link>
         </p>
       </div>

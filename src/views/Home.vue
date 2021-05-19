@@ -4,7 +4,7 @@
       <v-col cols="12" sm="5">
         <v-card flat class="transparent mx-auto my-auto" max-width="480">
           <v-card-title class="justify-center secondary--text">
-            <h2 class="text-h4 font-weight-medium">A B O U T</h2>
+            <h2>A B O U T</h2>
           </v-card-title>
           <v-card-text class="text-justify colorParagraph--text">
             <p>{{ about }}</p>
@@ -13,7 +13,7 @@
             <ImageShop />
           </v-card>
           <v-card-title class="justify-center secondary--text">
-            <h2 class="text-h4 font-weight-medium">S H O P</h2>
+            <h2>S H O P</h2>
           </v-card-title>
           <v-card-text class="text-justify colorParagraph--text">
             <p>{{ shop }}</p>
@@ -38,7 +38,7 @@
       <v-col cols="12" sm="5">
         <v-card flat class="transparent mx-auto my-auto" max-width="480">
           <v-card-title class="justify-center secondary--text">
-            <h2 class="text-h4 font-weight-medium">C O U R S E S</h2>
+            <h2>C O U R S E S</h2>
           </v-card-title>
           <v-card-text class="text-justify colorParagraph--text">
             <p>

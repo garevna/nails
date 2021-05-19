@@ -28,7 +28,7 @@
         </div>
 
         <v-card flat class="transparent px-4 text-center">
-          <table style="margin: auto">
+          <table style="margin: auto; cursor: pointer">
             <tr>
               <td>
                 Total number of commodities:<span

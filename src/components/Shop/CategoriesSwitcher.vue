@@ -30,12 +30,12 @@
               <ShopBreadcrumbs
                 :disabled="true"
                 :mobile="true"
-                class="coursesGray--text font-weight-black text-h6 text-start"
+                class="coursesGray--text text-start"
               />
             </v-card>
 
             <v-card v-else width="100%" color="lgrey" class="category-switcher-header px-2 d-flex justify-start">
-              <ShopBreadcrumbs class="coursesGray--text font-weight-black text-h6 text-start" />
+              <ShopBreadcrumbs class="coursesGray--text text-start" />
             </v-card>
           </template>
 

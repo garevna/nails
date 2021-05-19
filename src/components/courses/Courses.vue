@@ -8,7 +8,7 @@
           small
           outlined
           primary
-          class="yellow-button pa-6 text-h6 font-weight-black"
+          class="yellow-button pa-6"
           @click="toOnlineCourses"
           >Online courses</v-btn
         >
@@ -33,7 +33,7 @@
           small
           outlined
           primary
-          class="yellow-button pa-6 text-h6 font-weight-black"
+          class="yellow-button pa-6"
           @click="getMoreOnlineCourses"
           >more online courses</v-btn
         >
@@ -48,7 +48,7 @@
           outlined
           large
           dark
-          class="yellow-button pa-6 text-h6 font-weight-black"
+          class="yellow-button pa-6"
           @click="toOfflineCourses"
           >Offline courses</v-btn
         >

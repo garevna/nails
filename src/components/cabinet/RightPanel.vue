@@ -1,23 +1,23 @@
 <template>
   <div class="d-flex flex-column align-lg-end cabinet-btn">
-    <v-btn text @click="dialog = true" class="mb-4 text-h6 font-weight-medium">Log out</v-btn>
-    <v-btn text @click="goTo('user-courses')" class="text-h6 font-weight-medium"> My courses</v-btn>
-    <v-btn text @click="goTo('products-cart')" class="text-h6 font-weight-medium">Shoping card</v-btn>
-    <v-btn text v-if="!isAdmin" @click="goTo('purchased-online-courses')" class="text-h6 font-weight-medium"
+    <v-btn text @click="dialog = true" class="mb-4 font-size-btn-text">Log out</v-btn>
+    <v-btn text @click="goTo('user-courses')" class="font-size-btn-text"> My courses</v-btn>
+    <v-btn text @click="goTo('products-cart')" class="font-size-btn-text">Shoping card</v-btn>
+    <v-btn text v-if="!isAdmin" @click="goTo('purchased-online-courses')" class="font-size-btn-text"
       >purchased online courses</v-btn
     >
-    <v-btn text v-if="!isAdmin" @click="goTo('purchased-offline-courses')" class="text-h6 font-weight-medium"
+    <v-btn text v-if="!isAdmin" @click="goTo('purchased-offline-courses')" class="font-size-btn-text"
       >purchased offline courses</v-btn
     >
-    <v-btn text @click="goTo('change-password')" class="text-h6 font-weight-medium">change password</v-btn>
-    <v-btn text v-if="isAdmin" @click="goToAdmin" class="mt-4 text-h6 font-weight-black">go to admin panel</v-btn>
-    
-    <v-dialog v-model="dialog" persistent max-width="320">
+    <v-btn text @click="goTo('change-password')" class="font-size-btn-text">change password</v-btn>
+    <v-btn text v-if="isAdmin" @click="goToAdmin" class="mt-4 font-size-btn-text">go to admin panel</v-btn>
+
+    <v-dialog v-model="dialog" persistent max-width="350">
       <v-card>
         <v-card-title> Do you really want to leave ?</v-card-title>
         <v-card-actions class="justify-center">
-          <v-btn color="buttons" rounded large class="yellow-button" text @click="dialog = false"> Disagree </v-btn>
-          <v-btn color="buttons" rounded large class="yellow-button" text @click="logoutUser"> Agree </v-btn>
+          <v-btn color="buttons" rounded large text @click="dialog = false"> Disagree </v-btn>
+          <v-btn color="buttons" rounded large text @click="logoutUser"> Agree </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -56,3 +56,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.font-size-btn-text {
+  font-size: 18px;
+}
+</style>
