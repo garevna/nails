@@ -19,7 +19,7 @@
             <p>{{ shop }}</p>
           </v-card-text>
           <v-card-text class="text-center">
-            <v-btn color="buttons" rounded large dark min-width="160" class="yellow-button" @click="goToShop()"
+            <v-btn color="buttons" rounded large dark min-width="160" class="btn-width yellow-button" @click="goToShop()"
               >SHOP</v-btn
             >
           </v-card-text>
@@ -57,7 +57,7 @@
             </p>
           </v-card-text>
           <v-card-actions class="d-flex flex-column flex-md-row justify-md-center">
-            <v-btn color="buttons" rounded large min-width="160" class="yellow-button mb-4 mb-md-0" @click="scrollTo"
+            <v-btn color="buttons" rounded large min-width="160" class="btn-width yellow-button mb-4 mb-md-0" @click="scrollTo"
               >ALL COURSES</v-btn
             >
             <v-btn
@@ -67,7 +67,7 @@
               outlined
               large
               min-width="160"
-              class="yellow-button ml-0 ml-md-4"
+              class="btn-width yellow-button ml-0 ml-md-4"
               @click="goToRoute('add-course')"
               >ADD COURSE</v-btn
             >
@@ -84,7 +84,7 @@
 
     <v-card flat class="transparent">
       <v-card-actions class="d-flex justify-center">
-        <v-btn color="buttons" rounded large class="yellow-button pa-4" @click="goToRoute('courses')"
+        <v-btn color="buttons" rounded large class="btn-width yellow-button pa-4" @click="goToRoute('courses')"
           >MORE COURSES</v-btn
         >
       </v-card-actions>
@@ -142,3 +142,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.btn-width {
+  width:200px;
+}
+</style>

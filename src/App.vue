@@ -99,8 +99,6 @@ h6 {
 .yellow-button {
   color: #000 !important;
   font-family: 'robotobold' !important;
-  /* font-weight: bold; */
-  width: 200px;
   font-size: 16px !important;
 }
 .hide .v-expansion-panel-header__icon {
