@@ -9,15 +9,7 @@ const state = {
   express: null,
   standard: null,
   international: [],
-  pickup: {
-    country: 'Australia',
-    countryCode: 'AUS',
-    flag: 'https://nails-australia-staging.herokuapp.com/flags/aus.svg',
-    price: 0,
-    type: 'pickup',
-    _id: '604b30ea4955c5f8cf9726cc',
-  },
-  // pickup: null,
+  pickup: null,
   loading: false,
 };
 const getters = {};

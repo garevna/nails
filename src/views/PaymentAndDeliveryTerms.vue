@@ -1,9 +1,9 @@
 <template>
-  <v-container>
+  <v-card flat class="transparent d-flex  flex-column justify-center align-center">
     <h2 class="text-center my-4">Payment and Delivery Terms</h2>
 
-    <v-card flat class="transparent">
-      <v-card-title>How To Make an Order</v-card-title>
+    <v-card flat class="transparent" max-width="600">
+      <v-card-title class="justify-center">How To Make an Order</v-card-title>
       <v-card-text class="text-justify colorParagraph--text">
         <p>
           To make an order, add selected products to the shopping cart, confirm your details and continue with the
@@ -11,11 +11,8 @@
         </p>
       </v-card-text>
     </v-card>
-
-    <v-row>
-      <v-col cols="12" sm="6">
-        <v-card flat class="transparent">
-          <v-card-title>Delivery</v-card-title>
+        <v-card flat class="transparent" max-width="600">
+          <v-card-title class="justify-center">Delivery</v-card-title>
           <v-card-text class="text-justify colorParagraph--text">
             <p>Minimum order amount:</p>
             <p>for Australia - $20</p>
@@ -25,15 +22,13 @@
             <p>Standard (3-5 business days) - $9.20</p>
             <p>
               If you’d like to know more about delivery options to NZ and other countries or you’d like to order a big
-              batch please contact <span class="orange--text text-decoration-underline">nailsauinfo@gmail.com</span>
+              batch please contact <span class="orange--text text-decoration-underline" style="cursor:pointer;">nailsauinfo@gmail.com</span>
             </p>
           </v-card-text>
         </v-card>
-      </v-col>
 
-      <v-col cols="12" sm="6">
-        <v-card flat class="transparent">
-          <v-card-title>Warranty and Returns</v-card-title>
+        <v-card flat class="transparent" max-width="600">
+          <v-card-title class="justify-center">Warranty and Returns</v-card-title>
           <v-card-text class="text-justify colorParagraph--text">
             <p>
               We only sell genuine products with guaranteed quality. It is quite improbable that the product is faulty.
@@ -48,9 +43,7 @@
             <p>Cosmetics cannot be returned or exchanged.</p>
           </v-card-text>
         </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  </v-card>
 </template>
 
 <script>
