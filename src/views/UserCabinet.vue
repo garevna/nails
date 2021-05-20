@@ -51,9 +51,9 @@
           </v-form>
 
           <v-card-actions v-if="touched" class="justify-center btn-edit-cansel">
-            <v-btn @click="cancel" color="buttons" rounded :disabled="sending" class="yellow-button mr-8">cancel</v-btn>
+            <v-btn @click="cancel" color="buttons" rounded :disabled="sending" class="yellow-button btn-width mr-8">cancel</v-btn>
 
-            <v-btn @click="confirm" color="buttons" rounded :disabled="sending" class="yellow-button">confirm</v-btn>
+            <v-btn @click="confirm" color="buttons" rounded :disabled="sending" class="yellow-button btn-width">confirm</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -171,5 +171,8 @@ table tr td:first-child {
   right: 0;
   bottom: 0;
   cursor: pointer;
+}
+.btn-width {
+  width:200px;
 }
 </style>
