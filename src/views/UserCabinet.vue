@@ -1,10 +1,10 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12"  lg="8" xl="4" order="2" order-lg="1">
+      <v-col cols="12" lg="8" xl="4" order="2" order-lg="1">
         <h2 class="d-flex justify-center justify-md-start pb-16 pl-md-16">My account</h2>
 
-        <v-card flat style="padding-bottom: 90px;">
+        <v-card flat style="padding-bottom: 90px">
           <v-form ref="profile-form">
             <v-simple-table>
               <tbody>
@@ -33,7 +33,7 @@
                       :disabled.sync="disabled[name]"
                       :outlined="false"
                       :limit="field.limit"
-                    />      
+                    />
                     <InputWithAutocomplete
                       v-if="field.type === 'autocomplete'"
                       :value.sync="data[name]"
@@ -51,9 +51,13 @@
           </v-form>
 
           <v-card-actions v-if="touched" class="justify-center btn-edit-cansel">
-            <v-btn @click="cancel" color="buttons" rounded :disabled="sending" class="yellow-button btn-width mr-8">cancel</v-btn>
+            <v-btn @click="cancel" color="buttons" rounded :disabled="sending" class="yellow-button btn-width mr-8"
+              >cancel</v-btn
+            >
 
-            <v-btn @click="confirm" color="buttons" rounded :disabled="sending" class="yellow-button btn-width">confirm</v-btn>
+            <v-btn @click="confirm" color="buttons" rounded :disabled="sending" class="yellow-button btn-width"
+              >confirm</v-btn
+            >
           </v-card-actions>
         </v-card>
       </v-col>
@@ -86,7 +90,7 @@ export default {
     EmailInput,
     PhoneInput,
     TextInput,
-    InputWithAutocomplete
+    InputWithAutocomplete,
   },
   data() {
     return {
@@ -103,27 +107,30 @@ export default {
       return Object.values(this.disabled).some(val => !val);
     },
     showBlockLabel() {
-      return this.viewportWidth < 960 
-    }
+      return this.viewportWidth < 960;
+    },
   },
   watch: {
-    user(val) {
-      if (!val) return;
-      this.sending = false;
-      this.resetDisabled();
-      this.fillProfile();
-    },
+    // user(val) {
+    //   if (!val) return;
+    //   this.sending = false;
+    //   this.resetDisabled();
+    //   this.fillProfile();
+    // },
   },
   methods: {
     cancel() {
       this.fillProfile();
       this.resetDisabled();
     },
-    confirm() {
+    async confirm() {
       if (!this.$refs['profile-form'].validate()) return;
       this.data.isPoliticAgree = true;
       this.sending = true;
-      this.$store.dispatch('auth/EDIT_USER', this.data);
+      await this.$store.dispatch('auth/EDIT_USER', this.data);
+      this.sending = false;
+      this.resetDisabled();
+      this.fillProfile();
     },
     fillProfile() {
       if (this.user) {
@@ -152,7 +159,7 @@ export default {
 <style scoped>
 .btn-edit-cansel {
   position: absolute;
-  bottom:0;
+  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -173,6 +180,6 @@ table tr td:first-child {
   cursor: pointer;
 }
 .btn-width {
-  width:200px;
+  width: 200px;
 }
 </style>
