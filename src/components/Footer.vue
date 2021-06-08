@@ -81,7 +81,7 @@ export default {
   },
   data: () => ({}),
   computed: {
-    ...mapState(['viewportWidth']),
+    // ...mapState(['viewportWidth']),
     ...mapState('shop', ['categories']),
     // hideOnMobile() {
     //   return this.viewportWidth > 600;
