@@ -27,7 +27,7 @@
         </v-card>
 
         <v-card v-if="categories.length && $vuetify.breakpoint.mdAndUp" flat class="transparent darkGrey--text mx-8 order-md-2">
-          <h4 class="mb-2 text-center text-decoration-underline">Shop</h4>
+          <h4 @click="goToRoute('shop')" class="mb-2 text-center text-decoration-underline route">Shop</h4>
           <div class="d-flex justify-space-between shop-categories-column-container">
             <div v-for="(column, index) in columnsCategories" :key="index" class="mx-4">
               <h4
