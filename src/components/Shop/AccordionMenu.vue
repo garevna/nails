@@ -6,7 +6,7 @@
         :class="{ hide: !section.subcategories.length }"
         @click="currentIndex = currentIndex === i ? null : i"
       >
-        <h2 class="d-flex justify-start align-center dgrey--text">
+        <h2 class="d-flex justify-start align-center dgrey--text" style="font-size: 18px">
           {{ section.name }}
           <!-- <v-icon left v-if="section.subcategories.length">{{
             currentIndex === i ? 'mdi-menu-up' : 'mdi-menu-down'
@@ -21,8 +21,8 @@
             setSection(subsection);
             $emit('subClick');
           "
-          style="cursor: pointer"
-          class="lgray--text ml-4"
+          style="cursor: pointer; font-size: 16px"
+          class="lgray--text ml-4 subcategories-hover"
           :style="{
             textDecoration: textDecoration(subsection._id),
           }"
@@ -31,11 +31,11 @@
         </h3>
         <h3
           @click="setSection(section)"
-          style="cursor: pointer"
+          style="cursor: pointer; font-size:16px;"
           :style="{
             textDecoration: textDecoration(section._id),
           }"
-          class="lgray--text ml-8"
+          class="lgray--text ml-8 subcategories-hover"
         >
           View all
         </h3>
@@ -85,7 +85,12 @@ export default {
 </script>
 
 <style scoped>
-.header-expansion, .v-expansion-panel--active > .v-expansion-panel-header {
-  min-height: 50px !important;
+.header-expansion,
+.v-expansion-panel--active > .v-expansion-panel-header {
+  min-height: 35px !important;
+}
+.subcategories-hover:hover {
+  color: #ffc44a;
+  /* color: var(--v-primary-base); */
 }
 </style>

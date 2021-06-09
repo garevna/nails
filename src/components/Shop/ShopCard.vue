@@ -12,7 +12,7 @@
 
     <v-card-text class="pa-2 pb-0">
       <span>
-        <p class="text-h6 ma-0 pa-0 text-truncate font-weight-bold dgrey--text text-start">
+        <p class="ma-0 pa-0 pb-2 text-truncate font-weight-bold dgrey--text text-start" style="font-size: 18px;">
           {{ commodity.name }}
         </p>
 

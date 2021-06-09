@@ -1,7 +1,7 @@
 <template>
-  <v-form ref="form" class="form mt-16" v-if="show">
-    <div class="d-flex flex-column align-center">
-      <h2>Sign in</h2>
+  <v-form ref="form" class="form" v-if="show">
+    <div class="sign-in-container">
+      <h2 class="text-center">Sign in</h2>
       <div class="input-container pa-4">
         <div v-for="(field, name) in schema" :key="name">
           <EmailInput
@@ -23,8 +23,9 @@
           Forgot password click <router-link to="/request-reset">here</router-link>
         </p>
       </div>
-      <div class="d-flex">
+      <div class="d-flex justify-center">
         <v-btn @click="submit" color="buttons" rounded :disabled="loading" class="yellow-button">sign in</v-btn>
+        <v-btn text @click="$router.push({name: 'sign-up'})" color="buttons" rounded :disabled="loading" class="yellow-button">sign up</v-btn>
       </div>
     </div>
   </v-form>
@@ -85,5 +86,11 @@ export default {
 <style scoped>
 .input-container {
   min-width: 350px;
+}
+.sign-in-container{
+  position: fixed;
+  top: 40%;
+  left:50%;
+  transform: translate(-40%,-50%);
 }
 </style>

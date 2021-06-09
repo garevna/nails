@@ -1,9 +1,9 @@
 <template>
   <v-row class="justify-center justify-sm-end my-0 py-0">
     <v-col cols="11" md="5" class="d-flex justify-end align-center gray-font px-0 px-sm-3 pr-lg-10">
-      <h4 class="mr-5 pb-3">Search</h4>
+      <h4 class="mr-5">Search</h4>
 
-      <v-text-field v-model="searchStr" clearable prepend-inner-icon="mdi-magnify" filled dense rounded></v-text-field>
+      <v-text-field v-model="searchStr" clearable prepend-inner-icon="mdi-magnify" filled dense rounded hide-details></v-text-field>
     </v-col>
   </v-row>
 </template>
