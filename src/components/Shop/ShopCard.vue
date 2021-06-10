@@ -12,16 +12,16 @@
 
     <v-card-text class="pa-2 pb-0">
       <span>
-        <p class="ma-0 pa-0 pb-2 text-truncate font-weight-bold dgrey--text text-start" style="font-size: 18px;">
+        <p class="ma-0 pa-0 pb-2 text-truncate dgrey--text text-start" style="font-size: 18px;">
           {{ commodity.name }}
         </p>
 
-        <p class="text-subtitle-1 ma-0 text-truncate font-weight-medium dgrey--text text-start">
+        <p class="ma-0 text-truncate dgrey--text text-start">
           {{ commodity.brand }}
         </p>
       </span>
 
-      <p class="text-end text-subtitle-1 ma-0 pa-0 font-weight-bold dgrey--text">{{ commodity.price }} AUD</p>
+      <p class="text-end ma-0 pa-0 dgrey--text">{{ commodity.price }} AUD</p>
     </v-card-text>
   </v-card>
 </template>

@@ -15,7 +15,7 @@ export default new Vuetify({
     themes: {
       light: {
         //Home
-        colorParagraph: '#ddf',
+        colorParagraph: '#fff',
         // orange
         primary: '#FFC44A',
         orange: '#FFC44A',
@@ -48,7 +48,7 @@ export default new Vuetify({
       },
       dark: {
         //Home
-        colorParagraph: '#ddf',
+        colorParagraph: '#fff',
         // orange
         orange: '#FFC44A',
         primary: '#FFC44A',

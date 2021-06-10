@@ -41,8 +41,13 @@
                       :disabled.sync="disabled[name]"
                       :outlined="false"
                     />
-                    <span class="edit-btn btnEdit--text" v-if="disabled[name]" @click="() => (disabled[name] = false)"
-                      >edit</span
+                    <span 
+                      v-if="disabled[name]" @click="disabled[name] = false" 
+                      class="edit-btn btnEdit--text"
+                      style="font-size: 16px;"
+                      >
+                      edit
+                    </span
                     >
                   </td>
                 </tr>

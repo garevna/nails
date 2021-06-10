@@ -66,7 +66,7 @@ export default {
 html,
 body,
 .v-application {
-  font-family: 'robotoblack' !important;
+  font-family: 'robotobold' !important;
 }
 h1,
 h2,

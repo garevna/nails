@@ -32,13 +32,13 @@
             <tr>
               <td>
                 Total number of commodities:<span
-                  style="font-size: 18px; font-weight: bold"
+                  style="font-size: 18px;"
                   :style="{ color: $vuetify.theme.themes.dark.error }"
                   >{{ getTotalItem }}</span
                 >
               </td>
               <td class="px-4">
-                Total summ of commodities:<span style="font-size: 16px; font-weight: bold">$ {{ getSumPrice }}</span>
+                Total summ of commodities:<span style="font-size: 16px;">$ {{ getSumPrice }}</span>
               </td>
               <td v-if="!responseBtn">
                 <v-btn
@@ -47,7 +47,7 @@
                   outlined
                   large
                   class="px-8 dgrey--text"
-                  style="font-size: 16px; font-weight: bold"
+                  style="font-size: 16px;"
                   @click="buy"
                   >Buy</v-btn
                 >
@@ -61,7 +61,7 @@
             outlined
             large
             class="px-8 dgrey--text mt-2"
-            style="font-size: 16px; font-weight: bold"
+            style="font-size: 16px;"
             @click="buy"
             >Buy</v-btn
           >
