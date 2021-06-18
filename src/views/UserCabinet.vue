@@ -115,14 +115,6 @@ export default {
       return this.viewportWidth < 960;
     },
   },
-  watch: {
-    // user(val) {
-    //   if (!val) return;
-    //   this.sending = false;
-    //   this.resetDisabled();
-    //   this.fillProfile();
-    // },
-  },
   methods: {
     cancel() {
       this.fillProfile();
@@ -156,6 +148,7 @@ export default {
   },
 };
 </script>
+
 <style>
 .edit .v-text-field > .v-input__control > .v-input__slot:before {
   border-style: none !important;

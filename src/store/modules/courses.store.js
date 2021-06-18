@@ -2,7 +2,7 @@
 const { getData, postData, putData, deleteData } = require('@/helpers').default;
 
 const errors = require('@/config/errors').default.online;
-// const messages = require('@/config/messages').default.onlineCourses
+const messages = require('@/config/messages').default.online
 
 const endpoints = require('@/config/endpoints').default.onlineCourses;
 
@@ -55,7 +55,7 @@ const mutations = {
       if (obj.index === index) obj.progress = progress;
     });
   },
-  LOADING:(state, payload) => {
+  LOADING: (state, payload) => {
     state.loading = payload;
   },
 };
@@ -131,9 +131,11 @@ const actions = {
   async DELETE_COURSE({ commit, dispatch }, courseId) {
     const response = await deleteData(`${endpoints.delete}/${courseId}`);
     if (!response.error) {
+      console.log(response)
       dispatch('GET_COURSES');
+      commit('MESSAGE', messages.delete, { root: true });
     } else {
-      commit('ERROR', { error: true, errorType: 'Delete online course', errorMessage: response.error }, { root: true });
+      commit('ERROR', errors.delete, { root: true });
     }
   },
   async BUY_COURSE({ commit }, payload) {

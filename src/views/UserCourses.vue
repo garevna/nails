@@ -74,8 +74,8 @@ export default {
       this.deleteId = id;
     },
     async deleteCourse() {
-      await this.$store.dispatch('courses/DELETE_COURSE', this.deleteId);
       this.dialog = false;
+      await this.$store.dispatch('courses/DELETE_COURSE', this.deleteId);
       this.deleteId = null;
     },
     goToCourse(id) {

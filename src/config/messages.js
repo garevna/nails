@@ -6,21 +6,26 @@ export default {
       messageText: 'User have been saved',
     },
   },
-  auth:{
-    requestReset:{
+  auth: {
+    requestReset: {
       message: true,
       messageType: 'Request reset',
       messageText: 'A link to reset your password has been sent to your email',
     },
-    resetPass:{
+    resetPass: {
       message: true,
       messageType: 'Reset password',
       messageText: 'Your password has been successfully changed',
     },
-    changePass:{
+    changePass: {
       message: true,
       messageType: 'Change password',
       messageText: 'Your password has been successfully changed',
     }
+  },
+  online: {
+    message: true,
+    messageType: 'Delete online course',
+    messageText: 'Your online course has been successfully remove',
   }
 };
