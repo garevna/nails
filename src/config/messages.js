@@ -24,8 +24,20 @@ export default {
     }
   },
   online: {
-    message: true,
-    messageType: 'Delete online course',
-    messageText: 'Your online course has been successfully remove',
+    post: {
+      message: true,
+      messageType: 'Create online course',
+      messageText: 'Your online course has been successfully create',
+    },
+    put: {
+      message: true,
+      messageType: 'Update online course',
+      messageText: 'Your online course has been successfully update',
+    },
+    delete: {
+      message: true,
+      messageType: 'Delete online course',
+      messageText: 'Your online course has been successfully remove',
+    }
   }
 };

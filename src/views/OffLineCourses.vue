@@ -6,23 +6,22 @@
 
     <CardSkeleton v-if="loading" type="offline" />
 
+    <div v-if="emptyCourses" class="empty-courses">No courses ...</div>
+
     <div class="text-center">
       <v-btn
-        v-if="isHideMoreButtonOffline"
+        v-if="isHideBtn"
         color="buttons"
         rounded
         outlined
         large
         class="yellow-button"
-        @click="getMoreOfflineCourses"
+        @click="getMoreCourses"
         >more courses</v-btn
       >
     </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-</style>
 
 <script>
 import { mapActions, mapState } from 'vuex';
@@ -43,8 +42,11 @@ export default {
   },
   computed: {
     ...mapState('offlineCourses', ['offlineCourses', 'totalOfflineCourses']),
-    isHideMoreButtonOffline() {
+    isHideBtn() {
       return this.offlineCourses.length < this.totalOfflineCourses;
+    },
+    emptyCourses() {
+      return !this.loading && !this.offlineCourses.length;
     },
   },
   methods: {
@@ -52,7 +54,7 @@ export default {
       getCourses: 'GET_OFFLINE_COURSES',
       getMoreCourses: 'GET_MORE_OFFLINE_COURSES',
     }),
-    getMoreOfflineCourses() {
+    getMoreCourses() {
       this.getMoreCourses(this.offlineCourses.length);
     },
   },
@@ -63,3 +65,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.empty-courses {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+</style>

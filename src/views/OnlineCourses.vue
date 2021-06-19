@@ -6,10 +6,12 @@
 
     <CardSkeleton v-if="loading" />
 
+    <div v-if="emptyCourses" class="empty-courses">
+      No courses ...
+    </div>
+
     <div v-if="hideBtn" class="text-center">
-      <v-btn color="buttons" rounded outlined large class="yellow-button" @click="getMore"
-        >more courses</v-btn
-      >
+      <v-btn color="buttons" rounded outlined large class="yellow-button" @click="getMore">more courses</v-btn>
     </div>
   </div>
 </template>
@@ -36,6 +38,9 @@ export default {
     hideBtn() {
       return this.courses.length < this.total;
     },
+    emptyCourses() {
+      return !this.loading && !this.courses.length;
+    },
   },
   methods: {
     ...mapActions('courses', {
@@ -53,3 +58,12 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.empty-courses {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+</style>

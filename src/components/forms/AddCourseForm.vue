@@ -1,5 +1,5 @@
 <template>
-  <v-form ref="form">
+  <v-form ref="form" :disabled="loading">
     <v-row>
       <v-col cols="12" xs="12" md="6">
         <div v-for="(field, name) in schema.sideLeft" :key="name">
@@ -85,6 +85,7 @@
           <v-btn
             v-if="course"
             color="buttons"
+            :disabled="loading"
             rounded
             outlined
             large
@@ -96,6 +97,7 @@
           >
           <v-btn
             color="buttons"
+            :disabled="loading"
             rounded
             outlined
             large
@@ -166,6 +168,7 @@ export default {
     }
   },
   computed: {
+    ...mapState('courses',['loading']),
     ...mapState('auth', ['user'])
   },
   watch: {
@@ -189,7 +192,7 @@ export default {
         })
       }
     },
-    async submit () {
+    submit () {
       if (!this.course) {
         this.data.description = this.data.description.split(' ').filter((str) => str).join(' ')
         this.data.idUser = this.user._id

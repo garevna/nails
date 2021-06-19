@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="12" sm="12" lg="4" v-for="(pdf, index) in data" :key="index" class=" py-0 py-lg-2">
+    <v-col cols="12" sm="12" v-for="(pdf, index) in data" :key="index" class=" py-0 py-lg-2">
       <FileInput
         :value.sync="data[index]"
         :label="options.label"

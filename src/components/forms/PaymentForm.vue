@@ -1,5 +1,5 @@
 <template>
-  <v-form ref="form">
+  <v-form ref="form" :disabled="loading">
     <v-container>
       <v-row>
         <v-col cols="12" offset-sm="2" sm="8" offset-md="3" md="6">
@@ -42,8 +42,7 @@
     </v-container>
   </v-form>
 </template>
-<style scoped>
-</style>
+
 <script>
 import { mapState } from 'vuex';
 
@@ -101,7 +100,7 @@ export default {
     },
   },
   mounted() {
-    setTimeout(this.fillingForm, 1500);
+    this.fillingForm()
   },
 };
 </script>

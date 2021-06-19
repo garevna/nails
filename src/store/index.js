@@ -6,10 +6,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    error: null,
+    error: false,
     errorMessage: '',
     errorType: '',
-    message: null,
+    message: false,
     messageType: '',
     messageText: '',
     viewportWidth: window.innerWidth

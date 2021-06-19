@@ -21,12 +21,6 @@
         </v-card>
       </v-col>
 
-      <!-- <v-col cols="12" xs="12" md="6" class="d-flex justify-center justify-md-end">
-      
-      </v-col>
-      <v-col cols="12" xs="12" md="6" class="d-flex justify-center justify-md-start">
-       
-      </v-col> -->
       <v-col cols="12" md="5">
         <v-card flat dark class="secondaryGray">
           <v-card-title>Requirements to the video</v-card-title>
@@ -44,15 +38,16 @@
             <v-expansion-panel-header
               class="btn-open-video mb-4"
               :class="{ 'button-unactive': !isActive }"
+              :disabled="disabled"
               @click="expansionIndex = i"
             >
-              + add video {{ i + 1 }}
+              + add video
               <h3 class="error-form error--text" v-if="!validates[i]">error</h3>
             </v-expansion-panel-header>
             <v-expansion-panel-content class="mt-10">
               <v-row>
                 <v-col cols="12" md="10" lg="8">
-                  <v-form :ref="`form${i}`">
+                  <v-form :ref="`form${i}`" :disabled="disabled">
                     <AddVideoItem :data.sync="data[i]" />
                   </v-form>
                 </v-col>
@@ -72,7 +67,7 @@
               dark
               min-width="160"
               class="yellow-button"
-              :disabled="disabledSubmit"
+              :disabled="disabled"
               @click="sendData"
               >PROCEED AND CHECKOUT</v-btn
             >
@@ -98,7 +93,7 @@ export default {
     return {
       noValid: false,
       isActive: false,
-      disabledSubmit: false,
+      disabled: false,
       expansionIndex: 0,
       data: new Array(schema.count).fill(null),
       validates: new Array(schema.count).fill(true),
@@ -118,7 +113,7 @@ export default {
     queue(val) {
       if (val.length) return;
       this.goToVideos();
-      this.disabledSubmit = false;
+      this.disabled = false;
     },
   },
   methods: {
@@ -167,7 +162,7 @@ export default {
           .filter(str => str)
           .join(' ');
       });
-      this.disabledSubmit = true;
+      this.disabled = true;
       const uploadLessons = [];
       objs.forEach(async (obj, index) => {
         if (!obj) return;

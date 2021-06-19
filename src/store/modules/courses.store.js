@@ -108,15 +108,19 @@ const actions = {
     }
   },
   async POST_COURSE({ commit, dispatch }, fd) {
+    commit('LOADING', true);
     const { newOnlineCourse, error } = await postData(endpoints.newCourse, fd);
     if (!error) {
       dispatch('GET_COURSES');
       commit('COURSE', newOnlineCourse);
+      commit('MESSAGE', messages.post, { root: true });
     } else {
-      commit('ERROR', { error: true, errorType: 'Add online course', errorMessage: error }, { root: true });
+      commit('ERROR', errors.post, { root: true });
     }
+    commit('LOADING', false);
   },
   async PUT_COURSE({ state, commit }, { data, id }) {
+    commit('LOADING', true);
     const { updatedOnlineCourse, error } = await putData(`${endpoints.get}/${id}`, data);
     if (!error) {
       commit('COURSE', updatedOnlineCourse);
@@ -124,14 +128,15 @@ const actions = {
         'COURSES',
         state.courses.map(course => (course._id === id ? updatedOnlineCourse : course))
       );
+      commit('MESSAGE', messages.put, { root: true });
     } else {
-      commit('ERROR', { error: true, errorType: 'Update online course', errorMessage: error }, { root: true });
+      commit('ERROR', errors.put, { root: true });
     }
+    commit('LOADING', false);
   },
   async DELETE_COURSE({ commit, dispatch }, courseId) {
     const response = await deleteData(`${endpoints.delete}/${courseId}`);
     if (!response.error) {
-      console.log(response)
       dispatch('GET_COURSES');
       commit('MESSAGE', messages.delete, { root: true });
     } else {

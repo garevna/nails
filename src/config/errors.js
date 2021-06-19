@@ -34,7 +34,16 @@ export default {
       errorType: 'Reading online requests',
       errorMessage: 'Process failed. Data was not received',
     },
-    post: {},
+    post: {
+      error: true,
+      errorType: 'Create online course',
+      errorMessage: 'Process failed...',
+    },
+    put: {
+      error: true,
+      errorType: 'Update online course',
+      errorMessage: 'Process failed...',
+    },
     delete: {
       error: true,
       errorType: 'Delete requests',
