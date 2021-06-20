@@ -1,12 +1,9 @@
 <template>
   <v-card
-    :class="[top ? '' : 'main-menu', 'transparent justify-center align-center']"
-    :dark="!light"
+    class="transparent justify-center align-center"
     flat
     height="80px"
     tile
-    justify="center"
-    align="center"
   >
     <v-card flat class="transparent text-center">
       <v-btn text @click="goToShopRoute('cuticle-nippers')"> Nippers </v-btn>
@@ -19,23 +16,10 @@
     </v-card>
   </v-card>
 </template>
-<style scoped>
-.main-menu {
-  display: flex;
-  /* margin-top: 80px; */
-  justify-content: center;
-}
-.shop-menu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>
 
 <script>
 export default {
   name: 'MainMenu',
-  props: ['light', 'top'],
   methods: {
     goToShopRoute(route) {
       if (this.$route.params.categoryName !== route) {
@@ -45,3 +29,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.main-menu {
+  display: flex;
+  justify-content: center;
+}
+.shop-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

@@ -1,16 +1,18 @@
 <template>
-  <v-card flat tile class="burger-menu" :class="{ 'open-menu': panel }" @click="$emit('update:panel', false)">
-    <v-list class="d-flex burgerBg flex-column align-center">
-      <v-list-item v-for="(item, i) in list" :key="i" @click="goTo(item.name)">
-        <v-list-item-title class="black--text main-menu-items">{{ item.text }}</v-list-item-title>
-      </v-list-item>
-      <v-list-item v-if="isLogged" class="d-flex justify-center" @click="goTo('user-cabinet')">
-        <v-icon color="secondaryGray">mdi-account</v-icon>
-      </v-list-item>
-      <v-list-item class="py-4">
-        <CartBtn @click="goTo('products-cart')" />
-      </v-list-item>
-    </v-list>
+  <v-card
+    flat
+    tile
+    class="burger-menu d-flex burgerBg flex-column align-center"
+    :class="[{ 'open-menu': panel }, { 'py-4': panel }]"
+    @click="$emit('update:panel', false)"
+  >
+    <v-btn v-for="(item, i) in list" :key="i" @click="goTo(item.name)" text class="black--text main-menu-items">
+      {{ item.text }}</v-btn
+    >
+    <v-btn text v-if="isLogged" class="black--text" @click="goTo('user-cabinet')">
+      <v-icon>mdi-account</v-icon>
+    </v-btn>
+    <CartBtn @click="goTo('products-cart')" />
   </v-card>
 </template>
 

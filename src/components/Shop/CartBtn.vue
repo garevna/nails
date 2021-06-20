@@ -1,23 +1,31 @@
 <template>
-  <v-btn icon @click="$emit('click')" style="position: relative">
-    <span
-      v-if="getTotalItem"
-      style="position: absolute; top: -19px; left: 50%; transform: translateX(-50%); color: #000"
-      >{{ getTotalItem }}</span
-    >
-    <v-icon color="secondaryGray">mdi-shopping</v-icon>
+  <v-btn text @click="$emit('click')" style="position: relative" class="black--text">
+    <span v-if="getTotalItem" class="commodity-count">{{ getTotalItem }}</span>
+    <!-- <v-icon color="secondaryGray">mdi-shopping</v-icon> -->
+    <IconCart :width="30" />
   </v-btn>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import IconCart from '@/components/svg/IconCart.vue';
 
 export default {
   name: 'CartBtn',
+  components: {
+    IconCart,
+  },
   computed: {
     ...mapGetters('productCart', ['getSumPrice', 'getTotalItem', 'commodityCards']),
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.commodity-count {
+  position: absolute;
+  top: 0;
+  left: 58%;
+  transform: translateX(-50%);
+}
+</style>

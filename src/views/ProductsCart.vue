@@ -12,7 +12,7 @@
         <ProductCard v-for="commodity in commodityCards" :key="commodity._id" :product="commodity" />
       </v-card>
       <v-card v-else flat>
-        <h2 class="text-center">Your cart is empty</h2>
+        <h2 class="empty-cart">Your cart is empty</h2>
       </v-card>
     </div>
     <v-footer absolute class="homefone pa-0 pb-6">
@@ -23,7 +23,7 @@
             v-if="showPurchaseLimit"
             class="d-block text-center pa-0"
             style="position: absolute; bottom: 0; left: 0"
-            >purchase amount must exceed $ 50</v-card-text
+            >purchase amount must exceed $50</v-card-text
           >
         </div>
 
@@ -38,7 +38,7 @@
                 >
               </td>
               <td class="px-4">
-                Total summ of commodities:<span style="font-size: 16px;">$ {{ getSumPrice }}</span>
+                Total summ of commodities:<span style="font-size: 16px;">${{ getSumPrice }}</span>
               </td>
               <td v-if="!responseBtn">
                 <v-btn
@@ -104,3 +104,12 @@ export default {
   mounted() {},
 };
 </script>
+
+<style scoped>
+.empty-cart {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+</style>
