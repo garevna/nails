@@ -31,11 +31,6 @@
           @update:active="openDialog"
           activatable
         >
-          <!-- <template v-slot:label="{ on, attrs, item }">
-            <div v-bind="attrs" v-on="on" @click="openDialog(item)" style="width: 100%; heigth: 100%">
-              <a class="primary--text">{{ item.name }}</a>
-            </div>
-          </template> -->
         </v-treeview>
       </v-menu>
     </v-card-actions>
