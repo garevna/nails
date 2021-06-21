@@ -21,10 +21,21 @@
           </v-btn>
         </template>
 
-        <v-treeview dark class="secondaryGray" dense :items="fillingMenu" open-on-click>
-          <template slot="label" slot-scope="{ item }">
-            <a @click="openDialog(item)" class="primary--text">{{ item.name }}</a>
-          </template>
+        <v-treeview
+          dark
+          class="secondaryGray primary--text"
+          dense
+          :items="menuTree"
+          open-on-click
+          item-text="name"
+          @update:active="openDialog"
+          activatable
+        >
+          <!-- <template v-slot:label="{ on, attrs, item }">
+            <div v-bind="attrs" v-on="on" @click="openDialog(item)" style="width: 100%; heigth: 100%">
+              <a class="primary--text">{{ item.name }}</a>
+            </div>
+          </template> -->
         </v-treeview>
       </v-menu>
     </v-card-actions>
@@ -49,7 +60,7 @@ export default {
   computed: {
     ...mapState('auth', ['isLogged']),
     ...mapState('shop', ['categories']),
-    fillingMenu() {
+    menuTree() {
       const children1 = this.categories.slice(0, 6);
       const children2 = this.categories.slice(6);
       items[0].children = children1.map(item => ({
@@ -76,6 +87,21 @@ export default {
       }
       return items;
     },
+    flatMenu() {
+      let arr = [];
+      function newPeremennaya(items) {
+        arr = arr.concat(items);
+        items.forEach(item => {
+          if (Array.isArray(item.children) && item.children.length) {
+            newPeremennaya(item.children);
+          }
+        });
+      }
+
+      newPeremennaya(this.menuTree);
+
+      return arr;
+    },
   },
   methods: {
     goTo(name) {
@@ -84,24 +110,17 @@ export default {
     goToCabinet() {
       if (this.$route.name !== 'user-cabinet') this.$router.push({ name: 'user-cabinet' });
     },
-    openDialog(treeElem) {
-      if (treeElem.name === 'Logout') {
-        this.dialog = true;
+    openDialog([id]) {
+      const current = this.flatMenu.find(item => item.id === id);
+      if (!current || !current.routeName) {
+        return;
       }
-      if (treeElem.routeName) {
-        this.isOpened = false;
-        if (treeElem.routeName !== 'shop' && this.$route.name !== treeElem.routeName) {
-          this.$router.push({
-            name: treeElem.routeName,
-            params: treeElem.params,
-          });
-        } else if (treeElem.routeName === 'shop' && this.$route.params.categoryName !== treeElem.params.categoryName) {
-          this.$router.push({
-            name: treeElem.routeName,
-            params: treeElem.params,
-          });
-        }
+      const { routeName: name, params } = current;
+      if (!(this.$route.name === name && this.$route.params?.categoryName === params?.categoryName)) {
+        this.$router.push({ name, params });
       }
+
+      this.isOpened = false;
     },
   },
 };
