@@ -2,7 +2,7 @@
   <div class="d-flex flex-column align-lg-end cabinet-btn">
     <v-btn text @click="dialog = true" class="mb-4 font-size-btn-text">Log out</v-btn>
     <v-btn text @click="goTo('user-courses')" class="font-size-btn-text"> My courses</v-btn>
-    <v-btn text @click="goTo('products-cart')" class="font-size-btn-text">Shoping card</v-btn>
+    <v-btn text @click="goTo('products-cart')" class="font-size-btn-text">Shoping cart</v-btn>
     <v-btn text v-if="!isAdmin" @click="goTo('purchased-online-courses')" class="font-size-btn-text"
       >purchased online courses</v-btn
     >
