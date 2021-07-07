@@ -53,7 +53,8 @@ const actions = {
     commit('LOADING', true);
     const { data, error } = await postData(buyBasket, cart);
     if (!error && data.link) {
-      window.open(data.link);
+      // window.open(data.link);
+      window.location = data.link;
       dispatch('productCart/CLEAR_CART', {}, { root: true });
       commit('LOADING', false);
       return true;
