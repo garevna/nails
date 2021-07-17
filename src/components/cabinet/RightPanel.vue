@@ -3,12 +3,17 @@
     <v-btn text @click="dialog = true" class="mb-4 font-size-btn-text">Log out</v-btn>
     <v-btn text @click="goTo('user-courses')" class="font-size-btn-text"> My courses</v-btn>
     <v-btn text @click="goTo('products-cart')" class="font-size-btn-text">Shoping cart</v-btn>
-    <v-btn text v-if="!isAdmin" @click="goTo('purchased-online-courses')" class="font-size-btn-text"
-      >purchased online courses</v-btn
-    >
-    <v-btn text v-if="!isAdmin" @click="goTo('purchased-offline-courses')" class="font-size-btn-text"
-      >purchased offline courses</v-btn
-    >
+
+    <v-btn text v-if="!isAdmin" @click="goTo('purchased-commodities')" class="font-size-btn-text">
+      purchased commodities
+    </v-btn>
+    <v-btn text v-if="!isAdmin" @click="goTo('purchased-online-courses')" class="font-size-btn-text">
+      purchased online courses
+    </v-btn>
+    <v-btn text v-if="!isAdmin" @click="goTo('purchased-offline-courses')" class="font-size-btn-text">
+      purchased offline courses
+    </v-btn>
+
     <v-btn text @click="goTo('change-password')" class="font-size-btn-text">change password</v-btn>
     <v-btn text v-if="isAdmin" @click="goToAdmin" class="mt-4 font-size-btn-text">go to admin panel</v-btn>
 

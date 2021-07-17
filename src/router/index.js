@@ -151,6 +151,11 @@ const routes = [
         component: () => import(/* webpackChunkName: "purchased-course" */ '@/views/PurchasedCourse.vue'),
       },
       {
+        path: 'purchased-commodities',
+        name: 'purchased-commodities',
+        component: () => import(/* webpackChunkName: "purchased-commodities" */ '@/views/PurchasedCommodities.vue'),
+      },
+      {
         path: 'add-course',
         name: 'add-course',
         component: () => import(/* webpackChunkName: "add-course" */ '@/views/AddCourse.vue'),

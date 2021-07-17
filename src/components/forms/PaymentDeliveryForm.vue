@@ -12,7 +12,7 @@
         href="https://www.google.com/maps/place/32+Brewer+Rd,+Bentleigh+VIC+3204,+Australia/@-37.9210937,145.0245635,17z/data=!3m1!4b1!4m5!3m4!1s0x6ad669362f999ea7:0x74f5bebcdaa8a83e!8m2!3d-37.9210937!4d145.0267522"
         target="_blank"
       >
-        <v-img src="map_nails.png" width="300" height="300" contain />
+        <v-img src="map_nails.png" width="600" height="284" cover />
       </a>
       <v-card-text>
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam, placeat ullam ipsam voluptates recusandae ex

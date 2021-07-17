@@ -31,7 +31,7 @@ export default {
     ...mapState('shop', ['search']),
     ...mapGetters('shop', ['fullListOfCategories', 'pages']),
     activeCategory() {
-      return this.fullListOfCategories.find(category => category.slug === this.$route.params.categoryName) ?? null;
+      return this.fullListOfCategories.find(category => category.slug === this.$route.params.categoryName) || null;
     },
     searchStr: {
       get() {
@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     searchHandler(value) {
-      this.$store.commit('shop/SEARCH', value ?? '');
+      this.$store.commit('shop/SEARCH', value || '');
     },
   },
   mounted() {},

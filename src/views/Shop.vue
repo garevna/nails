@@ -115,10 +115,10 @@ export default {
       if (!this.search && this.$route.name === 'shop-root') {
         await this.$store.dispatch('shop/RANDOM_COMMODITIES');
       } else {
-        if (!this.activeCategory) return;
+        if (!this.search && !this.activeCategory) return;
         await this.$store.dispatch('shop/GET_COMMODITIES', {
           categoryId: this.activeCategory?._id,
-          isSubcategory: !Array.isArray(this.activeCategory.subcategories),
+          isSubcategory: !Array.isArray(this.activeCategory?.subcategories),
           page: this.page,
         });
       }

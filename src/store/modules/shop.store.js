@@ -3,6 +3,7 @@ const { getData } = require('@/helpers').default;
 
 const categoriesEndpoints = require('@/config/endpoints').default.categories;
 const commoditiesEndpoints = require('@/config/endpoints').default.commodities;
+const ordersEndpoints = require('@/config/endpoints').default.orders;
 
 const errors = require('@/config/errors').default.shop;
 
@@ -16,6 +17,7 @@ const state = {
   pageSize: 12,
   total: 0,
   search: '',
+  orders: [],
 };
 
 const getters = {
@@ -60,6 +62,9 @@ const mutations = {
   },
   COMMODITY_LOADING: (state, payload) => {
     state.isCommodityLoading = payload;
+  },
+  ORDERS: (state, payload) => {
+    state.orders = payload;
   },
 };
 
@@ -142,6 +147,25 @@ const actions = {
     }
 
     commit('LOADING', false);
+  },
+
+  async GET_ORDERS({ commit, rootState }) {
+    const { data, error } = await (
+      await fetch(
+        `${process.env.VUE_APP_API_URL}/${ordersEndpoints.get}?idUser=${rootState.auth.user._id}&type=commodity`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8',
+            Authorization: `Bearer ${rootState.auth.token}`,
+          },
+        }
+      )
+    ).json();
+
+    if (!error) {
+      commit('ORDERS', data);
+    }
   },
 };
 

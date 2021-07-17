@@ -176,6 +176,14 @@ export function routesFactory() {
         name: 'purchased-offline-course',
         text: `${this.purchasedCourseName}`,
       },
+      // ! purchased-commodities
+      {
+        id: 70,
+        parentId: 40,
+        path: `/user-cabinet/purchased-commodities`,
+        name: 'purchased-commodities',
+        text: `Purchased commodities`,
+      },
     ];
   };
 }

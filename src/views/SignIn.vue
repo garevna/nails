@@ -77,7 +77,17 @@ export default {
     },
   },
   mounted() {
-    setTimeout(() => (this.show = true), 500);
+    if (this.isLogged && this.$route.name !== 'user-cabinet') {
+      this.$router.push({ name: 'user-cabinet' });
+    }
+
+    setTimeout(() => {
+        if (this.isLogged && this.$route.name !== 'user-cabinet') {
+          this.$router.push({ name: 'user-cabinet' });
+        } else {
+          this.show = true;
+        }
+      }, 500);
   },
   beforeDestroy() {},
 };
