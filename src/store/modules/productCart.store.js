@@ -9,7 +9,7 @@ const state = {
 };
 
 const getters = {
-  getSumPrice: (state, getters) => getters.commodityCards.reduce((acc, curr) => (acc += curr.price * curr.count), 0),
+  getSumPrice: (state, getters) => Math.trunc(getters.commodityCards.reduce((acc, curr) => (acc += curr.price * curr.count), 0) * 100) / 100,
 
   getTotalItem: state => state.cart.reduce((acc, curr) => (acc += curr.count), 0),
 
@@ -40,8 +40,8 @@ const mutations = {
       return item.count <= amount
         ? item
         : Object.assign(item, {
-            count: amount,
-          });
+          count: amount,
+        });
     });
     state.commodities = payload ?? [];
   },
@@ -102,7 +102,7 @@ const actions = {
     localStorage.setItem('cart', JSON.stringify(state.cart));
     dispatch('GET_COMMODITIES');
   },
-  CLEAR_CART({commit}) {
+  CLEAR_CART({ commit }) {
     commit('CLEAR_CART');
     localStorage.removeItem('cart');
   }

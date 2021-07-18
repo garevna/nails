@@ -1,11 +1,11 @@
 <template>
   <v-card flat class="homefone text-center">
-    <h2 class="text-center pb-8"> Total info</h2>
+    <h2 class="text-center pb-8">Total info</h2>
 
     <v-row>
       <v-col cols="12" md="6">
         <v-card-title class="d-flex justify-center"> User info</v-card-title>
-        <table style="margin: auto" class="text-left row-padding">
+        <table style="margin: auto" class="text-left">
           <tr>
             <th>First name</th>
             <td>{{ submitObj.firstName }}</td>
@@ -48,7 +48,7 @@
             <td>{{ commodity.brand }}</td>
             <td>{{ commodity.count }}</td>
             <td>{{ commodity.price }}</td>
-            <td>{{ commodity.cost }}</td>
+            <td>{{ getCost(commodity.cost) }}</td>
           </tr>
         </table>
       </v-col>
@@ -56,14 +56,28 @@
 
     <v-row>
       <v-col cols="12" md="6">
-        <v-card flat class="d-flex flex-column align-center text-center transparent">
-          <v-card-title>Delivery</v-card-title>
-          <v-card-text>Type delivery: {{ deliveryCountry.type.toUpperCase() }}</v-card-text>
-          <img :src="deliveryCountry.flag" width="150" height="100" />
-          <v-card-text>Code:{{ deliveryCountry.countryCode }}</v-card-text>
-          <v-card-text class="py-0">Country:{{ deliveryCountry.country }}</v-card-text>
-          <v-card-text>Delivery cost:{{ deliveryCountry.price }}</v-card-text>
-        </v-card>
+        <v-card-title class="d-flex justify-center">Delivery</v-card-title>
+        <table style="margin: auto" class="text-left">
+          <tr>
+            <th>Type delivery:</th>
+            <td>{{ deliveryCountry.type.toUpperCase() }}</td>
+          </tr>
+          <tr>
+            <img :src="deliveryCountry.flag" width="150" height="100"/>
+          </tr>
+          <tr>
+            <th>Code:</th>
+            <td>{{ deliveryCountry.countryCode }}</td>
+          </tr>
+          <tr>
+            <th>Country:</th>
+            <td>{{ deliveryCountry.country }}</td>
+          </tr>
+          <tr>
+            <th>Delivery cost:</th>
+            <td>{{ deliveryCountry.price }}</td>
+          </tr>
+        </table>
       </v-col>
 
       <v-col cols="12" md="6">
@@ -139,12 +153,18 @@ export default {
       }));
     },
   },
-  methods: {},
+  methods: {
+    getCost(cost) {
+      return Math.trunc(cost * 100) / 100;
+    },
+  },
   mounted() {},
 };
 </script>
 <style scoped>
-th,td {
+th,
+td {
   padding: 10px;
+  color: var(--v-paymentTotalInfo-base);
 }
 </style>

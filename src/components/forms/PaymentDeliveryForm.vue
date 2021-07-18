@@ -55,7 +55,7 @@
     </v-card>
 
     <v-card flat v-if="deliveryType === 'international'" class="transparent">
-      <v-card-title>international shipping - International shipping (cost is optional for each country)</v-card-title>
+      <h4 class="text-center pb-4">International shipping - International shipping (cost is optional for each country)</h4>
 
       <v-row>
         <v-col cols="12" sm="5" md="4">

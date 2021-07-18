@@ -1,8 +1,7 @@
 <template>
   <v-card class="ma-4 pa-4 d-flex flex-column flex-md-row align-center justify-md-space-between">
-    <!-- <CoverImage :url="checkUrl(product)" width="100" height="100" /> -->
     <v-list-item-avatar tile width="100" height="100" class="pa-0 ma-0">
-      <CoverImage :url="checkUrl(product)" />
+      <CoverImage :url="checkCourseLink(product)" />
     </v-list-item-avatar>
     <v-spacer />
     <v-card flat :width="descrWidth" class="text-center">
@@ -16,12 +15,7 @@
         <v-icon>mdi-minus</v-icon>
       </v-btn>
       <v-card-text class="error--text" style="font-size: 18px; font-weight: bold">{{ product.count }}</v-card-text>
-      <v-btn
-        color="blue darken-1"
-        :disabled="disabledPlus"
-        icon
-        @click="incrementCount(product._id)"
-      >
+      <v-btn color="blue darken-1" :disabled="disabledPlus" icon @click="incrementCount(product._id)">
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </v-card-actions>
@@ -54,7 +48,7 @@
 import { mapState } from 'vuex';
 
 import CoverImage from '@/components/CoverImage.vue';
-// import checkCourseLink from '@/helpers/checkCourseLink';
+import checkCourseLink from '@/helpers/checkCourseLink';
 
 export default {
   name: 'ProductCard',
@@ -82,26 +76,17 @@ export default {
       return width;
     },
     summPriceItem() {
-      return this.product.count * this.product.price;
+      return Math.trunc(this.product.count * this.product.price * 100) / 100;
     },
-    disabledPlus(){
-      return this.product.count >= this.product.amount || this.product.count >= 99 || this.product.amount === 0
+    disabledPlus() {
+      return this.product.count >= this.product.amount || this.product.count >= 99 || this.product.amount === 0;
     },
     disabledMinus() {
-      return this.product.count <= 1
-    }
+      return this.product.count <= 1;
+    },
   },
   methods: {
-    checkUrl(card) {
-      let img;
-      if (card.previewImage && Array.isArray(card.previewImage) && card.previewImage.length) {
-        img = card.previewImage[0].link;
-      }
-      if (!img) {
-        img = this.coverImageSrc;
-      }
-      return img;
-    },
+    checkCourseLink,
     deleteFromCart(id) {
       this.$store.dispatch('productCart/DELETE_FROM_CART', id);
     },
@@ -111,8 +96,6 @@ export default {
     decrementCount(id) {
       this.$store.dispatch('productCart/DECREMENT_COUNT', id);
     },
-  },
-  created() {
-  },
+  }
 };
 </script>

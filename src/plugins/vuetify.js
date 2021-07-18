@@ -12,6 +12,9 @@ export default new Vuetify({
     },
   },
   theme: {
+    options: {
+      customProperties: true,
+    },
     themes: {
       light: {
         //Home
@@ -42,9 +45,10 @@ export default new Vuetify({
         disabledPathBreadcrumbs: '#262624',
         text: '#000',
         btnEdit: '#278ed3',
-        burgerBg:'#ddd',
+        burgerBg: '#ddd',
         forgotPass: '#a29f9f',
-        notAvailable:'#949393'
+        notAvailable: '#949393',
+        paymentTotalInfo: '#d9d9d9'
       },
       dark: {
         //Home
@@ -70,10 +74,11 @@ export default new Vuetify({
         onlineCardFone: '#414242',
         disabledPathBreadcrumbs: '#ffffff',
         text: '#fff',
-        textSlider:'#000',
+        textSlider: '#000',
         btnEdit: '#278ed3',
-        burgerBg:'#ddd',
-        forgotPass: '#a29f9f'
+        burgerBg: '#ddd',
+        forgotPass: '#a29f9f',
+        paymentTotalInfo: '#d9d9d9'
       },
     },
   },
