@@ -49,7 +49,7 @@ export default {
           return res || 'Input is required';
         },
         phone: value => {
-          const pattern = /^[0-9]{10,12}$/gm;
+          const pattern = /^(\+)?[0-9]{10,12}$/gm;
           const phoneError = !pattern.test(value.split(' ').join(''));
           return !value || !phoneError || 'Invalid phone number';
         },
