@@ -41,7 +41,6 @@
               </td>
               <td v-if="!responseBtn">
                 <v-btn
-                  :disabled="showPurchaseLimit"
                   rounded
                   outlined
                   large
@@ -53,9 +52,9 @@
               </td>
             </tr>
           </table>
+
           <v-btn
             v-if="responseBtn"
-            :disabled="showPurchaseLimit"
             rounded
             outlined
             large

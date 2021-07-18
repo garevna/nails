@@ -1,9 +1,28 @@
 <template>
   <v-card flat class="homefone">
-    <h3 class="text-center" v-if="!disabledRadioBtn">Select the type of delivery</h3>
-    <h3 class="text-center" v-if="disabledRadioBtn">Your order must not be less than $50. Pickup available only.</h3>
+    <h3
+      class="text-center"
+      v-if="getSumPrice >= minimumOrderAmountForAustralia"
+    >
+      Select the type of delivery
+    </h3>
+
+    <h5
+      class="text-center"
+      v-else
+    >
+      Your order must not be less than ${{minimumOrderAmountForAustralia}}. Pickup available only.
+    </h5>
+
+    <h5
+      class="text-center"
+      v-if="getSumPrice < minimumOrderAmountForOtherCountries"
+    >
+      For delivery to other countries, your order must not be less than ${{minimumOrderAmountForOtherCountries}}.
+    </h5>
+
     <v-card flat width="100%" class="d-flex justify-center transparent">
-      <DeliveryBtnGroup :type.sync="deliveryType" :disabledBtn="disabledRadioBtn" :isMobile="mobileMenu" />
+      <DeliveryBtnGroup :type.sync="deliveryType" :buttons="buttons" :isMobile="mobileMenu" />
     </v-card>
 
     <v-card flat v-if="deliveryType === 'pickup'" class="transparent d-flex flex-column align-center text-center">
@@ -15,30 +34,24 @@
         <v-img src="map_nails.png" width="600" height="284" cover />
       </a>
       <v-card-text>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam, placeat ullam ipsam voluptates recusandae ex
-        tenetur vitae voluptatibus omnis, corporis explicabo nihil sunt libero eveniet excepturi est distinctio expedita
-        vel!
+        {{ contactUs }} <a href="mailto:nailsauinfo@gmail.com">nailsauinfo@gmail.com</a>
       </v-card-text>
     </v-card>
 
     <v-card flat v-if="deliveryType === 'standard'" class="transparent d-flex flex-column align-center text-center">
       <v-card-title>standard shipping Aus post - shipping within Australia (cost ${{ standard.price }}) </v-card-title>
-      <v-card-text>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam, placeat ullam ipsam voluptates recusandae ex
-        tenetur vitae voluptatibus omnis, corporis explicabo nihil sunt libero eveniet excepturi est distinctio expedita
-        vel!
-      </v-card-text>
       <v-img :src="standard.flag" width="300" height="300" contain />
+      <v-card-text>
+        {{ contactUs }} <a href="mailto:nailsauinfo@gmail.com">nailsauinfo@gmail.com</a>
+      </v-card-text>
     </v-card>
 
     <v-card flat v-if="deliveryType === 'express'" class="transparent d-flex flex-column align-center text-center">
-      <v-card-title>shipping Aus post - shipping within Australia (cost ${{ express.price }}) </v-card-title>
-      <v-card-text>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam, placeat ullam ipsam voluptates recusandae ex
-        tenetur vitae voluptatibus omnis, corporis explicabo nihil sunt libero eveniet excepturi est distinctio expedita
-        vel!
-      </v-card-text>
+      <v-card-title>express shipping Aus post - shipping within Australia (cost ${{ express.price }}) </v-card-title>
       <v-img :src="express.flag" width="300" height="300" contain />
+      <v-card-text>
+        {{ contactUs }} <a href="mailto:nailsauinfo@gmail.com">nailsauinfo@gmail.com</a>
+      </v-card-text>
     </v-card>
 
     <v-card flat v-if="deliveryType === 'international'" class="transparent">
@@ -94,6 +107,13 @@ import { mapState, mapGetters, mapMutations } from 'vuex';
 
 import DeliveryBtnGroup from '@/components/forms/DeliveryBtnGroup.vue';
 import PrevNextBtns from '@/components/forms/PrevNextBtns.vue';
+import {
+  contactUs,
+  minimumOrderAmountForPickup,
+  minimumOrderAmountForAustralia,
+  minimumOrderAmountForOtherCountries,
+} from '@/config/delyvery';
+
 export default {
   name: 'PaymentDeliveryForm',
   components: {
@@ -106,6 +126,9 @@ export default {
       currInternationalPriceId: '',
       selectedItem: null,
       countrySearch: '',
+      contactUs,
+      minimumOrderAmountForAustralia,
+      minimumOrderAmountForOtherCountries,
     };
   },
 
@@ -121,11 +144,32 @@ export default {
     currInternationalPrice() {
       return this.international.find(item => item._id === this.currInternationalPriceId);
     },
-    disabledRadioBtn() {
-      return this.getSumPrice < 50;
-    },
     mobileMenu() {
       return this.viewportWidth < 960;
+    },
+    buttons(){
+      return [
+        {
+          label: 'Pickup',
+          value: 'pickup',
+          disabled: this.getSumPrice < minimumOrderAmountForPickup,
+        },
+        {
+          label: 'Standard shipping Aus post',
+          value: 'standard',
+          disabled: this.getSumPrice < minimumOrderAmountForAustralia,
+        },
+        {
+          label: 'Express shipping Aus post',
+          value: 'express',
+          disabled: this.getSumPrice < minimumOrderAmountForAustralia,
+        },
+        {
+          label: 'International shipping ',
+          value: 'international',
+          disabled: this.getSumPrice < minimumOrderAmountForOtherCountries,
+        },
+      ]
     },
   },
   watch: {},
@@ -163,7 +207,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch('shopPayment/GET_DELIVERY_PRICES');
-    if (this.getSumPrice < 50) this.deliveryType = 'pickup';
+    this.deliveryType = 'pickup';
   },
 };
 </script>
