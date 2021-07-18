@@ -15,14 +15,14 @@
           <v-card-title class="justify-center">Delivery</v-card-title>
           <v-card-text class="text-justify colorParagraph--text">
             <p>Minimum order amount:</p>
-            <p>for Australia - $20</p>
-            <p>other countries - $50</p>
+            <p class="ma-0">for Australia - ${{ minimumOrderAmountForAustralia }}</p>
+            <p>other countries - ${{ minimumOrderAmountForOtherCountries }}</p>
             <p>Delivery processed via Auspost</p>
-            <p class="ma-0">Express (1-3 business days) - $12.20</p>
-            <p>Standard (3-5 business days) - $9.20</p>
+            <p class="ma-0">Express (1-3 business days) - ${{ expressPrice }}</p>
+            <p>Standard (3-5 business days) - ${{ standardPrice }}</p>
             <p>
-              If you’d like to know more about delivery options to NZ and other countries or you’d like to order a big
-              batch please contact <span class="orange--text text-decoration-underline" style="cursor:pointer;">nailsauinfo@gmail.com</span>
+              {{ contactUs }}
+              <a href="mailto:nailsauinfo@gmail.com">nailsauinfo@gmail.com</a>
             </p>
           </v-card-text>
         </v-card>
@@ -47,12 +47,35 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
+import {
+  contactUs,
+  minimumOrderAmountForAustralia,
+  minimumOrderAmountForOtherCountries,
+} from '@/config/delyvery';
+
 export default {
   name: 'PaymentAndDeliveryTerms',
   components: {},
   data() {
-    return {};
+    return {
+      contactUs,
+      minimumOrderAmountForAustralia,
+      minimumOrderAmountForOtherCountries,
+    };
   },
-  computed: {},
+  computed: {
+    ...mapState('shopPayment', ['express', 'standard', 'international', 'pickup']),
+    expressPrice(){
+      return this.express?.price || '';
+    },
+    standardPrice(){
+      return this.standard?.price || '';
+    },
+  },
+  created() {
+    this.$store.dispatch('shopPayment/GET_DELIVERY_PRICES');
+  },
 };
 </script>
