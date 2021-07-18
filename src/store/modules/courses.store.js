@@ -147,7 +147,8 @@ const actions = {
     commit('LOADING', true);
     const { data, error } = await postData(endpoints.buyCourse, payload);
     if (!error && data.link) {
-      window.open(data.link);
+      // window.open(data.link);
+      window.location = data.link;
     } else {
       commit('ERROR', errors.buy, { root: true });
     }
@@ -158,7 +159,8 @@ const actions = {
     commit('LOADING', true);
     const { data, error } = await postData(endpoints.buyEndCustomer, payload);
     if (!error && data.link) {
-      window.open(data.link);
+      // window.open(data.link);
+      window.location = data.link;
     } else {
       commit('ERROR', errors.buy, { root: true });
     }
