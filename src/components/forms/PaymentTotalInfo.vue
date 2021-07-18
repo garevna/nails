@@ -47,8 +47,8 @@
             <td>{{ commodity.name }}</td>
             <td>{{ commodity.brand }}</td>
             <td>{{ commodity.count }}</td>
-            <td>{{ commodity.price }}</td>
-            <td>{{ getCost(commodity.cost) }}</td>
+            <td>${{ getCost(commodity.price) }}</td>
+            <td>${{ getCost(commodity.cost) }}</td>
           </tr>
         </table>
       </v-col>
@@ -75,7 +75,7 @@
           </tr>
           <tr>
             <th>Delivery cost:</th>
-            <td>{{ deliveryCountry.price }}</td>
+            <td>${{ getCost(deliveryCountry.price) }}</td>
           </tr>
         </table>
       </v-col>
@@ -90,15 +90,15 @@
             </tr>
             <tr>
               <th>Total cost (without delivery)</th>
-              <td>{{ getSumPrice }}</td>
+              <td>${{ getSumPrice }}</td>
             </tr>
             <tr>
               <th>Delivery</th>
-              <td>{{ deliveryCountry.price }}</td>
+              <td>${{ getCost(deliveryCountry.price) }}</td>
             </tr>
             <tr :style="{ color: $vuetify.theme.themes.dark.buttons }">
-              <th>Total cost (with delivery)</th>
-              <td>{{ deliveryCountry.price + getSumPrice }}</td>
+              <th class="cost-accent">Total cost (with delivery)</th>
+              <td class="cost-accent">${{ getCost(deliveryCountry.price + getSumPrice) }}</td>
             </tr>
           </table>
         </v-card>
@@ -166,5 +166,8 @@ th,
 td {
   padding: 10px;
   color: var(--v-paymentTotalInfo-base);
+}
+.cost-accent {
+  color: var(--v-orange-base) !important;
 }
 </style>

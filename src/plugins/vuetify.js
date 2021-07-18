@@ -48,7 +48,7 @@ export default new Vuetify({
         burgerBg: '#ddd',
         forgotPass: '#a29f9f',
         notAvailable: '#949393',
-        paymentTotalInfo: '#d9d9d9'
+        paymentTotalInfo: '#d0d0d0'
       },
       dark: {
         //Home
