@@ -98,7 +98,7 @@
         </v-col>
       </v-row>
     </v-card>
-    <PrevNextBtns @prev="$emit('prev')" @next="next" prevIcon="mdi-shopping" prevText="back to cart" class="pt-16" />
+    <PrevNextBtns @prev="$emit('prev')" @next="next" prevIcon="mdi-shopping" prevText="back to cart" class="pt-16" :nextDisabled="!getTotalItem"/>
   </v-card>
 </template>
 
