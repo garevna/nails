@@ -63,7 +63,7 @@
             <td>{{ deliveryCountry.type.toUpperCase() }}</td>
           </tr>
           <tr>
-            <img :src="deliveryCountry.flag" width="150" height="100"/>
+            <img :src="deliveryCountry.flag" width="150" height="100" />
           </tr>
           <tr>
             <th>Code:</th>
@@ -72,6 +72,10 @@
           <tr>
             <th>Country:</th>
             <td>{{ deliveryCountry.country }}</td>
+          </tr>
+          <tr>
+            <th>Address:</th>
+            <td>{{ deliveryCountry.type === 'pickup' ? '32 Brewer road, Bentleigh 3204 VIC' : submitObj.deliveryAddress }}</td>
           </tr>
           <tr>
             <th>Delivery cost:</th>
