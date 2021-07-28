@@ -67,7 +67,7 @@ export default {
       return !this.contentShow && !this.isShopLoading;
     },
     showBtnMore() {
-      return this.$route.name === 'shop-root';
+      return this.$route.name === 'shop-root' && !this.search;
     },
   },
   watch: {
