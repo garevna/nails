@@ -92,7 +92,7 @@
           </v-card-title>
           <v-divider></v-divider>
 
-          <v-row v-if="isExpanded(order)">
+          <v-row v-if="isExpanded(order)" class="mb-4">
             <v-col cols="6">
               <v-list dense>
                 <v-list-item v-for="row in orderRows(order)" :key="row.text">
@@ -133,6 +133,10 @@
                 <v-card-text class="mx-4 px-4 py-0" style="font-size: 14px"> {{ delivery.country }}</v-card-text>
 
                 <v-card-text class="mx-4 px-4 py-0" style="font-size: 14px"> ${{ delivery.price }} </v-card-text>
+                <v-card-text class="mx-4 px-4 py-0" style="font-size: 14px"> {{ order.paymentInfo.deliveryAddress }} </v-card-text>
+                <v-card-text class="mx-4 px-4 py-0" style="font-size: 14px"> {{ order.paymentInfo.email }} </v-card-text>
+                <v-card-text class="mx-4 px-4 py-0" style="font-size: 14px"> {{ order.paymentInfo.phoneNumber }} </v-card-text>
+                <v-card-text class="mx-4 px-4 py-0" style="font-size: 14px"> {{ order.paymentInfo.userName }} </v-card-text>
               </v-card>
             </v-col>
           </v-row>

@@ -9,9 +9,9 @@
         {{ product.name }}
       </v-card-title>
 
-      <v-card-text class="mx-4 px-4 py-0" style="font-size: 14px"> ${{ product.price }} </v-card-text>
+      <v-card-text class="mx-4 px-4 py-0" style="font-size: 14px">price: ${{ product.price }} </v-card-text>
 
-      <v-card-text class="mx-4 px-4 py-0" style="font-size: 14px"> {{ product.purchasedAmount }} pieces </v-card-text>
+      <v-card-text class="mx-4 px-4 py-0" style="font-size: 14px">amount: {{ product.purchasedAmount }}  </v-card-text>
     </v-card>
   </v-card>
 </template>

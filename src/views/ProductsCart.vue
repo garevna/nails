@@ -19,9 +19,7 @@
       <v-card flat tile class="primary pb-4" width="100%">
         <div flat style="position: relative" class="pb-3">
           <v-card-title class="d-block text-center" style="font-size: 16px">In your cart: </v-card-title>
-          <v-card-text
-            class="d-block text-center pa-0"
-            style="position: absolute; bottom: 0; left: 0; font-size: 16px"
+          <v-card-text class="d-block text-center pa-0" style="position: absolute; bottom: 0; left: 0; font-size: 16px"
             >Purchase amount must exceed $50</v-card-text
           >
         </div>
@@ -30,17 +28,17 @@
           <table style="margin: auto; cursor: pointer">
             <tr>
               <td>
-                Total number of commodities: <span
-                  style="font-size: 16px"
-                  :style="{ color: $vuetify.theme.themes.dark.error }"
-                  >{{ getTotalItem }}</span
-                >
+                Total number of commodities:
+                <span style="font-size: 16px" :style="{ color: $vuetify.theme.themes.dark.error }">{{
+                  getTotalItem
+                }}</span>
               </td>
               <td class="px-4">
                 Total summ of commodities: <span style="font-size: 16px">${{ getSumPrice }}</span>
               </td>
               <td v-if="!responseBtn">
                 <v-btn
+                  :disabled="!getTotalItem"
                   rounded
                   outlined
                   large
@@ -55,6 +53,7 @@
 
           <v-btn
             v-if="responseBtn"
+            :disabled="!getTotalItem"
             rounded
             outlined
             large

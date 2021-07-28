@@ -10,7 +10,8 @@
             <p>{{ about }}</p>
           </v-card-text>
           <v-card v-if="isMobile" flat class="transparent mx-auto my-auto">
-            <ImageShop />
+            <v-img src="../assets/shop.svg" />
+            <!-- <ImageShop /> -->
           </v-card>
           <v-card-title class="justify-center secondary--text">
             <h2>S H O P</h2>
@@ -19,7 +20,14 @@
             <p>{{ shop }}</p>
           </v-card-text>
           <v-card-text class="text-center">
-            <v-btn color="buttons" rounded large dark min-width="160" class="btn-width yellow-button" @click="goToShop()"
+            <v-btn
+              color="buttons"
+              rounded
+              large
+              dark
+              min-width="160"
+              class="btn-width yellow-button"
+              @click="goToShop()"
               >SHOP</v-btn
             >
           </v-card-text>
@@ -27,12 +35,14 @@
       </v-col>
       <v-col v-if="!isMobile" cols="12" sm="7">
         <v-card flat class="transparent mx-auto my-auto" max-width="700">
-          <ImageShop />
+          <v-img src="../assets/shop.svg" />
+          <!-- <ImageShop /> -->
         </v-card>
       </v-col>
       <v-col cols="12" sm="7">
         <v-card flat class="transparent mx-auto my-auto" max-width="700">
-          <ImageCourses />
+          <!-- <ImageCourses /> -->
+          <v-img src="../assets/courses.svg" />
         </v-card>
       </v-col>
       <v-col cols="12" sm="5">
@@ -57,7 +67,13 @@
             </p>
           </v-card-text>
           <v-card-actions class="d-flex flex-column flex-md-row justify-md-center">
-            <v-btn color="buttons" rounded large min-width="160" class="btn-width yellow-button mb-4 mb-md-0" @click="scrollTo"
+            <v-btn
+              color="buttons"
+              rounded
+              large
+              min-width="160"
+              class="btn-width yellow-button mb-4 mb-md-0"
+              @click="scrollTo"
               >ALL COURSES</v-btn
             >
             <v-btn
@@ -99,8 +115,8 @@ export default {
   name: 'Home',
   components: {
     // Carousel:() => import('@/components/courses/Courses.vue'),
-    ImageShop: () => import('@/components/svg/ImageShop.vue'),
-    ImageCourses: () => import('@/components/svg/ImageCourses.vue'),
+    // ImageShop: () => import('@/components/svg/ImageShop.vue'),
+    // ImageCourses: () => import('@/components/svg/ImageCourses.vue'),
     Courses: () => import('@/components/courses/Courses.vue'),
   },
   data: () => ({}),
@@ -145,6 +161,6 @@ export default {
 
 <style scoped>
 .btn-width {
-  width:200px;
+  width: 200px;
 }
 </style>

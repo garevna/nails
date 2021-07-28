@@ -21,7 +21,7 @@
             <p class="ma-0">Express (1-3 business days) - ${{ expressPrice }}</p>
             <p>Standard (3-5 business days) - ${{ standardPrice }}</p>
             <p>
-              {{ contactUs }}
+              If you’d like to know more about delivery options to NZ and other countries or you’d like to order a big batch please contact
               <a href="mailto:nailsauinfo@gmail.com">nailsauinfo@gmail.com</a>
             </p>
           </v-card-text>
@@ -50,7 +50,6 @@
 import { mapState } from 'vuex';
 
 import {
-  contactUs,
   minimumOrderAmountForAustralia,
   minimumOrderAmountForOtherCountries,
 } from '@/config/delyvery';
@@ -60,7 +59,6 @@ export default {
   components: {},
   data() {
     return {
-      contactUs,
       minimumOrderAmountForAustralia,
       minimumOrderAmountForOtherCountries,
     };

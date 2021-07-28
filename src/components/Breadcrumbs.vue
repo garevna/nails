@@ -26,10 +26,6 @@ import { routesFactory } from '@/helpers/breadcrumbs';
 
 export default {
   name: 'Breadcrumbs',
-  components: {},
-  data() {
-    return {};
-  },
   computed: {
     ...mapState('courses', ['course', 'video']),
     ...mapState('purchasedCourses', { purchasedCourse: 'course', purchasedVideo: 'video' }),
@@ -77,13 +73,11 @@ export default {
       return this.search(currentPath);
     },
   },
-  watch: {},
   methods: {
     search(current) {
       if (!current) return [];
       return [current].concat(this.search(this.routes.find(route => route.id === current.parentId)));
     },
-  },
-  mounted() {},
+  }
 };
 </script>

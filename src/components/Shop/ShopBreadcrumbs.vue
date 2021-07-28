@@ -1,5 +1,5 @@
 <template>
-  <v-breadcrumbs :items="items" divider=">" large class="pa-0 text-truncate">
+  <v-breadcrumbs :items="items" large class="pa-0 text-truncate">
     <template v-slot:item="{ item }">
       <v-breadcrumbs-item :disabled="item.disabled">
         <router-link
@@ -20,13 +20,9 @@ import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'ShopBreadcrumbs',
-  components: {},
   props: {
     disabled: { type: Boolean, default: false },
     mobile: { type: Boolean, default: false },
-  },
-  data() {
-    return {};
   },
   computed: {
     ...mapState('shop', ['categories', 'commodity']),
@@ -109,9 +105,6 @@ export default {
       return routes;
     },
   },
-  watch: {},
-  methods: {},
-  mounted() {},
 };
 </script>
 
