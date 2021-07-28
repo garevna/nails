@@ -31,7 +31,13 @@
         <h3 class="darkGrey--text my-6 text-end">{{ commodity.price }} AUD</h3>
         <h4 v-if="!commodity.amount" class="mb-4">not available</h4>
         <v-card-actions flat class="flex-column align-center align-md-end pa-0">
-          <v-btn :disabled="!commodity.amount" small width="200" class="dgrey--text mb-4" color="orange" @click="addToCart"
+          <v-btn
+            :disabled="!commodity.amount"
+            small
+            width="200"
+            class="dgrey--text mb-4"
+            color="orange"
+            @click="addToCart"
             >Add to card</v-btn
           >
           <v-btn :disabled="!commodity.amount" small width="200" class="ml-0 white--text" color="dgrey" @click="buyNow"
@@ -46,7 +52,10 @@
       :loading="isCommodityLoading"
       @click="goToItem"
     />
+
     <ShopItemSkeleton v-if="isCommodityLoading" />
+
+    <h3 v-if="!isCommodityLoading && !commodity" class="mt-16 mx-auto">No such item</h3>
   </v-row>
 </template>
 
@@ -79,7 +88,7 @@ export default {
       return this.commodity?.images ?? [];
     },
     currentLink() {
-      return this.commodity.images[this.activeCard]?.link ?? this.noImage;
+      return this.commodity?.images[this.activeCard]?.link ?? this.noImage;
     },
   },
   watch: {

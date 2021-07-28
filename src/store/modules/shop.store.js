@@ -48,8 +48,8 @@ const mutations = {
     state.commodities = payload.commodities ?? [];
     state.total = payload.total;
   },
-  COMMODITY: (state, { commodity }) => {
-    state.commodity = commodity;
+  COMMODITY: (state, payload) => {
+    state.commodity = payload;
   },
   SEARCH: (state, payload) => {
     state.search = payload;
@@ -123,10 +123,13 @@ const actions = {
   async GET_COMMODITY({ state, commit }, { commodityId }) {
     commit('COMMODITY_LOADING', true);
 
-    const { commodity, error } = await getData(`${commoditiesEndpoints.commodity}/${commodityId}`);
+    // const { commodity, error }
+    const res = await getData(`${commoditiesEndpoints.commodity}/${commodityId}`);
 
-    if (!error) {
-      commit('COMMODITY', { commodity: commodity[0] });
+    if (res && !res?.error && res?.commodity) {
+      commit('COMMODITY', res.commodity[0]);
+    } else {
+      commit('COMMODITY', null);
     }
     commit('COMMODITY_LOADING', false);
   },
