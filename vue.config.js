@@ -3,6 +3,8 @@ module.exports = {
     'vuetify'
   ],
   publicPath: process.env.NODE_ENV === 'production'
-    ? '/nails/'
+    ? process.env.DEPLOY_TYPE === 'for-api'
+      ? '/'
+      : '/nails/' // for-travis
     : '/'
 }
