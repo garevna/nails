@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 const { getData } = require('@/helpers').default;
+import { api } from './../../helpers/api';
 
 const categoriesEndpoints = require('@/config/endpoints').default.categories;
 const commoditiesEndpoints = require('@/config/endpoints').default.commodities;
@@ -45,8 +46,10 @@ const mutations = {
     state.categories = categories ?? [];
   },
   COMMODITIES: (state, payload) => {
-    state.commodities = payload.commodities ?? [];
-    state.total = payload.total;
+    state.commodities = payload ?? [];
+  },
+  TOTAL: (state, payload) => {
+    state.total = payload || 0;
   },
   COMMODITY: (state, payload) => {
     state.commodity = payload;
@@ -72,10 +75,9 @@ const actions = {
   async GET_CATEGORIES({ commit, state }) {
     commit('CATEGORIES_LOADING', true);
 
-    const { categories, error } = await getData(categoriesEndpoints.categories);
-
-    if (!error) {
-      commit('CATEGORIES', categories);
+    const res = await api.get(categoriesEndpoints.categories);
+    if (res.statusText === 'OK') {
+      commit('CATEGORIES', res.data);
     }
 
     commit('CATEGORIES_LOADING', false);
@@ -84,13 +86,20 @@ const actions = {
   async SEARCH_COMMODITIES({ state, commit }, { page }) {
     commit('LOADING', true);
 
-    const { commodities, total, error } = await getData(
-      `${commoditiesEndpoints.search}?query=${state.search}&skip=${state.pageSize * (page - 1)}`
-    );
+    const params = {
+      // skip: state.pageSize * (page - 1),
+      query: state.search,
+      page,
+      per_page: state.pageSize,
+      published: true,
+    };
 
-    if (!error) {
-      commit('COMMODITIES', { commodities, total });
+    const res = await api.get(commoditiesEndpoints.search, { params });
+    if (res.statusText === 'OK') {
+      commit('COMMODITIES', res.data.data);
+      commit('TOTAL', res.data.total);
     }
+
     commit('LOADING', false);
   },
 
@@ -102,17 +111,20 @@ const actions = {
 
     commit('LOADING', true);
 
-    const { commodities, total, error } = await getData(
-      `${commoditiesEndpoints[isSubcategory ? 'subcommodities' : 'commodities']}/${categoryId}?skip=${
-        state.pageSize * (page - 1)
-      }`
-    );
+    const params = {
+      // skip: state.pageSize * (page - 1),
+      page,
+      per_page: state.pageSize,
+      published: true,
+    };
 
-    if (!error) {
-      commit('COMMODITIES', {
-        commodities,
-        total,
-      });
+    const res = await api.get(
+      `${commoditiesEndpoints[isSubcategory ? 'subcommodities' : 'commodities']}/${categoryId}`,
+      { params }
+    );
+    if (res.statusText === 'OK') {
+      commit('COMMODITIES', res.data.data);
+      commit('TOTAL', res.data.total);
     } else {
       commit('ERROR', errors.get, { root: true });
     }
@@ -138,13 +150,14 @@ const actions = {
     commit('LOADING', true);
     state.activeCategory = null;
 
-    const { data, total, error } = await getData(commoditiesEndpoints.random);
-
-    if (!error) {
-      commit('COMMODITIES', {
-        commodities: data,
-        total,
-      });
+    const params = {
+      // limit: state.pageSize,
+      per_page: state.pageSize,
+    };
+    const res = await api.get(commoditiesEndpoints.random, { params });
+    if (res.statusText === 'OK') {
+      commit('COMMODITIES', res.data);
+      commit('TOTAL', 0);
     } else {
       commit('ERROR', errors.get, { root: true });
     }

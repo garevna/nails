@@ -1,8 +1,9 @@
 /* eslint-disable no-irregular-whitespace */
 const { getData, postData, putData, deleteData } = require('@/helpers').default;
+import { api } from './../../helpers/api';
 
 const errors = require('@/config/errors').default.online;
-const messages = require('@/config/messages').default.online
+const messages = require('@/config/messages').default.online;
 
 const endpoints = require('@/config/endpoints').default.onlineCourses;
 
@@ -14,8 +15,7 @@ const state = {
   total: 0,
   queue: [],
   uploadDialog: false,
-  loading: false
-
+  loading: false,
 };
 const mutations = {
   COURSES: (state, payload) => {
@@ -34,7 +34,7 @@ const mutations = {
     state.video = payload;
   },
   TOTAL: (state, payload) => {
-    state.total = payload;
+    state.total = payload || 0;
   },
   QUEUE: (state, payload) => {
     state.queue = payload;
@@ -61,40 +61,41 @@ const mutations = {
 };
 
 const actions = {
-  // ===================================================
-
   async GET_ALL_COURSES({ commit }) {
-    const { onlineCourses, error, total } = await getData(`${endpoints.get}?published=true`);
-    if (!error) {
-      commit('COURSES', onlineCourses);
-      commit('TOTAL', total);
+    const res = await api.get(endpoints.get);
+    if (res.statusText === 'OK') {
+      commit('COURSES', res.data.data);
+      commit('TOTAL', res.data.total);
     } else {
       commit('ERROR', errors.get, { root: true });
     }
   },
   async GET_MORE_COURSES({ commit }, skip) {
-    const { onlineCourses, error, total } = await getData(`${endpoints.get}?skip=${skip}&published=true`);
-    if (!error) {
-      commit('ADD_COURSES', onlineCourses);
-      commit('TOTAL', total);
+    const params = { skip };
+    const res = await api.get(endpoints.get, { params });
+    if (res.statusText === 'OK') {
+      commit('ADD_COURSES', res.data.data);
+      commit('TOTAL', res.data.total);
     } else {
       commit('ERROR', errors.get, { root: true });
     }
   },
   async GET_COURSES({ commit, rootState }) {
-    const { onlineCourses, error, total } = await getData(`${endpoints.get}?userId=${rootState.auth.user._id}`);
-    if (!error) {
-      commit('COURSES', onlineCourses);
-      commit('TOTAL', total);
+    const params = { userId: rootState.auth.user._id };
+    const res = await api.get(endpoints.get, { params });
+    if (res.statusText === 'OK') {
+      commit('COURSES', res.data.data);
+      commit('TOTAL', res.data.total);
     } else {
       commit('ERROR', errors.get, { root: true });
     }
   },
   async GET_MORE_USER_COURSES({ commit, rootState }, skip) {
-    const { onlineCourses, error, total } = await getData(`${endpoints.get}?userId=${rootState.auth.user._id}&skip=${skip}`);
-    if (!error) {
-      commit('ADD_COURSES', onlineCourses);
-      commit('TOTAL', total);
+    const params = { userId: rootState.auth.user._id, skip };
+    const res = await api.get(endpoints.get, { params });
+    if (res.statusText === 'OK') {
+      commit('ADD_COURSES', res.data.data);
+      commit('TOTAL', res.data.total);
     } else {
       commit('ERROR', errors.get, { root: true });
     }
@@ -109,7 +110,7 @@ const actions = {
   },
   async POST_COURSE({ commit, dispatch }, fd) {
     commit('LOADING', true);
-    const { newOnlineCourse, error } = await postData(endpoints.newCourse, fd);
+    const { newOnlineCourse, error } = await postData(endpoints.post, fd);
     if (!error) {
       dispatch('GET_COURSES');
       commit('COURSE', newOnlineCourse);
@@ -121,7 +122,7 @@ const actions = {
   },
   async PUT_COURSE({ state, commit }, { data, id }) {
     commit('LOADING', true);
-    const { updatedOnlineCourse, error } = await putData(`${endpoints.get}/${id}`, data);
+    const { updatedOnlineCourse, error } = await putData(`${endpoints.put}/${id}`, data);
     if (!error) {
       commit('COURSE', updatedOnlineCourse);
       commit(
@@ -153,7 +154,6 @@ const actions = {
       commit('ERROR', errors.buy, { root: true });
     }
     commit('LOADING', false);
-
   },
   async BUY_END_CUSTOMER({ commit }, payload) {
     commit('LOADING', true);
@@ -165,7 +165,6 @@ const actions = {
       commit('ERROR', errors.buy, { root: true });
     }
     commit('LOADING', false);
-
   },
   // !==========================================================================
   async PUT_VIDEO({ commit, dispatch }, { fd, id }) {

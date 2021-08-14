@@ -1,7 +1,7 @@
 export default {
   offlineCourses: {
     get: 'course/offline',
-    post: 'course/new/offline',
+    post: 'course/offline',
     put: 'course/offline',
     delete: 'course/offline',
     buyCourse: 'course/buy-offline',
@@ -9,7 +9,7 @@ export default {
   onlineCourses: {
     get: 'course/online',
     delete: 'course/online',
-    newCourse: 'course/new/online',
+    post: 'course/online',
     buyCourse: 'course/buy-online',
     buyEndCustomer: 'course/buy-online-by-end-customer',
     video: 'course/online/video',
@@ -32,8 +32,8 @@ export default {
     categories: 'shop/categories',
     category: 'shop/category',
     subcategory: 'shop/subcategory',
-    newCategory: 'shop/new/category',
-    newSubcategory: 'shop/new/subcategory',
+    newCategory: 'shop/category',
+    newSubcategory: 'shop/subcategory',
   },
   commodities: {
     commodities: 'shop/commodities',

@@ -14,7 +14,7 @@
         <v-spacer />
         <v-chip :color="published ? 'paidAndPublished' : 'notPaidAndPublished'"  text-color="white"> {{published ? 'published': 'not published' }}</v-chip>
         <v-spacer />
-        <v-chip :color="lessonsCounter ? 'paidAndPublished' : 'notPaidAndPublished'" text-color="white">{{lessonsCounter}} lessons </v-chip>
+        <v-chip :color="lessonCount ? 'paidAndPublished' : 'notPaidAndPublished'" text-color="white">{{lessonCount}} lessons </v-chip>
       </div>
       <hr class="mx-4" />
       <v-card-actions class="pa-4">
@@ -65,8 +65,8 @@ export default {
     published() {
       return this?.course?.isPublished ?? false;
     },
-    lessonsCounter() {
-      return this?.course?.lessonsCounter ?? 0;
+    lessonCount() {
+      return this?.course?.lessonCount ?? 0;
     },
     paid() {
       return this?.course?.isPaid ?? false;
