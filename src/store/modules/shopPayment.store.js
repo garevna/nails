@@ -1,4 +1,5 @@
-const { getData, postData } = require('@/helpers').default;
+const { postData } = require('@/helpers').default;
+import { api } from './../../helpers/api';
 
 const endpoints = require('@/config/endpoints').default.delivery;
 const { buyBasket } = require('@/config/endpoints').default.payment;
@@ -46,8 +47,12 @@ const actions = {
   },
 
   async GET_PRICES(ctx, type) {
-    const { data } = await getData(`${endpoints.get}?type=${type}`);
-    return data;
+    const params = { type }
+    const res = await api.get(endpoints.get, { params });
+    if (res.statusText === 'OK') {
+      return res.data;
+    }
+    return []
   },
   async PAY({ commit, dispatch }, cart) {
     commit('LOADING', true);
