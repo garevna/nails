@@ -101,19 +101,20 @@ const actions = {
     }
   },
   async GET_COURSE({ commit }, id) {
-    const { onlineCourse, error } = await getData(`${endpoints.get}/${id}`);
-    if (!error) {
-      commit('COURSE', onlineCourse);
+    const res = await api.get(`${endpoints.get}/${id}`);
+    if (res.statusText === 'OK') {
+      commit('COURSE', res.data);
     } else {
       commit('ERROR', errors.get, { root: true });
     }
   },
   async POST_COURSE({ commit, dispatch }, fd) {
     commit('LOADING', true);
-    const { newOnlineCourse, error } = await postData(endpoints.post, fd);
-    if (!error) {
+    // const { newOnlineCourse, error } = await postData(endpoints.post, fd);
+    const res = await api.post(endpoints.post, fd);
+    if (res.statusText === 'OK') {
       dispatch('GET_COURSES');
-      commit('COURSE', newOnlineCourse);
+      commit('COURSE', res.data);
       commit('MESSAGE', messages.post, { root: true });
     } else {
       commit('ERROR', errors.post, { root: true });
@@ -122,12 +123,13 @@ const actions = {
   },
   async PUT_COURSE({ state, commit }, { data, id }) {
     commit('LOADING', true);
-    const { updatedOnlineCourse, error } = await putData(`${endpoints.put}/${id}`, data);
-    if (!error) {
-      commit('COURSE', updatedOnlineCourse);
+    // const { updatedOnlineCourse, error } = await putData(`${endpoints.put}/${id}`, data);
+    const res = await api.put(`${endpoints.put}/${id}`, data);
+    if (res.statusText === 'OK') {
+      commit('COURSE', res.data.updatedOnlineCourse);
       commit(
         'COURSES',
-        state.courses.map(course => (course._id === id ? updatedOnlineCourse : course))
+        state.courses.map(course => (course._id === id ? res.data.updatedOnlineCourse : course))
       );
       commit('MESSAGE', messages.put, { root: true });
     } else {
@@ -136,8 +138,9 @@ const actions = {
     commit('LOADING', false);
   },
   async DELETE_COURSE({ commit, dispatch }, courseId) {
-    const response = await deleteData(`${endpoints.delete}/${courseId}`);
-    if (!response.error) {
+    // const response = await deleteData(`${endpoints.delete}/${courseId}`);
+    const res = await api.delete(`${endpoints.delete}/${courseId}`);
+    if (res.statusText === 'OK') {
       dispatch('GET_COURSES');
       commit('MESSAGE', messages.delete, { root: true });
     } else {

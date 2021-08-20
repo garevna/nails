@@ -1,5 +1,4 @@
 /* eslint-disable quote-props */
-const { postData } = require('@/helpers').default;
 import { api } from './../../helpers/api';
 import { storage } from './../../helpers/storage';
 
@@ -105,8 +104,8 @@ const actions = {
     }
   },
   async REQUEST_RESET(ctx, payload) {
-    const { error } = await postData(endpoints.reset, { email: payload });
-    if (!error) {
+    const res = await api.post(endpoints.reset, { email: payload });
+    if (res.statusText === 'Created') {
       ctx.commit('MESSAGE', requestReset, { root: true });
       return true;
     } else {
@@ -115,7 +114,7 @@ const actions = {
         {
           error: true,
           errorType: 'Request reset',
-          errorMessage: error,
+          errorMessage: res.data.message,
         },
         { root: true }
       );
@@ -123,8 +122,8 @@ const actions = {
     }
   },
   async RESTORE(ctx, payload) {
-    const { error } = await postData(endpoints.restore, payload);
-    if (!error) {
+    const res = await api.post(endpoints.restore, payload);
+    if (res.statusText === 'Created') {
       ctx.commit('MESSAGE', resetPass, { root: true });
       return true;
     } else {
@@ -133,7 +132,7 @@ const actions = {
         {
           error: true,
           errorType: 'Restore password',
-          errorMessage: error,
+          errorMessage: res.data.message,
         },
         { root: true }
       );
