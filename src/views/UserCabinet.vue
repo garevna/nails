@@ -143,7 +143,8 @@ export default {
       if (this.$route.name !== name) this.$router.push({ name: name });
     },
   },
-  beforeMount() {
+  async mount() {
+    await this.$store.dispatch('auth/GET_PROFILE');
     this.fillProfile();
   },
 };

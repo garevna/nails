@@ -45,8 +45,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.loading = true;
         const isComplete = await this.$store.dispatch('auth/CHANGE_PASSWORD', {
-          pass: Base64.stringify(sha256(this.oldPassword)),
-          newPass: Base64.stringify(sha256(this.password)),
+          password: Base64.stringify(sha256(this.password)),
         });
         this.loading = false;
         if (isComplete) this.$router.push({ name: 'user-cabinet' });

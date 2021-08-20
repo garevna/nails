@@ -102,7 +102,7 @@ export default {
     submit() {
       if (this.$refs.form.validate()) {
         const data = Object.assign({}, this.data, {
-          role: 'User',
+          // role: 'User',
           isPoliticAgree: this.isPoliticAgree,
           password: Base64.stringify(sha256(this.data.password)),
         });
