@@ -17,7 +17,7 @@ export default {
     pdf: 'course/online/pdf',
   },
   orders: {
-    get: 'order',
+    get: 'orders',
   },
   auth: {
     registration: 'auth/registration',

@@ -42,7 +42,7 @@ export default {
   computed: {
     ...mapState('auth', ['user']),
     isAdmin() {
-      return this.user?.role === 'Admin';
+      return this.user.roles.includes('Admin');
     },
   },
   watch: {},

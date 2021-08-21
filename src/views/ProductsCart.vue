@@ -98,7 +98,9 @@ export default {
       this.$router.push({ name: 'shop-payment' });
     },
   },
-  mounted() {},
+  mounted() {
+    this.$store.dispatch('productCart/GET_COMMODITIES');
+  },
 };
 </script>
 

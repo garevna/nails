@@ -15,6 +15,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { subscribeToFailedRefresh } from './helpers/api';
 
 export default {
   name: 'App',
@@ -53,6 +54,7 @@ export default {
     this.$store.dispatch('productCart/INIT_CART');
   },
   async created() {
+    subscribeToFailedRefresh(() => this.$store.commit('auth/LOGOUT'));
     await this.$store.dispatch('auth/IS_SIGNED');
   },
 

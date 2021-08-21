@@ -162,11 +162,10 @@ const actions = {
     commit('LOADING', false);
   },
 
-  async GET_ORDERS({ commit, rootState }) {
-    const params = { type: 'commodity', idUser: rootState.auth.user._id };
-    const res = await api.get(ordersEndpoints.get, { params });
+  async GET_ORDERS({ commit }) {
+    const res = await api.get(`${ordersEndpoints.get}/commodity`);
     if (res.statusText === 'OK') {
-      commit('ORDERS', res.data);
+      commit('ORDERS', res.data.data);
     }
   },
 };

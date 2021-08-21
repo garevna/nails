@@ -37,9 +37,8 @@ const mutations = {
 
 const actions = {
   // eslint-disable-next-line no-unused-vars
-  async GET_ALL_COURSES({ commit, rootState }, type) {
-    const params = { type, idUser: rootState.auth.user._id };
-    const res = await api.get(endpoints.get, { params });
+  async GET_ALL_COURSES({ commit }, type) { //!=============
+    const res = await api.get(`${endpoints.get}/${type}`);
     if (res.statusText === 'OK') {
       let courses = [];
       if (type === 'offline') {
@@ -61,7 +60,7 @@ const actions = {
   },
   async GET_MORE_COURSES({ commit }, skip) {
     const params = { skip, published: true };
-    const res = await api.get(endpoints.get, { params });
+    const res = await api.get(endpoints.get, { params }); //!=============
     if (res.statusText === 'OK') {
       commit('ADD_COURSES', res.data.data);
       commit('TOTAL', res.data.total);
@@ -71,7 +70,7 @@ const actions = {
   },
   async GET_COURSES({ commit, rootState }) {
     const params = { idUser: rootState.auth.user._id };
-    const res = await api.get(endpoints.get, { params });
+    const res = await api.get(endpoints.get, { params }); //!=============
     if (res.statusText === 'OK') {
       commit('COURSES', res.data.data);
       commit('TOTAL', res.data.total);
@@ -81,7 +80,7 @@ const actions = {
   },
   async GET_MORE_USER_COURSES({ commit, rootState }, skip) {
     const params = { skip, idUser: rootState.auth.user._id };
-    const res = await api.get(endpoints.get, { params });
+    const res = await api.get(endpoints.get, { params }); //!=============
     if (res.statusText === 'OK') {
       commit('ADD_COURSES', res.data.data);
       commit('TOTAL', res.data.total);
@@ -115,7 +114,7 @@ const actions = {
     }
   },
   async GET_VIDEO({ commit }, id) {
-    const res = await api.get(`${endpoints.video}/${id}`);
+    const res = await api.get(`${endpoints.video}/${id}`); //!=============
     if (res.statusText === 'OK') {
       commit('VIDEO', res.data);
     } else {
