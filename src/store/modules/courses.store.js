@@ -1,5 +1,3 @@
-/* eslint-disable no-irregular-whitespace */
-const { getData, postData, putData, deleteData } = require('@/helpers').default;
 import { api } from './../../helpers/api';
 
 const errors = require('@/config/errors').default.online;
@@ -138,7 +136,6 @@ const actions = {
     commit('LOADING', false);
   },
   async DELETE_COURSE({ commit, dispatch }, courseId) {
-    // const response = await deleteData(`${endpoints.delete}/${courseId}`);
     const res = await api.delete(`${endpoints.delete}/${courseId}`);
     if (res.statusText === 'OK') {
       dispatch('GET_COURSES');
@@ -149,10 +146,10 @@ const actions = {
   },
   async BUY_COURSE({ commit }, payload) {
     commit('LOADING', true);
-    const { data, error } = await postData(endpoints.buyCourse, payload);
-    if (!error && data.link) {
+    const res = await api.post(endpoints.buyCourse, payload);
+    if (res.statusText === 'Created') {
       // window.open(data.link);
-      window.location = data.link;
+      window.location = res.data.link;
     } else {
       commit('ERROR', errors.buy, { root: true });
     }
@@ -160,10 +157,10 @@ const actions = {
   },
   async BUY_END_CUSTOMER({ commit }, payload) {
     commit('LOADING', true);
-    const { data, error } = await postData(endpoints.buyEndCustomer, payload);
-    if (!error && data.link) {
+    const res = await api.post(endpoints.buyEndCustomer, payload);
+    if (res.statusText === 'Created') {
       // window.open(data.link);
-      window.location = data.link;
+      window.location = res.data.link;
     } else {
       commit('ERROR', errors.buy, { root: true });
     }
@@ -171,11 +168,15 @@ const actions = {
   },
   // !==========================================================================
   async PUT_VIDEO({ commit, dispatch }, { fd, id }) {
-    const { error } = await putData(`${endpoints.video}/${id}`, fd);
-    if (!error) {
+    const res = await api.put(`${endpoints.video}/${id}`, fd);
+    if (res.statusText === 'OK') {
       dispatch('GET_FIND_VIDEO', id);
     } else {
-      commit('ERROR', { error: true, errorType: 'Update video lesson', errorMessage: error }, { root: true });
+      commit(
+        'ERROR',
+        { error: true, errorType: 'Update video lesson', errorMessage: res.data.messages },
+        { root: true }
+      );
     }
   },
   async ADD_QUEUE({ commit }, arr) {
@@ -199,47 +200,51 @@ const actions = {
     request.send(payload.lesson);
   },
   async GET_FIND_VIDEO({ commit }, id) {
-    const { video, error } = await getData(`${endpoints.findVideo}/${id}`);
-    if (!error) {
-      commit('VIDEO', video);
+    const res = await api.get(`${endpoints.findVideo}/${id}`);
+    if (res.statusText === 'OK') {
+      commit('VIDEO', res.data);
     } else {
       commit('ERROR', errors.get, { root: true });
     }
   },
   async GET_VIDEO({ commit }, id) {
-    const { video, error } = await getData(`${endpoints.video}/${id}`);
-    if (!error) {
-      commit('VIDEO', video);
+    const res = await api.get(`${endpoints.video}/${id}`);
+    if (res.statusText === 'OK') {
+      commit('VIDEO', res.data);
     } else {
       commit('ERROR', errors.get, { root: true });
     }
   },
   async DELETE_VIDEO({ commit, dispatch }, { id, courseId }) {
-    const { error } = await deleteData(`${endpoints.video}/${id}`);
-    if (!error) {
+    const res = await api.delete(`${endpoints.video}/${id}`);
+    if (res.statusText === 'OK') {
       dispatch('GET_COURSE', courseId);
     } else {
-      commit('ERROR', { error: true, errorType: 'Delete video lesson', errorMessage: error }, { root: true });
+      commit(
+        'ERROR',
+        { error: true, errorType: 'Delete video lesson', errorMessage: res.data.message },
+        { root: true }
+      );
     }
   },
   async ADD_PDF({ commit, dispatch }, { fd, lessonId, currentCourseId }) {
-    const { error } = await postData(`${endpoints.pdf}/${lessonId}`, fd);
-    if (!error) {
+    const res = await api.post(`${endpoints.pdf}/${lessonId}`, fd);
+    if (res.statusText === 'Created') {
       dispatch('GET_COURSES');
       dispatch('GET_COURSE', currentCourseId);
       dispatch('GET_FIND_VIDEO', lessonId);
     } else {
-      commit('ERROR', { error: true, errorType: 'Add pdf', errorMessage: error }, { root: true });
+      commit('ERROR', { error: true, errorType: 'Add pdf', errorMessage: res.data.message }, { root: true });
     }
   },
   async REMOVE_PDF({ commit, dispatch }, { id, lessonId, currentCourseId }) {
-    const { error } = await deleteData(`${endpoints.pdf}/${id}`);
-    if (!error) {
+    const res = await api.delete(`${endpoints.pdf}/${id}`);
+    if (res.statusText === 'OK') {
       dispatch('GET_COURSES');
       dispatch('GET_COURSE', currentCourseId);
       dispatch('GET_FIND_VIDEO', lessonId);
     } else {
-      commit('ERROR', { error: true, errorType: 'Delete pdf', errorMessage: error }, { root: true });
+      commit('ERROR', { error: true, errorType: 'Delete pdf', errorMessage: res.data.message }, { root: true });
     }
   },
 };

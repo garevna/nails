@@ -1,4 +1,4 @@
-const { postData } = require('@/helpers').default;
+import { api } from './../../helpers/api';
 const endpoints = require('@/config/endpoints').default.commodities;
 
 const errors = require('@/config/errors').default.online;
@@ -9,7 +9,8 @@ const state = {
 };
 
 const getters = {
-  getSumPrice: (state, getters) => Math.trunc(getters.commodityCards.reduce((acc, curr) => (acc += curr.price * curr.count), 0) * 100) / 100,
+  getSumPrice: (state, getters) =>
+    Math.trunc(getters.commodityCards.reduce((acc, curr) => (acc += curr.price * curr.count), 0) * 100) / 100,
 
   getTotalItem: state => state.cart.reduce((acc, curr) => (acc += curr.count), 0),
 
@@ -40,8 +41,8 @@ const mutations = {
       return item.count <= amount
         ? item
         : Object.assign(item, {
-          count: amount,
-        });
+            count: amount,
+          });
     });
     state.commodities = payload ?? [];
   },
@@ -83,9 +84,12 @@ const actions = {
   },
 
   async GET_COMMODITIES(ctx) {
-    const { commodity, error } = await postData(`${endpoints.getById}`, { ids: ctx.state.cart.map(item => item._id) });
-    if (!error) {
-      ctx.commit('COMMODITIES', commodity.filter(item => item));
+    const res = await api.post(`${endpoints.getById}`, { ids: ctx.state.cart.map(item => item._id) });
+    if (res.statusText === 'Created') {
+      ctx.commit(
+        'COMMODITIES',
+        res.data.filter(item => item)
+      );
     } else {
       ctx.commit('ERROR', errors.get, { root: true });
     }
@@ -105,7 +109,7 @@ const actions = {
   CLEAR_CART({ commit }) {
     commit('CLEAR_CART');
     localStorage.removeItem('cart');
-  }
+  },
 };
 
 export default {

@@ -1,4 +1,3 @@
-const { getData, postData } = require('@/helpers').default;
 import { api } from './../../helpers/api';
 
 const errors = require('@/config/errors').default.offline;
@@ -57,25 +56,25 @@ const actions = {
     }
   },
   async GET_COURSE({ commit }, id) {
-    const { offlineCourse, error } = await getData(`${endpoints.get}/${id}`);
-    if (error) {
-      commit('ERROR', errors.get, { root: true });
+    const res = await api.get(`${endpoints.get}/${id}`);
+    if (res.statusText === 'OK') {
+      commit('OFFLINE_COURSE_BY_ID', res.data);
     } else {
-      commit('OFFLINE_COURSE_BY_ID', offlineCourse);
+      commit('ERROR', errors.get, { root: true });
     }
   },
   async BUY_COURSE({ commit }, payload) {
     commit('LOADING', true);
-    const { data, error } = await postData(endpoints.buyCourse, payload);
-    if (!error && data.link) {
-      window.open(data.link);
+    const res = await api.post(endpoints.buyCourse, payload);
+    if (res.statusText === 'Created') {
+      window.open(res.data.link);
     } else {
       commit(
         'ERROR',
         {
           error: errors.buy.error,
           errorType: errors.buy.errorType,
-          errorMessage: error || errors.buy.errorMessage,
+          errorMessage: res.data.message || errors.buy.errorMessage,
         },
         { root: true }
       );

@@ -1,4 +1,3 @@
-const { postData } = require('@/helpers').default;
 import { api } from './../../helpers/api';
 
 const endpoints = require('@/config/endpoints').default.delivery;
@@ -45,21 +44,20 @@ const actions = {
     //   root: true,
     // });
   },
-
   async GET_PRICES(ctx, type) {
-    const params = { type }
+    const params = { type };
     const res = await api.get(endpoints.get, { params });
     if (res.statusText === 'OK') {
       return res.data;
     }
-    return []
+    return [];
   },
   async PAY({ commit, dispatch }, cart) {
     commit('LOADING', true);
-    const { data, error } = await postData(buyBasket, cart);
-    if (!error && data.link) {
+    const res = await api.post(buyBasket, cart);
+    if (res.statusText === 'Created') {
       // window.open(data.link);
-      window.location = data.link;
+      window.location = res.data.link;
       dispatch('productCart/CLEAR_CART', {}, { root: true });
       commit('LOADING', false);
       return true;

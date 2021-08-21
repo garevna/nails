@@ -1,4 +1,4 @@
-const { getData } = require('@/helpers').default;
+import { api } from './../../helpers/api';
 
 const errors = require('@/config/errors').default.instagram;
 // const messages = require('@/config/messages').default.onlineCourses
@@ -19,13 +19,13 @@ const mutations = {
 
 const actions = {
   async GET_INSTAGRAM({ commit }) {
-    const { data, error } = await getData(endpoints.get);
-    if (error) {
+    const res = await api.path(endpoints.get);
+    if (res.statusText === 'OK') {
       commit('ERROR', errors.get, { root: true });
     } else {
       commit(
         'DATA',
-        data.map(item => Object.assign(item, { text: item.text[0] ?? '' }))
+        res.data.map(item => Object.assign(item, { text: item.text[0] ?? '' }))
       );
     }
   },

@@ -134,12 +134,9 @@ const actions = {
 
   async GET_COMMODITY({ state, commit }, { commodityId }) {
     commit('COMMODITY_LOADING', true);
-
-    // const { commodity, error }
-    const res = await getData(`${commoditiesEndpoints.commodity}/${commodityId}`);
-
-    if (res && !res?.error && res?.commodity) {
-      commit('COMMODITY', res.commodity[0]);
+    const res = await api.get(`${commoditiesEndpoints.commodity}/${commodityId}`);
+    if (res.statusText === 'OK') {
+      commit('COMMODITY', res.data[0]);
     } else {
       commit('COMMODITY', null);
     }
@@ -166,21 +163,10 @@ const actions = {
   },
 
   async GET_ORDERS({ commit, rootState }) {
-    const { data, error } = await (
-      await fetch(
-        `${process.env.VUE_APP_API_URL}/${ordersEndpoints.get}?idUser=${rootState.auth.user._id}&type=commodity`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-            Authorization: `Bearer ${rootState.auth.token}`,
-          },
-        }
-      )
-    ).json();
-
-    if (!error) {
-      commit('ORDERS', data);
+    const params = { type: 'commodity', idUser: rootState.auth.user._id };
+    const res = await api.get(ordersEndpoints.get, { params });
+    if (res.statusText === 'OK') {
+      commit('ORDERS', res.data);
     }
   },
 };

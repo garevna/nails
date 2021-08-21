@@ -44,7 +44,6 @@ const actions = {
   },
   async LOG_OUT({ commit }) {
     const res = await api.post(endpoints.logout);
-    console.log({ res: res.data });
     if (res.statusText === 'Created') {
       storage.clearAuthorization();
       commit('USER', null);
