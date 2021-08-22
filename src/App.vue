@@ -54,8 +54,8 @@ export default {
     this.$store.dispatch('productCart/INIT_CART');
   },
   async created() {
-    subscribeToFailedRefresh(() => this.$store.commit('auth/LOGOUT'));
-    await this.$store.dispatch('auth/IS_SIGNED');
+    subscribeToFailedRefresh(() => this.$router.push({ name: 'user-cabinet' }));
+    await this.$store.dispatch('auth/GET_PROFILE');
   },
 
   destroyed() {

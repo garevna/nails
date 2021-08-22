@@ -3,7 +3,7 @@ import { api } from './../../helpers/api';
 import { storage } from './../../helpers/storage';
 
 const errors = require('@/config/errors').default.auth;
-const { requestReset, resetPass, changePass } = require('@/config/messages').default.auth;
+const { requestReset, resetPass, changePass, signUpMessage } = require('@/config/messages').default.auth;
 
 const endpoints = require('@/config/endpoints').default.auth;
 
@@ -33,10 +33,6 @@ const mutations = {
 };
 
 const actions = {
-  async IS_SIGNED({ dispatch }) {
-    const authorization = storage.getAuthorization();
-    if (authorization) dispatch('GET_PROFILE');
-  },
   async GET_PROFILE({ commit }) {
     const res = await api.get(endpoints.profile);
     if (res.statusText === 'OK') {
@@ -62,20 +58,20 @@ const actions = {
     }
     commit('LOADING', false);
   },
-  async SIGN_UP({ commit }, payload) {
+  SIGN_UP({ commit }, payload) {
     commit('LOADING', true);
-    const res = await api.post(endpoints.registration, payload);
-    if (res.statusText === 'Created') {
+    api.post(endpoints.registration, payload).then((res) => {
       storage.saveAuthorization(res.data);
-      // dialog email view
-    } else {
-      commit('ERROR', Object.assign({}, errors.signUp, { errorMessage: res.data.message }), { root: true });
-    }
-    commit('LOADING', false);
+      commit('MESSAGE', { ...signUpMessage, messageText: signUpMessage.messageText + ` ${payload.email}` }, { root: true });
+    }).catch(() => {
+      commit('ERROR', errors.get, { root: true });
+    }).finally(() => {
+      commit('LOADING', false);
+    })
   },
   async EDIT_USER({ commit }, payload) {
     commit('LOADING', true);
-    const res = await api.path(endpoints.profile, payload);
+    const res = await api.patch(endpoints.profile, payload);
     if (res.statusText === 'OK') {
       commit('USER', res.data);
     } else {

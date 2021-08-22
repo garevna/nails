@@ -72,15 +72,27 @@ const mutations = {
 };
 
 const actions = {
-  async GET_CATEGORIES({ commit, state }) {
+  // async GET_CATEGORIES({ commit, state }) {
+  //   commit('CATEGORIES_LOADING', true);
+
+  //   const res = await api.get(categoriesEndpoints.categories);
+  //   if (res.statusText === 'OK') {
+  //     commit('CATEGORIES', res.data);
+  //   }
+
+  //   commit('CATEGORIES_LOADING', false);
+  // },
+  GET_CATEGORIES({ commit }) {
     commit('CATEGORIES_LOADING', true);
-
-    const res = await api.get(categoriesEndpoints.categories);
-    if (res.statusText === 'OK') {
+    api.get(categoriesEndpoints.categories).then((res) => {
+      console.log(res.status)
       commit('CATEGORIES', res.data);
-    }
+    }).catch(() => {
+      console.log('Failed to load categories')
+    }).finally(() => {
+      commit('CATEGORIES_LOADING', false);
+    })
 
-    commit('CATEGORIES_LOADING', false);
   },
 
   async SEARCH_COMMODITIES({ state, commit }, { page }) {

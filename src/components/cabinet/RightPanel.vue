@@ -48,7 +48,7 @@ export default {
   watch: {},
   methods: {
     goToAdmin() {
-      window.open(`${process.env.VUE_APP_API_URL}/admin`);
+      window.location = `${process.env.VUE_APP_API_URL}/admin`;
     },
     logoutUser() {
       this.$store.dispatch('auth/LOG_OUT');

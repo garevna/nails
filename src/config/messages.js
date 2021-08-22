@@ -7,6 +7,11 @@ export default {
     },
   },
   auth: {
+    signUpMessage: {
+      message: true,
+      messageType: 'Registration request',
+      messageText: 'Please check your email to complete registration',
+    },
     requestReset: {
       message: true,
       messageType: 'Request reset',

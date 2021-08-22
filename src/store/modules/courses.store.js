@@ -106,18 +106,19 @@ const actions = {
       commit('ERROR', errors.get, { root: true });
     }
   },
-  async POST_COURSE({ commit, dispatch }, fd) {
+  POST_COURSE({ commit, dispatch }, fd) {
     commit('LOADING', true);
-    // const { newOnlineCourse, error } = await postData(endpoints.post, fd);
-    const res = await api.post(endpoints.post, fd);
-    if (res.statusText === 'OK') {
-      dispatch('GET_COURSES');
-      commit('COURSE', res.data);
-      commit('MESSAGE', messages.post, { root: true });
-    } else {
+    api.post(endpoints.post, fd).then((res) => {
+      if (res.statusText === 'OK') {
+        dispatch('GET_COURSES');
+        commit('COURSE', res.data);
+        commit('MESSAGE', messages.post, { root: true });
+      }
+    }).catch(() => {
       commit('ERROR', errors.post, { root: true });
-    }
-    commit('LOADING', false);
+    }).finally(() => {
+      commit('LOADING', false);
+    })
   },
   async PUT_COURSE({ state, commit }, { data, id }) {
     commit('LOADING', true);
@@ -183,21 +184,37 @@ const actions = {
     commit('DIALOG', true);
     setTimeout(() => commit('QUEUE', arr), 2000);
   },
-  async ADD_LESSON({ commit }, payload) {
-    const request = new XMLHttpRequest();
-    request.open('POST', `${process.env.VUE_APP_API_URL}/${endpoints.video}/${payload.id}`);
-    request.upload.addEventListener('progress', function (e) {
-      commit('CHANGE_PROGRESS', { index: payload.index, progress: (e.loaded / e.total) * 100 });
-    });
-    request.addEventListener('load', function () {
-      if (request.status === 200) {
-        commit('COMPLETE', payload.index);
-      } else {
-        commit('UPLOAD_FAIL', { index: payload.index, error: true });
-        commit('ERROR', errors.addLesson, { root: true });
+
+  // async ADD_LESSON({ commit }, payload) {
+  //   const request = new XMLHttpRequest();
+  //   request.open('POST', `${process.env.VUE_APP_API_URL}/${endpoints.video}/${payload.id}`);
+  //   request.upload.addEventListener('progress', function (e) {
+  //     commit('CHANGE_PROGRESS', { index: payload.index, progress: (e.loaded / e.total) * 100 });
+  //   });
+  //   request.addEventListener('load', function () {
+  //     if (request.status === 200) {
+  //       commit('COMPLETE', payload.index);
+  //     } else {
+  //       commit('UPLOAD_FAIL', { index: payload.index, error: true });
+  //       commit('ERROR', errors.addLesson, { root: true });
+  //     }
+  //   });
+  //   request.send(payload.lesson);
+  // },  
+  ADD_LESSON({ commit }, payload) {
+    api.post(`${endpoints.video}/${payload.id}`, payload.lesson, {
+      onUploadProgress: (progressEvent) => {
+        let percentCompleted = Math.round(progressEvent.loaded * 100 / progressEvent.total);
+        commit('CHANGE_PROGRESS', { index: payload.index, progress: percentCompleted });
+        console.log(progressEvent.lengthComputable);
+        console.log(percentCompleted);
       }
-    });
-    request.send(payload.lesson);
+    }).then(() => {
+      commit('COMPLETE', payload.index);
+    }).catch(() => {
+      commit('UPLOAD_FAIL', { index: payload.index, error: true });
+      commit('ERROR', errors.addLesson, { root: true });
+    })
   },
   async GET_FIND_VIDEO({ commit }, id) {
     const res = await api.get(`${endpoints.findVideo}/${id}`);

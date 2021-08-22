@@ -67,7 +67,7 @@ const actions = {
     commit('LOADING', true);
     const res = await api.post(endpoints.buyCourse, payload);
     if (res.statusText === 'Created') {
-      window.open(res.data.link);
+      window.location = res.data.link;
     } else {
       commit(
         'ERROR',
