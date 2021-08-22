@@ -44,28 +44,26 @@ const actions = {
     //   root: true,
     // });
   },
-  async GET_PRICES(ctx, type) {
+  GET_PRICES(ctx, type) {
     const params = { type };
-    const res = await api.get(endpoints.get, { params });
-    if (res.statusText === 'OK') {
-      return res.data;
-    }
-    return [];
+    api.get(endpoints.get, { params })
+      .then((res) => res.data)
+      .catch(() => [])
   },
-  async PAY({ commit, dispatch }, cart) {
+  PAY({ commit, dispatch }, cart) {
     commit('LOADING', true);
-    const res = await api.post(buyBasket, cart);
-    if (res.statusText === 'Created') {
-      // window.open(data.link);
-      window.location = res.data.link;
-      dispatch('productCart/CLEAR_CART', {}, { root: true });
-      commit('LOADING', false);
-      return true;
-    } else {
-      commit('ERROR', errors.buy, { root: true });
-      commit('LOADING', false);
-      return false;
-    }
+    api.post(buyBasket, cart)
+      .then((res) => {
+        window.location = res.data.link;
+        dispatch('productCart/CLEAR_CART', {}, { root: true });
+        commit('LOADING', false);
+        return true;
+      })
+      .catch(() => {
+        commit('ERROR', errors.buy, { root: true });
+        commit('LOADING', false);
+        return false;
+      })
   },
 };
 

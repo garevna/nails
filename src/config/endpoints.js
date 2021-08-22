@@ -27,6 +27,7 @@ export default {
     reset: 'auth/reset-password',
     restore: 'auth/restore-password',
     change: 'auth/change-password',
+    activate: 'auth/activate'
   },
   categories: {
     categories: 'shop/categories',

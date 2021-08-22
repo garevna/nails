@@ -33,106 +33,138 @@ const mutations = {
 };
 
 const actions = {
-  async GET_PROFILE({ commit }) {
-    const res = await api.get(endpoints.profile);
-    if (res.statusText === 'OK') {
-      commit('USER', res.data);
-      commit('IS_LOGGED', true);
-    } else {
-      commit('IS_LOGGED', false);
-      commit('ERROR', Object.assign({}, errors.signIn, { errorMessage: res.data.message }), { root: true });
-    }
+  GET_PROFILE({ commit }) {
+    api.get(endpoints.profile)
+      .then((res) => {
+        commit('USER', res.data);
+        commit('IS_LOGGED', true);
+      })
+      .catch((error) => {
+        if (error.request.status !== 500) {
+          commit('IS_LOGGED', false);
+          commit('ERROR', { ...errors.signIn, errorMessage: error.response.data.message }, { root: true });
+        } else {
+          commit('IS_LOGGED', false);
+          commit('ERROR', errors.signIn, { root: true });
+        }
+      })
   },
-  async LOG_OUT({ commit }) {
-    await api.post(endpoints.logout);
-    commit('LOGOUT');
+
+  LOG_OUT({ commit }) {
+    api.post(endpoints.logout)
+      .then(() => commit('LOGOUT'))
+      .catch(() => commit('ERROR', errors.get, { root: true }))
+
   },
-  async SIGN_IN({ commit, dispatch }, payload) {
+
+  SIGN_IN({ commit, dispatch }, payload) {
     commit('LOADING', true);
-    const res = await api.post(endpoints.login, payload);
-    if (res.statusText === 'Created') {
-      storage.saveAuthorization(res.data);
-      dispatch('GET_PROFILE');
-    } else {
-      commit('ERROR', Object.assign({}, errors.signIn, { errorMessage: res.data.message }), { root: true });
-    }
-    commit('LOADING', false);
+    api.post(endpoints.login, payload)
+      .then((res) => {
+        storage.saveAuthorization(res.data);
+        dispatch('GET_PROFILE');
+      })
+      .catch((error) => {
+        console.log(error.status)
+        console.log(error)
+        commit('ERROR', { ...errors.signIn, errorMessage: error.data.message }, { root: true })
+      })
+      .finally(() => commit('LOADING', false))
   },
+
   SIGN_UP({ commit }, payload) {
     commit('LOADING', true);
-    api.post(endpoints.registration, payload).then((res) => {
-      storage.saveAuthorization(res.data);
-      commit('MESSAGE', { ...signUpMessage, messageText: signUpMessage.messageText + ` ${payload.email}` }, { root: true });
-    }).catch(() => {
-      commit('ERROR', errors.get, { root: true });
-    }).finally(() => {
-      commit('LOADING', false);
-    })
+    api.post(endpoints.registration, payload)
+      .then((res) => {
+        storage.saveAuthorization(res.data);
+        commit('MESSAGE', { ...signUpMessage, messageText: signUpMessage.messageText + ` ${payload.email}` }, { root: true });
+      })
+      .catch(() => commit('ERROR', errors.get, { root: true }))
+      .finally(() => commit('LOADING', false))
   },
-  async EDIT_USER({ commit }, payload) {
+  EDIT_USER({ commit }, payload) {
     commit('LOADING', true);
-    const res = await api.patch(endpoints.profile, payload);
-    if (res.statusText === 'OK') {
-      commit('USER', res.data);
-    } else {
-      commit('ERROR', errors.put, { root: true });
-    }
-    commit('LOADING', false);
+    api.patch(endpoints.profile, payload)
+      .then((res) => commit('USER', res.data))
+      .catch(() => commit('ERROR', errors.put, { root: true }))
+      .finally(() => commit('LOADING', false))
   },
-  async CHANGE_PASSWORD(ctx, payload) {
-    const res = await api.post(endpoints.change, payload);
-    if (res.statusText === 'Created') {
-      ctx.commit('MESSAGE', changePass, { root: true });
-      return true;
-    } else {
-      ctx.commit(
+
+  CHANGE_PASSWORD({ commit }, payload) {
+    api.post(endpoints.change, payload)
+      .then(() => {
+        commit('MESSAGE', changePass, { root: true });
+        return true;
+      })
+      .catch((error) => {
+        commit(
+          'ERROR',
+          {
+            error: true,
+            errorType: 'Change password',
+            errorMessage: error.data.message,
+          },
+          { root: true }
+        );
+        return false;
+      })
+  },
+
+  REQUEST_RESET({ commit }, payload) {
+    api.post(endpoints.reset, { email: payload })
+      .then(() => {
+        commit('MESSAGE', requestReset, { root: true });
+        return true;
+      })
+      .catch((error) => {
+        commit(
+          'ERROR',
+          {
+            error: true,
+            errorType: 'Request reset',
+            errorMessage: error.data.message,
+          },
+          { root: true }
+        );
+        return false;
+      })
+  },
+
+  RESTORE({ commit }, payload) {
+    api.post(endpoints.restore, payload)
+      .then(() => {
+        commit('MESSAGE', resetPass, { root: true });
+        return true;
+      })
+      .catch((error) => {
+        commit(
+          'ERROR',
+          {
+            error: true,
+            errorType: 'Restore password',
+            errorMessage: error.response.data.message,
+          },
+          { root: true }
+        );
+        return false;
+      })
+  },
+  ACTIVATION({ commit }, hash) {
+    api.get(`${endpoints.activate}'/'${hash}`)
+    .then(() => console.log('success'))
+    .catch((error) => {
+      console.log('failed')
+      commit(
         'ERROR',
         {
           error: true,
-          errorType: 'Change password',
-          errorMessage: res.data.message,
+          errorType: 'Activate account',
+          errorMessage: error.response.data.message,
         },
         { root: true }
       );
-      return false;
-    }
-  },
-  async REQUEST_RESET(ctx, payload) {
-    const res = await api.post(endpoints.reset, { email: payload });
-    if (res.statusText === 'Created') {
-      ctx.commit('MESSAGE', requestReset, { root: true });
-      return true;
-    } else {
-      ctx.commit(
-        'ERROR',
-        {
-          error: true,
-          errorType: 'Request reset',
-          errorMessage: res.data.message,
-        },
-        { root: true }
-      );
-      return false;
-    }
-  },
-  async RESTORE(ctx, payload) {
-    const res = await api.post(endpoints.restore, payload);
-    if (res.statusText === 'Created') {
-      ctx.commit('MESSAGE', resetPass, { root: true });
-      return true;
-    } else {
-      ctx.commit(
-        'ERROR',
-        {
-          error: true,
-          errorType: 'Restore password',
-          errorMessage: res.data.message,
-        },
-        { root: true }
-      );
-      return false;
-    }
-  },
+    })
+  }
 };
 
 export default {

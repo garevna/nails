@@ -41,14 +41,14 @@
                       :disabled.sync="disabled[name]"
                       :outlined="false"
                     />
-                    <span 
-                      v-if="disabled[name]" @click="disabled[name] = false" 
+                    <span
+                      v-if="disabled[name]"
+                      @click="disabled[name] = false"
                       class="edit-btn btnEdit--text"
-                      style="font-size: 16px;"
-                      >
-                      edit
-                    </span
+                      style="font-size: 16px"
                     >
+                      edit
+                    </span>
                   </td>
                 </tr>
               </tbody>
@@ -143,7 +143,7 @@ export default {
       if (this.$route.name !== name) this.$router.push({ name: name });
     },
   },
-  async mount() {
+  async mounted() {
     await this.$store.dispatch('auth/GET_PROFILE');
     this.fillProfile();
   },

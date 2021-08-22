@@ -72,30 +72,22 @@ const mutations = {
 };
 
 const actions = {
-  // async GET_CATEGORIES({ commit, state }) {
-  //   commit('CATEGORIES_LOADING', true);
-
-  //   const res = await api.get(categoriesEndpoints.categories);
-  //   if (res.statusText === 'OK') {
-  //     commit('CATEGORIES', res.data);
-  //   }
-
-  //   commit('CATEGORIES_LOADING', false);
-  // },
   GET_CATEGORIES({ commit }) {
     commit('CATEGORIES_LOADING', true);
-    api.get(categoriesEndpoints.categories).then((res) => {
-      console.log(res.status)
-      commit('CATEGORIES', res.data);
-    }).catch(() => {
-      console.log('Failed to load categories')
-    }).finally(() => {
-      commit('CATEGORIES_LOADING', false);
-    })
+    api.get(categoriesEndpoints.categories)
+      .then((res) => {
+        commit('CATEGORIES', res.data);
+      })
+      .catch(() => {
+        console.log('Failed to load categories')
+      })
+      .finally(() => {
+        commit('CATEGORIES_LOADING', false);
+      })
 
   },
 
-  async SEARCH_COMMODITIES({ state, commit }, { page }) {
+  SEARCH_COMMODITIES({ state, commit }, { page }) {
     commit('LOADING', true);
 
     const params = {
@@ -106,16 +98,16 @@ const actions = {
       published: true,
     };
 
-    const res = await api.get(commoditiesEndpoints.search, { params });
-    if (res.statusText === 'OK') {
-      commit('COMMODITIES', res.data.data);
-      commit('TOTAL', res.data.total);
-    }
-
-    commit('LOADING', false);
+    api.get(commoditiesEndpoints.search, { params })
+      .then((res) => {
+        commit('COMMODITIES', res.data.data);
+        commit('TOTAL', res.data.total);
+      })
+      .catch(() => console.log('error search commodities'))
+      .finally(() => commit('LOADING', false))
   },
 
-  async GET_COMMODITIES({ state, commit, dispatch }, { categoryId, isSubcategory, page }) {
+  GET_COMMODITIES({ state, commit, dispatch }, { categoryId, isSubcategory, page }) {
     if (state.search.length) {
       dispatch('SEARCH_COMMODITIES', { page });
       return;
@@ -130,32 +122,29 @@ const actions = {
       published: true,
     };
 
-    const res = await api.get(
+    api.get(
       `${commoditiesEndpoints[isSubcategory ? 'subcommodities' : 'commodities']}/${categoryId}`,
       { params }
-    );
-    if (res.statusText === 'OK') {
-      commit('COMMODITIES', res.data.data);
-      commit('TOTAL', res.data.total);
-    } else {
-      commit('ERROR', errors.get, { root: true });
-    }
-
-    commit('LOADING', false);
+    )
+      .then((res) => {
+        commit('COMMODITIES', res.data.data);
+        commit('TOTAL', res.data.total);
+      })
+      .catch(() => {
+        commit('ERROR', errors.get, { root: true });
+      })
+      .finally(() => commit('LOADING', false))
   },
 
-  async GET_COMMODITY({ state, commit }, { commodityId }) {
+  GET_COMMODITY({ commit }, { commodityId }) {
     commit('COMMODITY_LOADING', true);
-    const res = await api.get(`${commoditiesEndpoints.commodity}/${commodityId}`);
-    if (res.statusText === 'OK') {
-      commit('COMMODITY', res.data[0]);
-    } else {
-      commit('COMMODITY', null);
-    }
-    commit('COMMODITY_LOADING', false);
+    api.get(`${commoditiesEndpoints.commodity}/${commodityId}`)
+      .then((res) => commit('COMMODITY', res.data[0]))
+      .catch(() => commit('COMMODITY', null))
+      .finally(() => commit('COMMODITY_LOADING', false))
   },
 
-  async RANDOM_COMMODITIES({ state, commit }) {
+  RANDOM_COMMODITIES({ state, commit }) {
     commit('LOADING', true);
     state.activeCategory = null;
 
@@ -163,22 +152,19 @@ const actions = {
       // limit: state.pageSize,
       per_page: state.pageSize,
     };
-    const res = await api.get(commoditiesEndpoints.random, { params });
-    if (res.statusText === 'OK') {
-      commit('COMMODITIES', res.data);
-      commit('TOTAL', 0);
-    } else {
-      commit('ERROR', errors.get, { root: true });
-    }
-
-    commit('LOADING', false);
+    api.get(commoditiesEndpoints.random, { params })
+      .then((res) => {
+        commit('COMMODITIES', res.data);
+        commit('TOTAL', 0);
+      })
+      .catch(() => commit('ERROR', errors.get, { root: true }))
+      .finally(() => commit('LOADING', false))
   },
 
-  async GET_ORDERS({ commit }) {
-    const res = await api.get(`${ordersEndpoints.get}/commodity`);
-    if (res.statusText === 'OK') {
-      commit('ORDERS', res.data.data);
-    }
+  GET_ORDERS({ commit }) {
+    api.get(`${ordersEndpoints.get}/commodity`)
+    .then((res) =>  commit('ORDERS', res.data.data))
+    .catch(() => console.log('failed get orders'))
   },
 };
 

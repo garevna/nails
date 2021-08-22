@@ -41,8 +41,8 @@ const mutations = {
       return item.count <= amount
         ? item
         : Object.assign(item, {
-            count: amount,
-          });
+          count: amount,
+        });
     });
     state.commodities = payload ?? [];
   },
@@ -83,16 +83,15 @@ const actions = {
     dispatch('UPDATE_CART');
   },
 
-  async GET_COMMODITIES(ctx) {
-    const res = await api.post(`${endpoints.getById}`, { ids: ctx.state.cart.map(item => item._id) });
-    if (res.statusText === 'Created') {
-      ctx.commit(
-        'COMMODITIES',
-        res.data.filter(item => item)
-      );
-    } else {
-      ctx.commit('ERROR', errors.get, { root: true });
-    }
+  GET_COMMODITIES({ commit, state }) {
+    api.post(`${endpoints.getById}`, { ids: state.cart.map(item => item._id) })
+      .then((res) => {
+        commit(
+          'COMMODITIES',
+          res.data.filter(item => item)
+        );
+      })
+      .catch(() => commit('ERROR', errors.get, { root: true }))
   },
 
   async INIT_CART({ commit, dispatch }) {

@@ -12,6 +12,11 @@ const routes = [
     component: Home,
   },
   {
+    path: '/activate/:hash',
+    name: 'activate',
+    component: () => import(/* webpackChunkName: "activation" */ '@/views/Activation.vue'),
+  },
+  {
     path: '/shop',
     name: 'shop-root',
     meta: { layout: 'Shop' },

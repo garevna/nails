@@ -36,50 +36,44 @@ const mutations = {
 };
 
 const actions = {
-  async GET_OFFLINE_COURSES({ commit }) {
-    const res = await api.get(endpoints.get);
-    if (res.statusText === 'OK') {
-      commit('OFFLINE_COURSES', res.data.data);
-      commit('TOTAL', res.data.total);
-    } else {
-      commit('ERROR', errors.get, { root: true });
-    }
+  GET_OFFLINE_COURSES({ commit }) {
+    api.get(endpoints.get)
+      .then((res) => {
+        commit('OFFLINE_COURSES', res.data.data);
+        commit('TOTAL', res.data.total);
+      })
+      .catch(() => commit('ERROR', errors.get, { root: true }))
   },
-  async GET_MORE_OFFLINE_COURSES({ commit }, skip) {
+  GET_MORE_OFFLINE_COURSES({ commit }, skip) {
     const params = { skip };
-    const res = await api.get(endpoints.get, { params });
-    if (res.statusText === 'OK') {
-      commit('MORE_OFFLINE_COURSES', res.data.data);
-      commit('TOTAL', res.data.total);
-    } else {
-      commit('ERROR', errors.get, { root: true });
-    }
+    api.get(endpoints.get, { params })
+      .then((res) => {
+        commit('MORE_OFFLINE_COURSES', res.data.data);
+        commit('TOTAL', res.data.total);
+      })
+      .catch(() => commit('ERROR', errors.get, { root: true }))
   },
-  async GET_COURSE({ commit }, id) {
-    const res = await api.get(`${endpoints.get}/${id}`);
-    if (res.statusText === 'OK') {
-      commit('OFFLINE_COURSE_BY_ID', res.data);
-    } else {
-      commit('ERROR', errors.get, { root: true });
-    }
+  GET_COURSE({ commit }, id) {
+    api.get(`${endpoints.get}/${id}`)
+      .then((res) => commit('OFFLINE_COURSE_BY_ID', res.data))
+      .catch(() => commit('ERROR', errors.get, { root: true }))
   },
-  async BUY_COURSE({ commit }, payload) {
+  BUY_COURSE({ commit }, payload) {
     commit('LOADING', true);
-    const res = await api.post(endpoints.buyCourse, payload);
-    if (res.statusText === 'Created') {
-      window.location = res.data.link;
-    } else {
-      commit(
-        'ERROR',
-        {
-          error: errors.buy.error,
-          errorType: errors.buy.errorType,
-          errorMessage: res.data.message || errors.buy.errorMessage,
-        },
-        { root: true }
-      );
-    }
-    commit('LOADING', false);
+    api.post(endpoints.buyCourse, payload)
+      .then((res) => window.location = res.data.link)
+      .catch((error) => {
+        commit(
+          'ERROR',
+          {
+            error: errors.buy.error,
+            errorType: errors.buy.errorType,
+            errorMessage: error.response.data.message || errors.buy.errorMessage,
+          },
+          { root: true }
+        );
+      })
+      .finally(() => commit('LOADING', false))
   },
 };
 
