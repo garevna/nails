@@ -18,7 +18,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['error']),
+    // ...mapState(['error']),
     ...mapState('auth', ['user']),
     ...mapState('courses', ['loading']),
   },
@@ -33,10 +33,12 @@ export default {
       // if (!this.error) this.$router.back();
       if (this.$route.name === 'by-course-creator') {
         await this.buyCourse(data);
-        if (!this.error) this.$router.push({ name: 'user-courses' });
+        // const resolve = await this.buyCourse(data);
+        // if (resolve) this.$router.push({ name: 'user-courses' });
       } else {
         await this.buyEndCustomer(data);
-        if (!this.error) this.$router.push({ name: 'courses-online' });
+        // const resolve = await this.buyEndCustomer(data);
+        // if (resolve) this.$router.push({ name: 'courses-online' });
       }
     },
   },

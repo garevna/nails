@@ -144,17 +144,35 @@ const actions = {
   },
   BUY_COURSE({ commit }, payload) {
     commit('LOADING', true);
+    let resolve = null
+    const promise = new Promise()
     api.post(endpoints.buyCourse, payload)
-      .then((res) => window.location = res.data.link)
-      .catch(() => commit('ERROR', errors.buy, { root: true }))
+      .then((res) => {
+        window.location = res.data.link
+        resolve(true)
+      })
+      .catch(() => {
+        commit('ERROR', errors.buy, { root: true })
+        resolve(false)
+      })
       .finally(() => commit('LOADING', false))
+    return promise
   },
   BUY_END_CUSTOMER({ commit }, payload) {
     commit('LOADING', true);
+    let resolve = null
+    const promise = new Promise()
     api.post(endpoints.buyEndCustomer, payload)
-      .then((res) => window.location = res.data.link)
-      .catch(() => commit('ERROR', errors.buy, { root: true }))
+      .then((res) => {
+        window.location = res.data.link
+        resolve(true)
+      })
+      .catch(() => {
+        commit('ERROR', errors.buy, { root: true })
+        resolve(false)
+      })
       .finally(() => commit('LOADING', false));
+    return promise
   },
   PUT_VIDEO({ commit, dispatch }, { fd, id }) {
     api.put(`${endpoints.video}/${id}`, fd)
