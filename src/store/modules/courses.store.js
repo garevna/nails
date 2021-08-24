@@ -101,18 +101,22 @@ const actions = {
       .catch(() => commit('ERROR', errors.get, { root: true }))
   },
   POST_COURSE({ commit, dispatch }, fd) {
+    let resolve = null
+    const promise = new Promise((res) => resolve = res)
     commit('LOADING', true);
-    api.post(endpoints.post, fd).then((res) => {
-      if (res.statusText === 'OK') {
+    api.post(endpoints.post, fd)
+      .then((res) => {
         dispatch('GET_COURSES');
         commit('COURSE', res.data);
         commit('MESSAGE', messages.post, { root: true });
-      }
-    }).catch(() => {
-      commit('ERROR', errors.post, { root: true });
-    }).finally(() => {
-      commit('LOADING', false);
-    })
+        resolve(true)
+      })
+      .catch(() => {
+        commit('ERROR', errors.post, { root: true });
+        resolve(false)
+      })
+      .finally(() => commit('LOADING', false))
+    return promise
   },
   PUT_COURSE({ state, commit }, { data, id }) {
     commit('LOADING', true);
@@ -170,15 +174,13 @@ const actions = {
       onUploadProgress: (progressEvent) => {
         let percentCompleted = Math.round(progressEvent.loaded * 100 / progressEvent.total);
         commit('CHANGE_PROGRESS', { index: payload.index, progress: percentCompleted });
-        console.log(progressEvent.lengthComputable);
-        console.log(percentCompleted);
       }
-    }).then(() => {
-      commit('COMPLETE', payload.index);
-    }).catch(() => {
-      commit('UPLOAD_FAIL', { index: payload.index, error: true });
-      commit('ERROR', errors.addLesson, { root: true });
     })
+      .then(() => commit('COMPLETE', payload.index))
+      .catch(() => {
+        commit('UPLOAD_FAIL', { index: payload.index, error: true });
+        commit('ERROR', errors.addLesson, { root: true });
+      })
   },
   GET_FIND_VIDEO({ commit }, id) {
     api.get(`${endpoints.findVideo}/${id}`)
@@ -192,32 +194,32 @@ const actions = {
   },
   DELETE_VIDEO({ commit, dispatch }, { id, courseId }) {
     api.delete(`${endpoints.video}/${id}`)
-    .then(() =>     dispatch('GET_COURSE', courseId))
-    .catch((error) => {
-      commit(
-        'ERROR',
-        { error: true, errorType: 'Delete video lesson', errorMessage: error.response.data.message },
-        { root: true }
-      );
-    })
+      .then(() => dispatch('GET_COURSE', courseId))
+      .catch((error) => {
+        commit(
+          'ERROR',
+          { error: true, errorType: 'Delete video lesson', errorMessage: error.response.data.message },
+          { root: true }
+        );
+      })
   },
   ADD_PDF({ commit, dispatch }, { fd, lessonId, currentCourseId }) {
     api.post(`${endpoints.pdf}/${lessonId}`, fd)
-    .then(() => {
-      dispatch('GET_COURSES');
-      dispatch('GET_COURSE', currentCourseId);
-      dispatch('GET_FIND_VIDEO', lessonId);
-    })
-    .catch((error) =>  commit('ERROR', { error: true, errorType: 'Add pdf', errorMessage: error.response.data.message }, { root: true }))
+      .then(() => {
+        dispatch('GET_COURSES');
+        dispatch('GET_COURSE', currentCourseId);
+        dispatch('GET_FIND_VIDEO', lessonId);
+      })
+      .catch((error) => commit('ERROR', { error: true, errorType: 'Add pdf', errorMessage: error.response.data.message }, { root: true }))
   },
   REMOVE_PDF({ commit, dispatch }, { id, lessonId, currentCourseId }) {
     api.delete(`${endpoints.pdf}/${id}`)
-    .then(() => {
-      dispatch('GET_COURSES');
-      dispatch('GET_COURSE', currentCourseId);
-      dispatch('GET_FIND_VIDEO', lessonId);
-    })
-    .catch((error) =>  commit('ERROR', { error: true, errorType: 'Delete pdf', errorMessage: error.response.data.message }, { root: true }))
+      .then(() => {
+        dispatch('GET_COURSES');
+        dispatch('GET_COURSE', currentCourseId);
+        dispatch('GET_FIND_VIDEO', lessonId);
+      })
+      .catch((error) => commit('ERROR', { error: true, errorType: 'Delete pdf', errorMessage: error.response.data.message }, { root: true }))
   },
 };
 export default {
