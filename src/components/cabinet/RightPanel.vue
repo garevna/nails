@@ -19,11 +19,11 @@
 
     <v-dialog v-model="dialog" persistent max-width="350">
       <v-card>
-        <v-card-title> Do you really want to leave ?</v-card-title>
-        <v-card-actions class="justify-center">
-          <v-btn color="buttons" rounded large text @click="dialog = false"> Cancel </v-btn>
-          <v-btn color="buttons" rounded large text @click="logoutUser(false)"> Log off current device </v-btn>
+        <v-card-title class="justify-center"> Do you really want to leave ?</v-card-title>
+        <v-card-actions class="d-flex flex-column justify-center">
+          <v-btn color="buttons" rounded large text @click="logoutUser(false)"> Log out from current device </v-btn>
           <v-btn color="buttons" rounded large text @click="logoutUser(true)"> Log out from all devices  </v-btn>
+          <v-btn color="buttons" rounded large text @click="dialog = false"> Cancel </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
