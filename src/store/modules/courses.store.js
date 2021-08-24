@@ -145,7 +145,7 @@ const actions = {
   BUY_COURSE({ commit }, payload) {
     commit('LOADING', true);
     let resolve = null
-    const promise = new Promise()
+    const promise = new Promise((res) => resolve = res)
     api.post(endpoints.buyCourse, payload)
       .then((res) => {
         window.location = res.data.link
@@ -161,7 +161,7 @@ const actions = {
   BUY_END_CUSTOMER({ commit }, payload) {
     commit('LOADING', true);
     let resolve = null
-    const promise = new Promise()
+    const promise = new Promise(res => resolve = res)
     api.post(endpoints.buyEndCustomer, payload)
       .then((res) => {
         window.location = res.data.link
