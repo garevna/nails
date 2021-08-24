@@ -21,8 +21,9 @@
       <v-card>
         <v-card-title> Do you really want to leave ?</v-card-title>
         <v-card-actions class="justify-center">
-          <v-btn color="buttons" rounded large text @click="dialog = false"> Disagree </v-btn>
-          <v-btn color="buttons" rounded large text @click="logoutUser"> Agree </v-btn>
+          <v-btn color="buttons" rounded large text @click="dialog = false"> Cancel </v-btn>
+          <v-btn color="buttons" rounded large text @click="logoutUser(false)"> Log off current device </v-btn>
+          <v-btn color="buttons" rounded large text @click="logoutUser(true)"> Log out from all devices  </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -50,8 +51,8 @@ export default {
     goToAdmin() {
       window.location = `${process.env.VUE_APP_HOST_URL}/admin`;
     },
-    logoutUser() {
-      this.$store.dispatch('auth/LOG_OUT');
+    logoutUser(all) {
+      this.$store.dispatch('auth/LOG_OUT', all);
       this.$router.push({ name: 'home' });
       this.dialog = false;
     },

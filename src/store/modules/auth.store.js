@@ -50,8 +50,8 @@ const actions = {
       })
   },
 
-  LOG_OUT({ commit }) {
-    api.post(endpoints.logout)
+  LOG_OUT({ commit }, all) {
+    api.post(endpoints.logout, { all })
       .then(() => commit('LOGOUT'))
       .catch(() => commit('ERROR', errors.get, { root: true }))
 
@@ -151,19 +151,19 @@ const actions = {
   },
   ACTIVATION({ commit }, hash) {
     api.get(`${endpoints.activate}'/'${hash}`)
-    .then(() => console.log('success'))
-    .catch((error) => {
-      console.log('failed')
-      commit(
-        'ERROR',
-        {
-          error: true,
-          errorType: 'Activate account',
-          errorMessage: error.response.data.message,
-        },
-        { root: true }
-      );
-    })
+      .then(() => console.log('success'))
+      .catch((error) => {
+        console.log('failed')
+        commit(
+          'ERROR',
+          {
+            error: true,
+            errorType: 'Activate account',
+            errorMessage: error.response.data.message,
+          },
+          { root: true }
+        );
+      })
   }
 };
 

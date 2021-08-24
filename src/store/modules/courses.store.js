@@ -150,7 +150,6 @@ const actions = {
       .catch(() => commit('ERROR', errors.buy, { root: true }))
       .finally(() => commit('LOADING', false));
   },
-  // !==========================================================================
   PUT_VIDEO({ commit, dispatch }, { fd, id }) {
     api.put(`${endpoints.video}/${id}`, fd)
       .then(() => dispatch('GET_FIND_VIDEO', id))
@@ -166,7 +165,6 @@ const actions = {
     commit('DIALOG', true);
     setTimeout(() => commit('QUEUE', arr), 2000);
   },
-
   ADD_LESSON({ commit }, payload) {
     api.post(`${endpoints.video}/${payload.id}`, payload.lesson, {
       onUploadProgress: (progressEvent) => {
