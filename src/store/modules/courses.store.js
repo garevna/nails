@@ -1,4 +1,5 @@
 import { api } from './../../helpers/api';
+import router from './../../router';
 
 const errors = require('@/config/errors').default.online;
 const messages = require('@/config/messages').default.online;
@@ -101,22 +102,23 @@ const actions = {
       .catch(() => commit('ERROR', errors.get, { root: true }))
   },
   POST_COURSE({ commit, dispatch }, fd) {
-    let resolve = null
-    const promise = new Promise((res) => resolve = res)
     commit('LOADING', true);
     api.post(endpoints.post, fd)
       .then((res) => {
         dispatch('GET_COURSES');
         commit('COURSE', res.data);
         commit('MESSAGE', messages.post, { root: true });
-        resolve(true)
+        router.push({
+          name: 'add-course-videos',
+          params: {
+            courseid: res.data._id
+          }
+        })
       })
       .catch(() => {
         commit('ERROR', errors.post, { root: true });
-        resolve(false)
       })
       .finally(() => commit('LOADING', false))
-    return promise
   },
   PUT_COURSE({ state, commit }, { data, id }) {
     commit('LOADING', true);

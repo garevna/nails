@@ -23,7 +23,7 @@
 </style>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 import AddCourseForm from '@/components/forms/AddCourseForm.vue'
 export default {
@@ -31,27 +31,12 @@ export default {
   components: {
     AddCourseForm
   },
-  data () {
-    return {}
-  },
-  computed: {
-    ...mapState('courses', ['course'])
-  },
-  watch: {},
   methods: {
     ...mapActions('courses', {
       createCourse: 'POST_COURSE'
     }),
-    async submit (fd) {
-      await this.createCourse(fd)
-      if (this.course) {
-        this.$router.push({
-          name: 'add-course-videos',
-          params: {
-            courseid: this.course._id
-          }
-        })
-      }
+    submit (fd) {
+      this.createCourse(fd)
     }
   }
 }

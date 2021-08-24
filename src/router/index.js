@@ -12,8 +12,8 @@ const routes = [
     component: Home,
   },
   {
-    path: '/activate/:hash',
-    name: 'activate',
+    path: '/activation/:hash',
+    name: 'activation',
     component: () => import(/* webpackChunkName: "activation" */ '@/views/Activation.vue'),
   },
   {

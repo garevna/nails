@@ -1,6 +1,6 @@
-/* eslint-disable quote-props */
 import { api } from './../../helpers/api';
 import { storage } from './../../helpers/storage';
+import router from './../../router';
 
 const errors = require('@/config/errors').default.auth;
 const { requestReset, resetPass, changePass, signUpMessage } = require('@/config/messages').default.auth;
@@ -39,13 +39,11 @@ const actions = {
         commit('USER', res.data);
         commit('IS_LOGGED', true);
       })
-      .catch((error) => {
-        if (error.request.status !== 500) {
-          commit('IS_LOGGED', false);
-          commit('ERROR', { ...errors.signIn, errorMessage: error.response.data.message }, { root: true });
-        } else {
-          commit('IS_LOGGED', false);
-          commit('ERROR', errors.signIn, { root: true });
+      .catch(() => {
+        if (router.history.current.name !== 'home') {
+          router.push({
+            name: 'home'
+          })
         }
       })
   },
@@ -65,8 +63,6 @@ const actions = {
         dispatch('GET_PROFILE');
       })
       .catch((error) => {
-        console.log(error.status)
-        console.log(error)
         commit('ERROR', { ...errors.signIn, errorMessage: error.data.message }, { root: true })
       })
       .finally(() => commit('LOADING', false))
