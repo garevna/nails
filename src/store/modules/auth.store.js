@@ -150,7 +150,7 @@ const actions = {
       })
   },
   ACTIVATION({ commit }, hash) {
-    api.get(`${endpoints.activate}'/'${hash}`)
+    api.get(`${endpoints.activate}/${hash}`)
       .then(() => console.log('success'))
       .catch((error) => {
         console.log('failed')
