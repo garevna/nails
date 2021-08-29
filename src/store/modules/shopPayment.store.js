@@ -46,24 +46,24 @@ const actions = {
   },
   GET_PRICES(ctx, type) {
     const params = { type };
+    let resolve = null
+    const promise = new Promise((res) => resolve = res)
     api.get(endpoints.get, { params })
-      .then((res) => res.data)
-      .catch(() => [])
+      .then((res) => resolve(res.data))
+      .catch(() => resolve(null))
+    return promise
   },
   PAY({ commit, dispatch }, cart) {
     commit('LOADING', true);
     api.post(buyBasket, cart)
       .then((res) => {
-        window.location = res.data.link;
         dispatch('productCart/CLEAR_CART', {}, { root: true });
-        commit('LOADING', false);
-        return true;
+        window.location = res.data.link;
       })
       .catch(() => {
         commit('ERROR', errors.buy, { root: true });
-        commit('LOADING', false);
-        return false;
       })
+      .finally(() => commit('LOADING', false))
   },
 };
 

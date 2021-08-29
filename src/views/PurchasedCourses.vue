@@ -34,13 +34,12 @@ export default {
   },
   data() {
     return {
-      loading: false,
       dialog: false,
       deleteId: null,
     };
   },
   computed: {
-    ...mapState('purchasedCourses', ['courses', 'course', 'videos', 'total', 'video']),
+    ...mapState('purchasedCourses', ['courses', 'course', 'videos', 'total', 'video', 'loading']),
     ...mapState('auth', ['user']),
     emptyCourses() {
       return !this.loading && !this.courses.length;
@@ -64,10 +63,8 @@ export default {
     goToLessons(id) {
       this.$router.push({ name: 'purchased-lessons', params: { courseid: id } });
     },
-    async getCourses() {
-      this.loading = true;
-      await this.$store.dispatch('purchasedCourses/GET_ALL_COURSES', this.type);
-      this.loading = false;
+    getCourses() {
+      this.$store.dispatch('purchasedCourses/GET_ALL_COURSES', this.type);
     },
   },
   created() {

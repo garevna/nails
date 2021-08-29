@@ -9,12 +9,12 @@
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">
         <v-card flat class="transparent">
+          <v-card-text><a :href="video.link">download</a></v-card-text>
           <v-card-text>
             <p v-for="(item, index) in descriptions" :key="index" class="text--text">
               {{ item }}
             </p>
           </v-card-text>
-          <!-- <v-card-text>{{ course.infoForBonus }}</v-card-text> -->
         </v-card>
       </v-col>
       <v-col cols="12" xs="12" offset-md="2" md="8" v-if="!loading && video">

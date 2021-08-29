@@ -33,18 +33,14 @@ const mutations = {
 };
 
 const actions = {
-  GET_PROFILE({ commit }) {
+  GET_PROFILE({ commit, dispatch }) {
     api.get(endpoints.profile)
       .then((res) => {
         commit('USER', res.data);
         commit('IS_LOGGED', true);
       })
       .catch(() => {
-        if (router.history.current.name !== 'home') {
-          router.push({
-            name: 'home'
-          })
-        }
+        dispatch('CLEAR_USER')
       })
   },
 
@@ -53,6 +49,16 @@ const actions = {
       .then(() => commit('LOGOUT'))
       .catch(() => commit('ERROR', errors.get, { root: true }))
 
+  },
+
+  CLEAR_USER({ commit }) {
+    commit('USER', null);
+    commit('IS_LOGGED', false);
+    if (router.history.current.name !== 'home') {
+      router.push({
+        name: 'home'
+      })
+    }
   },
 
   SIGN_IN({ commit, dispatch }, payload) {

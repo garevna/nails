@@ -53,9 +53,12 @@ export default {
     // this.$store.dispatch('instagram/GET_INSTAGRAM');
     this.$store.dispatch('productCart/INIT_CART');
   },
-  async created() {
-    subscribeToFailedRefresh(() => this.$router.push({ name: 'user-cabinet' }));
-    await this.$store.dispatch('auth/GET_PROFILE');
+  created() {
+    this.$store.dispatch('shopPayment/GET_DELIVERY_PRICES');
+    this.$store.dispatch('auth/GET_PROFILE');
+    subscribeToFailedRefresh(() => {
+      this.$store.dispatch('auth/CLEAR_USER');
+    });
   },
 
   destroyed() {

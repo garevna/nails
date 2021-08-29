@@ -22,12 +22,12 @@
            <table>
             <tr>
               <th>Date of course</th>
-              <th>Available spots</th>
+              <!-- <th>Available spots</th> -->
               <th>Purchased dates</th>
             </tr>
             <tr v-for="item in dateOfCourses" :key="item.id">
               <td>{{ item.date }}</td>
-              <td class="text-right">{{ item.availableSpots }}</td>
+              <!-- <td class="text-right">{{ item.availableSpots }}</td> -->
               <td class="text-right"> <v-chip :color="item.paid ? 'paidAndPublished' : 'notPaidAndPublished'"  text-color="white"> {{ item.paid ? 'paid': 'not paid' }}</v-chip></td>
             </tr>
           </table>
@@ -103,12 +103,15 @@ export default {
             .filter(str => str)
         : [];
     },
+    // purchasedDate() {
+
+    // },
     dateOfCourses() {
       return this.course.dateOfCourses.map(item => ({
         date: this.formatedDate(item.date),
         availableSpots: item.availableSpots,
         id: item._id,
-        paid: this.eventDates.includes(item.vendorСode)
+        paid: item.vendorCode === this.course.vendorCode
       }));
     },
   },

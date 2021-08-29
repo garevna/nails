@@ -6,6 +6,7 @@ const errors = require('@/config/errors').default.online;
 const endpoints = require('@/config/endpoints').default.orders;
 const course = require('@/config/endpoints').default.onlineCourses;
 const courseOff = require('@/config/endpoints').default.offlineCourses;
+const concat = (arr) => arr.map((curr) => ({ ...curr.product[0].product, vendorCode: curr.product[0].vendorCode }))
 
 const state = {
   courses: [],
@@ -13,6 +14,7 @@ const state = {
   videos: [],
   video: null,
   total: 0,
+  loading: false
 };
 const mutations = {
   COURSES: (state, payload) => {
@@ -33,30 +35,25 @@ const mutations = {
   TOTAL: (state, payload) => {
     state.total = payload;
   },
+  LOADING: (state, payload) => {
+    state.loading = payload;
+  },
 };
 
 const actions = {
-  // eslint-disable-next-line no-unused-vars
-  async GET_ALL_COURSES({ commit }, type) { //!=============
-    const res = await api.get(`${endpoints.get}/${type}`);
-    if (res.statusText === 'OK') {
-      let courses = [];
-      if (type === 'offline') {
-        courses = res.data.data.reduce((res, curr) => {
-          const elm = res.find(i => i.id === curr.id);
-          if (!elm) {
-            res.push(curr);
-            return res;
-          }
-          elm.eventDate = elm.eventDate.concat(curr.eventDate);
-          return res;
-        }, []);
-      }
-      commit('COURSES', type === 'offline' ? courses : res.data.data);
-      commit('TOTAL', res.data.total);
-    } else {
-      commit('ERROR', errors.get, { root: true });
-    }
+  GET_ALL_COURSES({ commit }, type) {
+    commit('LOADING', true);
+    api.get(`${endpoints.get}/${type}`)
+      .then((res) => {
+        let courses = [];
+        // if (type === 'offline') {
+          courses = concat(res.data.data)
+        // }
+        commit('COURSES',  courses);
+        commit('TOTAL', res.data.total);
+      })
+      .catch(() => commit('ERROR', errors.get, { root: true }))
+      .finally(() => commit('LOADING', false))
   },
   async GET_MORE_COURSES({ commit }, skip) {
     const params = { skip, published: true };

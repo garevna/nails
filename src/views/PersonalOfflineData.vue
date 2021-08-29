@@ -43,7 +43,6 @@ export default {
     };
   },
   computed: {
-    ...mapState(['error']),
     ...mapState('offlineCourses', ['offlineCourse', 'loading']),
     accessDays() {
       return this.offlineCourse?.dateOfCourses ?? [];
@@ -64,7 +63,7 @@ export default {
     ...mapMutations({
       message: 'MESSAGE',
     }),
-    async sendData(data) {
+    sendData(data) {
       if (!this.id) {
         this.message({
           message: true,
@@ -78,15 +77,14 @@ export default {
         dateOfCourse: this.id,
       });
       delete res.message;
-      await this.buyCourse(res);
-      if (!this.error) this.$router.back();
+      this.buyCourse(res);
     },
     formatedDate(date) {
       let dates = [];
       try {
         dates = JSON.parse(date);
       } catch (e) {
-        // console.error(e.message);
+        console.error(e.response.data.message);
       }
       if (!Array.isArray(dates)) dates = [];
       return datesToString(dates);
