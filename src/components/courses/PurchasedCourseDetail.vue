@@ -11,26 +11,12 @@
       >
         <v-card flat class="mb-8 transparent" dark>
           <v-card-title class="pa-0 pl-4">{{ course.category }}</v-card-title>
-          <v-card-text class="pa-0 pl-4 buttons--text d-flex">{{ type }} course</v-card-text>
+          <v-card-text class="pa-0 pl-4 buttons--text d-flex">online course</v-card-text>
           <v-card-title class="pa-0 pl-4">{{ course.nameOfCourse }}</v-card-title>
           <v-card-text class="pa-0 pl-4 text-start">{{ course.subtitle }}</v-card-text>
           <v-card-title class="pa-0 pl-4 buttons--text"
             >{{ course.accessDays }} days | $ {{ course.price }}</v-card-title
           >
-        </v-card>
-        <v-card v-if="type === 'offline'" flat class="transparent d-flex flex-column align-center" dark>
-           <table>
-            <tr>
-              <th>Date of course</th>
-              <!-- <th>Available spots</th> -->
-              <th>Purchased dates</th>
-            </tr>
-            <tr v-for="item in dateOfCourses" :key="item.id">
-              <td>{{ item.date }}</td>
-              <!-- <td class="text-right">{{ item.availableSpots }}</td> -->
-              <td class="text-right"> <v-chip :color="item.paid ? 'paidAndPublished' : 'notPaidAndPublished'"  text-color="white"> {{ item.paid ? 'paid': 'not paid' }}</v-chip></td>
-            </tr>
-          </table>
         </v-card>
         <v-card flat class="transparent d-flex flex-column align-center" dark>
           <v-card-title>This course is cuitable for:</v-card-title>
@@ -73,18 +59,18 @@ import checkCourseLink from '@/helpers/checkCourseLink';
 export default {
   name: 'PurchasedCourseDetail',
   props: {
-    course: {
-      type: Object,
-      required: true,
-    },
-    type: {
-      type: String,
-      required: true,
-    },
-    eventDates: {
-      type: Array,
-      required: true,
-    },
+    // course: {
+    //   type: Object,
+    //   required: true,
+    // },
+    // type: {
+    //   type: String,
+    //   required: true,
+    // },
+    // eventDates: {
+    //   type: Array,
+    //   required: true,
+    // },
   },
   components: {
     CoverImage,
@@ -95,6 +81,7 @@ export default {
   watch: {},
   computed: {
     ...mapState('auth', ['user']),
+    ...mapState('purchasedCourses', ['course']),
     descriptions() {
       return this.course?.description
         ? this.course.description
@@ -106,14 +93,14 @@ export default {
     // purchasedDate() {
 
     // },
-    dateOfCourses() {
-      return this.course.dateOfCourses.map(item => ({
-        date: this.formatedDate(item.date),
-        availableSpots: item.availableSpots,
-        id: item._id,
-        paid: item.vendorCode === this.course.vendorCode
-      }));
-    },
+    // dateOfCourses() {
+    //   return this.course.dateOfCourses.map(item => ({
+    //     date: this.formatedDate(item.date),
+    //     availableSpots: item.availableSpots,
+    //     id: item._id,
+    //     paid: item.vendorCode === this.course.vendorCode
+    //   }));
+    // },
   },
   methods: {
     linkCheck(course) {

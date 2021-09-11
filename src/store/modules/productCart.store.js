@@ -1,7 +1,7 @@
 import { api } from './../../helpers/api';
 const endpoints = require('@/config/endpoints').default.commodities;
 
-const errors = require('@/config/errors').default.online;
+// const errors = require('@/config/errors').default.online;
 
 const state = {
   cart: [],
@@ -91,7 +91,7 @@ const actions = {
           res.data.filter(item => item)
         );
       })
-      .catch(() => commit('ERROR', errors.get, { root: true }))
+      // .catch(() => commit('ERROR', errors.get, { root: true }))
   },
 
   async INIT_CART({ commit, dispatch }) {

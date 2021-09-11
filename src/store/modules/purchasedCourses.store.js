@@ -6,7 +6,7 @@ const errors = require('@/config/errors').default.online;
 const endpoints = require('@/config/endpoints').default.orders;
 const course = require('@/config/endpoints').default.onlineCourses;
 const courseOff = require('@/config/endpoints').default.offlineCourses;
-const concat = (arr) => arr.map((curr) => ({ ...curr.product[0].product, vendorCode: curr.product[0].vendorCode }))
+// const concat = (arr) => arr.map((curr) => ({ ...curr.product[0].product, vendorCode: curr.product[0].vendorCode }))
 
 const state = {
   courses: [],
@@ -45,12 +45,13 @@ const actions = {
     commit('LOADING', true);
     api.get(`${endpoints.get}/${type}`)
       .then((res) => {
-        let courses = [];
-        // if (type === 'offline') {
-          courses = concat(res.data.data)
-        // }
-        commit('COURSES',  courses);
-        commit('TOTAL', res.data.total);
+        if (type === 'offline') {
+          commit('COURSES',  res.data.courses);
+          commit('TOTAL', res.data.total);
+        }else {
+          commit('COURSES',  res.data.data);
+          commit('TOTAL', res.data.total);
+        }
       })
       .catch(() => commit('ERROR', errors.get, { root: true }))
       .finally(() => commit('LOADING', false))

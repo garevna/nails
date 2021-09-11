@@ -56,11 +56,6 @@ export default {
   components: {
     CoverImage,
   },
-  data() {
-    return {};
-  },
-  computed: {},
-  watch: {},
   methods: {
     linkCheck(course) {
       return checkCourseLink(course);

@@ -155,7 +155,6 @@ const actions = {
     api.get(`${endpoints.activate}/${hash}`)
       .then(() => console.log('success'))
       .catch((error) => {
-        console.log('failed')
         commit(
           'ERROR',
           {

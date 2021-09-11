@@ -82,7 +82,8 @@
               <v-col cols="12" sm="8" md="9">
                 <h5 class="text-truncate">
                   <span v-if="$vuetify.breakpoint.mdAndUp" style="font-weight: normal"> Status: </span>
-                  {{ order.status }}
+                  {{ order.status }} 
+                  <span v-if="order.status === 'created'" style="color: #f5420d">(not paid yet)</span>
                 </h5>
               </v-col>
             </v-row>

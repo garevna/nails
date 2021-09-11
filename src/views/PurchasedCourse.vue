@@ -5,11 +5,7 @@
         <Spinner />
       </v-col>
       <v-col cols="12" xs="12" v-if="!loading && course" class="d-flex justify-center flex-wrap">
-        <PurchasedCourseDetail
-          :type="type"
-          :course="course"
-          :eventDates="eventDates"
-        />
+        <PurchasedCourseDetail />
       </v-col>
     </v-row>
   </v-container>
@@ -40,25 +36,25 @@ export default {
       return !this.loading && !this.courses.length;
     },
     type() {
-      return this.$route.name.includes('online') ? 'online' : 'offline'
+      return this.$route.name.includes('online') ? 'online' : 'offline';
     },
     hideBtn() {
       return this.courses.length < this.total;
     },
     eventDates() {
-      return this.courses.find(course => course._id === this.course?._id)?.eventDate ?? []
-    }
+      return this.courses.find(course => course._id === this.course?._id)?.eventDate ?? [];
+    },
   },
   methods: {
     async getCourse() {
       this.loading = true;
       if (this.type === 'online') {
-        await this.$store.dispatch('purchasedCourses/GET_COURSE',this.$route.params.courseid);
-      }else {
-        await this.$store.dispatch('purchasedCourses/GET_OFFLINE_COURSE',this.$route.params.courseid);
+        await this.$store.dispatch('purchasedCourses/GET_COURSE', this.$route.params.courseid);
+      } else {
+        await this.$store.dispatch('purchasedCourses/GET_OFFLINE_COURSE', this.$route.params.courseid);
         await this.$store.dispatch('purchasedCourses/GET_ALL_COURSES', this.type);
       }
-       
+
       this.loading = false;
     },
   },
@@ -71,4 +67,4 @@ export default {
 </script>
 
   <style scoped>
-  </style>
+</style>
