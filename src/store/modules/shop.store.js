@@ -152,19 +152,35 @@ const actions = {
       // limit: state.pageSize,
       per_page: state.pageSize,
     };
+    let resolve = null
+    const promise = new Promise(res => resolve = res)
     api.get(commoditiesEndpoints.random, { params })
       .then((res) => {
         commit('COMMODITIES', res.data);
         commit('TOTAL', 0);
+        resolve(true)
       })
-      .catch(() => commit('ERROR', errors.get, { root: true }))
+      .catch(() => {
+        commit('ERROR', errors.get, { root: true })
+        resolve(false)
+      })
       .finally(() => commit('LOADING', false))
+    return promise
   },
 
   GET_ORDERS({ commit }) {
+    let resolve = null
+    const promise = new Promise(res => resolve = res)
     api.get(`${ordersEndpoints.get}/commodity`)
-    .then((res) =>  commit('ORDERS', res.data.data))
-    .catch(() => console.log('failed get orders'))
+      .then((res) => {
+        commit('ORDERS', res.data.data)
+        resolve(true)
+      })
+      .catch(() => {
+        console.log('failed get orders')
+        resolve(true)
+      })
+    return promise
   },
 };
 

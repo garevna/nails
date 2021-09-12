@@ -43,18 +43,28 @@ const mutations = {
 const actions = {
   GET_ALL_COURSES({ commit }, type) {
     commit('LOADING', true);
+    let resolve = null
+    const promise = new Promise(res => resolve = res)
     api.get(`${endpoints.get}/${type}`)
       .then((res) => {
         if (type === 'offline') {
-          commit('COURSES',  res.data.courses);
+          commit('COURSES', res.data.courses);
           commit('TOTAL', res.data.total);
-        }else {
-          commit('COURSES',  res.data.data);
+
+        } else {
+          commit('COURSES', res.data.data);
           commit('TOTAL', res.data.total);
+
         }
+        resolve(true)
       })
-      .catch(() => commit('ERROR', errors.get, { root: true }))
+      .catch(() => {
+        commit('ERROR', errors.get, { root: true })
+        resolve(false)
+      })
       .finally(() => commit('LOADING', false))
+    return promise
+
   },
   async GET_MORE_COURSES({ commit }, skip) {
     const params = { skip, published: true };

@@ -10,7 +10,7 @@
           <td>{{ item.date }}</td>
           <td class="text-right">{{ item.availableSpots }}</td>
           <td>
-            <v-btn text :disabled="!item.availableSpots" :class="{ buttons: id === item.id }" @click="id = item.id"
+            <v-btn text :disabled="!item.availableSpots || loading" :class="{ buttons: id === item.id }" @click="id = item.id"
               >Select date</v-btn
             >
           </td>

@@ -79,27 +79,50 @@ const actions = {
       .catch(() => commit('ERROR', errors.get, { root: true }))
   },
   GET_COURSES({ commit, rootState }) {
+    let resolve = null
+    const promise = new Promise(res => resolve = res)
     const params = { userId: rootState.auth.user._id };
     api.get(endpoints.get, { params })
       .then((res) => {
         commit('COURSES', res.data.data);
         commit('TOTAL', res.data.total);
+        resolve(true)
       })
-      .catch(() => commit('ERROR', errors.get, { root: true }))
+      .catch(() => {
+        commit('ERROR', errors.get, { root: true })
+        resolve(false)
+      })
+    return promise
   },
   GET_MORE_USER_COURSES({ commit, rootState }, skip) {
+    let resolve = null
+    const promise = new Promise(res => resolve = res)
     const params = { userId: rootState.auth.user._id, skip };
     api.get(endpoints.get, { params })
       .then((res) => {
         commit('ADD_COURSES', res.data.data);
         commit('TOTAL', res.data.total);
+        resolve(true)
       })
-      .catch(() => commit('ERROR', errors.get, { root: true }))
+      .catch(() => {
+        commit('ERROR', errors.get, { root: true })
+        resolve(false)
+      })
+    return promise
   },
   GET_COURSE({ commit }, id) {
+    let resolve = null
+    const promise = new Promise(res => resolve = res)
     api.get(`${endpoints.get}/${id}`)
-      .then((res) => commit('COURSE', res.data))
-      .catch(() => commit('ERROR', errors.get, { root: true }))
+      .then((res) => {
+        commit('COURSE', res.data)
+        resolve(true)
+      })
+      .catch(() => {
+        commit('ERROR', errors.get, { root: true })
+        resolve(false)
+      })
+    return promise
   },
   POST_COURSE({ commit, dispatch }, fd) {
     commit('LOADING', true);
@@ -135,12 +158,19 @@ const actions = {
       .finally(() => commit('LOADING', false))
   },
   DELETE_COURSE({ commit, dispatch }, courseId) {
+    let resolve = null
+    const promise = new Promise(res => resolve = res)
     api.delete(`${endpoints.delete}/${courseId}`)
       .then(() => {
         dispatch('GET_COURSES');
         commit('MESSAGE', messages.delete, { root: true });
+        resolve(true)
       })
-      .catch(() => commit('ERROR', errors.delete, { root: true }))
+      .catch(() => {
+        commit('ERROR', errors.delete, { root: true })
+        resolve(false)
+      })
+    return promise
   },
   BUY_COURSE({ commit }, payload) {
     commit('LOADING', true);

@@ -37,12 +37,19 @@ const mutations = {
 
 const actions = {
   GET_OFFLINE_COURSES({ commit }) {
+    let resolve = null
+    const promise = new Promise(res => resolve = res)
     api.get(endpoints.get)
       .then((res) => {
         commit('OFFLINE_COURSES', res.data.data);
         commit('TOTAL', res.data.total);
+        resolve(true)
       })
-      .catch(() => commit('ERROR', errors.get, { root: true }))
+      .catch(() => {
+        commit('ERROR', errors.get, { root: true })
+        resolve(false)
+      })
+    return promise
   },
   GET_MORE_OFFLINE_COURSES({ commit }, skip) {
     const params = { skip };

@@ -23,6 +23,7 @@
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
 import PasswordInput from '@/components/inputs/PasswordInput.vue';
+import { mapState } from 'vuex'
 
 export default {
   name: 'Reset',
@@ -31,23 +32,20 @@ export default {
   },
   data() {
     return {
-      loading: false,
       password: '',
       confirmPassword: '',
     };
   },
-  computed: {},
-  watch: {},
+  computed: {
+    ...mapState('auth',['loading'])
+  },
   methods: {
-    async submit() {
+    submit() {
       if (this.$refs.form.validate()) {
-        this.loading = true;
-        const isComplete = await this.$store.dispatch('auth/RESTORE', {
+        this.$store.dispatch('auth/RESTORE', {
           code: this.$route.params.hash,
           password: Base64.stringify(sha256(this.password)),
         });
-        this.loading = false;
-        if (isComplete) this.$router.push({ name: 'sign-in' });
       }
     },
   },
