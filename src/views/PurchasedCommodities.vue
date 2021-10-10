@@ -68,7 +68,7 @@
             <v-row v-if="$vuetify.breakpoint.xs">
               <v-col cols="12" xs="12">
                 <h5 class="text-truncate">
-                  {{ new Date(order.createdAt).toLocaleDateString() }}
+                  {{ formatDate(order.createdAt) }}
                 </h5>
               </v-col>
             </v-row>
@@ -76,7 +76,7 @@
             <v-row v-else>
               <v-col cols="12" sm="4" md="3">
                 <h5 class="text-truncate">
-                  {{ new Date(order.createdAt).toLocaleDateString() }}
+                  {{ formatDate(order.createdAt) }}
                 </h5>
               </v-col>
               <v-col cols="12" sm="8" md="9">
@@ -189,6 +189,7 @@ import { mapState } from 'vuex';
 
 import Spinner from '@/components/Spinner.vue';
 import PurchasedProductItem from '@/components/Shop/PurchasedProductItem.vue';
+import { formatDate } from '@/helpers/formatDate'
 
 export default {
   name: 'PurchasedCommodities',
@@ -261,6 +262,7 @@ export default {
       await this.$store.dispatch('shop/GET_ORDERS');
       this.loading = false;
     },
+    formatDate
   },
   created() {
     this.getOrders();
