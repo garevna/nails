@@ -34,14 +34,19 @@ const mutations = {
 
 const actions = {
   GET_PROFILE({ commit, dispatch }) {
+    let resolve = null
+    const promise = new Promise(res => resolve = res)
     api.get(endpoints.profile)
       .then((res) => {
         commit('USER', res.data);
         commit('IS_LOGGED', true);
+        resolve(true)
       })
       .catch(() => {
         dispatch('CLEAR_USER')
+        resolve(false)
       })
+    return promise
   },
 
   LOG_OUT({ commit }, all) {
@@ -86,17 +91,30 @@ const actions = {
   },
   EDIT_USER({ commit }, payload) {
     commit('LOADING', true);
+    let resolve = null
+    const promise = new Promise(res => resolve = res)
     api.patch(endpoints.profile, payload)
-      .then((res) => commit('USER', res.data))
-      .catch(() => commit('ERROR', errors.put, { root: true }))
+      .then((res) => {
+        commit('USER', res.data)
+        resolve(true)
+      })
+      .catch(() => {
+        commit('ERROR', errors.put, { root: true })
+        resolve(false)
+      })
       .finally(() => commit('LOADING', false))
+    return promise
   },
 
   CHANGE_PASSWORD({ commit }, payload) {
+    commit('LOADING', true);
+    let resolve = null
+    const promise = new Promise(res => resolve = res)
     api.post(endpoints.change, payload)
       .then(() => {
         commit('MESSAGE', changePass, { root: true });
-        return true;
+        router.push({ name: 'user-cabinet' })
+        resolve(true)
       })
       .catch((error) => {
         commit(
@@ -108,15 +126,22 @@ const actions = {
           },
           { root: true }
         );
-        return false;
+        resolve(false)
       })
+      .finally(() => commit('LOADING', false))
+    return promise
   },
 
   REQUEST_RESET({ commit }, payload) {
+    commit('LOADING', true);
+    let resolve = null
+    const promise = new Promise(res => resolve = res)
     api.post(endpoints.reset, { email: payload })
       .then(() => {
         commit('MESSAGE', requestReset, { root: true });
-        return true;
+        router.push({ name: 'home' })
+        resolve(true)
+
       })
       .catch((error) => {
         commit(
@@ -128,15 +153,21 @@ const actions = {
           },
           { root: true }
         );
-        return false;
+        resolve(false)
       })
+      .finally(() => commit('LOADING', false))
+    return promise
   },
 
   RESTORE({ commit }, payload) {
+    commit('LOADING', true);
+    let resolve = null
+    const promise = new Promise(res => resolve = res)
     api.post(endpoints.restore, payload)
       .then(() => {
         commit('MESSAGE', resetPass, { root: true });
-        return true;
+        router.push({ name: 'sign-in' })
+        resolve(true)
       })
       .catch((error) => {
         commit(
@@ -148,8 +179,10 @@ const actions = {
           },
           { root: true }
         );
-        return false;
+        resolve(false)
       })
+      .finally(() => commit('LOADING', false))
+    return promise
   },
   ACTIVATION({ commit }, hash) {
     api.get(`${endpoints.activate}/${hash}`)

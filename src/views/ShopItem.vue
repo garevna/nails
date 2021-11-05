@@ -135,14 +135,14 @@ export default {
         isSubcategory: !Array.isArray(this.activeCategory.subcategories),
       });
     },
-    async getCommodity() {
-      await this.$store.dispatch('shop/GET_COMMODITY', {
+    getCommodity() {
+      this.$store.dispatch('shop/GET_COMMODITY', {
         commodityId: this.$route.params.commodityId,
       });
     },
   },
-  async mounted() {
-    await this.getCommodity();
+  mounted() {
+    this.getCommodity();
   },
 };
 </script>

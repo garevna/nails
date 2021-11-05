@@ -125,7 +125,6 @@ export default {
       this.$router.push({ name: 'by-course-creator', params: { courseid: this.$route.params.courseid } });
     },
   },
-  // mounted () {},
   created() {
     this.getVideos();
   },

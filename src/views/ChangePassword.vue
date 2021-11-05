@@ -24,36 +24,32 @@
 import sha256 from 'crypto-js/sha256';
 import Base64 from 'crypto-js/enc-base64';
 import PasswordInput from '@/components/inputs/PasswordInput.vue';
+import { mapState } from 'vuex';
 
 export default {
-  name: 'Reset',
+  name: 'ChangePassword',
   components: {
     PasswordInput,
   },
   data() {
     return {
-      loading: false,
       oldPassword: '',
       password: '',
       confirmPassword: '',
     };
   },
-  computed: {},
-  watch: {},
+  computed: {
+    ...mapState('auth', ['loading']),
+  },
   methods: {
-    async submit() {
+    submit() {
       if (this.$refs.form.validate()) {
-        this.loading = true;
-        const isComplete = await this.$store.dispatch('auth/CHANGE_PASSWORD', {
+        this.$store.dispatch('auth/CHANGE_PASSWORD', {
           password: Base64.stringify(sha256(this.password)),
         });
-        this.loading = false;
-        if (isComplete) this.$router.push({ name: 'user-cabinet' });
       }
     },
   },
-  mounted() {},
-  beforeDestroy() {},
 };
 </script>
 

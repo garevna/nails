@@ -14,6 +14,7 @@
 
 <script>
 import EmailInput from '@/components/inputs/EmailInput.vue';
+import { mapState } from 'vuex';
 
 export default {
   name: 'RequestReset',
@@ -22,19 +23,16 @@ export default {
   },
   data() {
     return {
-      loading: false,
       email: '',
     };
   },
-  computed: {},
-  watch: {},
+  computed: {
+    ...mapState('auth', ['loading']),
+  },
   methods: {
-    async submit() {
+    submit() {
       if (this.$refs.form.validate()) {
-        this.loading = true;
-        const isComplete = await this.$store.dispatch('auth/REQUEST_RESET', this.email);
-        this.loading = false;
-        if (isComplete) this.$router.push({ name: 'home' });
+        this.$store.dispatch('auth/REQUEST_RESET', this.email);
       }
     },
   },
