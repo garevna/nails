@@ -79,7 +79,7 @@
           </tr>
           <tr>
             <th>Delivery cost:</th>
-            <td>${{ getCost(deliveryCountry.price) }}</td>
+            <td>${{ getCost(deliveryPrice) }}</td>
           </tr>
         </table>
       </v-col>
@@ -98,11 +98,11 @@
             </tr>
             <tr>
               <th>Delivery</th>
-              <td>${{ getCost(deliveryCountry.price) }}</td>
+              <td>${{ getCost(deliveryPrice) }}</td>
             </tr>
             <tr :style="{ color: $vuetify.theme.themes.dark.buttons }">
               <th class="cost-accent">Total cost (with delivery)</th>
-              <td class="cost-accent">${{ getCost(deliveryCountry.price + getSumPrice) }}</td>
+              <td class="cost-accent">${{ totalCost }}</td>
             </tr>
           </table>
         </v-card>
@@ -156,6 +156,14 @@ export default {
         cost: item.count * item.price,
       }));
     },
+    deliveryPrice() {
+      const free = this.deliveryCountry.type === 'standard' && this.getSumPrice >= 300
+      return free ? 0 : this.deliveryCountry.price
+    },
+    totalCost() {
+      const total = this.getSumPrice + this.deliveryPrice
+      return this.getCost(total)
+    }
   },
   methods: {
     getCost(cost) {

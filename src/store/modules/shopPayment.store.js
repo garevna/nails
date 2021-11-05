@@ -12,7 +12,15 @@ const state = {
   pickup: null,
   loading: false,
 };
-const getters = {};
+const getters = {
+  minimumDeliveryPrice: (state) => {
+      const express = state.express?.price || 0
+      const standard = state.standard?.price || 0
+      const prices = state.international || []
+      const international = Math.min(...prices.map(country => country.price))
+      return Math.min(express, standard, international)
+    },
+};
 const mutations = {
   STANDARD: (state, payload) => {
     state.standard = payload;

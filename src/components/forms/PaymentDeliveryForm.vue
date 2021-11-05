@@ -40,6 +40,9 @@
 
     <v-card flat v-if="deliveryType === 'standard'" class="transparent d-flex flex-column align-center text-center">
       <v-card-title>standard shipping Aus post - shipping within Australia (cost ${{ standard.price }}) </v-card-title>
+      <v-card-text>
+        Free standard delivery for orders over $300
+      </v-card-text>
       <v-img :src="standard.flag" width="300" height="300" contain />
       <v-card-text>
         {{ contactUs }} <a href="mailto:nailsauinfo@gmail.com">nailsauinfo@gmail.com</a>
@@ -155,13 +158,13 @@ export default {
           disabled: this.getSumPrice < minimumOrderAmountForPickup,
         },
         {
-          label: 'Standard shipping Aus post',
-          value: 'standard',
+          label: 'Express shipping Aus post',
+          value: 'express',
           disabled: this.getSumPrice < minimumOrderAmountForAustralia,
         },
         {
-          label: 'Express shipping Aus post',
-          value: 'express',
+          label: 'Standard shipping Aus post',
+          value: 'standard',
           disabled: this.getSumPrice < minimumOrderAmountForAustralia,
         },
         {
